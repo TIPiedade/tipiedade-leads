@@ -1,0 +1,46 @@
+name: Leads HORECA Semanais — Ti'Piedade
+
+on:
+  schedule:
+    # Corre todas as segundas-feiras às 07:30 hora de Lisboa (06:30 UTC no inverno)
+    # Ajusta para 05:30 UTC no verão (hora de verão portuguesa = UTC+1)
+    - cron: "30 6 * * 1"
+  workflow_dispatch:
+    # Permite correr manualmente a qualquer momento (botão "Run workflow" no GitHub)
+
+jobs:
+  gerar-e-enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependências
+        run: pip install openpyxl
+
+      - name: Gerar Excel e enviar emails
+        env:
+          # Credenciais SMTP — configuradas em Settings > Secrets > Actions
+          SMTP_HOST:   ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:   ${{ secrets.SMTP_PORT }}
+          SMTP_USER:   ${{ secrets.SMTP_USER }}
+          SMTP_PASS:   ${{ secrets.SMTP_PASS }}
+          # Emails dos comerciais e coordenador
+          EMAIL_NUNO:  ${{ secrets.EMAIL_NUNO }}
+          EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
+          EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
+        run: python scripts/generate_leads.py
+
+      - name: Guardar Excel como artefacto (30 dias)
+        uses: actions/upload-artifact@v4
+        with:
+          name: leads-semana-${{ github.run_number }}
+          path: "*.xlsx"
+          retention-days: 30
