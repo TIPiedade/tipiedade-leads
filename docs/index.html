@@ -921,13 +921,45 @@ const HIST_FILE  = "historico.json";
 const RAW_URL    = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${HIST_FILE}`;
 
 // GH_TOKEN para escrita — guardado em localStorage (pedido 1x)
-function getToken() {
+function getToken(pedirSeFaltar=false) {
   let t = localStorage.getItem("gh_token");
-  if (!t) {
-    t = prompt("Introduz o teu GitHub Personal Access Token (necessário para guardar alterações):");
-    if (t) localStorage.setItem("gh_token", t);
+  if (!t && pedirSeFaltar) {
+    // Só pede token quando o utilizador tenta GUARDAR algo
+    abrirModalToken();
   }
-  return t;
+  return t || null;
+}
+
+function abrirModalToken() {
+  let m = document.getElementById("modal-token");
+  if (!m) {
+    m = document.createElement("div");
+    m.id = "modal-token";
+    m.style.cssText = "position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px";
+    m.innerHTML = `
+      <div style="background:#fff;border-radius:14px;padding:24px;width:100%;max-width:400px;box-shadow:0 8px 40px rgba(0,0,0,.3)">
+        <div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#5C2D0E;margin-bottom:8px">Token GitHub</div>
+        <p style="font-size:13px;color:#6B5744;margin-bottom:16px;line-height:1.5">Para guardar alterações no CRM é necessário o teu Personal Access Token do GitHub (começa por <code>ghp_</code>).</p>
+        <input id="token-input" type="password" placeholder="ghp_..." style="width:100%;padding:12px;border:1.5px solid #E8D5B8;border-radius:8px;font-size:14px;margin-bottom:12px;font-family:monospace">
+        <div style="display:flex;gap:8px">
+          <button onclick="guardarToken()" style="flex:1;padding:12px;background:#5C2D0E;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer">Confirmar</button>
+          <button onclick="document.getElementById('modal-token').remove()" style="flex:1;padding:12px;background:transparent;color:#5C2D0E;border:1.5px solid #5C2D0E;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Cancelar</button>
+        </div>
+        <p style="font-size:11px;color:#aaa;margin-top:10px;line-height:1.4">GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic). Scope: repo.</p>
+      </div>`;
+    document.body.appendChild(m);
+    setTimeout(()=>document.getElementById("token-input")?.focus(), 100);
+  }
+}
+
+function guardarToken() {
+  const t = document.getElementById("token-input")?.value?.trim();
+  if (!t || !t.startsWith("ghp_")) { toast("Token inválido — deve começar por ghp_","err"); return; }
+  localStorage.setItem("gh_token", t);
+  document.getElementById("modal-token")?.remove();
+  toast("Token guardado ✓","ok");
+  // Tentar guardar o que estava pendente
+  if (window._pendingSave) { window._pendingSave(); window._pendingSave = null; }
 }
 
 // ═══════════════════════════════════════════════════
@@ -942,28 +974,38 @@ let LEAD_ATUAL = null;
 // ═══════════════════════════════════════════════════
 async function carregarHistorico() {
   try {
-    const r = await fetch(RAW_URL + "?t=" + Date.now());
-    if (!r.ok) throw new Error("não encontrado");
+    // PASSO 1: Leitura pública — sem token, funciona sempre
+    const r = await fetch(RAW_URL + "?t=" + Date.now(), {cache: "no-store", mode: "cors"});
+    if (!r.ok) throw new Error("historico.json não encontrado");
     HIST = await r.json();
-    // Obter SHA para escrita
-    const api = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${HIST_FILE}`, {
-      headers: { "Authorization": `Bearer ${getToken()}`, "Accept": "application/vnd.github+json" }
-    });
-    if (api.ok) { const d = await api.json(); HIST_SHA = d.sha; }
-    renderTudo();
+    renderTudo();  // Renderizar IMEDIATAMENTE com os dados reais
     toast("Dados sincronizados", "ok");
+
+    // PASSO 2: Obter SHA em background (só para escrita futura, não bloqueia UI)
+    const token = localStorage.getItem("gh_token");
+    if (token) {
+      fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${HIST_FILE}`, {
+        headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" }
+      }).then(api => {
+        if (api.ok) api.json().then(d => { HIST_SHA = d.sha; });
+      }).catch(()=>{});  // Falha silenciosa — SHA obtido quando necessário guardar
+    }
   } catch(e) {
-    console.error(e);
-    toast("Erro ao carregar dados — verifica a ligação", "err");
-    // Demo mode com dados de exemplo
+    console.error("carregarHistorico:", e);
+    toast("Sem ligação — modo demonstração", "err");
     HIST = getDemoData();
     renderTudo();
   }
 }
 
 async function guardarHistorico() {
-  const token = getToken();
-  if (!token) { toast("Token não configurado", "err"); return; }
+  let token = localStorage.getItem("gh_token");
+  if (!token) {
+    // Guardar o que estava pendente e pedir token
+    window._pendingSave = () => guardarHistorico();
+    abrirModalToken();
+    return;
+  }
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(HIST, null, 2))));
   const body = { message: `CRM: atualizado ${new Date().toISOString().slice(0,10)}`, content };
   if (HIST_SHA) body.sha = HIST_SHA;
@@ -981,7 +1023,10 @@ async function guardarHistorico() {
   }
 }
 
-function sincronizar() { carregarHistorico(); }
+function sincronizar() {
+  HIST_SHA = null;  // Reset SHA para forçar re-fetch
+  carregarHistorico();
+}
 
 // ═══════════════════════════════════════════════════
 // RENDER
