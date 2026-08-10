@@ -574,21 +574,54 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
     </div>
 
     <div class="view" id="view-nuno">
-      <div class="toolbar"><span class="toolbar-title">Leads do Nuno</span>
+      <div class="toolbar">
+        <span class="toolbar-title">Leads do Nuno</span>
         <input class="search-input" placeholder="🔍 Pesquisar..." oninput="renderVista('nuno')" id="search-nuno">
+        <select class="filter-select" id="filt-estado-nuno" onchange="renderVista('nuno')">
+          <option value="">Todos os estados</option>
+          <option>Em aberto</option>
+          <option>Contactado</option>
+          <option>Proposta enviada</option>
+          <option>Visitado</option>
+          <option>Cliente</option>
+          <option>Desistiu</option>
+        </select>
       </div>
+      <div id="resumo-nuno" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-nuno"></tbody></table></div>
     </div>
     <div class="view" id="view-joao">
-      <div class="toolbar"><span class="toolbar-title">Leads do João</span>
+      <div class="toolbar">
+        <span class="toolbar-title">Leads do João</span>
         <input class="search-input" placeholder="🔍 Pesquisar..." oninput="renderVista('joao')" id="search-joao">
+        <select class="filter-select" id="filt-estado-joao" onchange="renderVista('joao')">
+          <option value="">Todos os estados</option>
+          <option>Em aberto</option>
+          <option>Contactado</option>
+          <option>Proposta enviada</option>
+          <option>Visitado</option>
+          <option>Cliente</option>
+          <option>Desistiu</option>
+        </select>
       </div>
+      <div id="resumo-joao" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-joao"></tbody></table></div>
     </div>
     <div class="view" id="view-oscar">
-      <div class="toolbar"><span class="toolbar-title">Leads do Óscar</span>
+      <div class="toolbar">
+        <span class="toolbar-title">Leads do Óscar</span>
         <input class="search-input" placeholder="🔍 Pesquisar..." oninput="renderVista('oscar')" id="search-oscar">
+        <select class="filter-select" id="filt-estado-oscar" onchange="renderVista('oscar')">
+          <option value="">Todos os estados</option>
+          <option>Em aberto</option>
+          <option>Contactado</option>
+          <option>Proposta enviada</option>
+          <option>Visitado</option>
+          <option>Cliente</option>
+          <option>Desistiu</option>
+        </select>
       </div>
+      <div id="resumo-oscar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-oscar"></tbody></table></div>
     </div>
     <div class="view" id="view-rui">
@@ -603,6 +636,7 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
         </select>
         <button class="btn-primary" onclick="abrirNovaLead()" style="padding:7px 14px;font-size:12px">+ Nova lead</button>
       </div>
+      <div id="resumo-rui" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Canal</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-rui"></tbody></table></div>
     </div>
     <div class="view" id="view-catering">
@@ -895,17 +929,17 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
   <button class="bnav-btn ativo" id="bn-dashboard" onclick="mudarVistaMobile('dashboard',this)">
     <span class="bnav-ico">📊</span>Dashboard
   </button>
-  <button class="bnav-btn" id="bn-todos" onclick="mudarVistaMobile('todos',this)">
-    <span class="bnav-ico">📋</span>Leads
+  <button class="bnav-btn" id="bn-nuno" onclick="mudarVistaMobile('nuno',this)">
+    <span class="bnav-ico">👤</span>Nuno
   </button>
-  <button class="bnav-btn" id="bn-rui" onclick="mudarVistaMobile('rui',this)">
-    <span class="bnav-ico">👑</span>Rui
+  <button class="bnav-btn" id="bn-joao" onclick="mudarVistaMobile('joao',this)">
+    <span class="bnav-ico">👤</span>João
   </button>
-  <button class="bnav-btn" id="bn-prontos" onclick="mudarVistaMobile('prontos',this)">
-    <span class="bnav-ico">✅</span>Prontos
+  <button class="bnav-btn" id="bn-oscar" onclick="mudarVistaMobile('oscar',this)">
+    <span class="bnav-ico">👤</span>Óscar
   </button>
-  <button class="bnav-btn" onclick="abrirNovaLead()">
-    <span class="bnav-ico">＋</span>Nova
+  <button class="bnav-btn" id="bn-menu" onclick="abrirDrawer()">
+    <span class="bnav-ico">☰</span>Menu
   </button>
 </nav>
 
@@ -1090,9 +1124,11 @@ function renderTabela(tbodyId, filtroFn, cols="normal") {
 function renderVista(vista) {
   const search    = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
   const canalRui  = document.getElementById("filt-canal-rui")?.value||"";
+  const estadoFilt= document.getElementById(`filt-estado-${vista}`)?.value||"";
   const tbody     = document.getElementById(`tbody-${vista}`);
   if (!tbody) return;
 
+  // Filtros base por vista
   const filtroBase = {
     "nuno":          ([k,v]) => v.canal_id==="nuno",
     "joao":          ([k,v]) => v.canal_id==="joao",
@@ -1107,7 +1143,28 @@ function renderVista(vista) {
   const fn = filtroBase[vista];
   if (!fn) return;
 
-  const rows = leads().filter(([k,v]) => fn([k,v]) && (!search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search)));
+  // Aplicar filtros: base + pesquisa + estado (para comerciais)
+  const rows = leads().filter(([k,v]) =>
+    fn([k,v]) &&
+    (!search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search)) &&
+    (!estadoFilt || (v.estado||"Em aberto") === estadoFilt)
+  );
+
+  // ── Resumo rápido por estado (para vistas de comercial) ────
+  if (["nuno","joao","oscar","rui"].includes(vista)) {
+    const resumoDiv = document.getElementById(`resumo-${vista}`);
+    if (resumoDiv) {
+      const todosBase = leads().filter(([k,v]) => fn([k,v]));
+      const estados = ["Em aberto","Contactado","Proposta enviada","Visitado","Cliente","Desistiu"];
+      const cores   = {"Em aberto":"b-aberto","Contactado":"b-contactado","Proposta enviada":"b-proposta","Visitado":"b-visitado","Cliente":"b-cliente","Desistiu":"b-desistiu"};
+      resumoDiv.innerHTML = estados.map(e => {
+        const n = todosBase.filter(([k,v])=>(v.estado||"Em aberto")===e).length;
+        if (!n) return "";
+        const ativo = estadoFilt===e ? "border:2px solid var(--cast);" : "";
+        return `<button onclick="toggleFiltroEstado('${vista}','${e}')" style="${ativo}display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:99px;background:var(--br);border:1px solid var(--borda);cursor:pointer;font-size:11px;font-weight:600;color:var(--txt2)"><span class="badge ${cores[e]||'b-aberto'}" style="margin:0">${e}</span><span style="font-weight:700;color:var(--cast)">${n}</span></button>`;
+      }).join("");
+    }
+  }
 
   // ── Cards mobile (sempre actualizado) ──────────────────────
   const wrap = tbody.closest(".table-wrap");
@@ -1129,18 +1186,38 @@ function renderVista(vista) {
   }).join("");
 }
 
+function toggleFiltroEstado(vista, estado) {
+  const sel = document.getElementById(`filt-estado-${vista}`);
+  if (!sel) return;
+  // Toggle: se já está seleccionado, limpa; senão selecciona
+  sel.value = sel.value === estado ? "" : estado;
+  renderVista(vista);
+}
+
 function filtrarTabela() {
   const search = document.getElementById("search-todos")?.value?.toLowerCase()||"";
   const estado = document.getElementById("filt-estado-todos")?.value||"";
   const canal  = document.getElementById("filt-canal-todos")?.value||"";
   const rows = leads().filter(([k,v]) => {
-    const s = !search || v.nome?.toLowerCase().includes(search) || v.zona?.toLowerCase().includes(search);
+    const s = !search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search);
     const e = !estado || v.estado===estado;
     const c = !canal  || (v.canal_id||"").includes(canal);
     return s&&e&&c;
   });
   const tbody = document.getElementById("tbody-todos");
-  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Sem resultados</div></div></td></tr>`; return; }
+  if (!tbody) return;
+
+  // Cards mobile
+  const wrap = tbody.closest(".table-wrap");
+  if (wrap) {
+    const cardDiv = wrap.querySelector(".lead-cards");
+    if (cardDiv) cardDiv.innerHTML = buildCards(rows, "abrirLead");
+  }
+  // Tabela desktop
+  if (!rows.length) {
+    tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Sem resultados</div></div></td></tr>`;
+    return;
+  }
   tbody.innerHTML = rows.map(([k,v])=>trLead(k,v,"todos")).join("");
 }
 
@@ -1279,7 +1356,7 @@ function mudarVista(vista, btn) {
   if(vista==='documentos') renderDocumentosGlobal();
   fecharDrawer();
   // Sincronizar bottom nav
-  const map = {dashboard:"bn-dashboard",todos:"bn-todos",rui:"bn-rui",prontos:"bn-prontos"};
+  const map = {dashboard:"bn-dashboard",nuno:"bn-nuno",joao:"bn-joao",oscar:"bn-oscar"};
   document.querySelectorAll(".bnav-btn").forEach(b=>b.classList.remove("ativo"));
   if(map[vista]) document.getElementById(map[vista])?.classList.add("ativo");
 }
