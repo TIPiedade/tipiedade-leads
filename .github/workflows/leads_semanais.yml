@@ -2,45 +2,82 @@ name: Leads HORECA Semanais — Ti'Piedade
 
 on:
   schedule:
-    # Corre todas as segundas-feiras às 07:30 hora de Lisboa (06:30 UTC no inverno)
-    # Ajusta para 05:30 UTC no verão (hora de verão portuguesa = UTC+1)
-    - cron: "30 6 * * 1"
+    - cron: "30 6 * * 1"   # Segunda 07h30 → coordenador
+    - cron: "30 6 * * 3"   # Quarta  07h30 → comerciais
   workflow_dispatch:
-    # Permite correr manualmente a qualquer momento (botão "Run workflow" no GitHub)
+    inputs:
+      modo:
+        description: 'coordenador | comerciais'
+        required: false
+        default: 'coordenador'
 
 jobs:
-  gerar-e-enviar:
+  segunda-coordenador:
+    name: "2ª — Resumo para Rui"
+    if: >
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.modo == 'coordenador') ||
+      (github.event_name == 'schedule' && contains(github.event.schedule, '* * 1'))
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
+    timeout-minutes: 15
+    permissions:
+      contents: write
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
-
-      - name: Instalar Python 3.11
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Instalar dependências
-        run: pip install openpyxl
-
-      - name: Gerar Excel e enviar emails
+      - run: pip install openpyxl
+      - name: Gerar e enviar para coordenador
         env:
-          # Credenciais SMTP — configuradas em Settings > Secrets > Actions
           SMTP_HOST:   ${{ secrets.SMTP_HOST }}
           SMTP_PORT:   ${{ secrets.SMTP_PORT }}
           SMTP_USER:   ${{ secrets.SMTP_USER }}
           SMTP_PASS:   ${{ secrets.SMTP_PASS }}
-          # Emails dos comerciais e coordenador
           EMAIL_NUNO:  ${{ secrets.EMAIL_NUNO }}
           EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
           EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
+          EMAIL_RUI:   ${{ secrets.EMAIL_RUI }}
+          GH_PAT:      ${{ secrets.GH_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          MODO: "coordenador"
         run: python scripts/generate_leads.py
-
-      - name: Guardar Excel como artefacto (30 dias)
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: leads-semana-${{ github.run_number }}
+          name: leads-s${{ github.run_number }}-segunda
           path: "*.xlsx"
-          retention-days: 30
+          retention-days: 60
+
+  quarta-comerciais:
+    name: "4ª — Leads + nurturing para equipa"
+    if: >
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.modo == 'comerciais') ||
+      (github.event_name == 'schedule' && contains(github.event.schedule, '* * 3'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install openpyxl
+      - name: Gerar, enviar e registar histórico
+        env:
+          SMTP_HOST:   ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:   ${{ secrets.SMTP_PORT }}
+          SMTP_USER:   ${{ secrets.SMTP_USER }}
+          SMTP_PASS:   ${{ secrets.SMTP_PASS }}
+          EMAIL_NUNO:  ${{ secrets.EMAIL_NUNO }}
+          EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
+          EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
+          EMAIL_RUI:   ${{ secrets.EMAIL_RUI }}
+          GH_PAT:      ${{ secrets.GH_PAT }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          MODO: "comerciais"
+        run: python scripts/generate_leads.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: leads-s${{ github.run_number }}-quarta
+          path: "*.xlsx"
+          retention-days: 60
