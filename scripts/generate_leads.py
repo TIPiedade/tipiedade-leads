@@ -291,12 +291,59 @@ def get_db_horeca():
 
 DB_HORECA_REAL = get_db_horeca()
 
-# ── Importar base extra (catering + distribuidores) ──────────
-spec = importlib.util.spec_from_file_location("leads_extra", os.path.join(os.path.dirname(__file__), "leads_extra.py"))
-extra = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(extra)
-DB_CATERING      = extra.DB_CATERING
-DB_DISTRIBUIDORES = extra.DB_DISTRIBUIDORES
+# ── Base extra (catering + distribuidores) — integrada directamente ──
+"""
+Base de dados de leads para catering/eventos e distribuidores de congelados.
+Importado pelo generate_leads.py
+"""
+
+# ════════════════════════════════════════════════════════════════
+# CATERING & EVENTOS (Portugal inteiro)
+# ════════════════════════════════════════════════════════════════
+DB_CATERING = [
+  {"n":"Doce Evento","t":"Catering & Eventos","m":"R. Tomás Ribeiro 34, Lisboa","tel":"213 540 210","email":"geral@doceevento.pt","p":"Alta","tCliente":"Catering premium casamentos e eventos corporativos","gancho":"Volume elevado por evento — unidose 85g é sobremesa elegante sem logística complexa.","zona":"Lisboa"},
+  {"n":"Saveurs Catering","t":"Catering & Eventos","m":"Av. da República 50, Lisboa","tel":"217 960 400","email":"info@saveurs.pt","p":"Alta","tCliente":"Catering corporativo e eventos internacionais","gancho":"Clientela exigente — produto artesanal português com 40 anos diferencia a proposta.","zona":"Lisboa"},
+  {"n":"Essência de Sabor","t":"Catering & Eventos","m":"R. Actor Vale 8, Lisboa","tel":"214 105 020","email":"geral@essenciadesabor.pt","p":"Alta","tCliente":"Casamentos e eventos sociais","gancho":"Sobremesa individual elegante — sem necessidade de pasteleiro no evento.","zona":"Lisboa"},
+  {"n":"Eurest Portugal","t":"Catering & Eventos","m":"Av. Fontes Pereira de Melo 16, Lisboa","tel":"213 186 000","email":"geral@eurest.pt","p":"Alta","tCliente":"Catering colectivo / grandes volumes","gancho":"Volume de refeições diário — produto congelado em dose individual garante qualidade constante.","zona":"Lisboa"},
+  {"n":"Gertal Companhia Geral","t":"Catering & Eventos","m":"R. Actor Tasso 12, Lisboa","tel":"213 619 200","email":"info@gertal.pt","p":"Alta","tCliente":"Catering colectivo / empresas e hospitais","gancho":"Grande volume com necessidade de sobremesa diferenciada e de fácil execução.","zona":"Lisboa"},
+  {"n":"Quinta de Sant'Ana Eventos","t":"Catering & Eventos","m":"Gradil, Mafra","tel":"261 963 480","email":"eventos@quintadesantana.pt","p":"Alta","tCliente":"Eventos de luxo / casamentos premium","gancho":"Casamentos em quinta histórica — pão de ló artesanal é a sobremesa com mais narrativa.","zona":"Oeste"},
+  {"n":"Solar de Mil Reis Eventos","t":"Catering & Eventos","m":"Av. Eng. Duarte Pacheco, Leiria","tel":"244 820 000","email":"eventos@solarmilreis.pt","p":"Alta","tCliente":"Eventos e banquetes","gancho":"Região com crescimento de eventos — produto artesanal diferencia a oferta de sobremesas.","zona":"Centro"},
+  {"n":"Monte da Ravasqueira","t":"Catering & Eventos","m":"Estrada Monte da Ravasqueira, Arraiolos","tel":"266 498 280","email":"eventos@ravasqueira.com","p":"Alta","tCliente":"Eventos premium / enoturismo","gancho":"Enoturismo de luxo com sobremesas de autor — pão de ló Ti'Piedade como proposta artesanal.","zona":"Alentejo"},
+  {"n":"Herdade do Esporão Eventos","t":"Catering & Eventos","m":"Herdade do Esporão, Reguengos de Monsaraz","tel":"266 509 280","email":"turismo@esporao.com","p":"Alta","tCliente":"Enoturismo / eventos internacionais","gancho":"Eventos com clientela internacional premium — produto português com receita secular.","zona":"Alentejo"},
+  {"n":"Catering Delícias do Norte","t":"Catering & Eventos","m":"R. do Bonjardim 312, Porto","tel":"222 054 780","email":"info@deliciasdoporto.pt","p":"Alta","tCliente":"Catering casamentos / norte","gancho":"Norte com grande tradição de casamentos — dose individual em congelado facilita logística.","zona":"Porto"},
+  {"n":"Quinta da Aveleda Eventos","t":"Catering & Eventos","m":"Quinta da Aveleda, Penafiel","tel":"255 718 200","email":"enoturismo@aveleda.pt","p":"Alta","tCliente":"Enoturismo e eventos premium","gancho":"Quinta histórica com eventos de alto valor — produto artesanal português complementa a experiência.","zona":"Norte"},
+  {"n":"Vatel Portugal","t":"Catering & Eventos","m":"R. Gonçalo Cristóvão 195, Porto","tel":"222 073 900","email":"porto@vatel.pt","p":"Média","tCliente":"Escola de hotelaria / catering","gancho":"Formação e eventos — produto de referência para demonstrações e menus de escola.","zona":"Porto"},
+  {"n":"CateringLab","t":"Catering & Eventos","m":"Av. de Braga 210, Guimarães","tel":"253 400 100","email":"info@cateringlab.pt","p":"Média","tCliente":"Catering eventos empresariais","gancho":"Região com indústria têxtil — eventos empresariais com necessidade de produto premium acessível.","zona":"Norte"},
+  {"n":"Nobre Catering","t":"Catering & Eventos","m":"R. Alexandre Herculano 12, Coimbra","tel":"239 701 200","email":"geral@nobrecatering.pt","p":"Média","tCliente":"Catering académico e social","gancho":"Coimbra com muitos eventos académicos — sobremesa artesanal diferencia o menu.","zona":"Centro"},
+  {"n":"Sabor a Festa Catering","t":"Catering & Eventos","m":"R. dos Correeiros 4, Faro","tel":"289 890 120","email":"geral@saborafesta.pt","p":"Média","tCliente":"Catering Algarve / turismo","gancho":"Algarve com turismo de alto valor — produto artesanal português autêntico.","zona":"Algarve"},
+  {"n":"Quinta dos Vales Eventos","t":"Catering & Eventos","m":"Sítio dos Vales, Lagoa, Algarve","tel":"282 431 036","email":"eventos@quintadosvales.pt","p":"Alta","tCliente":"Enoturismo / casamentos Algarve","gancho":"Destino de casamentos internacionais — produto artesanal português é proposta de valor forte.","zona":"Algarve"},
+  {"n":"Alma Catering","t":"Catering & Eventos","m":"R. Prior do Crato 30, Évora","tel":"266 705 360","email":"info@almacatering.pt","p":"Média","tCliente":"Catering Alentejo / eventos culturais","gancho":"Évora Património Mundial — eventos com clientela que valoriza produto nacional autêntico.","zona":"Alentejo"},
+  {"n":"Banquetes Royal","t":"Catering & Eventos","m":"R. do Campo Alegre 1070, Porto","tel":"226 074 500","email":"geral@banquetesroyal.pt","p":"Média","tCliente":"Casamentos e banquetes","gancho":"Volume por evento — dose individual elimina desperdício em refeições de grande grupo.","zona":"Porto"},
+  {"n":"Sabores com História","t":"Catering & Eventos","m":"Av. Infante Santo 42, Setúbal","tel":"265 522 800","email":"geral@saborescomhistoria.pt","p":"Média","tCliente":"Catering eventos sul","gancho":"Margem sul em crescimento — produto artesanal para eventos de nível médio-alto.","zona":"Sul"},
+  {"n":"Quinta do Rol Eventos","t":"Catering & Eventos","m":"Torres Vedras","tel":"261 967 040","email":"eventos@quintadorol.com","p":"Alta","tCliente":"Enoturismo / casamentos Oeste","gancho":"Casamentos em adega — pão de ló artesanal marida perfeitamente com vinho e tradição.","zona":"Oeste"},
+]
+
+# ════════════════════════════════════════════════════════════════
+# DISTRIBUIDORES DE CONGELADOS (zonas não cobertas pela equipa)
+# ════════════════════════════════════════════════════════════════
+DB_DISTRIBUIDORES = [
+  {"n":"Frigoríficos do Algarve","t":"Distribuidor Congelados","m":"Zona Industrial, Loulé","tel":"289 416 200","email":"geral@frigorificos-algarve.pt","p":"Alta","tCliente":"Distribuidor regional congelados Algarve","gancho":"Algarve sem cobertura — canal HORECA forte com turismo de alto valor durante todo o ano.","zona":"Algarve"},
+  {"n":"Distrinor Alimentar","t":"Distribuidor Congelados","m":"Zona Industrial de Braga","tel":"253 607 500","email":"comercial@distrinor.pt","p":"Alta","tCliente":"Distribuidor alimentar Norte","gancho":"Cobertura norte — complementa carteira de congelados com produto artesanal de alto valor percebido.","zona":"Norte"},
+  {"n":"Irmãos Antunes Distribuição","t":"Distribuidor Congelados","m":"Zona Industrial, Évora","tel":"266 748 300","email":"geral@irmaosantunes.pt","p":"Alta","tCliente":"Distribuidor Alentejo","gancho":"Alentejo sem representação — região em crescimento turístico e gastronómico.","zona":"Alentejo"},
+  {"n":"Frioeste","t":"Distribuidor Congelados","m":"R. Industrial, Viseu","tel":"232 420 800","email":"comercial@frioeste.pt","p":"Alta","tCliente":"Distribuidor congelados Viseu / Dão-Lafões","gancho":"Região interior sem cobertura — base de restauração e hotelaria a crescer.","zona":"Interior Norte"},
+  {"n":"Caloricedos","t":"Distribuidor Congelados","m":"Zona Industrial, Castelo Branco","tel":"272 330 500","email":"geral@caloricedos.pt","p":"Alta","tCliente":"Distribuidor Beira Interior","gancho":"Beira Interior sem cobertura — território com hotelaria rural e turismo de natureza.","zona":"Interior"},
+  {"n":"Setasul Distribuição","t":"Distribuidor Congelados","m":"Zona Industrial, Setúbal","tel":"265 700 400","email":"comercial@setasul.pt","p":"Alta","tCliente":"Distribuidor Setúbal / Alentejo Litoral","gancho":"Zona costeira com restauração forte — produto diferenciador na carteira de congelados.","zona":"Sul"},
+  {"n":"Transmontana Alimentar","t":"Distribuidor Congelados","m":"Zona Industrial, Bragança","tel":"273 331 200","email":"geral@transmontanaalimentar.pt","p":"Alta","tCliente":"Distribuidor Trás-os-Montes","gancho":"Região com gastronomia forte e turismo rural crescente — produto com identidade nacional.","zona":"Nordeste"},
+  {"n":"Frioraia","t":"Distribuidor Congelados","m":"Zona Industrial, Santarém","tel":"243 300 200","email":"comercial@frioraia.pt","p":"Alta","tCliente":"Distribuidor Ribatejo / Médio Tejo","gancho":"Zona limítrofe às áreas cobertas — pode complementar a distribuição com maior penetração.","zona":"Ribatejo"},
+  {"n":"Atlântico Frio","t":"Distribuidor Congelados","m":"Zona Industrial, Viana do Castelo","tel":"258 800 300","email":"geral@atlanticofrio.pt","p":"Alta","tCliente":"Distribuidor Minho / Alto Lima","gancho":"Norte com tradição de festas e eventos — produto artesanal com grande aceitação local.","zona":"Norte"},
+  {"n":"Giroalimentar","t":"Distribuidor Congelados","m":"Zona Industrial, Figueira da Foz","tel":"233 400 500","email":"comercial@giroalimentar.pt","p":"Alta","tCliente":"Distribuidor Pinhal Litoral / Figueira","gancho":"Costa com restauração turística — Ti'Piedade como sobremesa de referência no linear.","zona":"Centro Litoral"},
+  {"n":"Friponente","t":"Distribuidor Congelados","m":"Zona Industrial, Portalegre","tel":"245 200 400","email":"geral@friponente.pt","p":"Média","tCliente":"Distribuidor Alto Alentejo","gancho":"Região com potencial não explorado — pousadas, hotéis rurais e restauração de qualidade.","zona":"Alentejo"},
+  {"n":"Norte Frio Distribuição","t":"Distribuidor Congelados","m":"Zona Industrial, Vila Real","tel":"259 370 300","email":"comercial@nortefrio.pt","p":"Média","tCliente":"Distribuidor Douro / Trás-os-Montes Sul","gancho":"Enoturismo do Douro em crescimento — produto artesanal português premium.","zona":"Douro"},
+  {"n":"Mediterrânico Alimentar","t":"Distribuidor Congelados","m":"Zona Industrial, Tavira","tel":"281 325 600","email":"geral@mediterranico-alimentar.pt","p":"Alta","tCliente":"Distribuidor Sotavento Algarvio","gancho":"Algarve Oriental com turismo internacional — produto artesanal de alto valor percebido.","zona":"Algarve"},
+  {"n":"Expofrio","t":"Distribuidor Congelados","m":"Zona Industrial, Aveiro","tel":"234 380 700","email":"comercial@expofrio.pt","p":"Alta","tCliente":"Distribuidor Aveiro / Baixo Vouga","gancho":"Região industrial com restauração em crescimento — Ti'Piedade na carteira de congelados premium.","zona":"Centro Norte"},
+  {"n":"Frioguarda","t":"Distribuidor Congelados","m":"Zona Industrial, Guarda","tel":"271 210 500","email":"geral@frioguarda.pt","p":"Média","tCliente":"Distribuidor Serra da Estrela / Beira Alta","gancho":"Turismo de montanha e neve — produto de doçaria artesanal premium em contexto de acolhimento.","zona":"Interior Norte"},
+]
+
 
 # ════════════════════════════════════════════════════════════════
 # BASE DE LEADS HORECA (comerciais)
