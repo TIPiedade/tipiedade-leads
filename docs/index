@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Ti'Piedade — Prospeção HORECA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cast:    #5C2D0E;
+  --cast2:   #3D1C07;
+  --laranja: #D4682A;
+  --lar-cl:  #F2A46A;
+  --lar-bg:  #FDF6EF;
+  --creme:   #F8F0E3;
+  --borda:   #E8D5B8;
+  --ouro:    #C49A3C;
+  --txt:     #2C1A0A;
+  --txt2:    #6B5744;
+  --br:      #FFFFFF;
+  --verde:   #1A6B3A;
+  --verd-bg: #E8F5EE;
+  --azul:    #1A4A7A;
+  --azul-bg: #E8F0FA;
+  --amarelo: #7A5A00;
+  --amar-bg: #FFF8E0;
+  --cinza:   #5A5A5A;
+  --cinza-bg:#F4F4F4;
+  --vermelho:#8B1A1A;
+  --verm-bg: #FDECEA;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--creme); color: var(--txt); min-height: 100vh; }
+
+/* ── HEADER ── */
+header {
+  background: var(--cast);
+  padding: 0;
+  box-shadow: 0 2px 16px rgba(92,45,14,.3);
+  position: sticky; top: 0; z-index: 100;
+}
+.header-inner {
+  max-width: 1400px; margin: 0 auto;
+  padding: 14px 28px;
+  display: flex; align-items: center; gap: 20px;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  color: #fff; letter-spacing: .02em;
+}
+.logo span { color: var(--ouro); }
+.header-sep { width: 1px; height: 32px; background: rgba(255,255,255,.18); }
+.header-sub { font-size: 11px; color: var(--lar-cl); letter-spacing: .1em; text-transform: uppercase; }
+.header-stats {
+  margin-left: auto;
+  display: flex; gap: 20px; align-items: center;
+}
+.hstat { text-align: right; }
+.hstat-num { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--ouro); display: block; line-height: 1; }
+.hstat-lbl { font-size: 10px; color: rgba(255,255,255,.5); }
+.btn-sync {
+  padding: 7px 16px; background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2); border-radius: 6px;
+  color: #fff; font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: background .15s;
+}
+.btn-sync:hover { background: rgba(255,255,255,.2); }
+
+/* ── LAYOUT ── */
+.app { max-width: 1400px; margin: 0 auto; padding: 24px 28px 60px; display: grid; grid-template-columns: 240px 1fr; gap: 24px; }
+@media (max-width: 900px) { .app { grid-template-columns: 1fr; } }
+
+/* ── SIDEBAR ── */
+.sidebar { display: flex; flex-direction: column; gap: 8px; }
+.sidebar-section { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--txt2); padding: 4px 10px; margin-top: 8px; }
+.nav-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 10px;
+  border: 1px solid transparent; background: transparent;
+  font-size: 13px; font-weight: 500; color: var(--txt2);
+  cursor: pointer; transition: all .15s; text-align: left; width: 100%;
+}
+.nav-btn:hover { background: var(--br); border-color: var(--borda); }
+.nav-btn.ativo { background: var(--cast); color: #fff; border-color: var(--cast); }
+.nav-btn .ico { font-size: 16px; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto; background: var(--laranja); color: #fff;
+  font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 99px;
+}
+.nav-btn.ativo .nav-badge { background: rgba(255,255,255,.25); }
+
+/* ── CONTEÚDO ── */
+.content { min-width: 0; }
+.view { display: none; }
+.view.ativo { display: block; }
+
+/* ── DASHBOARD ── */
+.dash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+@media (max-width: 1100px) { .dash-grid { grid-template-columns: repeat(2,1fr); } }
+.kpi {
+  background: var(--br); border: 1px solid var(--borda); border-radius: 14px;
+  padding: 18px 20px; display: flex; align-items: flex-start; gap: 14px;
+}
+.kpi-icon { font-size: 28px; flex-shrink: 0; }
+.kpi-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--cast); line-height: 1; }
+.kpi-lbl { font-size: 11px; color: var(--txt2); margin-top: 3px; }
+.kpi-sub { font-size: 11px; color: var(--verde); margin-top: 4px; font-weight: 600; }
+
+.funil { background: var(--br); border: 1px solid var(--borda); border-radius: 14px; padding: 20px 24px; margin-bottom: 24px; }
+.funil h3 { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--cast); margin-bottom: 16px; }
+.funil-steps { display: flex; gap: 0; }
+.funil-step {
+  flex: 1; text-align: center; padding: 14px 8px;
+  background: var(--lar-bg); border-top: 3px solid var(--borda);
+  position: relative;
+}
+.funil-step:first-child { border-radius: 10px 0 0 10px; }
+.funil-step:last-child  { border-radius: 0 10px 10px 0; }
+.funil-step.s1 { border-top-color: var(--cast); }
+.funil-step.s2 { border-top-color: var(--laranja); background: #FEF3EC; }
+.funil-step.s3 { border-top-color: var(--azul); background: var(--azul-bg); }
+.funil-step.s4 { border-top-color: var(--verde); background: var(--verd-bg); }
+.funil-step.s5 { border-top-color: var(--cinza); background: var(--cinza-bg); }
+.funil-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--cast); }
+.funil-step.s2 .funil-num { color: var(--laranja); }
+.funil-step.s3 .funil-num { color: var(--azul); }
+.funil-step.s4 .funil-num { color: var(--verde); }
+.funil-step.s5 .funil-num { color: var(--cinza); }
+.funil-lbl { font-size: 11px; color: var(--txt2); margin-top: 4px; font-weight: 600; }
+
+/* ── TABELA DE LEADS ── */
+.toolbar {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.toolbar-title {
+  font-family: 'Playfair Display', serif; font-size: 20px; color: var(--cast);
+  margin-right: auto;
+}
+.filter-select {
+  padding: 7px 12px; border: 1px solid var(--borda); border-radius: 8px;
+  background: var(--br); font-size: 12px; color: var(--txt); cursor: pointer;
+}
+.search-input {
+  padding: 7px 12px; border: 1px solid var(--borda); border-radius: 8px;
+  background: var(--br); font-size: 12px; color: var(--txt); width: 200px;
+}
+.search-input:focus { outline: none; border-color: var(--laranja); }
+
+.table-wrap { background: var(--br); border: 1px solid var(--borda); border-radius: 14px; overflow: hidden; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead th {
+  background: var(--cast); color: var(--ouro);
+  padding: 10px 12px; text-align: left;
+  font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  white-space: nowrap;
+}
+tbody tr { cursor: pointer; transition: background .1s; border-bottom: 1px solid var(--borda); }
+tbody tr:hover { background: var(--lar-bg); }
+tbody td { padding: 10px 12px; vertical-align: middle; }
+.td-nome { font-weight: 600; color: var(--cast); }
+.td-sub { font-size: 10px; color: var(--txt2); margin-top: 1px; }
+
+/* badges de estado */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 700; padding: 3px 9px;
+  border-radius: 99px; white-space: nowrap;
+}
+.b-aberto    { background: var(--lar-bg);  color: var(--cast); border: 1px solid var(--borda); }
+.b-contactado{ background: var(--azul-bg); color: var(--azul); }
+.b-visitado  { background: var(--amar-bg); color: var(--amarelo); }
+.b-cliente   { background: var(--verd-bg); color: var(--verde); }
+.b-desistiu  { background: var(--cinza-bg);color: var(--cinza); }
+.b-proposta  { background: #EEE8FA;        color: #5B21B6; }
+.b-alta      { background: var(--verm-bg); color: var(--vermelho); }
+.b-media     { background: var(--amar-bg); color: var(--amarelo); }
+.b-baixa     { background: var(--verd-bg); color: var(--verde); }
+
+/* email dots */
+.email-dots { display: flex; gap: 3px; }
+.edot {
+  width: 18px; height: 18px; border-radius: 50%;
+  font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(0,0,0,.1);
+}
+.edot-done { background: #1A6B3A; color: #fff; }
+.edot-next { background: var(--ouro); color: #fff; }
+.edot-vazio { background: #E8E8E8; color: #AAA; }
+.edot-completo { background: var(--cast); color: var(--ouro); }
+
+/* ── MODAL ── */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; display: none; align-items: flex-start; justify-content: flex-end; padding: 0; }
+.overlay.aberto { display: flex; }
+.modal {
+  background: var(--br); width: 520px; max-width: 100vw;
+  height: 100vh; overflow-y: auto;
+  box-shadow: -4px 0 32px rgba(0,0,0,.2);
+  display: flex; flex-direction: column;
+}
+.modal-header {
+  background: var(--cast); padding: 20px 24px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  position: sticky; top: 0; z-index: 10;
+}
+.modal-titulo { font-family: 'Playfair Display', serif; font-size: 18px; color: #fff; font-weight: 600; line-height: 1.3; }
+.modal-tipo { font-size: 11px; color: var(--lar-cl); margin-top: 3px; }
+.modal-close { background: none; border: none; color: rgba(255,255,255,.6); font-size: 22px; cursor: pointer; padding: 0; line-height: 1; flex-shrink: 0; }
+.modal-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.info-item { }
+.info-lbl { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--txt2); margin-bottom: 4px; }
+.info-val { font-size: 13px; color: var(--txt); line-height: 1.5; }
+.info-val a { color: var(--laranja); text-decoration: none; }
+
+.nurturing-track { background: var(--lar-bg); border: 1px solid var(--borda); border-radius: 10px; padding: 14px 16px; }
+.nurturing-track h4 { font-size: 12px; font-weight: 700; color: var(--cast); margin-bottom: 10px; }
+.ntrack-steps { display: flex; gap: 6px; align-items: center; }
+.nstep {
+  flex: 1; text-align: center; padding: 8px 4px; border-radius: 8px;
+  font-size: 11px; font-weight: 600;
+}
+.nstep-done { background: var(--verde); color: #fff; }
+.nstep-next { background: var(--ouro); color: #fff; }
+.nstep-vazio { background: #E8E8E8; color: #AAA; }
+.nstep-arrow { color: var(--borda); font-size: 16px; flex-shrink: 0; }
+
+.secao { }
+.secao-titulo { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--txt2); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--borda); }
+
+.estado-select {
+  width: 100%; padding: 10px 14px; border: 1.5px solid var(--borda);
+  border-radius: 8px; font-size: 13px; color: var(--txt); background: var(--br);
+  cursor: pointer; transition: border-color .15s;
+}
+.estado-select:focus { outline: none; border-color: var(--laranja); }
+
+.gancho-box {
+  background: var(--amar-bg); border-left: 3px solid var(--ouro);
+  border-radius: 0 8px 8px 0; padding: 10px 14px;
+  font-size: 12px; color: var(--amarelo); line-height: 1.6; font-style: italic;
+}
+
+.visitas-lista { display: flex; flex-direction: column; gap: 8px; }
+.visita-item {
+  background: var(--lar-bg); border: 1px solid var(--borda); border-radius: 8px;
+  padding: 10px 14px; font-size: 12px;
+}
+.visita-data { font-weight: 700; color: var(--cast); font-size: 11px; }
+.visita-resultado { margin-top: 3px; color: var(--txt2); }
+
+.form-row { display: flex; flex-direction: column; gap: 6px; }
+.form-lbl { font-size: 11px; font-weight: 600; color: var(--txt2); }
+.form-input, .form-textarea, .form-sel {
+  padding: 9px 12px; border: 1.5px solid var(--borda); border-radius: 8px;
+  font-size: 13px; color: var(--txt); background: var(--br); width: 100%;
+  transition: border-color .15s; font-family: 'Inter', sans-serif;
+}
+.form-input:focus, .form-textarea:focus, .form-sel:focus { outline: none; border-color: var(--laranja); }
+.form-textarea { min-height: 80px; resize: vertical; }
+
+.btn-primary {
+  padding: 11px 22px; background: var(--cast); color: #fff;
+  border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.btn-primary:hover { background: var(--cast2); }
+.btn-secondary {
+  padding: 11px 22px; background: transparent; color: var(--cast);
+  border: 1.5px solid var(--cast); border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .15s;
+}
+.btn-secondary:hover { background: var(--lar-bg); }
+.btn-danger {
+  padding: 11px 22px; background: transparent; color: var(--vermelho);
+  border: 1.5px solid var(--vermelho); border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer;
+}
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── EMPTY STATE ── */
+.empty { text-align: center; padding: 60px 20px; color: var(--txt2); }
+.empty-ico { font-size: 40px; margin-bottom: 12px; }
+.empty-txt { font-size: 14px; }
+
+/* ── LOADING ── */
+.loading { text-align: center; padding: 40px; color: var(--txt2); font-size: 14px; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  background: var(--cast); color: #fff; padding: 12px 20px;
+  border-radius: 10px; font-size: 13px; font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+  transform: translateY(80px); opacity: 0;
+  transition: all .3s;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.ok { background: var(--verde); }
+.toast.err { background: var(--vermelho); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Ti'<span>Piedade</span></div>
+    <div class="header-sep"></div>
+    <div class="header-sub">CRM Prospeção HORECA</div>
+    <div class="header-stats">
+      <div class="hstat">
+        <span class="hstat-num" id="hs-total">—</span>
+        <span class="hstat-lbl">leads ativos</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-num" id="hs-clientes">—</span>
+        <span class="hstat-lbl">clientes</span>
+      </div>
+      <button class="btn-sync" onclick="sincronizar()">↻ Sincronizar</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-section">Vistas</div>
+    <button class="nav-btn ativo" data-view="dashboard" onclick="mudarVista('dashboard',this)">
+      <span class="ico">📊</span> Dashboard
+    </button>
+    <button class="nav-btn" data-view="todos" onclick="mudarVista('todos',this)">
+      <span class="ico">📋</span> Todos os leads
+      <span class="nav-badge" id="badge-todos">0</span>
+    </button>
+
+    <div class="sidebar-section">Por comercial</div>
+    <button class="nav-btn" data-view="nuno" onclick="mudarVista('nuno',this)">
+      <span class="ico">👤</span> Nuno
+      <span class="nav-badge" id="badge-nuno">0</span>
+    </button>
+    <button class="nav-btn" data-view="joao" onclick="mudarVista('joao',this)">
+      <span class="ico">👤</span> João
+      <span class="nav-badge" id="badge-joao">0</span>
+    </button>
+    <button class="nav-btn" data-view="oscar" onclick="mudarVista('oscar',this)">
+      <span class="ico">👤</span> Óscar
+      <span class="nav-badge" id="badge-oscar">0</span>
+    </button>
+
+    <div class="sidebar-section">Canais (Rui)</div>
+    <button class="nav-btn" data-view="horeca-rui" onclick="mudarVista('horeca-rui',this)">
+      <span class="ico">🍽</span> HORECA geral
+      <span class="nav-badge" id="badge-horeca-rui">0</span>
+    </button>
+    <button class="nav-btn" data-view="catering" onclick="mudarVista('catering',this)">
+      <span class="ico">🎪</span> Catering & Eventos
+      <span class="nav-badge" id="badge-catering">0</span>
+    </button>
+    <button class="nav-btn" data-view="distribuidores" onclick="mudarVista('distribuidores',this)">
+      <span class="ico">🚛</span> Distribuidores
+      <span class="nav-badge" id="badge-distribuidores">0</span>
+    </button>
+
+    <div class="sidebar-section">Por estado</div>
+    <button class="nav-btn" data-view="prontos" onclick="mudarVista('prontos',this)">
+      <span class="ico">✅</span> Prontos p/ visita
+      <span class="nav-badge" id="badge-prontos">0</span>
+    </button>
+    <button class="nav-btn" data-view="clientes" onclick="mudarVista('clientes',this)">
+      <span class="ico">⭐</span> Clientes
+      <span class="nav-badge" id="badge-clientes">0</span>
+    </button>
+    <button class="nav-btn" data-view="desistencias" onclick="mudarVista('desistencias',this)">
+      <span class="ico">❌</span> Desistências
+      <span class="nav-badge" id="badge-desistencias">0</span>
+    </button>
+  </nav>
+
+  <!-- CONTEÚDO -->
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="view ativo" id="view-dashboard">
+      <div class="dash-grid">
+        <div class="kpi"><div class="kpi-icon">📋</div><div><div class="kpi-num" id="k-total">—</div><div class="kpi-lbl">Total de leads</div></div></div>
+        <div class="kpi"><div class="kpi-icon">✉️</div><div><div class="kpi-num" id="k-nurturing">—</div><div class="kpi-lbl">Em nurturing</div></div></div>
+        <div class="kpi"><div class="kpi-icon">⭐</div><div><div class="kpi-num" id="k-clientes">—</div><div class="kpi-lbl">Clientes conquistados</div></div></div>
+        <div class="kpi"><div class="kpi-icon">✅</div><div><div class="kpi-num" id="k-prontos">—</div><div class="kpi-lbl">Prontos p/ visita</div></div></div>
+      </div>
+      <div class="funil">
+        <h3>Funil de Vendas</h3>
+        <div class="funil-steps">
+          <div class="funil-step s1"><div class="funil-num" id="f-aberto">—</div><div class="funil-lbl">Em aberto</div></div>
+          <div class="funil-step s2"><div class="funil-num" id="f-contactado">—</div><div class="funil-lbl">Contactados</div></div>
+          <div class="funil-step s3"><div class="funil-num" id="f-proposta">—</div><div class="funil-lbl">Proposta</div></div>
+          <div class="funil-step s4"><div class="funil-num" id="f-visitado">—</div><div class="funil-lbl">Visitados</div></div>
+          <div class="funil-step s4"><div class="funil-num" id="f-cliente">—</div><div class="funil-lbl">Clientes</div></div>
+          <div class="funil-step s5"><div class="funil-num" id="f-desistiu">—</div><div class="funil-lbl">Desistências</div></div>
+        </div>
+      </div>
+      <div id="dash-por-comercial"></div>
+    </div>
+
+    <!-- VISTAS DE LEADS -->
+    <div class="view" id="view-todos">
+      <div class="toolbar">
+        <span class="toolbar-title">Todos os leads</span>
+        <input class="search-input" placeholder="🔍 Pesquisar..." oninput="filtrarTabela()" id="search-todos">
+        <select class="filter-select" onchange="filtrarTabela()" id="filt-estado-todos">
+          <option value="">Todos os estados</option>
+          <option>Em aberto</option><option>Contactado</option><option>Proposta enviada</option>
+          <option>Visitado</option><option>Cliente</option><option>Desistiu</option>
+        </select>
+        <select class="filter-select" onchange="filtrarTabela()" id="filt-canal-todos">
+          <option value="">Todos os canais</option>
+          <option value="horeca">HORECA</option>
+          <option value="catering">Catering</option>
+          <option value="distribuidores">Distribuidores</option>
+        </select>
+      </div>
+      <div class="table-wrap"><table id="tbl-todos"><thead><tr>
+        <th>Lead</th><th>Canal</th><th>Comercial</th><th>Zona</th>
+        <th>Nurturing</th><th>Estado</th><th>Prioridade</th>
+      </tr></thead><tbody id="tbody-todos"></tbody></table></div>
+    </div>
+
+    <div class="view" id="view-nuno">
+      <div class="toolbar"><span class="toolbar-title">Leads do Nuno</span>
+        <input class="search-input" placeholder="🔍 Pesquisar..." oninput="renderVista('nuno')" id="search-nuno">
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-nuno"></tbody></table></div>
+    </div>
+    <div class="view" id="view-joao">
+      <div class="toolbar"><span class="toolbar-title">Leads do João</span>
+        <input class="search-input" placeholder="🔍 Pesquisar..." oninput="renderVista('joao')" id="search-joao">
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-joao"></tbody></table></div>
+    </div>
+    <div class="view" id="view-oscar">
+      <div class="toolbar"><span class="toolbar-title">Leads do Óscar</span>
+        <input class="search-input" placeholder="🔍 Pesquisar..." oninput="renderVista('oscar')" id="search-oscar">
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-oscar"></tbody></table></div>
+    </div>
+    <div class="view" id="view-horeca-rui">
+      <div class="toolbar"><span class="toolbar-title">HORECA — Rui</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-horeca-rui"></tbody></table></div>
+    </div>
+    <div class="view" id="view-catering">
+      <div class="toolbar"><span class="toolbar-title">Catering & Eventos — Rui</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-catering"></tbody></table></div>
+    </div>
+    <div class="view" id="view-distribuidores">
+      <div class="toolbar"><span class="toolbar-title">Distribuidores — Rui</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-distribuidores"></tbody></table></div>
+    </div>
+    <div class="view" id="view-prontos">
+      <div class="toolbar"><span class="toolbar-title">✅ Prontos para visita (nurturing completo)</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Canal</th><th>Comercial</th><th>Zona</th><th>Nurturing</th><th>Estado</th></tr></thead><tbody id="tbody-prontos"></tbody></table></div>
+    </div>
+    <div class="view" id="view-clientes">
+      <div class="toolbar"><span class="toolbar-title">⭐ Clientes conquistados</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Canal</th><th>Comercial</th><th>Zona</th><th>Tipo</th><th>Notas</th></tr></thead><tbody id="tbody-clientes"></tbody></table></div>
+    </div>
+    <div class="view" id="view-desistencias">
+      <div class="toolbar"><span class="toolbar-title">❌ Desistências</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Canal</th><th>Comercial</th><th>Zona</th><th>Motivo</th></tr></thead><tbody id="tbody-desistencias"></tbody></table></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL LEAD -->
+<div class="overlay" id="overlay" onclick="fecharModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-titulo" id="m-titulo">—</div>
+        <div class="modal-tipo" id="m-tipo">—</div>
+      </div>
+      <button class="modal-close" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="info-grid">
+        <div class="info-item"><div class="info-lbl">Morada</div><div class="info-val" id="m-morada">—</div></div>
+        <div class="info-item"><div class="info-lbl">Contacto</div><div class="info-val" id="m-tel">—</div></div>
+        <div class="info-item"><div class="info-lbl">Email</div><div class="info-val" id="m-email">—</div></div>
+        <div class="info-item"><div class="info-lbl">Zona</div><div class="info-val" id="m-zona">—</div></div>
+        <div class="info-item"><div class="info-lbl">Comercial</div><div class="info-val" id="m-comercial">—</div></div>
+        <div class="info-item"><div class="info-lbl">Prioridade</div><div class="info-val" id="m-prio">—</div></div>
+        <div class="info-item"><div class="info-lbl">Tipologia</div><div class="info-val" id="m-tipologia">—</div></div>
+        <div class="info-item"><div class="info-lbl">Entrada</div><div class="info-val" id="m-entrada">—</div></div>
+      </div>
+
+      <div class="gancho-box" id="m-gancho">—</div>
+
+      <div class="nurturing-track">
+        <h4>Sequência de nurturing</h4>
+        <div class="ntrack-steps" id="m-nurturing">—</div>
+      </div>
+
+      <div class="secao">
+        <div class="secao-titulo">Estado do lead</div>
+        <select class="estado-select" id="m-estado" onchange="guardarEstado()">
+          <option>Em aberto</option>
+          <option>Contactado</option>
+          <option>Proposta enviada</option>
+          <option>Visitado</option>
+          <option>Cliente</option>
+          <option>Desistiu</option>
+        </select>
+      </div>
+
+      <div class="secao">
+        <div class="secao-titulo">Registar visita</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="form-row">
+            <label class="form-lbl">Data da visita</label>
+            <input type="date" class="form-input" id="v-data">
+          </div>
+          <div class="form-row">
+            <label class="form-lbl">Resultado</label>
+            <select class="form-sel" id="v-resultado">
+              <option>Positivo — interesse demonstrado</option>
+              <option>Neutro — a pensar</option>
+              <option>Agendou prova / amostra</option>
+              <option>Proposta aceite</option>
+              <option>Negativo — não tem interesse</option>
+              <option>Não estava disponível — reagendar</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-lbl">Notas da visita</label>
+            <textarea class="form-textarea" id="v-notas" placeholder="O que foi discutido, próximos passos..."></textarea>
+          </div>
+          <button class="btn-primary" onclick="registarVisita()">Guardar visita</button>
+        </div>
+      </div>
+
+      <div class="secao" id="secao-visitas">
+        <div class="secao-titulo">Histórico de visitas</div>
+        <div class="visitas-lista" id="m-visitas"></div>
+      </div>
+
+      <div class="secao">
+        <div class="secao-titulo">Notas gerais</div>
+        <textarea class="form-textarea" id="m-notas-gerais" placeholder="Notas sobre este lead..."></textarea>
+        <div style="margin-top:8px">
+          <button class="btn-secondary" onclick="guardarNotas()">Guardar notas</button>
+        </div>
+      </div>
+
+      <div class="secao">
+        <div class="secao-titulo">Desistência</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="form-row">
+            <label class="form-lbl">Motivo</label>
+            <select class="form-sel" id="des-motivo">
+              <option>Preço não competitivo</option>
+              <option>Já tem fornecedor</option>
+              <option>Sem interesse no produto</option>
+              <option>Encerrou / mudou de negócio</option>
+              <option>Sem resposta após múltiplas tentativas</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <button class="btn-danger" onclick="registarDesistencia()">Registar desistência</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// CONFIG — alterar para o teu repositório
+// ═══════════════════════════════════════════════════
+const REPO_OWNER = "TIPiedade";
+const REPO_NAME  = "tipiedade-leads";
+const HIST_FILE  = "historico.json";
+const RAW_URL    = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${HIST_FILE}`;
+
+// GH_TOKEN para escrita — guardado em localStorage (pedido 1x)
+function getToken() {
+  let t = localStorage.getItem("gh_token");
+  if (!t) {
+    t = prompt("Introduz o teu GitHub Personal Access Token (necessário para guardar alterações):");
+    if (t) localStorage.setItem("gh_token", t);
+  }
+  return t;
+}
+
+// ═══════════════════════════════════════════════════
+// ESTADO
+// ═══════════════════════════════════════════════════
+let HIST = { leads: {} };
+let HIST_SHA = null;
+let LEAD_ATUAL = null;
+
+// ═══════════════════════════════════════════════════
+// CARREGAR HISTÓRICO
+// ═══════════════════════════════════════════════════
+async function carregarHistorico() {
+  try {
+    const r = await fetch(RAW_URL + "?t=" + Date.now());
+    if (!r.ok) throw new Error("não encontrado");
+    HIST = await r.json();
+    // Obter SHA para escrita
+    const api = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${HIST_FILE}`, {
+      headers: { "Authorization": `Bearer ${getToken()}`, "Accept": "application/vnd.github+json" }
+    });
+    if (api.ok) { const d = await api.json(); HIST_SHA = d.sha; }
+    renderTudo();
+    toast("Dados sincronizados", "ok");
+  } catch(e) {
+    console.error(e);
+    toast("Erro ao carregar dados — verifica a ligação", "err");
+    // Demo mode com dados de exemplo
+    HIST = getDemoData();
+    renderTudo();
+  }
+}
+
+async function guardarHistorico() {
+  const token = getToken();
+  if (!token) { toast("Token não configurado", "err"); return; }
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(HIST, null, 2))));
+  const body = { message: `CRM: atualizado ${new Date().toISOString().slice(0,10)}`, content };
+  if (HIST_SHA) body.sha = HIST_SHA;
+  const r = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${HIST_FILE}`, {
+    method: "PUT",
+    headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  if (r.ok) {
+    const d = await r.json();
+    HIST_SHA = d.content.sha;
+    toast("Guardado ✓", "ok");
+  } else {
+    toast("Erro ao guardar — verifica o token", "err");
+  }
+}
+
+function sincronizar() { carregarHistorico(); }
+
+// ═══════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════
+function leads() { return Object.entries(HIST.leads || {}); }
+
+function emailDots(emails_enviados) {
+  const nums = (emails_enviados||[]).map(e=>e.num);
+  const completo = nums.length >= 4;
+  if (completo) return `<div class="email-dots"><span class="edot edot-completo" title="Sequência completa">✓</span></div>`;
+  const dots = [1,2,3,4].map(n => {
+    if (nums.includes(n)) return `<span class="edot edot-done" title="Email ${n} enviado">${n}</span>`;
+    if (n === (Math.max(0,...nums)+1)) return `<span class="edot edot-next" title="Próximo: Email ${n}">${n}</span>`;
+    return `<span class="edot edot-vazio" title="Email ${n} pendente">${n}</span>`;
+  });
+  return `<div class="email-dots">${dots.join("")}</div>`;
+}
+
+function badgeEstado(e) {
+  const m = {
+    "Em aberto":"b-aberto","Contactado":"b-contactado","Visitado":"b-visitado",
+    "Cliente":"b-cliente","Desistiu":"b-desistiu","Proposta enviada":"b-proposta"
+  };
+  return `<span class="badge ${m[e]||'b-aberto'}">${e||"Em aberto"}</span>`;
+}
+
+function badgePrio(p) {
+  const m={"Alta":"b-alta","Média":"b-media","Baixa":"b-baixa"};
+  return p?`<span class="badge ${m[p]||''}">${p}</span>`:"";
+}
+
+function trLead(k, v, cols) {
+  const emails = v.emails_enviados||[];
+  const base = `
+    <td><div class="td-nome">${v.nome||"—"}</div><div class="td-sub">${v.tipo||""}</div></td>
+    <td>${v.zona||"—"}</td>
+    <td>${v.tipo||"—"}</td>
+    <td>${emailDots(emails)}</td>
+    <td>${badgeEstado(v.estado)}</td>
+    <td>${badgePrio(v.prioridade)}</td>
+  `;
+  const extra = cols==="todos" ? `
+    <td><div class="td-nome">${v.nome||"—"}</div><div class="td-sub">${v.tipo||""}</div></td>
+    <td><span class="badge b-aberto">${(v.canal_id||"").replace("rui_","").toUpperCase()||"HORECA"}</span></td>
+    <td>${v.comercial||"—"}</td>
+    <td>${v.zona||"—"}</td>
+    <td>${emailDots(emails)}</td>
+    <td>${badgeEstado(v.estado)}</td>
+    <td>${badgePrio(v.prioridade)}</td>
+  ` : base;
+  return `<tr onclick="abrirLead('${k}')">${cols==="todos"?extra:base}</tr>`;
+}
+
+function renderTabela(tbodyId, filtroFn, cols="normal") {
+  const tbody = document.getElementById(tbodyId);
+  const rows = leads().filter(([k,v])=>filtroFn(k,v));
+  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Sem leads nesta vista</div></div></td></tr>`; return; }
+  tbody.innerHTML = rows.map(([k,v])=>trLead(k,v,cols)).join("");
+}
+
+function renderVista(vista) {
+  const search = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
+  const filtros = {
+    "nuno":          ([k,v]) => v.canal_id==="nuno",
+    "joao":          ([k,v]) => v.canal_id==="joao",
+    "oscar":         ([k,v]) => v.canal_id==="oscar",
+    "horeca-rui":    ([k,v]) => (v.canal||"").toLowerCase().includes("horeca") && v.comercial==="Rui",
+    "catering":      ([k,v]) => v.canal_id==="rui_catering",
+    "distribuidores":([k,v]) => v.canal_id==="rui_distribuidores",
+    "prontos":       ([k,v]) => (v.emails_enviados||[]).length >= 4 && v.estado !== "Cliente" && v.estado !== "Desistiu",
+    "clientes":      ([k,v]) => v.estado==="Cliente",
+    "desistencias":  ([k,v]) => v.estado==="Desistiu",
+  };
+  const fn = filtros[vista];
+  if (!fn) return;
+  const rows = leads().filter(([k,v]) => fn([k,v]) && (!search || v.nome?.toLowerCase().includes(search)));
+  const tbody = document.getElementById(`tbody-${vista}`);
+  if (!tbody) return;
+  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Sem leads</div></div></td></tr>`; return; }
+  tbody.innerHTML = rows.map(([k,v]) => {
+    if (vista==="clientes") return `<tr onclick="abrirLead('${k}')"><td><div class="td-nome">${v.nome}</div></td><td>${(v.canal_id||"").replace("rui_","")}</td><td>${v.comercial||""}</td><td>${v.zona||""}</td><td>${v.tipo||""}</td><td style="font-size:11px">${(v.notas||"").slice(0,60)}</td></tr>`;
+    if (vista==="desistencias") return `<tr onclick="abrirLead('${k}')"><td><div class="td-nome">${v.nome}</div></td><td>${(v.canal_id||"").replace("rui_","")}</td><td>${v.comercial||""}</td><td>${v.zona||""}</td><td style="font-size:11px">${v.motivo_desistencia||"—"}</td></tr>`;
+    return trLead(k,v,"normal");
+  }).join("");
+}
+
+function filtrarTabela() {
+  const search = document.getElementById("search-todos")?.value?.toLowerCase()||"";
+  const estado = document.getElementById("filt-estado-todos")?.value||"";
+  const canal  = document.getElementById("filt-canal-todos")?.value||"";
+  const rows = leads().filter(([k,v]) => {
+    const s = !search || v.nome?.toLowerCase().includes(search) || v.zona?.toLowerCase().includes(search);
+    const e = !estado || v.estado===estado;
+    const c = !canal  || (v.canal_id||"").includes(canal);
+    return s&&e&&c;
+  });
+  const tbody = document.getElementById("tbody-todos");
+  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Sem resultados</div></div></td></tr>`; return; }
+  tbody.innerHTML = rows.map(([k,v])=>trLead(k,v,"todos")).join("");
+}
+
+function renderDashboard() {
+  const ls = leads();
+  const tot = ls.length;
+  const nur = ls.filter(([k,v])=>(v.emails_enviados||[]).length>0 && (v.emails_enviados||[]).length<4).length;
+  const cli = ls.filter(([k,v])=>v.estado==="Cliente").length;
+  const prt = ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4 && v.estado!=="Cliente" && v.estado!=="Desistiu").length;
+  document.getElementById("k-total").textContent=tot;
+  document.getElementById("k-nurturing").textContent=nur;
+  document.getElementById("k-clientes").textContent=cli;
+  document.getElementById("k-prontos").textContent=prt;
+  document.getElementById("hs-total").textContent=tot;
+  document.getElementById("hs-clientes").textContent=cli;
+
+  const estados=["Em aberto","Contactado","Proposta enviada","Visitado","Cliente","Desistiu"];
+  const ids=["f-aberto","f-contactado","f-proposta","f-visitado","f-cliente","f-desistiu"];
+  estados.forEach((e,i)=>{
+    const n=ls.filter(([k,v])=>(v.estado||"Em aberto")===e).length;
+    document.getElementById(ids[i]).textContent=n;
+  });
+
+  // Por comercial
+  const comerciais=["Nuno","João","Óscar","Rui"];
+  const html=comerciais.map(nome=>{
+    const cl=ls.filter(([k,v])=>v.comercial===nome);
+    const cc=cl.filter(([k,v])=>v.estado==="Cliente").length;
+    const ca=cl.filter(([k,v])=>(v.estado||"Em aberto")==="Em aberto").length;
+    return `<div style="display:inline-flex;align-items:center;gap:8px;background:var(--br);border:1px solid var(--borda);border-radius:10px;padding:10px 16px;margin:4px">
+      <strong style="font-size:13px;color:var(--cast)">${nome}</strong>
+      <span style="font-size:11px;color:var(--txt2)">${cl.length} leads</span>
+      <span class="badge b-cliente">${cc} clientes</span>
+      <span class="badge b-aberto">${ca} abertos</span>
+    </div>`;
+  }).join("");
+  document.getElementById("dash-por-comercial").innerHTML=`<div style="background:var(--br);border:1px solid var(--borda);border-radius:14px;padding:16px 20px"><h4 style="font-family:'Playfair Display',serif;font-size:14px;color:var(--cast);margin-bottom:12px">Por comercial</h4><div>${html}</div></div>`;
+}
+
+function renderBadges() {
+  const ls = leads();
+  const b = {
+    "todos":ls.length,
+    "nuno":ls.filter(([k,v])=>v.canal_id==="nuno").length,
+    "joao":ls.filter(([k,v])=>v.canal_id==="joao").length,
+    "oscar":ls.filter(([k,v])=>v.canal_id==="oscar").length,
+    "horeca-rui":ls.filter(([k,v])=>(v.canal||"").includes("horeca")&&v.comercial==="Rui").length,
+    "catering":ls.filter(([k,v])=>v.canal_id==="rui_catering").length,
+    "distribuidores":ls.filter(([k,v])=>v.canal_id==="rui_distribuidores").length,
+    "prontos":ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4&&v.estado!=="Cliente"&&v.estado!=="Desistiu").length,
+    "clientes":ls.filter(([k,v])=>v.estado==="Cliente").length,
+    "desistencias":ls.filter(([k,v])=>v.estado==="Desistiu").length,
+  };
+  Object.entries(b).forEach(([k,n])=>{ const el=document.getElementById(`badge-${k}`); if(el) el.textContent=n; });
+}
+
+function renderTudo() {
+  renderDashboard();
+  renderBadges();
+  filtrarTabela();
+  ["nuno","joao","oscar","horeca-rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
+}
+
+// ═══════════════════════════════════════════════════
+// NAVEGAÇÃO
+// ═══════════════════════════════════════════════════
+function mudarVista(vista, btn) {
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("ativo"));
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("ativo"));
+  document.getElementById(`view-${vista}`)?.classList.add("ativo");
+  btn?.classList.add("ativo");
+  renderVista(vista);
+}
+
+// ═══════════════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════════════
+function abrirLead(k) {
+  const v = HIST.leads[k];
+  if (!v) return;
+  LEAD_ATUAL = k;
+
+  document.getElementById("m-titulo").textContent = v.nome||"—";
+  document.getElementById("m-tipo").textContent = `${v.tipo||""} · ${v.canal_id||""} · Comercial: ${v.comercial||"—"}`;
+  document.getElementById("m-morada").textContent = v.morada||"—";
+  document.getElementById("m-tel").innerHTML = v.tel&&v.tel!=="—"?`<a href="tel:${v.tel}">${v.tel}</a>`:v.tel||"—";
+  document.getElementById("m-email").innerHTML = v.email_lead&&v.email_lead!=="—"?`<a href="mailto:${v.email_lead}">${v.email_lead}</a>`:v.email_lead||"—";
+  document.getElementById("m-zona").textContent = v.zona||"—";
+  document.getElementById("m-comercial").textContent = v.comercial||"—";
+  document.getElementById("m-prio").innerHTML = badgePrio(v.prioridade);
+  document.getElementById("m-tipologia").textContent = v.tipologia_cliente||"—";
+  document.getElementById("m-entrada").textContent = v.data_entrada||"—";
+  document.getElementById("m-gancho").textContent = v.gancho||"—";
+  document.getElementById("m-estado").value = v.estado||"Em aberto";
+  document.getElementById("m-notas-gerais").value = v.notas||"";
+
+  // Nurturing
+  const emails = v.emails_enviados||[];
+  const nums = emails.map(e=>e.num);
+  const steps = [1,2,3,4].map(n => {
+    const env = emails.find(e=>e.num===n);
+    if (env) return `<div class="nstep nstep-done">Email ${n}<br><small>${env.data}</small></div>`;
+    if (n===Math.min(5,...([1,2,3,4].filter(x=>!nums.includes(x))))) return `<div class="nstep nstep-next">Email ${n}<br><small>Próximo</small></div>`;
+    return `<div class="nstep nstep-vazio">Email ${n}<br><small>Pendente</small></div>`;
+  });
+  document.getElementById("m-nurturing").innerHTML = steps.join('<span class="nstep-arrow">›</span>');
+
+  // Visitas
+  const visitas = v.visitas||[];
+  const vlista = document.getElementById("m-visitas");
+  if (visitas.length) {
+    vlista.innerHTML = visitas.map(vis=>`<div class="visita-item"><div class="visita-data">${vis.data}</div><div class="visita-resultado">${vis.resultado}</div>${vis.notas?`<div style="margin-top:4px;font-size:11px;color:var(--txt2)">${vis.notas}</div>`:""}</div>`).join("");
+  } else {
+    vlista.innerHTML = `<div style="font-size:12px;color:var(--txt2)">Sem visitas registadas.</div>`;
+  }
+
+  // Data padrão para visita
+  document.getElementById("v-data").value = new Date().toISOString().slice(0,10);
+
+  document.getElementById("overlay").classList.add("aberto");
+}
+
+function fecharModal(e) {
+  if (e && e.target !== document.getElementById("overlay")) return;
+  document.getElementById("overlay").classList.remove("aberto");
+  LEAD_ATUAL = null;
+}
+
+// ═══════════════════════════════════════════════════
+// AÇÕES
+// ═══════════════════════════════════════════════════
+function guardarEstado() {
+  if (!LEAD_ATUAL) return;
+  HIST.leads[LEAD_ATUAL].estado = document.getElementById("m-estado").value;
+  guardarHistorico();
+  renderTudo();
+}
+
+function registarVisita() {
+  if (!LEAD_ATUAL) return;
+  const data = document.getElementById("v-data").value;
+  const resultado = document.getElementById("v-resultado").value;
+  const notas = document.getElementById("v-notas").value;
+  if (!data) { toast("Seleciona uma data", "err"); return; }
+  if (!HIST.leads[LEAD_ATUAL].visitas) HIST.leads[LEAD_ATUAL].visitas = [];
+  HIST.leads[LEAD_ATUAL].visitas.push({ data, resultado, notas });
+  HIST.leads[LEAD_ATUAL].estado = "Visitado";
+  document.getElementById("v-notas").value = "";
+  guardarHistorico();
+  renderTudo();
+  abrirLead(LEAD_ATUAL);
+  toast("Visita registada ✓", "ok");
+}
+
+function guardarNotas() {
+  if (!LEAD_ATUAL) return;
+  HIST.leads[LEAD_ATUAL].notas = document.getElementById("m-notas-gerais").value;
+  guardarHistorico();
+  toast("Notas guardadas ✓", "ok");
+}
+
+function registarDesistencia() {
+  if (!LEAD_ATUAL) return;
+  const motivo = document.getElementById("des-motivo").value;
+  if (!confirm(`Registar desistência: "${HIST.leads[LEAD_ATUAL].nome}"?\n\nMotivo: ${motivo}`)) return;
+  HIST.leads[LEAD_ATUAL].estado = "Desistiu";
+  HIST.leads[LEAD_ATUAL].motivo_desistencia = motivo;
+  fecharModal();
+  guardarHistorico();
+  renderTudo();
+  toast("Desistência registada", "ok");
+}
+
+// ═══════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════
+let toastTimer;
+function toast(msg, tipo="") {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.className = `toast ${tipo} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove("show"), 3000);
+}
+
+// ═══════════════════════════════════════════════════
+// DEMO DATA
+// ═══════════════════════════════════════════════════
+function getDemoData() {
+  return { leads: {
+    "nuno::Tasca do Chico::Lisboa": { nome:"Tasca do Chico", tipo:"Restaurante", zona:"Lisboa", morada:"R. do Diário de Notícias 39, Lisboa", email_lead:"info@tascadochico.pt", tel:"965 059 670", comercial:"Nuno", canal_id:"nuno", canal:"horeca", prioridade:"Alta", tipologia_cliente:"Tasca contemporânea", gancho:"Rotatividade alta de turistas — sobremesa pronta a servir com zero desperdício.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Em aberto", emails_enviados:[{num:1,data:"2025-08-14",assunto:"Nurturing Email 1"}], visitas:[], notas:"" },
+    "nuno::Emporium Gourmet::Linha Sintra–Cascais": { nome:"Emporium Gourmet", tipo:"Mercearia Gourmet", zona:"Cascais", morada:"Av. Nossa Senhora do Cabo 101, Cascais", email_lead:"info@emporiumgourmet.pt", tel:"211 541 588", comercial:"Nuno", canal_id:"nuno", canal:"horeca", prioridade:"Alta", tipologia_cliente:"Mercearia gourmet", gancho:"História de 40 anos — receita da D. Piedade vende-se sozinha.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Contactado", emails_enviados:[{num:1,data:"2025-08-14"},{num:2,data:"2025-08-21"}], visitas:[], notas:"Responsável chama-se Ana" },
+    "joao::Tromba Rija::Leiria": { nome:"Tromba Rija", tipo:"Restaurante", zona:"Leiria", morada:"R. Professores Portelas, Marrazes, Leiria", email_lead:"geral@trombarja.com", tel:"244 855 072", comercial:"João", canal_id:"joao", canal:"horeca", prioridade:"Alta", tipologia_cliente:"Restaurante regional / referência", gancho:"Referência gastronómica da região.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Visitado", emails_enviados:[{num:1,data:"2025-08-14"},{num:2,data:"2025-08-21"},{num:3,data:"2025-08-28"},{num:4,data:"2025-09-04"}], visitas:[{data:"2025-09-06",resultado:"Positivo — interesse demonstrado",notas:"Chefe muito interessado. Quer amostras dos 4 sabores."}], notas:"Follow-up a 15 set" },
+    "oscar::Café Santa Cruz::Coimbra": { nome:"Café Santa Cruz", tipo:"Café", zona:"Coimbra", morada:"Pr. 8 de Maio, Coimbra", email_lead:"cafesantacruz@sapo.pt", tel:"239 833 617", comercial:"Óscar", canal_id:"oscar", canal:"horeca", prioridade:"Alta", tipologia_cliente:"Café histórico / turismo", gancho:"Mais emblemático de Coimbra — produto artesanal com história.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Cliente", emails_enviados:[{num:1,data:"2025-08-14"},{num:2,data:"2025-08-21"},{num:3,data:"2025-08-28"},{num:4,data:"2025-09-04"}], visitas:[{data:"2025-09-05",resultado:"Proposta aceite",notas:"Encomenda inicial de 50 unidades Original + 20 Chocolate"}], notas:"Primeira encomenda confirmada" },
+    "rui_catering::Quinta de Sant'Ana Eventos::Oeste": { nome:"Quinta de Sant'Ana Eventos", tipo:"Catering & Eventos", zona:"Oeste", morada:"Gradil, Mafra", email_lead:"eventos@quintadesantana.pt", tel:"261 963 480", comercial:"Rui", canal_id:"rui_catering", canal:"catering", prioridade:"Alta", tipologia_cliente:"Eventos de luxo / casamentos premium", gancho:"Casamentos em quinta histórica — pão de ló artesanal é a sobremesa com mais narrativa.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Em aberto", emails_enviados:[], visitas:[], notas:"" },
+    "rui_distribuidores::Frigoríficos do Algarve::Algarve": { nome:"Frigoríficos do Algarve", tipo:"Distribuidor Congelados", zona:"Algarve", morada:"Zona Industrial, Loulé", email_lead:"geral@frigorificos-algarve.pt", tel:"289 416 200", comercial:"Rui", canal_id:"rui_distribuidores", canal:"distribuidores", prioridade:"Alta", tipologia_cliente:"Distribuidor regional congelados Algarve", gancho:"Algarve sem cobertura — canal HORECA forte com turismo de alto valor.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Em aberto", emails_enviados:[], visitas:[], notas:"" },
+  }, ultima_atualizacao: new Date().toISOString().slice(0,10), versao:"2.0" };
+}
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+document.addEventListener("DOMContentLoaded", ()=>{
+  HIST = getDemoData();
+  renderTudo();
+  carregarHistorico();
+});
+</script>
+</body>
+</html>
