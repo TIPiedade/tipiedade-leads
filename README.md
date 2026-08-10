@@ -1,75 +1,82 @@
-# Ti'Piedade — Leads HORECA Automáticos
+# Ti'Piedade — Sistema Completo de Prospeção HORECA
 
-Envia automaticamente 20 leads por comercial **todas as segundas-feiras às 07h30** (Lisboa), com o Excel em anexo por email.
+## O que é este sistema
+
+Um sistema integrado de geração de leads, nurturing automático e CRM, construído sobre GitHub (gratuito, sem servidor).
+
+## Fluxo semanal automático
+
+| Dia | Hora | O que acontece |
+|-----|------|----------------|
+| **Segunda** | 07h30 | Excel completo enviado para `sales@tipiedade.com` para revisão |
+| **Quarta** | 07h30 | Leads + email de nurturing enviados a cada comercial. Histórico atualizado. |
+
+## Leads gerados por semana
+
+| Quem recebe | Quantidade | Canal |
+|-------------|-----------|-------|
+| Nuno | 20 leads | HORECA — Lisboa, Santarém, Linha Sintra-Cascais |
+| João | 20 leads | HORECA — Lisboa, Margem Sul, Costa Oeste, Leiria |
+| Óscar | 20 leads | HORECA — Ericeira-Caldas, Coimbra, Porto, Braga, Guimarães |
+| Rui | 5 leads | Catering & Eventos (Portugal inteiro) |
+| Rui | 5 leads | Distribuidores de congelados (zonas não cobertas) |
+| **Total** | **70 leads/semana** | |
+
+## CRM (GitHub Pages)
+
+Disponível em: `https://TIPiedade.github.io/tipiedade-leads/`
+
+Funcionalidades:
+- Dashboard com KPIs e funil de vendas
+- Vistas por comercial, canal e estado
+- Registo de visitas com resultado e notas
+- Registo de desistências com motivo
+- Histórico de nurturing por lead
+- Pesquisa e filtros
+- Sincronização automática com o `historico.json`
 
 ---
 
-## Configuração (uma única vez)
+## Configuração
 
-### 1. Criar repositório no GitHub
+### 1. Secrets (Settings → Secrets → Actions)
 
-1. Vai a [github.com](https://github.com) e cria conta gratuita (se não tiveres)
-2. Clica **New repository** → nome: `tipiedade-leads` → **Private** → Create
-3. Faz upload de todos estes ficheiros para o repositório (arrasta e solta)
-
-### 2. Adicionar os Secrets (credenciais)
-
-No repositório GitHub:
-**Settings → Secrets and variables → Actions → New repository secret**
-
-Adiciona estes 7 secrets:
-
-| Secret | O que preencher |
-|--------|----------------|
-| `SMTP_HOST` | Servidor SMTP do teu email (ex: `mail.tipiedade.com`) |
-| `SMTP_PORT` | Porta SMTP — normalmente `587` |
-| `SMTP_USER` | Email de envio (ex: `comercial@tipiedade.com`) |
-| `SMTP_PASS` | Password do email de envio |
+| Secret | Descrição |
+|--------|-----------|
+| `SMTP_HOST` | Servidor SMTP |
+| `SMTP_PORT` | Porta (587) |
+| `SMTP_USER` | Email de envio |
+| `SMTP_PASS` | Password |
 | `EMAIL_NUNO` | Email do Nuno |
 | `EMAIL_JOAO` | Email do João |
 | `EMAIL_OSCAR` | Email do Óscar |
+| `EMAIL_RUI` | Email do Rui (sales@tipiedade.com) |
+| `GH_PAT` | GitHub Personal Access Token (scope: repo) |
 
-> **Nota:** O endereço `sales@tipiedade.com` recebe automaticamente cópia de todos os envios — está definido diretamente no script e não precisa de ser configurado aqui.
+### 2. Ativar GitHub Pages
 
-> **Não sabes o SMTP?** Pergunta ao teu provedor de email ou IT. Se usares Gmail pessoal, usa `smtp.gmail.com`, porta `587`, e cria uma "App Password" nas definições de segurança Google.
+Settings → Pages → Source: **Deploy from branch** → Branch: `main` → Folder: `/docs`
 
-### 3. Ativar o workflow
+### 3. Criar GH_PAT
 
-1. No repositório, vai ao separador **Actions**
-2. Se aparecer aviso de ativação, clica **"I understand my workflows, go ahead and enable them"**
-3. Pronto — corre sozinho todas as segundas às 07h30
+GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token → scope: `repo` → copiar e adicionar como secret `GH_PAT`
 
----
+### 4. Ativar workflow
 
-## Testar manualmente
-
-Para testar sem esperar pela segunda-feira:
-
-1. **Actions** → **Leads HORECA Semanais — Ti'Piedade**
-2. **Run workflow** → **Run workflow**
-3. Os emails chegam em segundos
-
-O Excel gerado fica também guardado em **Actions → [execução] → Artifacts** por 30 dias.
+Actions → confirmar ativação → pronto.
 
 ---
 
-## Atualizar a base de leads
-
-Edita o ficheiro `scripts/generate_leads.py` diretamente no GitHub:
-- Cada zona é um bloco `"Nome da Zona": [ ... ]`
-- Cada lead é um dicionário com: `n` (nome), `t` (tipo), `m` (morada), `tel`, `email`, `p` (prioridade: Alta/Média/Baixa), `tCliente`, `gancho`
-- Guarda o ficheiro → o próximo envio já usa os dados atualizados
-
----
-
-## Estrutura do repositório
+## Estrutura
 
 ```
 tipiedade-leads/
-├── .github/
-│   └── workflows/
-│       └── leads_semanais.yml   ← agenda e configuração do envio
+├── .github/workflows/leads_semanais.yml   ← automação (2ª e 4ª)
 ├── scripts/
-│   └── generate_leads.py        ← lógica de geração e envio
-└── README.md                    ← este ficheiro
+│   ├── generate_leads.py                  ← lógica principal
+│   └── leads_extra.py                     ← base catering + distribuidores
+├── docs/
+│   └── index.html                         ← CRM (GitHub Pages)
+├── historico.json                         ← base de dados (auto-atualizado)
+└── README.md
 ```
