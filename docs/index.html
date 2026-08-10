@@ -318,6 +318,7 @@ tbody td { padding: 10px 12px; vertical-align: middle; }
         <span class="hstat-num" id="hs-clientes">—</span>
         <span class="hstat-lbl">clientes</span>
       </div>
+      <button class="btn-sync" onclick="abrirNovaLead()" style="background:var(--laranja);border-color:var(--laranja)">+ Nova lead</button>
       <button class="btn-sync" onclick="sincronizar()">↻ Sincronizar</button>
     </div>
   </div>
@@ -349,10 +350,10 @@ tbody td { padding: 10px 12px; vertical-align: middle; }
       <span class="nav-badge" id="badge-oscar">0</span>
     </button>
 
-    <div class="sidebar-section">Canais (Rui)</div>
-    <button class="nav-btn" data-view="horeca-rui" onclick="mudarVista('horeca-rui',this)">
-      <span class="ico">🍽</span> HORECA geral
-      <span class="nav-badge" id="badge-horeca-rui">0</span>
+    <div class="sidebar-section">Rui — Coordenador</div>
+    <button class="nav-btn" data-view="rui" onclick="mudarVista('rui',this)">
+      <span class="ico">👑</span> As minhas leads
+      <span class="nav-badge" id="badge-rui">0</span>
     </button>
     <button class="nav-btn" data-view="catering" onclick="mudarVista('catering',this)">
       <span class="ico">🎪</span> Catering & Eventos
@@ -444,9 +445,19 @@ tbody td { padding: 10px 12px; vertical-align: middle; }
       </div>
       <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-oscar"></tbody></table></div>
     </div>
-    <div class="view" id="view-horeca-rui">
-      <div class="toolbar"><span class="toolbar-title">HORECA — Rui</span></div>
-      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-horeca-rui"></tbody></table></div>
+    <div class="view" id="view-rui">
+      <div class="toolbar">
+        <span class="toolbar-title">As minhas leads — Rui</span>
+        <input class="search-input" placeholder="🔍 Pesquisar..." oninput="renderVista('rui')" id="search-rui">
+        <select class="filter-select" onchange="renderVista('rui')" id="filt-canal-rui">
+          <option value="">Todos os canais</option>
+          <option value="rui_catering">Catering & Eventos</option>
+          <option value="rui_distribuidores">Distribuidores</option>
+          <option value="manual_rui">Adicionadas manualmente</option>
+        </select>
+        <button class="btn-primary" onclick="abrirNovaLead()" style="padding:7px 14px;font-size:12px">+ Nova lead</button>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Lead</th><th>Canal</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-rui"></tbody></table></div>
     </div>
     <div class="view" id="view-catering">
       <div class="toolbar"><span class="toolbar-title">Catering & Eventos — Rui</span></div>
@@ -571,6 +582,97 @@ tbody td { padding: 10px 12px; vertical-align: middle; }
         </div>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOVA LEAD -->
+<div class="overlay" id="overlay-nova" onclick="fecharNovaLead(event)">
+  <div class="modal" id="modal-nova">
+    <div class="modal-header">
+      <div>
+        <div class="modal-titulo">Adicionar nova lead</div>
+        <div class="modal-tipo">Preenche os dados e guarda</div>
+      </div>
+      <button class="modal-close" onclick="fecharNovaLead()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;flex-direction:column;gap:14px">
+
+        <div class="info-grid">
+          <div class="form-row">
+            <label class="form-lbl">Nome do espaço *</label>
+            <input class="form-input" id="nl-nome" placeholder="Ex: Restaurante O Faroleiro">
+          </div>
+          <div class="form-row">
+            <label class="form-lbl">Tipologia *</label>
+            <select class="form-sel" id="nl-tipo">
+              <option>Restaurante</option>
+              <option>Pastelaria</option>
+              <option>Hotel</option>
+              <option>Mercearia Gourmet</option>
+              <option>Café</option>
+              <option>Supermercado Independente</option>
+              <option>Catering & Eventos</option>
+              <option>Distribuidor Congelados</option>
+              <option>Cervejaria</option>
+              <option>Outro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="form-row">
+            <label class="form-lbl">Zona / Cidade *</label>
+            <input class="form-input" id="nl-zona" placeholder="Ex: Lisboa, Porto, Cascais...">
+          </div>
+          <div class="form-row">
+            <label class="form-lbl">Comercial responsável *</label>
+            <select class="form-sel" id="nl-comercial">
+              <option value="rui">Rui (coordenador)</option>
+              <option value="nuno">Nuno</option>
+              <option value="joao">João</option>
+              <option value="oscar">Óscar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-lbl">Morada</label>
+          <input class="form-input" id="nl-morada" placeholder="Rua, número, código postal">
+        </div>
+
+        <div class="info-grid">
+          <div class="form-row">
+            <label class="form-lbl">Telefone</label>
+            <input class="form-input" id="nl-tel" placeholder="2xx xxx xxx">
+          </div>
+          <div class="form-row">
+            <label class="form-lbl">Email</label>
+            <input class="form-input" id="nl-email" placeholder="geral@exemplo.pt" type="email">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-lbl">Prioridade</label>
+          <select class="form-sel" id="nl-prio">
+            <option>Alta</option>
+            <option>Média</option>
+            <option>Baixa</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label class="form-lbl">Gancho comercial / notas iniciais</label>
+          <textarea class="form-textarea" id="nl-gancho" placeholder="Porquê este espaço? Qual o argumento de venda?"></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary" onclick="guardarNovaLead()">✓ Guardar lead</button>
+          <button class="btn-secondary" onclick="fecharNovaLead()">Cancelar</button>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
@@ -710,11 +812,12 @@ function renderTabela(tbodyId, filtroFn, cols="normal") {
 
 function renderVista(vista) {
   const search = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
+  const canalRui = document.getElementById("filt-canal-rui")?.value||"";
   const filtros = {
     "nuno":          ([k,v]) => v.canal_id==="nuno",
     "joao":          ([k,v]) => v.canal_id==="joao",
     "oscar":         ([k,v]) => v.canal_id==="oscar",
-    "horeca-rui":    ([k,v]) => (v.canal||"").toLowerCase().includes("horeca") && v.comercial==="Rui",
+    "rui":           ([k,v]) => v.comercial==="Rui" && (!canalRui || v.canal_id===canalRui),
     "catering":      ([k,v]) => v.canal_id==="rui_catering",
     "distribuidores":([k,v]) => v.canal_id==="rui_distribuidores",
     "prontos":       ([k,v]) => (v.emails_enviados||[]).length >= 4 && v.estado !== "Cliente" && v.estado !== "Desistiu",
@@ -728,6 +831,7 @@ function renderVista(vista) {
   if (!tbody) return;
   if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Sem leads</div></div></td></tr>`; return; }
   tbody.innerHTML = rows.map(([k,v]) => {
+    if (vista==="rui") return `<tr onclick="abrirLead('${k}')"><td><div class="td-nome">${v.nome}</div><div class="td-sub">${v.tipo||""}</div></td><td><span class="badge b-aberto">${(v.canal_id||"").replace("rui_","").replace("manual_","manual ")}</span></td><td>${v.zona||""}</td><td>${v.tipo||""}</td><td>${emailDots(v.emails_enviados||[])}</td><td>${badgeEstado(v.estado)}</td><td>${badgePrio(v.prioridade)}</td></tr>`;
     if (vista==="clientes") return `<tr onclick="abrirLead('${k}')"><td><div class="td-nome">${v.nome}</div></td><td>${(v.canal_id||"").replace("rui_","")}</td><td>${v.comercial||""}</td><td>${v.zona||""}</td><td>${v.tipo||""}</td><td style="font-size:11px">${(v.notas||"").slice(0,60)}</td></tr>`;
     if (vista==="desistencias") return `<tr onclick="abrirLead('${k}')"><td><div class="td-nome">${v.nome}</div></td><td>${(v.canal_id||"").replace("rui_","")}</td><td>${v.comercial||""}</td><td>${v.zona||""}</td><td style="font-size:11px">${v.motivo_desistencia||"—"}</td></tr>`;
     return trLead(k,v,"normal");
@@ -792,7 +896,7 @@ function renderBadges() {
     "nuno":ls.filter(([k,v])=>v.canal_id==="nuno").length,
     "joao":ls.filter(([k,v])=>v.canal_id==="joao").length,
     "oscar":ls.filter(([k,v])=>v.canal_id==="oscar").length,
-    "horeca-rui":ls.filter(([k,v])=>(v.canal||"").includes("horeca")&&v.comercial==="Rui").length,
+    "rui":ls.filter(([k,v])=>v.comercial==="Rui").length,
     "catering":ls.filter(([k,v])=>v.canal_id==="rui_catering").length,
     "distribuidores":ls.filter(([k,v])=>v.canal_id==="rui_distribuidores").length,
     "prontos":ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4&&v.estado!=="Cliente"&&v.estado!=="Desistiu").length,
@@ -806,7 +910,69 @@ function renderTudo() {
   renderDashboard();
   renderBadges();
   filtrarTabela();
-  ["nuno","joao","oscar","horeca-rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
+  ["nuno","joao","oscar","rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
+}
+
+// ═══════════════════════════════════════════════════
+// NOVA LEAD MANUAL
+// ═══════════════════════════════════════════════════
+function abrirNovaLead() {
+  // Limpar campos
+  ["nl-nome","nl-zona","nl-morada","nl-tel","nl-email","nl-gancho"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value="";
+  });
+  document.getElementById("nl-tipo").value="Restaurante";
+  document.getElementById("nl-comercial").value="rui";
+  document.getElementById("nl-prio").value="Alta";
+  document.getElementById("overlay-nova").classList.add("aberto");
+}
+
+function fecharNovaLead(e) {
+  if (e && e.target !== document.getElementById("overlay-nova")) return;
+  document.getElementById("overlay-nova").classList.remove("aberto");
+}
+
+function guardarNovaLead() {
+  const nome = document.getElementById("nl-nome").value.trim();
+  const zona = document.getElementById("nl-zona").value.trim();
+  if (!nome) { toast("O nome do espaço é obrigatório","err"); return; }
+  if (!zona) { toast("A zona é obrigatória","err"); return; }
+
+  const tipo      = document.getElementById("nl-tipo").value;
+  const comercialId = document.getElementById("nl-comercial").value;
+  const morada    = document.getElementById("nl-morada").value.trim();
+  const tel       = document.getElementById("nl-tel").value.trim() || "—";
+  const email     = document.getElementById("nl-email").value.trim() || "—";
+  const prio      = document.getElementById("nl-prio").value;
+  const gancho    = document.getElementById("nl-gancho").value.trim();
+
+  const nomes = {rui:"Rui",nuno:"Nuno",joao:"João",oscar:"Óscar"};
+  const canal_id = comercialId === "rui" ? "manual_rui" : comercialId;
+
+  const k = `${canal_id}::${nome}::${zona}::${Date.now()}`;
+
+  HIST.leads[k] = {
+    nome, tipo, zona, morada,
+    email_lead: email, tel,
+    comercial: nomes[comercialId] || comercialId,
+    canal_id,
+    canal: comercialId === "rui" ? "manual" : "horeca",
+    prioridade: prio,
+    tipologia_cliente: tipo,
+    gancho,
+    semana_entrada: null,
+    data_entrada: new Date().toISOString().slice(0,10),
+    estado: "Em aberto",
+    emails_enviados: [],
+    visitas: [],
+    notas: ""
+  };
+
+  fecharNovaLead();
+  guardarHistorico();
+  renderTudo();
+  toast(`Lead "${nome}" adicionada ✓`, "ok");
 }
 
 // ═══════════════════════════════════════════════════
