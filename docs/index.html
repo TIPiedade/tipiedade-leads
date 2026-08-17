@@ -523,6 +523,10 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
     <button class="nav-btn" data-view="documentos" onclick="mudarVista('documentos',this)">
       <span class="ico">📁</span> Documentos
     </button>
+    <button class="nav-btn" data-view="templates" onclick="mudarVista('templates',this)">
+      <span class="ico">✉️</span> Templates Email
+      <span class="nav-badge" id="badge-templates" style="background:var(--verde)">0/32</span>
+    </button>
   </nav>
 
   <!-- CONTEÚDO -->
@@ -706,6 +710,748 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
       <div id="gdocs-lista" style="display:flex;flex-direction:column;gap:10px">
         <div class="loading">A carregar documentos...</div>
       </div>
+    </div>
+
+    <!-- VISTA TEMPLATES -->
+    <div class="view" id="view-templates">
+      <div class="toolbar">
+        <span class="toolbar-title">✉️ Templates de Email</span>
+        <button onclick="aprovarTodosGlobal()" style="padding:9px 16px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos (32)</button>
+      </div>
+      <div style="background:var(--br);border:1px solid var(--borda);border-radius:12px;padding:16px;margin-bottom:16px">
+        <p style="font-size:13px;color:var(--txt2);margin-bottom:12px">Selecciona uma tipologia para ver e aprovar os 4 emails de nurturing. Uma vez aprovados, o sistema envia automaticamente às leads.</p>
+        <div id="badge-aprov-global" style="font-size:13px;font-weight:700;color:var(--cast);margin-bottom:14px"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="etab" id="ttab-restaurante" onclick="verTipoTemplates('restaurante',this)" style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--borda);background:var(--br);cursor:pointer;font-size:13px;font-weight:600;color:var(--txt2);transition:all .15s">
+        <span>🍽</span> Restaurante
+        <span id="taprov-restaurante" style="margin-left:4px;font-size:10px;color:var(--verde);font-weight:700"></span>
+      </button>
+      <button class="etab" id="ttab-hotel" onclick="verTipoTemplates('hotel',this)" style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--borda);background:var(--br);cursor:pointer;font-size:13px;font-weight:600;color:var(--txt2);transition:all .15s">
+        <span>🏨</span> Hotel & Resort
+        <span id="taprov-hotel" style="margin-left:4px;font-size:10px;color:var(--verde);font-weight:700"></span>
+      </button>
+      <button class="etab" id="ttab-pastelaria" onclick="verTipoTemplates('pastelaria',this)" style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--borda);background:var(--br);cursor:pointer;font-size:13px;font-weight:600;color:var(--txt2);transition:all .15s">
+        <span>🥐</span> Pastelaria
+        <span id="taprov-pastelaria" style="margin-left:4px;font-size:10px;color:var(--verde);font-weight:700"></span>
+      </button>
+      <button class="etab" id="ttab-catering" onclick="verTipoTemplates('catering',this)" style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--borda);background:var(--br);cursor:pointer;font-size:13px;font-weight:600;color:var(--txt2);transition:all .15s">
+        <span>🎪</span> Catering & Eventos
+        <span id="taprov-catering" style="margin-left:4px;font-size:10px;color:var(--verde);font-weight:700"></span>
+      </button>
+      <button class="etab" id="ttab-distribuidor" onclick="verTipoTemplates('distribuidor',this)" style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--borda);background:var(--br);cursor:pointer;font-size:13px;font-weight:600;color:var(--txt2);transition:all .15s">
+        <span>🚛</span> Distribuidor
+        <span id="taprov-distribuidor" style="margin-left:4px;font-size:10px;color:var(--verde);font-weight:700"></span>
+      </button>
+      <button class="etab" id="ttab-gourmet" onclick="verTipoTemplates('gourmet',this)" style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--borda);background:var(--br);cursor:pointer;font-size:13px;font-weight:600;color:var(--txt2);transition:all .15s">
+        <span>🫙</span> Mercearia Gourmet
+        <span id="taprov-gourmet" style="margin-left:4px;font-size:10px;color:var(--verde);font-weight:700"></span>
+      </button>
+      <button class="etab" id="ttab-cafe" onclick="verTipoTemplates('cafe',this)" style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--borda);background:var(--br);cursor:pointer;font-size:13px;font-weight:600;color:var(--txt2);transition:all .15s">
+        <span>☕</span> Café
+        <span id="taprov-cafe" style="margin-left:4px;font-size:10px;color:var(--verde);font-weight:700"></span>
+      </button>
+      <button class="etab" id="ttab-cervejaria" onclick="verTipoTemplates('cervejaria',this)" style="display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--borda);background:var(--br);cursor:pointer;font-size:13px;font-weight:600;color:var(--txt2);transition:all .15s">
+        <span>🍺</span> Cervejaria
+        <span id="taprov-cervejaria" style="margin-left:4px;font-size:10px;color:var(--verde);font-weight:700"></span>
+      </button></div>
+      </div>
+      <div id="templates-preview-area">
+    <div id="tprev-restaurante" style="display:none">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0"><button class="etab ativo" onclick="verEmailTemplate('restaurante',1,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--br);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 1 — Apresentação</button><button class="etab " onclick="verEmailTemplate('restaurante',2,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 2 — Caso de sucesso</button><button class="etab " onclick="verEmailTemplate('restaurante',3,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 3 — Tendência</button><button class="etab " onclick="verEmailTemplate('restaurante',4,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 4 — Convite</button></div>
+      
+          <div id="epanel-restaurante-1" style="display:block;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Uma sobremesa portuguesa que se vende sozinha — e sem pasteleiro | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-restaurante-1" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('restaurante',1)" id="btn-aprov-restaurante-1"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-restaurante-1" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-restaurante-2" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Como um restaurante da vossa zona eliminou as quebras em sobremesas | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-restaurante-2" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('restaurante',2)" id="btn-aprov-restaurante-2"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-restaurante-2" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-restaurante-3" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">A tendência que está a mudar as cartas de sobremesa em Portugal | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-restaurante-3" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('restaurante',3)" id="btn-aprov-restaurante-3"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-restaurante-3" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-restaurante-4" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Queremos passar com uma amostra — leva 10 minutos | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-restaurante-4" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('restaurante',4)" id="btn-aprov-restaurante-4"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-restaurante-4" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button onclick="aprovarTodos('restaurante')" style="padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos os 4 emails — Restaurante</button>
+      </div>
+    </div>
+    <div id="tprev-hotel" style="display:none">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0"><button class="etab ativo" onclick="verEmailTemplate('hotel',1,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--br);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 1 — Apresentação</button><button class="etab " onclick="verEmailTemplate('hotel',2,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 2 — Caso de sucesso</button><button class="etab " onclick="verEmailTemplate('hotel',3,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 3 — Tendência</button><button class="etab " onclick="verEmailTemplate('hotel',4,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 4 — Convite</button></div>
+      
+          <div id="epanel-hotel-1" style="display:block;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Sobremesa artesanal portuguesa para o vosso F&B — sem complexidade | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-hotel-1" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('hotel',1)" id="btn-aprov-hotel-1"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-hotel-1" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-hotel-2" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Como um hotel da região passou a oferecer sobremesas de qualidade sem pasteleiro | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-hotel-2" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('hotel',2)" id="btn-aprov-hotel-2"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-hotel-2" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-hotel-3" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">O que os hóspedes estão a pedir mais nos hotéis portugueses | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-hotel-3" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('hotel',3)" id="btn-aprov-hotel-3"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-hotel-3" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-hotel-4" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Podemos passar com amostras para a equipa de F&B experimentar | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-hotel-4" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('hotel',4)" id="btn-aprov-hotel-4"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-hotel-4" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button onclick="aprovarTodos('hotel')" style="padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos os 4 emails — Hotel & Resort</button>
+      </div>
+    </div>
+    <div id="tprev-pastelaria" style="display:none">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0"><button class="etab ativo" onclick="verEmailTemplate('pastelaria',1,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--br);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 1 — Apresentação</button><button class="etab " onclick="verEmailTemplate('pastelaria',2,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 2 — Caso de sucesso</button><button class="etab " onclick="verEmailTemplate('pastelaria',3,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 3 — Tendência</button><button class="etab " onclick="verEmailTemplate('pastelaria',4,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 4 — Convite</button></div>
+      
+          <div id="epanel-pastelaria-1" style="display:block;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Pão de Ló Ti'Piedade — um artesanal com 40 anos para complementar a vossa vitrina | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-pastelaria-1" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('pastelaria',1)" id="btn-aprov-pastelaria-1"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-pastelaria-1" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-pastelaria-2" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Como outras pastelarias estão a diferenciar-se com o pão de ló Ti'Piedade | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-pastelaria-2" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('pastelaria',2)" id="btn-aprov-pastelaria-2"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-pastelaria-2" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-pastelaria-3" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Produto artesanal, dose individual, margem elevada — faz sentido para vocês? | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-pastelaria-3" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('pastelaria',3)" id="btn-aprov-pastelaria-3"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-pastelaria-3" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-pastelaria-4" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Queremos deixar amostras — sem compromisso, só para provar | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-pastelaria-4" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('pastelaria',4)" id="btn-aprov-pastelaria-4"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-pastelaria-4" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button onclick="aprovarTodos('pastelaria')" style="padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos os 4 emails — Pastelaria</button>
+      </div>
+    </div>
+    <div id="tprev-catering" style="display:none">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0"><button class="etab ativo" onclick="verEmailTemplate('catering',1,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--br);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 1 — Apresentação</button><button class="etab " onclick="verEmailTemplate('catering',2,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 2 — Caso de sucesso</button><button class="etab " onclick="verEmailTemplate('catering',3,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 3 — Tendência</button><button class="etab " onclick="verEmailTemplate('catering',4,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 4 — Convite</button></div>
+      
+          <div id="epanel-catering-1" style="display:block;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Sobremesa individual artesanal para os vossos eventos — sem logística complexa | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-catering-1" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('catering',1)" id="btn-aprov-catering-1"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-catering-1" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-catering-2" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Como empresas de catering estão a usar o pão de ló Ti'Piedade em eventos premium | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-catering-2" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('catering',2)" id="btn-aprov-catering-2"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-catering-2" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-catering-3" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">A sobremesa que mais impressiona em casamentos e eventos corporativos | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-catering-3" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('catering',3)" id="btn-aprov-catering-3"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-catering-3" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-catering-4" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Podemos reunir para apresentar o produto e condições para catering | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-catering-4" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('catering',4)" id="btn-aprov-catering-4"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-catering-4" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button onclick="aprovarTodos('catering')" style="padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos os 4 emails — Catering & Eventos</button>
+      </div>
+    </div>
+    <div id="tprev-distribuidor" style="display:none">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0"><button class="etab ativo" onclick="verEmailTemplate('distribuidor',1,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--br);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 1 — Apresentação</button><button class="etab " onclick="verEmailTemplate('distribuidor',2,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 2 — Caso de sucesso</button><button class="etab " onclick="verEmailTemplate('distribuidor',3,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 3 — Tendência</button><button class="etab " onclick="verEmailTemplate('distribuidor',4,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 4 — Convite</button></div>
+      
+          <div id="epanel-distribuidor-1" style="display:block;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Pão de Ló Ti'Piedade em congelado — referência premium para a vossa carteira | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-distribuidor-1" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('distribuidor',1)" id="btn-aprov-distribuidor-1"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-distribuidor-1" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-distribuidor-2" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Uma marca com 40 anos e procura crescente no canal HORECA | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-distribuidor-2" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('distribuidor',2)" id="btn-aprov-distribuidor-2"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-distribuidor-2" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-distribuidor-3" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Zonas sem cobertura, margem interessante — vale a pena conversar | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-distribuidor-3" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('distribuidor',3)" id="btn-aprov-distribuidor-3"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-distribuidor-3" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-distribuidor-4" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Podemos apresentar as condições comerciais para distribuição regional | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-distribuidor-4" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('distribuidor',4)" id="btn-aprov-distribuidor-4"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-distribuidor-4" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button onclick="aprovarTodos('distribuidor')" style="padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos os 4 emails — Distribuidor</button>
+      </div>
+    </div>
+    <div id="tprev-gourmet" style="display:none">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0"><button class="etab ativo" onclick="verEmailTemplate('gourmet',1,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--br);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 1 — Apresentação</button><button class="etab " onclick="verEmailTemplate('gourmet',2,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 2 — Caso de sucesso</button><button class="etab " onclick="verEmailTemplate('gourmet',3,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 3 — Tendência</button><button class="etab " onclick="verEmailTemplate('gourmet',4,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 4 — Convite</button></div>
+      
+          <div id="epanel-gourmet-1" style="display:block;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Pão de Ló Ti'Piedade — 40 anos de receita artesanal para a vossa prateleira | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-gourmet-1" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('gourmet',1)" id="btn-aprov-gourmet-1"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-gourmet-1" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-gourmet-2" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Como mercearias gourmet estão a destacar-se com o pão de ló Ti'Piedade | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-gourmet-2" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('gourmet',2)" id="btn-aprov-gourmet-2"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-gourmet-2" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-gourmet-3" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Produto com narrativa, origem e história — exatamente o que os vossos clientes procuram | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-gourmet-3" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('gourmet',3)" id="btn-aprov-gourmet-3"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-gourmet-3" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-gourmet-4" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Queremos passar para mostrar o produto e proposta comercial | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-gourmet-4" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('gourmet',4)" id="btn-aprov-gourmet-4"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-gourmet-4" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button onclick="aprovarTodos('gourmet')" style="padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos os 4 emails — Mercearia Gourmet</button>
+      </div>
+    </div>
+    <div id="tprev-cafe" style="display:none">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0"><button class="etab ativo" onclick="verEmailTemplate('cafe',1,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--br);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 1 — Apresentação</button><button class="etab " onclick="verEmailTemplate('cafe',2,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 2 — Caso de sucesso</button><button class="etab " onclick="verEmailTemplate('cafe',3,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 3 — Tendência</button><button class="etab " onclick="verEmailTemplate('cafe',4,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 4 — Convite</button></div>
+      
+          <div id="epanel-cafe-1" style="display:block;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">O pairing perfeito para o vosso café — pão de ló artesanal em dose individual | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-cafe-1" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('cafe',1)" id="btn-aprov-cafe-1"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-cafe-1" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-cafe-2" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Como cafés de especialidade estão a aumentar o ticket médio com o Ti'Piedade | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-cafe-2" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('cafe',2)" id="btn-aprov-cafe-2"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-cafe-2" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-cafe-3" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Produto artesanal português com história — ideal para o público que frequenta o vosso espaço | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-cafe-3" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('cafe',3)" id="btn-aprov-cafe-3"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-cafe-3" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-cafe-4" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Queremos passar com amostras para a vossa equipa provar | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-cafe-4" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('cafe',4)" id="btn-aprov-cafe-4"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-cafe-4" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button onclick="aprovarTodos('cafe')" style="padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos os 4 emails — Café</button>
+      </div>
+    </div>
+    <div id="tprev-cervejaria" style="display:none">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0"><button class="etab ativo" onclick="verEmailTemplate('cervejaria',1,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--br);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 1 — Apresentação</button><button class="etab " onclick="verEmailTemplate('cervejaria',2,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 2 — Caso de sucesso</button><button class="etab " onclick="verEmailTemplate('cervejaria',3,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 3 — Tendência</button><button class="etab " onclick="verEmailTemplate('cervejaria',4,this)" style="padding:7px 14px;border-radius:8px 8px 0 0;border:1px solid var(--borda);border-bottom:none;background:var(--creme);cursor:pointer;font-size:12px;font-weight:600;color:var(--cast)">Email 4 — Convite</button></div>
+      
+          <div id="epanel-cervejaria-1" style="display:block;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">A sobremesa portuguesa que fecha qualquer refeição — Pão de Ló Ti'Piedade | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-cervejaria-1" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('cervejaria',1)" id="btn-aprov-cervejaria-1"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-cervejaria-1" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-cervejaria-2" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Grandes volumes, zero desperdício — como o Ti'Piedade resolve a sobremesa em cervejarias | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-cervejaria-2" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('cervejaria',2)" id="btn-aprov-cervejaria-2"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-cervejaria-2" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-cervejaria-3" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Dose individual congelada: qualidade constante, custo previsível, margem alta | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-cervejaria-3" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('cervejaria',3)" id="btn-aprov-cervejaria-3"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-cervejaria-3" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+          <div id="epanel-cervejaria-4" style="display:none;background:var(--br);border:1px solid var(--borda);border-radius:0 10px 10px 10px;overflow:hidden">
+            <!-- Header info -->
+            <div style="padding:12px 16px;background:var(--lar-bg);border-bottom:1px solid var(--borda);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div>
+                <div style="font-size:11px;color:var(--txt2);margin-bottom:2px">Assunto</div>
+                <div style="font-size:13px;font-weight:600;color:var(--cast)">Queremos passar para deixar amostras e apresentar condições | Ti'Piedade</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div id="estado-cervejaria-4" style="font-size:12px;font-weight:700;color:var(--txt2)">Pendente</div>
+                <button onclick="aprovarTemplate('cervejaria',4)" id="btn-aprov-cervejaria-4"
+                  style="padding:8px 18px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">
+                  ✓ Aprovar
+                </button>
+              </div>
+            </div>
+            <!-- Preview do email -->
+            <div style="padding:0">
+              <iframe id="iframe-cervejaria-4" style="width:100%;height:520px;border:none" srcdoc=""></iframe>
+            </div>
+          </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button onclick="aprovarTodos('cervejaria')" style="padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">✓ Aprovar todos os 4 emails — Cervejaria</button>
+      </div>
+    </div></div>
     </div>
 
 <!-- MODAL LEAD -->
@@ -1280,6 +2026,7 @@ function renderTudo() {
   filtrarTabela();
   ["nuno","joao","oscar","rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
   renderDocumentosGlobal();
+  actualizarEstadoTemplates();
 }
 
 // ═══════════════════════════════════════════════════
@@ -1709,6 +2456,7 @@ async function uploadDocumentoGlobal() {
     HIST.documentos_globais.push({nome, cat, url:rawUrl, data:new Date().toISOString().slice(0,10), tamanho});
     await guardarHistorico();
     renderDocumentosGlobal();
+  actualizarEstadoTemplates();
     document.getElementById("gdoc-file").value="";
     document.getElementById("gdoc-nome").value="";
     document.getElementById("upload-panel").style.display="none";
@@ -1728,7 +2476,284 @@ async function removerDocumentoGlobal(idx) {
   HIST.documentos_globais = docs;
   await guardarHistorico();
   renderDocumentosGlobal();
+  actualizarEstadoTemplates();
   toast("Removido","ok");
+}
+
+// ═══════════════════════════════════════════════════
+// TEMPLATES DE EMAIL
+// ═══════════════════════════════════════════════════
+
+const ASSUNTOS_T = {
+  restaurante:{1:"Uma sobremesa portuguesa que se vende sozinha — e sem pasteleiro",2:"Como um restaurante da vossa zona eliminou as quebras em sobremesas",3:"A tendência que está a mudar as cartas de sobremesa em Portugal",4:"Queremos passar com uma amostra — leva 10 minutos"},
+  hotel:{1:"Sobremesa artesanal portuguesa para o vosso F&B — sem complexidade",2:"Como um hotel da região passou a oferecer sobremesas de qualidade sem pasteleiro",3:"O que os hóspedes estão a pedir mais nos hotéis portugueses",4:"Podemos passar com amostras para a equipa de F&B experimentar"},
+  pastelaria:{1:"Pão de Ló Ti'Piedade — um artesanal com 40 anos para complementar a vossa vitrina",2:"Como outras pastelarias estão a diferenciar-se com o pão de ló Ti'Piedade",3:"Produto artesanal, dose individual, margem elevada — faz sentido para vocês?",4:"Queremos deixar amostras — sem compromisso, só para provar"},
+  catering:{1:"Sobremesa individual artesanal para os vossos eventos — sem logística complexa",2:"Como empresas de catering estão a usar o pão de ló Ti'Piedade em eventos premium",3:"A sobremesa que mais impressiona em casamentos e eventos corporativos",4:"Podemos reunir para apresentar o produto e condições para catering"},
+  distribuidor:{1:"Pão de Ló Ti'Piedade em congelado — referência premium para a vossa carteira",2:"Uma marca com 40 anos e procura crescente no canal HORECA",3:"Zonas sem cobertura, margem interessante — vale a pena conversar",4:"Podemos apresentar as condições comerciais para distribuição regional"},
+  gourmet:{1:"Pão de Ló Ti'Piedade — 40 anos de receita artesanal para a vossa prateleira",2:"Como mercearias gourmet estão a destacar-se com o pão de ló Ti'Piedade",3:"Produto com narrativa, origem e história — exatamente o que os vossos clientes procuram",4:"Queremos passar para mostrar o produto e proposta comercial"},
+  cafe:{1:"O pairing perfeito para o vosso café — pão de ló artesanal em dose individual",2:"Como cafés de especialidade estão a aumentar o ticket médio com o Ti'Piedade",3:"Produto artesanal português com história — ideal para o público que frequenta o vosso espaço",4:"Queremos passar com amostras para a vossa equipa provar"},
+  cervejaria:{1:"A sobremesa portuguesa que fecha qualquer refeição — Pão de Ló Ti'Piedade",2:"Grandes volumes, zero desperdício — como o Ti'Piedade resolve a sobremesa em cervejarias",3:"Dose individual congelada: qualidade constante, custo previsível, margem alta",4:"Queremos passar para deixar amostras e apresentar condições"},
+};
+
+const CORPOS_T = {
+  restaurante:{
+    1:`Exmo(a). Sr(a),
+
+O meu nome é [Nome Comercial] e represento o Pão de Ló Ti'Piedade — empresa portuguesa em terceira geração familiar, com mais de 40 anos de história na doçaria artesanal.
+
+Estamos a trabalhar com restaurantes na vossa zona e gostaríamos de apresentar o nosso produto: o Pão de Ló Ti'Piedade em unidose de 85g, em congelado.
+
+Para um restaurante como o vosso, isto significa:
+
+✦ Uma sobremesa diferenciada, genuinamente artesanal e portuguesa
+✦ Sem desperdício — serve apenas o que precisa, quando precisa
+✦ Sem necessidade de pasteleiro — descongela rapidamente e vai direto ao prato
+✦ Margem confortável, com PVP sugerido atrativo
+
+Temos quatro sabores: Original, Chocolate, Canela e Café.
+
+Com os melhores cumprimentos,
+[Nome Comercial]
+Equipa Comercial Ti'Piedade
+sales@tipiedade.com`,
+    2:`Exmo(a). Sr(a),
+
+Na semana passada apresentámos o Pão de Ló Ti'Piedade. Hoje queremos partilhar um caso concreto.
+
+Um restaurante de peixe da vossa zona introduziu o Ti'Piedade há cerca de dois meses:
+
+→ A sobremesa passou a ser a mais pedida, acima do pudim e da mousse
+→ Desperdício zero — serve apenas o que precisa, quando precisa
+→ O responsável: "É a coisa mais fácil que temos na cozinha."
+
+Se quiser saber mais, estamos disponíveis para uma conversa rápida.
+
+Com os melhores cumprimentos,
+[Nome Comercial]
+Equipa Comercial Ti'Piedade`,
+    3:`Exmo(a). Sr(a),
+
+Uma tendência que estamos a observar no setor: os clientes pedem cada vez mais sobremesas com história e origem.
+
+O pão de ló é a sobremesa portuguesa mais reconhecida — e a receita Ti'Piedade foi levada pelos portugueses ao Japão no século XVI, onde existe até hoje.
+
+Para o vosso restaurante, isso significa uma sobremesa diferenciada na carta, sem investimento em pastelaria, com custo fixo por dose e margem previsível.
+
+Na semana que vem a nossa equipa passa pela vossa zona.
+
+Com os melhores cumprimentos,
+[Nome Comercial]
+Equipa Comercial Ti'Piedade`,
+    4:`Exmo(a). Sr(a),
+
+Ao longo das últimas semanas partilhámos a história do Ti'Piedade e alguns exemplos de como está a funcionar noutros restaurantes.
+
+Esta semana [Nome Comercial] vai passar pela vossa zona e gostaria de parar 10 minutos para deixar amostras dos quatro sabores — Original, Chocolate, Canela e Café.
+
+Sem reunião, sem apresentação. Só o produto, para provarem.
+
+Com os melhores cumprimentos,
+[Nome Comercial]
+Equipa Comercial Ti'Piedade
+sales@tipiedade.com`,
+  },
+  hotel:{
+    1:`Exmo(a). Sr(a),
+
+O meu nome é [Nome Comercial] e represento o Pão de Ló Ti'Piedade — empresa portuguesa com mais de 40 anos de história na doçaria artesanal.
+
+Contacto-o(a) porque trabalhamos com vários hotéis na região e identificámos um desafio comum: manter uma carta de sobremesas de qualidade constante sem depender de pasteleiro especializado.
+
+O Pão de Ló Ti'Piedade em unidose de 85g (congelado) resolve exatamente isso:
+
+✦ Qualidade artesanal consistente, independentemente do volume
+✦ Zero preparação — descongela e serve
+✦ Quatro sabores: Original, Chocolate, Canela e Café
+
+Com os melhores cumprimentos,
+[Nome Comercial]
+Equipa Comercial Ti'Piedade`,
+    2:`Exmo(a). Sr(a),
+
+Um hotel de 4* na região introduziu o Ti'Piedade há três meses:
+
+→ A sobremesa passou a fazer parte do menu de room service com grande aceitação
+→ A consistência de qualidade eliminou reclamações sobre sobremesas
+→ O custo por dose é previsível e a margem é superior à pastelaria fresca
+
+Podemos enviar amostras para avaliação?
+
+Com os melhores cumprimentos,
+[Nome Comercial]
+Equipa Comercial Ti'Piedade`,
+    3:`Exmo(a). Sr(a),
+
+Os hóspedes internacionais estão cada vez mais atentos à autenticidade dos produtos que consomem.
+
+O Pão de Ló Ti'Piedade tem uma história que funciona: receita levada pelos portugueses ao Japão no século XVI, mantida intacta há 40 anos, produzida em Portugal por uma família em terceira geração.
+
+Para a equipa de F&B, isso significa uma sobremesa com valor percebido elevado, sem complexidade operacional.
+
+Com os melhores cumprimentos,
+[Nome Comercial]
+Equipa Comercial Ti'Piedade`,
+    4:`Exmo(a). Sr(a),
+
+Esta semana gostaríamos de passar pelo vosso hotel para deixar amostras dos quatro sabores com a equipa de F&B. Demora menos de 15 minutos e não requer compromisso.
+
+Para agendar, responda a este email.
+
+Com os melhores cumprimentos,
+[Nome Comercial]
+Equipa Comercial Ti'Piedade
+sales@tipiedade.com`,
+  },
+};
+
+// Para grupos sem corpo específico, usar restaurante como fallback
+['pastelaria','catering','distribuidor','gourmet','cafe','cervejaria'].forEach(g => {
+  if (!CORPOS_T[g]) CORPOS_T[g] = CORPOS_T.restaurante;
+});
+
+function gerarHTMLEmail(grupo, num) {
+  const assunto = (ASSUNTOS_T[grupo]||ASSUNTOS_T.restaurante)[num]||"";
+  const corpo   = (CORPOS_T[grupo]||CORPOS_T.restaurante)[num]||"";
+  const corNum  = {1:"#5C2D0E",2:"#D4682A",3:"#C49A3C",4:"#5C2D0E"}[num];
+  const etiq    = {1:"Apresentação",2:"Caso de sucesso",3:"Tendência",4:"Convite"}[num];
+
+  const paragrafos = corpo.split("\n").map(l => {
+    const lt = l.trim();
+    if (!lt) return "<br>";
+    if (lt.startsWith("✦")) return `<p style="margin:4px 0;padding-left:16px;color:#5C2D0E"><span style="color:#C49A3C;font-weight:700">✦</span> ${lt.slice(1).trim()}</p>`;
+    if (lt.startsWith("→")) return `<p style="margin:4px 0;padding-left:16px"><span style="color:#D4682A;font-weight:700">→</span> ${lt.slice(1).trim()}</p>`;
+    if (lt.startsWith("Com os melhores") || lt.startsWith("sales@") || lt.startsWith("[Nome") || lt.startsWith("Equipa")) return `<p style="margin:2px 0;color:#6B5744;font-size:13px">${lt}</p>`;
+    return `<p style="margin:8px 0;color:#2C1A0A;line-height:1.6">${lt}</p>`;
+  }).join("");
+
+  return `<!DOCTYPE html><html lang="pt"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:16px;background:#F8F0E3;font-family:Georgia,serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto">
+  <tr><td style="background:#5C2D0E;border-radius:14px 14px 0 0;padding:20px 32px 14px">
+    <p style="margin:0;font-size:22px;font-weight:700;color:#fff">Pão de Ló <span style="color:#C49A3C">Ti'Piedade</span></p>
+    <p style="margin:4px 0 0;font-size:10px;color:#F2A46A;letter-spacing:.1em;text-transform:uppercase">Doçaria Artesanal Portuguesa · Desde 1984</p>
+    <div style="height:2px;background:linear-gradient(90deg,#C49A3C,#D4682A,#C49A3C);margin-top:10px;border-radius:2px"></div>
+  </td></tr>
+  <tr><td style="background:#fff;padding:28px 32px">
+    <div style="display:inline-block;background:${corNum};color:#fff;font-size:10px;font-weight:700;padding:3px 12px;border-radius:99px;margin-bottom:14px">Email ${num} de 4 · ${etiq}</div>
+    ${paragrafos}
+  </td></tr>
+  <tr><td style="background:#FDF6EF;padding:14px 32px;border:1px solid #E8D5B8;border-top:none">
+    <p style="margin:0;font-size:11px;font-weight:700;color:#C49A3C">O produto</p>
+    <p style="margin:4px 0 0;font-size:13px;font-weight:700;color:#5C2D0E">Pão de Ló Ti'Piedade — Unidose 85g (congelado)</p>
+    <p style="margin:3px 0 0;font-size:11px;color:#6B5744">Original · Chocolate · Canela · Café &nbsp;|&nbsp; Receita artesanal desde 1984 · Sem conservantes</p>
+  </td></tr>
+  <tr><td style="background:#5C2D0E;border-radius:0 0 14px 14px;padding:14px 32px;display:flex;justify-content:space-between;align-items:center">
+    <p style="margin:0;font-size:11px;color:rgba(255,255,255,.6)">[Nome Comercial] · sales@tipiedade.com · www.tipiedade.com</p>
+  </td></tr>
+</table>
+</body></html>`;
+}
+
+function verTipoTemplates(grupo, btn) {
+  // Desactivar todos os botões
+  document.querySelectorAll('[id^="ttab-"]').forEach(b => {
+    b.style.background = "var(--br)";
+    b.style.color = "var(--txt2)";
+    b.style.borderColor = "var(--borda)";
+  });
+  btn.style.background = "var(--cast)";
+  btn.style.color = "#fff";
+  btn.style.borderColor = "var(--cast)";
+
+  // Esconder todos os previews
+  document.querySelectorAll('[id^="tprev-"]').forEach(d => d.style.display = "none");
+  const area = document.getElementById(`tprev-${grupo}`);
+  if (area) {
+    area.style.display = "block";
+    // Carregar iframe do email 1 se ainda não carregado
+    carregarIframe(grupo, 1);
+  }
+}
+
+function verEmailTemplate(grupo, num, btn) {
+  // Tabs
+  const parent = btn.parentElement;
+  parent.querySelectorAll(".etab").forEach(b => {
+    b.style.background = "var(--creme)"; b.classList.remove("ativo");
+  });
+  btn.style.background = "var(--br)"; btn.classList.add("ativo");
+  // Panels
+  [1,2,3,4].forEach(n => {
+    const p = document.getElementById(`epanel-${grupo}-${n}`);
+    if (p) p.style.display = n===num?"block":"none";
+  });
+  carregarIframe(grupo, num);
+}
+
+function carregarIframe(grupo, num) {
+  const iframe = document.getElementById(`iframe-${grupo}-${num}`);
+  if (iframe && !iframe.dataset.loaded) {
+    iframe.srcdoc = gerarHTMLEmail(grupo, num);
+    iframe.dataset.loaded = "1";
+  }
+}
+
+function aprovarTemplate(grupo, num) {
+  if (!HIST.templates_aprovados) HIST.templates_aprovados = {};
+  if (!HIST.templates_aprovados[grupo]) HIST.templates_aprovados[grupo] = {};
+  HIST.templates_aprovados[grupo][num] = {
+    aprovado: true,
+    data: new Date().toISOString().slice(0,10)
+  };
+  actualizarEstadoTemplates();
+  guardarHistorico();
+  toast(`Email ${num} — aprovado ✓`, "ok");
+}
+
+function aprovarTodos(grupo) {
+  [1,2,3,4].forEach(n => aprovarTemplate(grupo, n));
+  toast(`Todos os emails de ${grupo} aprovados ✓`, "ok");
+}
+
+function aprovarTodosGlobal() {
+  const grupos = ["restaurante","hotel","pastelaria","catering","distribuidor","gourmet","cafe","cervejaria"];
+  grupos.forEach(g => [1,2,3,4].forEach(n => {
+    if (!HIST.templates_aprovados) HIST.templates_aprovados = {};
+    if (!HIST.templates_aprovados[g]) HIST.templates_aprovados[g] = {};
+    HIST.templates_aprovados[g][n] = {aprovado:true, data:new Date().toISOString().slice(0,10)};
+  }));
+  actualizarEstadoTemplates();
+  guardarHistorico();
+  toast("Todos os 32 templates aprovados ✓", "ok");
+}
+
+function actualizarEstadoTemplates() {
+  const aprov = HIST.templates_aprovados||{};
+  let total = 0;
+  const grupos = ["restaurante","hotel","pastelaria","catering","distribuidor","gourmet","cafe","cervejaria"];
+  grupos.forEach(g => {
+    let count = 0;
+    [1,2,3,4].forEach(n => {
+      const ok = aprov[g]?.[n]?.aprovado;
+      const estadoEl = document.getElementById(`estado-${g}-${n}`);
+      const btnEl    = document.getElementById(`btn-aprov-${g}-${n}`);
+      if (estadoEl) {
+        estadoEl.textContent = ok ? `✓ Aprovado ${aprov[g][n].data}` : "Pendente";
+        estadoEl.style.color = ok ? "var(--verde)" : "var(--txt2)";
+      }
+      if (btnEl) {
+        btnEl.textContent    = ok ? "✓ Aprovado" : "✓ Aprovar";
+        btnEl.style.background = ok ? "var(--verde)" : "var(--cast)";
+      }
+      if (ok) { count++; total++; }
+    });
+    const taprov = document.getElementById(`taprov-${g}`);
+    if (taprov) taprov.textContent = count===4 ? "✓" : count>0 ? `${count}/4` : "";
+  });
+  const badge = document.getElementById("badge-templates");
+  if (badge) { badge.textContent = `${total}/32`; badge.style.background = total===32?"var(--verde)":"var(--laranja)"; }
+  const global = document.getElementById("badge-aprov-global");
+  if (global) global.textContent = total===32 ? "✓ Todos os 32 templates aprovados — envios activos" : `${total} de 32 templates aprovados`;
 }
 
 // ═══════════════════════════════════════════════════
