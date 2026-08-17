@@ -797,11 +797,11 @@ ASSUNTOS = {
 def corpo_email(num, grupo, nome_lead, zona, nome_comercial, tel_comercial=""):
     """Gera o corpo do email de nurturing personalizado por tipologia e número."""
 
-    assinatura = f"""Com os melhores cumprimentos,
-{nome_comercial}
-Equipa Comercial Ti'Piedade
-{tel_comercial}
-comercial@tipiedade.com | www.tipiedade.com"""
+    assinatura = """Com os melhores cumprimentos,
+
+Rui Bernardes
+Departamento Comercial | Pão de Ló Ti'Piedade
+sales@tipiedade.com | www.tipiedade.com"""
 
     corpos = {
         "restaurante": {
@@ -1309,7 +1309,7 @@ def corpo_html(email_num, grupo, nome_lead, zona, nome_comercial, texto_plain):
 
   <!-- HEADER -->
   <tr>
-    <td style="background:#5C2D0E;border-radius:14px 14px 0 0;padding:0">
+    <td style="background:#4a2417;border-radius:14px 14px 0 0;padding:0">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td style="padding:24px 36px 16px">
@@ -1357,7 +1357,7 @@ def corpo_html(email_num, grupo, nome_lead, zona, nome_comercial, texto_plain):
 
   <!-- FOOTER -->
   <tr>
-    <td style="background:#5C2D0E;border-radius:0 0 14px 14px;padding:20px 36px">
+    <td style="background:#4a2417;border-radius:0 0 14px 14px;padding:20px 36px">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td>
@@ -1410,7 +1410,7 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
 
     for dest_email in emails:
         msg = MIMEMultipart("alternative")
-        msg["From"]    = f"Pão de Ló Ti'Piedade <{EMAIL_FROM}>"
+        msg["From"]    = "Pão de Ló Ti'Piedade <sales@tipiedade.com>"
         msg["To"]      = dest_email
         msg["Subject"] = f"{assunto} | Ti'Piedade"
         # Plain text fallback
@@ -1504,7 +1504,7 @@ Ti'Piedade — Sistema de Prospeção HORECA
                     n = calcular_email_num(historico, com_id, lead)
                     if n is None:
                         continue  # sequência completa
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, com["nome"])
+                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         leads_com_email += 1
                         enviados_leads += 1
@@ -1518,17 +1518,18 @@ Ti'Piedade — Sistema de Prospeção HORECA
                     assunto_ex = ASSUNTOS.get(grupo_exemplo, ASSUNTOS["restaurante"]).get(email_num,"")
                     corpo_com = f"""Olá {com['nome']},
 
-Aqui estão os teus {len(leads)} leads HORECA para a semana {sem} ({semana_datas()}).
+Aqui estão os teus leads HORECA para a semana {sem} ({semana_datas()}).
 
-Esta semana enviámos automaticamente o Email {email_num} da sequência de nurturing a {leads_com_email} leads com email disponível ({sem_email} sem email — contacto telefónico direto).
+O Rui Bernardes (Departamento Comercial) enviou automaticamente o Email {email_num} da sequência de nurturing a {leads_com_email} leads com email disponível ({sem_email} sem email — para estes contacta por telefone).
 
-O assunto usado foi: "{assunto_ex}"
+A sequência tem 4 emails semanais. Quando aparecer "✓ Pronto p/ visita" no Excel — o contacto já recebeu todos os emails e está preparado para a tua visita.
 
-No Excel em anexo (coluna "Próx. Email") vês o estado de cada lead na sequência.
-Quando aparecer "✓ Pronto p/ visita" — o contacto recebeu os 4 emails. É altura de visitar.
+O teu papel entra aqui: contacto presencial, apresentação do produto e fecho da venda.
 
 Bom trabalho,
-Equipa Comercial Ti'Piedade
+Rui Bernardes
+Departamento Comercial | Ti'Piedade
+sales@tipiedade.com
 """
                     enviar(server, smtp_user, dest, EMAIL_CC,
                            f"Leads Semana {sem} — {len(leads)} contactos | Ti'Piedade",
@@ -1540,7 +1541,7 @@ Equipa Comercial Ti'Piedade
             for lead in leads_cat:
                 n = calcular_email_num(historico, "rui_catering", lead)
                 if n:
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui")
+                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         enviados_leads += 1
                         historico = registar_envios(historico, "rui_catering", [lead], n, "Rui")
@@ -1564,7 +1565,7 @@ Ti'Piedade — Sistema de Prospeção
             for lead in leads_dist:
                 n = calcular_email_num(historico, "rui_distribuidores", lead)
                 if n:
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui")
+                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         enviados_leads += 1
                         historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui")
