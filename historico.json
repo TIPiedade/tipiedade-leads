@@ -5457,6 +5457,10 @@
   },
   "templates_aprovados": {
     "restaurante": {
+      "1": {
+        "aprovado": true,
+        "data": "2026-08-19"
+      },
       "2": {
         "aprovado": true,
         "data": "2026-08-19"
