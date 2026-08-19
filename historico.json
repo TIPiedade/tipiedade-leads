@@ -5519,6 +5519,24 @@
         "aprovado": true,
         "data": "2026-08-19"
       }
+    },
+    "cafe": {
+      "1": {
+        "aprovado": true,
+        "data": "2026-08-19"
+      },
+      "2": {
+        "aprovado": true,
+        "data": "2026-08-19"
+      },
+      "3": {
+        "aprovado": true,
+        "data": "2026-08-19"
+      },
+      "4": {
+        "aprovado": true,
+        "data": "2026-08-19"
+      }
     }
   }
 }
