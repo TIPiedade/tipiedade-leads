@@ -5483,6 +5483,12 @@
         "aprovado": true,
         "data": "2026-08-19"
       }
+    },
+    "cervejaria": {
+      "1": {
+        "aprovado": true,
+        "data": "2026-08-19"
+      }
     }
   }
 }
