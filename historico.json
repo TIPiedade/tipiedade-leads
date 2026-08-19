@@ -5454,5 +5454,13 @@
         "hist_texto": "Em 1984, a D.ª Piedade começou a fazer pão de ló numa pequena cozinha familiar, com ingredientes simples e a mesma receita de sempre. Hoje, em terceira geração, mantemos cada ingrediente, cada proporção, cada detalhe intacto. Não por teimosia — mas porque acreditamos que o que é genuíno não precisa de ser melhorado. Só precisa de chegar a mais mesas."
       }
     }
+  },
+  "templates_aprovados": {
+    "restaurante": {
+      "2": {
+        "aprovado": true,
+        "data": "2026-08-19"
+      }
+    }
   }
 }
