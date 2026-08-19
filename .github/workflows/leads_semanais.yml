@@ -2,6 +2,9 @@ name: Leads HORECA Semanais — Ti'Piedade
 
 on:
  
+    schedule:
+    - cron: "30 6 * * 1"
+    - cron: "30 6 * * 3"
   workflow_dispatch:
     inputs:
       modo:
