@@ -5491,6 +5491,16 @@
         "hist_titulo": "Uma receita com mais de quatro décadas",
         "hist_texto": "Em 1984, a D.ª Piedade começou a fazer pão de ló numa pequena cozinha familiar, com ingredientes simples e a mesma receita de sempre. Hoje, em terceira geração, mantemos cada ingrediente, cada proporção, cada detalhe intacto. Não por teimosia — mas porque acreditamos que o que é genuíno não precisa de ser melhorado. Só precisa de chegar a mais mesas."
       }
+    },
+    "catering": {
+      "1": {
+        "assunto": "Sobremesa individual artesanal para os vossos eventos — sem logística complexa",
+        "intro": "Identificámos o vosso projeto como um espaço que valoriza a qualidade à mesa — e gostaríamos, com toda a simplicidade, de vos apresentar o nosso produto.",
+        "cta_sub": "Ficamos ao dispor para qualquer questão. Será um prazer apresentar o produto pessoalmente.",
+        "cta_btn": "✉ Responder",
+        "hist_titulo": "Uma receita com mais de quatro décadas",
+        "hist_texto": "Em 1984, a D.ª Piedade começou a fazer pão de ló numa pequena cozinha familiar, com ingredientes simples e a mesma receita de sempre. Hoje, em terceira geração, mantemos cada ingrediente, cada proporção, cada detalhe intacto. Não por teimosia — mas porque acreditamos que o que é genuíno não precisa de ser melhorado. Só precisa de chegar a mais mesas."
+      }
     }
   },
   "templates_aprovados": {
