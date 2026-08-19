@@ -1,8 +1,7 @@
 name: Leads HORECA Semanais — Ti'Piedade
 
 on:
- 
-    schedule:
+  schedule:
     - cron: "30 6 * * 1"
     - cron: "30 6 * * 3"
   workflow_dispatch:
@@ -14,10 +13,10 @@ on:
 
 jobs:
   segunda-coordenador:
-    name: "2ª — Resumo para Rui"
+    name: "Resumo para Rui"
     if: >
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.modo == 'coordenador') ||
-      (github.event_name == 'schedule' && contains(github.event.schedule, '* * 1'))
+      (github.event_name == 'schedule' && github.event.schedule == '30 6 * * 1') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.modo == 'coordenador')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -28,7 +27,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install openpyxl
-      - name: Gerar e enviar para coordenador
+      - name: Gerar e enviar resumo
         env:
           SMTP_HOST:   ${{ secrets.SMTP_HOST }}
           SMTP_PORT:   ${{ secrets.SMTP_PORT }}
@@ -49,10 +48,10 @@ jobs:
           retention-days: 60
 
   quarta-comerciais:
-    name: "4ª — Leads + nurturing para equipa"
+    name: "Leads e nurturing"
     if: >
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.modo == 'comerciais') ||
-      (github.event_name == 'schedule' && contains(github.event.schedule, '* * 3'))
+      (github.event_name == 'schedule' && github.event.schedule == '30 6 * * 3') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.modo == 'comerciais')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -63,7 +62,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install openpyxl
-      - name: Gerar, enviar e registar histórico
+      - name: Gerar, enviar e registar
         env:
           SMTP_HOST:   ${{ secrets.SMTP_HOST }}
           SMTP_PORT:   ${{ secrets.SMTP_PORT }}
