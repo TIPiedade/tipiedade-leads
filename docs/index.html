@@ -527,6 +527,9 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
       <span class="ico">✉️</span> Templates Email
       <span class="nav-badge" id="badge-templates" style="background:var(--verde)">0/32</span>
     </button>
+    <button class="nav-btn" onclick="abrirBrevo()">
+      <span class="ico">📊</span> Estatísticas Brevo
+    </button>
   </nav>
 
   <!-- CONTEÚDO -->
@@ -1651,9 +1654,13 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
 
       <!-- ACÇÕES RÁPIDAS -->
       <div id="m-acoes" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-        <a id="m-waze" href="#" target="_blank" style="flex:1;min-width:90px;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 8px;background:#33CCFF;color:#fff;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none">
-          <svg width="18" height="18" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#33CCFF"/><path d="M20 8C13.4 8 8 13.4 8 20c0 4.2 2.1 7.9 5.3 10.2l-.5 2.8 2.9-.5C17 33.4 18.5 34 20 34c6.6 0 12-5.4 12-12S26.6 8 20 8z" fill="#fff"/><circle cx="16" cy="22" r="2" fill="#33CCFF"/><circle cx="24" cy="22" r="2" fill="#33CCFF"/><path d="M16 27c1 1.5 2.2 2 4 2s3-0.5 4-2" stroke="#33CCFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <a id="m-waze" href="#" target="_blank" style="flex:1;min-width:80px;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px 6px;background:#33CCFF;color:#fff;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none">
+          <svg width="16" height="16" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#33CCFF"/><path d="M20 8C13.4 8 8 13.4 8 20c0 4.2 2.1 7.9 5.3 10.2l-.5 2.8 2.9-.5C17 33.4 18.5 34 20 34c6.6 0 12-5.4 12-12S26.6 8 20 8z" fill="#fff"/><circle cx="16" cy="22" r="2" fill="#33CCFF"/><circle cx="24" cy="22" r="2" fill="#33CCFF"/><path d="M16 27c1 1.5 2.2 2 4 2s3-0.5 4-2" stroke="#33CCFF" stroke-width="1.5" stroke-linecap="round"/></svg>
           Waze
+        </a>
+        <a id="m-maps" href="#" target="_blank" style="flex:1;min-width:80px;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px 6px;background:#4285F4;color:#fff;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#fff"/></svg>
+          Maps
         </a>
         <a id="m-tel-btn" href="#" style="flex:1;min-width:90px;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 8px;background:var(--verde);color:#fff;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none">
           📞 Ligar
@@ -1665,7 +1672,12 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
 
       <div class="info-grid">
         <div class="info-item"><div class="info-lbl">Morada</div><div class="info-val" id="m-morada">—</div></div>
-        <div class="info-item"><div class="info-lbl">Contacto</div><div class="info-val" id="m-tel">—</div></div>
+        <div class="info-item"><div class="info-lbl">Contacto
+          <button onclick="editarTelefone()" style="background:none;border:none;color:var(--laranja);font-size:10px;cursor:pointer;padding:0 4px;font-weight:700">✏</button>
+        </div>
+        <div class="info-val" id="m-tel">—</div>
+        <input class="form-input" id="m-tel-edit" style="display:none;margin-top:4px;padding:6px 10px;font-size:13px" placeholder="Telefone..." onblur="guardarTelefone()">
+        </div>
         <div class="info-item"><div class="info-lbl">Email</div><div class="info-val" id="m-email">—</div></div>
         <div class="info-item"><div class="info-lbl">Zona</div><div class="info-val" id="m-zona">—</div></div>
         <div class="info-item"><div class="info-lbl">Comercial</div><div class="info-val" id="m-comercial">—</div></div>
@@ -1685,6 +1697,21 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
       <div class="secao" id="secao-emails-env">
         <div class="secao-titulo">Emails enviados</div>
         <div id="m-emails-env" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- ACTIVIDADE -->
+      <div class="secao">
+        <div class="secao-titulo">Actividade recente</div>
+        <div id="m-actividade" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onclick="registarActividade('respondeu')" style="padding:8px 14px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">✓ Respondeu ao email</button>
+          <button onclick="registarActividade('nao-interessado')" style="padding:8px 14px;background:var(--cinza-bg);color:var(--cinza);border:1px solid var(--borda);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">✗ Não interessado</button>
+          <button onclick="registarActividade('pediu-info')" style="padding:8px 14px;background:var(--azul);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">📋 Pediu informação</button>
+        </div>
+        <div style="margin-top:10px">
+          <input class="form-input" id="act-nota" placeholder="Nota sobre o contacto..." style="font-size:13px">
+          <button onclick="registarActividade('nota')" style="margin-top:6px;padding:8px 14px;background:var(--cast);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;width:100%">+ Registar nota</button>
+        </div>
       </div>
 
       <div class="secao">
@@ -2318,13 +2345,15 @@ function abrirLead(k) {
   document.getElementById("m-estado").value = v.estado||"Em aberto";
   document.getElementById("m-notas-gerais").value = v.notas||"";
 
+  // ── ACTIVIDADE ───────────────────────────────────────────
+  renderActividade(k);
+
   // ── ACÇÕES RÁPIDAS ───────────────────────────────────────
-  // Waze
+  // Waze + Google Maps
   const morada = v.morada||"";
-  const wazeUrl = morada && morada!=="—"
-    ? `https://waze.com/ul?q=${encodeURIComponent(v.nome+" "+morada)}&navigate=yes`
-    : `https://waze.com/ul?q=${encodeURIComponent((v.nome||"")+" "+(v.zona||""))}&navigate=yes`;
-  document.getElementById("m-waze").href = wazeUrl;
+  const query  = morada && morada!=="—" ? v.nome+" "+morada : (v.nome||"")+" "+(v.zona||"");
+  document.getElementById("m-waze").href  = `https://waze.com/ul?q=${encodeURIComponent(query)}&navigate=yes`;
+  document.getElementById("m-maps").href  = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}&query_place_id=`;
 
   // Ligar
   const tel = v.tel&&v.tel!=="—" ? v.tel.replace(/\s/g,"") : "";
@@ -3150,6 +3179,106 @@ function gerarHTMLEmailCustom(grupo, num) {
 }
 
 // ═══════════════════════════════════════════════════
+// GOOGLE MAPS + TELEFONE EDITÁVEL
+// ═══════════════════════════════════════════════════
+function editarTelefone() {
+  const display = document.getElementById("m-tel");
+  const input   = document.getElementById("m-tel-edit");
+  if (!display || !input) return;
+  input.value = (HIST.leads[LEAD_ATUAL]?.tel||"").replace("—","");
+  display.style.display = "none";
+  input.style.display   = "block";
+  input.focus();
+}
+
+function guardarTelefone() {
+  const input = document.getElementById("m-tel-edit");
+  const display = document.getElementById("m-tel");
+  const telBtn  = document.getElementById("m-tel-btn");
+  if (!input || !LEAD_ATUAL) return;
+  const novoTel = input.value.trim() || "—";
+  HIST.leads[LEAD_ATUAL].tel = novoTel;
+  // Actualizar display
+  display.innerHTML = novoTel !== "—"
+    ? `<a href="tel:${novoTel}" style="color:var(--laranja)">${novoTel}</a>`
+    : "—";
+  display.style.display = "block";
+  input.style.display   = "none";
+  // Actualizar botão Ligar
+  if (telBtn) {
+    if (novoTel !== "—") { telBtn.href=`tel:${novoTel.replace(/\s/g,"")}`; telBtn.style.opacity="1"; telBtn.style.pointerEvents="auto"; }
+    else { telBtn.href="#"; telBtn.style.opacity=".4"; telBtn.style.pointerEvents="none"; }
+  }
+  guardarHistorico();
+  toast("Telefone guardado ✓","ok");
+}
+
+// ═══════════════════════════════════════════════════
+// ACTIVIDADE — respostas e follow-up
+// ═══════════════════════════════════════════════════
+function registarActividade(tipo) {
+  if (!LEAD_ATUAL) return;
+  const lead = HIST.leads[LEAD_ATUAL];
+  if (!lead.actividade) lead.actividade = [];
+
+  const nota = document.getElementById("act-nota")?.value?.trim() || "";
+  const tipos = {
+    'respondeu':      {label:"Respondeu ao email",  cor:"var(--verde)",    estado:"Contactado"},
+    'nao-interessado':{label:"Não interessado",      cor:"var(--cinza)",    estado:"Desistiu"},
+    'pediu-info':     {label:"Pediu informação",     cor:"var(--azul)",     estado:"Contactado"},
+    'nota':           {label:nota||"Nota registada", cor:"var(--cast)",     estado:null},
+  };
+
+  const t = tipos[tipo] || tipos['nota'];
+  if (tipo === 'nota' && !nota) { toast("Escreve uma nota primeiro","err"); return; }
+
+  lead.actividade.unshift({
+    tipo, label: t.label, nota,
+    data: new Date().toISOString().slice(0,10),
+    hora: new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'})
+  });
+
+  // Actualizar estado se aplicável
+  if (t.estado && lead.estado === "Em aberto") {
+    lead.estado = t.estado;
+    document.getElementById("m-estado").value = t.estado;
+  }
+
+  // Limpar nota
+  if (document.getElementById("act-nota")) document.getElementById("act-nota").value = "";
+
+  renderActividade(LEAD_ATUAL);
+  guardarHistorico();
+  renderBadges();
+  toast(`${t.label} registado ✓`,"ok");
+}
+
+function renderActividade(leadKey) {
+  const div = document.getElementById("m-actividade");
+  if (!div) return;
+  const acts = HIST.leads[leadKey]?.actividade || [];
+  if (!acts.length) {
+    div.innerHTML = `<div style="font-size:12px;color:var(--txt2)">Sem registos de actividade.</div>`;
+    return;
+  }
+  div.innerHTML = acts.slice(0,5).map(a => `
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:var(--lar-bg);border:1px solid var(--borda);border-radius:8px">
+      <div style="font-size:10px;color:var(--txt2);flex-shrink:0;padding-top:2px">${a.data}<br>${a.hora}</div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--cast)">${a.label}</div>
+        ${a.nota?`<div style="font-size:11px;color:var(--txt2);margin-top:2px">${a.nota}</div>`:''}
+      </div>
+    </div>`).join("");
+}
+
+// ═══════════════════════════════════════════════════
+// BREVO STATS — link directo para dashboard
+// ═══════════════════════════════════════════════════
+function abrirBrevo() {
+  window.open('https://app.brevo.com/statistics/reports', '_blank');
+}
+
+// ═══════════════════════════════════════════════════
 // DRAWER (mobile)
 // ═══════════════════════════════════════════════════
 function abrirDrawer() {
@@ -3189,15 +3318,19 @@ function buildCards(leads_list, abreFn) {
     return `<div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Sem leads nesta vista</div></div>`;
   }
   return leads_list.map(([k,v]) => {
-    const emails = v.emails_enviados||[];
-    const estado = v.estado||"Em aberto";
-    const prio   = v.prioridade||"";
-    return `<div class="lead-card" onclick="${abreFn}('${k}')">
+    const emails   = v.emails_enviados||[];
+    const estado   = v.estado||"Em aberto";
+    const prio     = v.prioridade||"";
+    const pronto   = emails.length >= 4 && estado !== "Cliente" && estado !== "Desistiu";
+    const temTel   = v.tel && v.tel !== "—";
+    const temEmail = v.email_lead && v.email_lead !== "—";
+    return `<div class="lead-card" onclick="${abreFn}('${k}')" style="${pronto?'border-left:3px solid var(--verde);':''}">
       <div class="lead-card-main">
         <div class="lead-card-nome">${v.nome||"—"}</div>
         <div class="lead-card-sub">
           <span style="color:var(--txt2)">${v.zona||""}</span>
-          ${prio==="Alta"?'<span class="badge b-alta">Alta</span>':''}
+          ${pronto?'<span style="font-size:10px;font-weight:700;color:var(--verde)">✓ Visitar</span>':''}
+          ${!temTel && !temEmail?'<span style="font-size:10px;color:var(--vermelho)">sem contacto</span>':''}
         </div>
       </div>
       <div class="lead-card-right">
