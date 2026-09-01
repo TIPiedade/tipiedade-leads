@@ -4755,10 +4755,19 @@
       "gancho": "Coimbra com muitos eventos académicos — sobremesa artesanal diferencia o menu.",
       "semana_entrada": 33,
       "data_entrada": "2026-08-10",
-      "estado": "Em aberto",
+      "estado": "Contactado",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "actividade": [
+        {
+          "tipo": "whatsapp",
+          "label": "WhatsApp enviado",
+          "nota": "Mensagem enviada para 239 701 200",
+          "data": "2026-09-01",
+          "hora": "15:09"
+        }
+      ]
     },
     "rui_catering::Saveurs Catering::Lisboa": {
       "nome": "Saveurs Catering",
