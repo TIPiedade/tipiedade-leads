@@ -1671,14 +1671,24 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
       </div>
 
       <div class="info-grid">
-        <div class="info-item"><div class="info-lbl">Morada</div><div class="info-val" id="m-morada">—</div></div>
+        <div class="info-item"><div class="info-lbl">Morada
+          <button onclick="editarCampo('morada')" style="background:none;border:none;color:var(--laranja);font-size:10px;cursor:pointer;padding:0 4px;font-weight:700">✏</button>
+        </div>
+        <div class="info-val" id="m-morada">—</div>
+        <input class="form-input" id="m-morada-edit" style="display:none;margin-top:4px;padding:6px 10px;font-size:13px" placeholder="Rua, número, código postal" onblur="guardarCampo('morada')">
+        </div>
         <div class="info-item"><div class="info-lbl">Contacto
-          <button onclick="editarTelefone()" style="background:none;border:none;color:var(--laranja);font-size:10px;cursor:pointer;padding:0 4px;font-weight:700">✏</button>
+          <button onclick="editarCampo('tel')" style="background:none;border:none;color:var(--laranja);font-size:10px;cursor:pointer;padding:0 4px;font-weight:700">✏</button>
         </div>
         <div class="info-val" id="m-tel">—</div>
-        <input class="form-input" id="m-tel-edit" style="display:none;margin-top:4px;padding:6px 10px;font-size:13px" placeholder="Telefone..." onblur="guardarTelefone()">
+        <input class="form-input" id="m-tel-edit" style="display:none;margin-top:4px;padding:6px 10px;font-size:13px" placeholder="Telefone..." onblur="guardarCampo('tel')">
         </div>
-        <div class="info-item"><div class="info-lbl">Email</div><div class="info-val" id="m-email">—</div></div>
+        <div class="info-item"><div class="info-lbl">Email
+          <button onclick="editarCampo('email')" style="background:none;border:none;color:var(--laranja);font-size:10px;cursor:pointer;padding:0 4px;font-weight:700">✏</button>
+        </div>
+        <div class="info-val" id="m-email">—</div>
+        <input class="form-input" id="m-email-edit" type="email" style="display:none;margin-top:4px;padding:6px 10px;font-size:13px" placeholder="email@exemplo.pt" onblur="guardarCampo('email')">
+        </div>
         <div class="info-item"><div class="info-lbl">Zona</div><div class="info-val" id="m-zona">—</div></div>
         <div class="info-item"><div class="info-lbl">Comercial</div><div class="info-val" id="m-comercial">—</div></div>
         <div class="info-item"><div class="info-lbl">Prioridade</div><div class="info-val" id="m-prio">—</div></div>
