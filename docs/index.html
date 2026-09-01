@@ -2367,6 +2367,20 @@ function abrirLead(k) {
   if (email) { emailBtn.href=`mailto:${email}`; emailBtn.style.opacity="1"; emailBtn.style.pointerEvents="auto"; }
   else        { emailBtn.href="#"; emailBtn.style.opacity=".4"; emailBtn.style.pointerEvents="none"; }
 
+  // WhatsApp
+  const waBtn = document.getElementById("m-whatsapp-btn");
+  if (waBtn) {
+    const telWA = v.tel&&v.tel!=="—" ? v.tel.replace(/[^0-9+]/g,"") : "";
+    if (telWA) {
+      const waMsg = gerarMensagemWhatsApp(v);
+      const waNum = telWA.startsWith("+") ? telWA.slice(1) : "351"+telWA;
+      waBtn.href = `https://wa.me/${waNum}?text=${encodeURIComponent(waMsg)}`;
+      waBtn.style.opacity="1"; waBtn.style.pointerEvents="auto";
+    } else {
+      waBtn.href="#"; waBtn.style.opacity=".35"; waBtn.style.pointerEvents="none";
+    }
+  }
+
   // ── EMAILS ENVIADOS ──────────────────────────────────────
   const envDiv = document.getElementById("m-emails-env");
   const emails_env = v.emails_enviados||[];
@@ -3276,6 +3290,60 @@ function renderActividade(leadKey) {
 // ═══════════════════════════════════════════════════
 function abrirBrevo() {
   window.open('https://app.brevo.com/statistics/reports', '_blank');
+}
+
+// ═══════════════════════════════════════════════════
+// WHATSAPP
+// ═══════════════════════════════════════════════════
+function gerarMensagemWhatsApp(v) {
+  const nome = v.nome || "vosso espaço";
+  const n = (v.emails_enviados||[]).length;
+  if (n === 0) {
+    return `Bom dia! 👋
+
+O meu nome é Rui Bernardes, do Pão de Ló Ti'Piedade.
+
+Estamos a contactar espaços como o ${nome} para apresentar o nosso produto — um pão de ló artesanal em dose individual (85g), congelado, sem conservantes, com 40 anos de receita.
+
+Seria possível passar para deixar amostras? Sem compromisso, só para provarem.
+
+📧 sales@tipiedade.com
+🌐 www.tipiedade.com`;
+  } else if (n >= 4) {
+    return `Bom dia! 👋
+
+Somos o Pão de Ló Ti'Piedade — enviámos alguns emails nas últimas semanas sobre o nosso produto artesanal.
+
+Esta semana passávamos pela vossa zona e gostaríamos de parar 10 minutos para deixar amostras no ${nome}. Seria possível?
+
+📧 sales@tipiedade.com`;
+  } else {
+    return `Bom dia! 👋
+
+Somos o Pão de Ló Ti'Piedade — temos estado a partilhar informação sobre o nosso produto por email (enviámos já ${n} mensagem${n>1?"s":""}).
+
+Queríamos saber se chegou a ver. Temos um pão de ló artesanal em dose individual que pode ser interessante para o ${nome}. Estamos disponíveis para esclarecer qualquer dúvida! 🙏`;
+  }
+}
+
+function registarEnvioWhatsApp() {
+  if (!LEAD_ATUAL) return;
+  const lead = HIST.leads[LEAD_ATUAL];
+  if (!lead.actividade) lead.actividade = [];
+  lead.actividade.unshift({
+    tipo:"whatsapp", label:"WhatsApp enviado",
+    nota:`Mensagem enviada para ${lead.tel||"—"}`,
+    data: new Date().toISOString().slice(0,10),
+    hora: new Date().toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"})
+  });
+  if (lead.estado==="Em aberto") {
+    lead.estado = "Contactado";
+    const sel = document.getElementById("m-estado");
+    if (sel) sel.value = "Contactado";
+  }
+  renderActividade(LEAD_ATUAL);
+  guardarHistorico();
+  toast("WhatsApp registado ✓","ok");
 }
 
 // ═══════════════════════════════════════════════════
