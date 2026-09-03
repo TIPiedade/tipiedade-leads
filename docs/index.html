@@ -519,6 +519,10 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
       <span class="nav-badge" id="badge-desistencias">0</span>
     </button>
 
+    <div class="sidebar-section">Análise</div>
+    <button class="nav-btn" data-view="estatisticas" onclick="mudarVista('estatisticas',this)">
+      <span class="ico">📈</span> Estatísticas
+    </button>
     <div class="sidebar-section">Recursos</div>
     <button class="nav-btn" data-view="documentos" onclick="mudarVista('documentos',this)">
       <span class="ico">📁</span> Documentos
@@ -1639,6 +1643,46 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
   </div>
 </div>
 
+    <!-- VISTA ESTATÍSTICAS -->
+    <div class="view" id="view-estatisticas">
+      <div class="toolbar">
+        <span class="toolbar-title">📈 Estatísticas</span>
+        <select class="filter-select" id="stats-periodo" onchange="renderEstatisticas()" style="width:auto">
+          <option value="tudo">Todo o período</option>
+          <option value="semana">Esta semana</option>
+          <option value="mes">Este mês</option>
+          <option value="4semanas">Últimas 4 semanas</option>
+        </select>
+      </div>
+
+      <!-- KPIs principais -->
+      <div id="stats-kpis" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px"></div>
+
+      <!-- Emails por semana -->
+      <div style="background:var(--br);border:1px solid var(--borda);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--cast);margin-bottom:14px">Emails enviados por semana</div>
+        <div id="stats-por-semana"></div>
+      </div>
+
+      <!-- Por número de email -->
+      <div style="background:var(--br);border:1px solid var(--borda);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--cast);margin-bottom:14px">Por sequência de nurturing</div>
+        <div id="stats-por-num" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+      </div>
+
+      <!-- Por comercial -->
+      <div style="background:var(--br);border:1px solid var(--borda);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--cast);margin-bottom:14px">Por comercial</div>
+        <div id="stats-por-comercial"></div>
+      </div>
+
+      <!-- Leads sem contacto -->
+      <div style="background:var(--br);border:1px solid var(--borda);border-radius:12px;padding:16px">
+        <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--cast);margin-bottom:14px">Cobertura de contacto</div>
+        <div id="stats-cobertura"></div>
+      </div>
+    </div>
+
 <!-- MODAL LEAD -->
 <div class="overlay" id="overlay" onclick="fecharModal(event)">
   <div class="modal" id="modal">
@@ -2256,6 +2300,7 @@ function renderTudo() {
   ["nuno","joao","oscar","rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
   renderDocumentosGlobal();
   actualizarEstadoTemplates();
+  if(document.getElementById("view-estatisticas")?.classList.contains("ativo")) renderEstatisticas();
 }
 
 // ═══════════════════════════════════════════════════
@@ -2330,6 +2375,7 @@ function mudarVista(vista, btn) {
   btn?.classList.add("ativo");
   renderVista(vista);
   if(vista==='documentos') renderDocumentosGlobal();
+  if(vista==='estatisticas') renderEstatisticas();
   fecharDrawer();
   // Sincronizar bottom nav
   const map = {dashboard:"bn-dashboard",nuno:"bn-nuno",joao:"bn-joao",oscar:"bn-oscar"};
@@ -2702,6 +2748,7 @@ async function uploadDocumentoGlobal() {
     await guardarHistorico();
     renderDocumentosGlobal();
   actualizarEstadoTemplates();
+  if(document.getElementById("view-estatisticas")?.classList.contains("ativo")) renderEstatisticas();
     document.getElementById("gdoc-file").value="";
     document.getElementById("gdoc-nome").value="";
     document.getElementById("upload-panel").style.display="none";
@@ -2722,6 +2769,7 @@ async function removerDocumentoGlobal(idx) {
   await guardarHistorico();
   renderDocumentosGlobal();
   actualizarEstadoTemplates();
+  if(document.getElementById("view-estatisticas")?.classList.contains("ativo")) renderEstatisticas();
   toast("Removido","ok");
 }
 
@@ -3358,6 +3406,177 @@ function registarEnvioWhatsApp() {
   renderActividade(LEAD_ATUAL);
   guardarHistorico();
   toast("WhatsApp registado ✓","ok");
+}
+
+// ═══════════════════════════════════════════════════
+// ESTATÍSTICAS
+// ═══════════════════════════════════════════════════
+function renderEstatisticas() {
+  const periodo = document.getElementById("stats-periodo")?.value || "tudo";
+  const today   = new Date();
+  const ls      = Object.values(HIST.leads||{});
+
+  // Filtro de período
+  const dentroPeríodo = (dataStr) => {
+    if (!dataStr || periodo === "tudo") return true;
+    const d = new Date(dataStr);
+    if (periodo === "semana") {
+      const inicio = new Date(today); inicio.setDate(today.getDate() - today.getDay() + 1);
+      return d >= inicio;
+    }
+    if (periodo === "mes") {
+      return d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear();
+    }
+    if (periodo === "4semanas") {
+      const inicio = new Date(today); inicio.setDate(today.getDate() - 28);
+      return d >= inicio;
+    }
+    return true;
+  };
+
+  // Recolher todos os emails enviados no período
+  const emails = [];
+  ls.forEach(v => {
+    (v.emails_enviados||[]).forEach(e => {
+      if (dentroPeríodo(e.data)) emails.push({...e, comercial: v.comercial, canal_id: v.canal_id});
+    });
+  });
+
+  const totalLeads     = ls.length;
+  const comEmail       = ls.filter(v => v.email_lead && v.email_lead !== "—").length;
+  const emNurturing    = ls.filter(v => { const n=(v.emails_enviados||[]).length; return n>0&&n<4; }).length;
+  const prontos        = ls.filter(v => (v.emails_enviados||[]).length >= 4).length;
+  const clientes       = ls.filter(v => v.estado === "Cliente").length;
+  const totalEnviados  = emails.length;
+
+  // ── KPIs ──
+  const kpis = [
+    {ico:"✉️", num: totalEnviados,  lbl:"Emails enviados", sub: periodo==="tudo"?"total":"no período"},
+    {ico:"🔄", num: emNurturing,    lbl:"Em nurturing",    sub:"1 a 3 emails"},
+    {ico:"✅", num: prontos,        lbl:"Prontos p/ visita",sub:"4 emails completos"},
+    {ico:"⭐", num: clientes,       lbl:"Clientes",        sub:"convertidos"},
+  ];
+  document.getElementById("stats-kpis").innerHTML = kpis.map(k => `
+    <div style="background:var(--br);border:1px solid var(--borda);border-radius:12px;padding:14px 16px">
+      <div style="font-size:22px;margin-bottom:4px">${k.ico}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cast);line-height:1">${k.num}</div>
+      <div style="font-size:12px;font-weight:600;color:var(--cast);margin-top:2px">${k.lbl}</div>
+      <div style="font-size:11px;color:var(--txt2)">${k.sub}</div>
+    </div>`).join("");
+
+  // ── Emails por semana ──
+  const porSemana = {};
+  emails.forEach(e => {
+    if (!e.data) return;
+    const d = new Date(e.data);
+    const iso = d.toISOString().slice(0,10);
+    // Calcular semana ISO
+    const jan4 = new Date(d.getFullYear(), 0, 4);
+    const dayOfYear = Math.floor((d - new Date(d.getFullYear(),0,1))/86400000) + 1;
+    const weekNum = Math.ceil((dayOfYear + jan4.getDay() - 1) / 7);
+    const sem = `S${weekNum} (${iso.slice(0,7)})`;
+    if (!porSemana[sem]) porSemana[sem] = {1:0,2:0,3:0,4:0,total:0};
+    porSemana[sem][e.num] = (porSemana[sem][e.num]||0) + 1;
+    porSemana[sem].total++;
+  });
+
+  const sems = Object.keys(porSemana).sort();
+  const maxSem = Math.max(...sems.map(s => porSemana[s].total), 1);
+
+  if (!sems.length) {
+    document.getElementById("stats-por-semana").innerHTML =
+      `<div style="font-size:13px;color:var(--txt2);padding:12px 0">Sem dados ainda — os emails serão registados a partir do próximo envio de quarta-feira.</div>`;
+  } else {
+    document.getElementById("stats-por-semana").innerHTML = sems.map(s => {
+      const d = porSemana[s];
+      const pct = Math.round(d.total/maxSem*100);
+      const cores = {1:"#C49A3C",2:"#D4682A",3:"#5C2D0E",4:"#1A6B3A"};
+      return `
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+          <span style="font-size:12px;font-weight:600;color:var(--cast)">${s}</span>
+          <span style="font-size:12px;color:var(--txt2)">${d.total} emails</span>
+        </div>
+        <div style="display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--creme)">
+          ${[1,2,3,4].map(n => d[n]?`<div style="flex:${d[n]};background:${cores[n]};min-width:2px" title="Email ${n}: ${d[n]}"></div>`:"").join("")}
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap">
+          ${[1,2,3,4].map(n => d[n]?`<span style="font-size:10px;color:${cores[n]};font-weight:600">E${n}: ${d[n]}</span>`:"").join("")}
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  // ── Por número de email ──
+  const porNum = {1:0,2:0,3:0,4:0};
+  emails.forEach(e => { if(e.num>=1&&e.num<=4) porNum[e.num]++; });
+  const maxNum = Math.max(...Object.values(porNum), 1);
+  const etiq = {1:"Apresentação",2:"Caso real",3:"Tendência",4:"Convite"};
+  const cores = {1:"#C49A3C",2:"#D4682A",3:"#5C2D0E",4:"#1A6B3A"};
+  document.getElementById("stats-por-num").innerHTML = [1,2,3,4].map(n => `
+    <div style="flex:1;min-width:100px;background:var(--creme);border-radius:10px;padding:12px;text-align:center;border-top:3px solid ${cores[n]}">
+      <div style="font-size:24px;font-weight:700;color:${cores[n]};font-family:'Playfair Display',serif">${porNum[n]}</div>
+      <div style="font-size:11px;font-weight:700;color:var(--cast)">Email ${n}</div>
+      <div style="font-size:10px;color:var(--txt2)">${etiq[n]}</div>
+    </div>`).join("");
+
+  // ── Por comercial ──
+  const porCom = {};
+  ls.forEach(v => {
+    const c = v.comercial||"?";
+    if (!porCom[c]) porCom[c] = {total:0, emails:0, clientes:0, prontos:0};
+    porCom[c].total++;
+    porCom[c].emails += (v.emails_enviados||[]).filter(e=>dentroPeríodo(e.data)).length;
+    if(v.estado==="Cliente") porCom[c].clientes++;
+    if((v.emails_enviados||[]).length>=4) porCom[c].prontos++;
+  });
+  document.getElementById("stats-por-comercial").innerHTML = Object.entries(porCom)
+    .sort((a,b)=>b[1].emails-a[1].emails)
+    .map(([com,d]) => `
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--borda)">
+      <div style="width:36px;height:36px;background:var(--cast);color:var(--ouro);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0">${com[0]}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--cast)">${com}</div>
+        <div style="font-size:11px;color:var(--txt2)">${d.total} leads &nbsp;·&nbsp; ${d.prontos} prontos &nbsp;·&nbsp; ${d.clientes} clientes</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:18px;font-weight:700;color:var(--laranja);font-family:'Playfair Display',serif">${d.emails}</div>
+        <div style="font-size:10px;color:var(--txt2)">emails</div>
+      </div>
+    </div>`).join("");
+
+  // ── Cobertura ──
+  const semEmail   = totalLeads - comEmail;
+  const pctEmail   = Math.round(comEmail/totalLeads*100);
+  const semTel     = ls.filter(v=>!v.tel||v.tel==="—").length;
+  const comTel     = totalLeads - semTel;
+  const pctTel     = Math.round(comTel/totalLeads*100);
+  const semAmbos   = ls.filter(v=>(!v.email_lead||v.email_lead==="—")&&(!v.tel||v.tel==="—")).length;
+
+  document.getElementById("stats-cobertura").innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:600;color:var(--cast)">✉️ Com email</span>
+          <span style="font-size:13px;font-weight:700;color:var(--cast)">${comEmail} / ${totalLeads} (${pctEmail}%)</span>
+        </div>
+        <div style="height:8px;background:var(--creme);border-radius:4px;overflow:hidden">
+          <div style="height:100%;width:${pctEmail}%;background:#D4682A;border-radius:4px"></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:600;color:var(--cast)">📞 Com telefone</span>
+          <span style="font-size:13px;font-weight:700;color:var(--cast)">${comTel} / ${totalLeads} (${pctTel}%)</span>
+        </div>
+        <div style="height:8px;background:var(--creme);border-radius:4px;overflow:hidden">
+          <div style="height:100%;width:${pctTel}%;background:#1A6B3A;border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="padding:10px 14px;background:var(--verm-bg);border-radius:8px;font-size:12px;color:var(--vermelho)">
+        ⚠️ <strong>${semAmbos}</strong> leads sem email nem telefone — sem forma de contacto automático
+      </div>
+    </div>`;
 }
 
 // ═══════════════════════════════════════════════════
