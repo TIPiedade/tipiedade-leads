@@ -1536,6 +1536,12 @@ Ti'Piedade — Sistema de Prospeção HORECA
                     n = calcular_email_num(historico, com_id, lead)
                     if n is None:
                         continue  # sequência completa
+                    # Enriquecer lead com email do historico.json se disponível
+                    k = lead_key(com_id, lead)
+                    if k in historico["leads"]:
+                        email_hist = historico["leads"][k].get("email_lead","—")
+                        if email_hist and email_hist != "—":
+                            lead = {**lead, "email": email_hist}
                     ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         leads_com_email += 1
