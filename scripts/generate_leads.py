@@ -1579,10 +1579,14 @@ sales@tipiedade.com
             for lead in leads_cat:
                 n = calcular_email_num(historico, "rui_catering", lead)
                 if n:
+                    k_c = lead_key("rui_catering", lead)
+                    if k_c in historico["leads"]:
+                        em = historico["leads"][k_c].get("email_lead","—")
+                        if em and em != "—": lead = {**lead, "email": em}
                     ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         enviados_leads += 1
-                        historico = registar_envios(historico, "rui_catering", [lead], n, "Rui")
+                        historico = registar_envios(historico, "rui_catering", [lead], n, "Rui Bernardes")
 
             corpo_cat = f"""Olá,
 
@@ -1603,10 +1607,14 @@ Ti'Piedade — Sistema de Prospeção
             for lead in leads_dist:
                 n = calcular_email_num(historico, "rui_distribuidores", lead)
                 if n:
+                    k_d = lead_key("rui_distribuidores", lead)
+                    if k_d in historico["leads"]:
+                        em = historico["leads"][k_d].get("email_lead","—")
+                        if em and em != "—": lead = {**lead, "email": em}
                     ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         enviados_leads += 1
-                        historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui")
+                        historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui Bernardes")
 
             corpo_dist = f"""Olá,
 
