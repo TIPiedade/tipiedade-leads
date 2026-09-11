@@ -1683,6 +1683,23 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
       </div>
     </div>
 
+<!-- MODAL PREVIEW EMAIL ENVIADO -->
+<div class="overlay" id="overlay-preview-email" onclick="fecharPreviewEmail(event)" style="z-index:1100">
+  <div class="modal" id="modal-preview-email" style="max-width:640px;max-height:90vh">
+    <div class="modal-handle"></div>
+    <div class="modal-header" style="background:var(--cast)">
+      <div>
+        <div class="modal-titulo" id="preview-email-titulo">Email enviado</div>
+        <div class="modal-tipo" id="preview-email-data"></div>
+      </div>
+      <button class="modal-close" onclick="fecharPreviewEmail()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:0;overflow:hidden">
+      <iframe id="preview-email-iframe" style="width:100%;height:70vh;border:none" srcdoc=""></iframe>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL LEAD -->
 <div class="overlay" id="overlay" onclick="fecharModal(event)">
   <div class="modal" id="modal">
@@ -2454,7 +2471,7 @@ function abrirLead(k) {
           <div style="font-size:12px;font-weight:700;color:var(--cast)">${etiq}</div>
           <div style="font-size:11px;color:var(--txt2)">${e.data}</div>
         </div>
-        <span style="font-size:11px;color:var(--laranja);font-weight:600">Ver ›</span>
+        <span style="font-size:11px;color:var(--laranja);font-weight:600" onclick="verEmailEnviado('${k}',${e.num})" style="cursor:pointer">Ver ›</span>
       </div>`;
     }).join("");
   } else {
@@ -2467,7 +2484,7 @@ function abrirLead(k) {
   const nums = emails.map(e=>e.num);
   const steps = [1,2,3,4].map(n => {
     const env = emails.find(e=>e.num===n);
-    if (env) return `<div class="nstep nstep-done">Email ${n}<br><small>${env.data}</small></div>`;
+    if (env) return `<div class="nstep nstep-done" onclick="verEmailEnviado('${k}',${n})" style="cursor:pointer" title="Ver email enviado">Email ${n}<br><small>${env.data}</small></div>`;
     if (n===Math.min(5,...([1,2,3,4].filter(x=>!nums.includes(x))))) return `<div class="nstep nstep-next">Email ${n}<br><small>Próximo</small></div>`;
     return `<div class="nstep nstep-vazio">Email ${n}<br><small>Pendente</small></div>`;
   });
@@ -3577,6 +3594,50 @@ function renderEstatisticas() {
         ⚠️ <strong>${semAmbos}</strong> leads sem email nem telefone — sem forma de contacto automático
       </div>
     </div>`;
+}
+
+// ═══════════════════════════════════════════════════
+// PREVIEW DE EMAIL ENVIADO
+// ═══════════════════════════════════════════════════
+function verEmailEnviado(leadKey, num) {
+  const lead = HIST.leads[leadKey];
+  if (!lead) return;
+  const env = (lead.emails_enviados||[]).find(e=>e.num===num);
+  if (!env) { toast("Email não encontrado","err"); return; }
+
+  const etiq = {1:"Apresentação",2:"Caso de sucesso",3:"Tendência",4:"Convite"};
+  document.getElementById("preview-email-titulo").textContent = `Email ${num} — ${etiq[num]||""}`;
+  document.getElementById("preview-email-data").textContent   = `Enviado em ${env.data} · ${lead.nome}`;
+
+  const iframe = document.getElementById("preview-email-iframe");
+
+  if (env.html && env.html.length > 100) {
+    // HTML guardado — mostrar directamente
+    iframe.srcdoc = env.html;
+  } else {
+    // HTML não guardado — gerar preview com os dados actuais
+    const grupo = tipologiaParaGrupo(lead.tipo||"");
+    iframe.srcdoc = gerarHTMLEmail(grupo, num);
+  }
+
+  document.getElementById("overlay-preview-email").classList.add("aberto");
+}
+
+function fecharPreviewEmail(e) {
+  if (e && e.target !== document.getElementById("overlay-preview-email")) return;
+  document.getElementById("overlay-preview-email").classList.remove("aberto");
+}
+
+function tipologiaParaGrupo(tipo) {
+  const t = (tipo||"").toLowerCase();
+  if (["hotel","resort","pousada"].some(x=>t.includes(x)))           return "hotel";
+  if (["pastelaria","padaria","confeitaria"].some(x=>t.includes(x))) return "pastelaria";
+  if (["catering","evento"].some(x=>t.includes(x)))                  return "catering";
+  if (["distribuidor"].some(x=>t.includes(x)))                       return "distribuidor";
+  if (["mercearia","gourmet"].some(x=>t.includes(x)))                return "gourmet";
+  if (["café","coffee","brunch"].some(x=>t.includes(x)))             return "cafe";
+  if (["cervejaria"].some(x=>t.includes(x)))                         return "cervejaria";
+  return "restaurante";
 }
 
 // ═══════════════════════════════════════════════════
