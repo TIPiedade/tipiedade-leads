@@ -1456,7 +1456,7 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
         # Enviar para destinatário + BCC duplo
         server.sendmail(EMAIL_FROM, [dest_email, EMAIL_CC, EMAIL_BCC2], msg.as_string())
 
-    return True
+    return True, html
 
 
 def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
