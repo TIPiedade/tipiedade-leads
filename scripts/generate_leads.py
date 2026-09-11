@@ -571,7 +571,7 @@ def escrever_historico(historico, sha):
     result = github_api("PUT", f"contents/{HIST_FILE}", data)
     print(f"{'✓' if result else '✗'} Histórico {'guardado' if result else 'ERRO ao guardar'}")
 
-def registar_envios(historico, canal_id, leads, email_num, comercial_nome):
+def registar_envios(historico, canal_id, leads, email_num, comercial_nome, html_content=""):
     d = hoje()
     for lead in leads:
         k = lead_key(canal_id, lead)
@@ -592,7 +592,11 @@ def registar_envios(historico, canal_id, leads, email_num, comercial_nome):
             }
         entry = historico["leads"][k]
         if not any(e["num"]==email_num and e["data"]==d for e in entry["emails_enviados"]):
-            entry["emails_enviados"].append({"num":email_num,"data":d,"assunto":f"Nurturing Email {email_num}"})
+            entry["emails_enviados"].append({
+                "num": email_num, "data": d,
+                "assunto": f"Nurturing Email {email_num}",
+                "html": html_content[:50000] if html_content else ""
+            })
     historico["ultima_atualizacao"] = d
     return historico
 
@@ -1433,7 +1437,7 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
 
     emails = [e.strip() for e in email_dest.replace(";",",").split(",") if "@" in e.strip()]
     if not emails:
-        return False
+        return False, ""
 
     grupo   = tipologia_grupo(lead.get("t",""))
     assunto = ASSUNTOS.get(grupo, ASSUNTOS["restaurante"]).get(email_num, "")
@@ -1542,11 +1546,11 @@ Ti'Piedade — Sistema de Prospeção HORECA
                         email_hist = historico["leads"][k].get("email_lead","—")
                         if email_hist and email_hist != "—":
                             lead = {**lead, "email": email_hist}
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
+                    ok, html_env = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         leads_com_email += 1
                         enviados_leads += 1
-                        historico = registar_envios(historico, com_id, [lead], n, com["nome"])
+                        historico = registar_envios(historico, com_id, [lead], n, com["nome"], html_env)
                     else:
                         sem_email += 1
 
@@ -1583,10 +1587,10 @@ sales@tipiedade.com
                     if k_c in historico["leads"]:
                         em = historico["leads"][k_c].get("email_lead","—")
                         if em and em != "—": lead = {**lead, "email": em}
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
+                    ok, html_env = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         enviados_leads += 1
-                        historico = registar_envios(historico, "rui_catering", [lead], n, "Rui Bernardes")
+                        historico = registar_envios(historico, "rui_catering", [lead], n, "Rui Bernardes", html_env)
 
             corpo_cat = f"""Olá,
 
@@ -1611,10 +1615,10 @@ Ti'Piedade — Sistema de Prospeção
                     if k_d in historico["leads"]:
                         em = historico["leads"][k_d].get("email_lead","—")
                         if em and em != "—": lead = {**lead, "email": em}
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
+                    ok, html_env = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui Bernardes")
                     if ok:
                         enviados_leads += 1
-                        historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui Bernardes")
+                        historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui Bernardes", html_env)
 
             corpo_dist = f"""Olá,
 
