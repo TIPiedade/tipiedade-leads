@@ -2170,8 +2170,15 @@ async function guardarHistorico() {
 }
 
 function sincronizar() {
-  HIST_SHA = null;  // Reset SHA para forçar re-fetch
-  carregarHistorico();
+  var btn = document.querySelector('.btn-sync[onclick*=sincronizar]');
+  if (btn) { btn.textContent = "↻"; btn.style.opacity = "0.5"; }
+  carregarHistorico().then(function() {
+    if (btn) { btn.textContent = "↻"; btn.style.opacity = "1"; }
+    // Re-activar sessão após sincronização
+    if (window._CRM_USER) _ativarSessao(window._CRM_USER);
+  }).catch(function() {
+    if (btn) { btn.style.opacity = "1"; }
+  });
 }
 
 // ═══════════════════════════════════════════════════
