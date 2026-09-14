@@ -4067,8 +4067,7 @@ function _completarLogin(user, pass) {
   if (headerEl) headerEl.textContent = NOMES[user]||user;
 }
 
-// Se o login foi feito antes do script carregar, completar agora
-if (window._pendingUser) _completarLogin(window._pendingUser, window._pendingPass);
+
 
 function fazerLogin() {
   var userEl  = document.getElementById("login-user");
