@@ -2116,28 +2116,30 @@ let LEAD_ATUAL = null;
 // CARREGAR HISTÓRICO
 // ═══════════════════════════════════════════════════
 async function carregarHistorico() {
-  var tentativas = [
-    RAW_URL + "?nc=" + Date.now(),
-    "https://raw.githubusercontent.com/TIPiedade/tipiedade-leads/main/historico.json?r=" + Math.random()
-  ];
-  for (var i = 0; i < tentativas.length; i++) {
-    try {
-      var resp = await fetch(tentativas[i], { cache: "no-store" });
-      if (!resp.ok) continue;
-      var dados = await resp.json();
-      if (dados && dados.leads && Object.keys(dados.leads).length > 50) {
-        HIST = dados;
-        renderTudo();
-        toast("✓ " + Object.keys(HIST.leads).length + " leads carregadas", "ok");
-        if (window._loginPendente) { _ativarSessao(window._loginPendente); window._loginPendente = null; }
-        return;
-      }
-    } catch(err) { console.warn("Tentativa " + i + ":", err); }
+  var url = "https://raw.githubusercontent.com/TIPiedade/tipiedade-leads/main/historico.json?t=" + Date.now();
+  try {
+    var resp = await fetch(url, { cache: "no-store" });
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    var dados = await resp.json();
+    if (!dados || !dados.leads) throw new Error("Dados inválidos");
+    HIST = dados;
+    var n = Object.keys(HIST.leads).length;
+    renderTudo();
+    toast("✓ " + n + " leads", "ok");
+    // SHA em background para escrita
+    var token = localStorage.getItem("gh_token");
+    if (token) {
+      fetch("https://api.github.com/repos/TIPiedade/tipiedade-leads/contents/historico.json", {
+        headers: { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" }
+      }).then(function(r){ if(r.ok) r.json().then(function(d){ HIST_SHA=d.sha; }); }).catch(function(){});
+    }
+  } catch(err) {
+    console.error("Erro ao carregar histórico:", err);
+    HIST = getDemoData();
+    renderTudo();
+    toast("Sem ligação — verificar internet", "err");
   }
-  HIST = getDemoData();
-  renderTudo();
-  toast("Sem ligação — a tentar novamente...", "err");
-  setTimeout(carregarHistorico, 3000);
+  if (window._loginPendente) { _ativarSessao(window._loginPendente); window._loginPendente = null; }
 }
 
 async function guardarHistorico() {
