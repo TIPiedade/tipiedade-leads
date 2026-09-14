@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CRM Ti'Piedade — Prospeção HORECA</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4a2417">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ti'Piedade CRM">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -460,6 +467,8 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
 .login-titulo { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--cast); text-align: center; margin-bottom: 6px; }
 .login-sub { font-size: 12px; color: var(--txt2); text-align: center; margin-bottom: 28px; }
 .login-erro { font-size: 12px; color: var(--vermelho); text-align: center; margin-top: 10px; min-height: 18px; }
+
+@keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
 </style>
 </head>
 <body>
@@ -588,8 +597,21 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
     <button class="nav-btn" onclick="abrirBrevo()">
       <span class="ico">📊</span> Estatísticas Brevo
     </button>
-    <div style="padding:12px;margin-top:auto">
-      <button onclick="fazerLogout()" style="width:100%;padding:9px;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:11px;color:rgba(255,255,255,.6);cursor:pointer;font-weight:600">
+    <div style="padding:12px;margin-top:auto;display:flex;flex-direction:column;gap:6px">
+      <button onclick="pedirPermissaoNotificacoes()" id="btn-notif"
+        style="width:100%;padding:8px;background:transparent;border:1px solid rgba(196,154,60,.4);border-radius:8px;font-size:11px;color:#C49A3C;cursor:pointer;font-weight:600">
+        🔔 Activar notificações
+      </button>
+      <button onclick="GEO_WATCH?pararGeolocalizacao():iniciarGeolocalizacao()" id="btn-geo"
+        style="width:100%;padding:8px;background:transparent;border:1px solid rgba(196,154,60,.4);border-radius:8px;font-size:11px;color:#C49A3C;cursor:pointer;font-weight:600">
+        📍 Localização
+      </button>
+      <button onclick="verLeadsProximas()"
+        style="width:100%;padding:8px;background:transparent;border:1px solid rgba(196,154,60,.4);border-radius:8px;font-size:11px;color:#C49A3C;cursor:pointer;font-weight:600">
+        🗺 Ver leads próximas
+      </button>
+      <button onclick="fazerLogout()"
+        style="width:100%;padding:8px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;font-weight:600">
         ← Terminar sessão
       </button>
     </div>
@@ -3919,6 +3941,248 @@ function verificarSessao() {
     document.getElementById("login-pass").value=pass;
     fazerLogin();
   }
+}
+
+// ═══════════════════════════════════════════════════
+// PWA — Service Worker + Notificações + Geolocalização
+// ═══════════════════════════════════════════════════
+let SW_REG = null;
+
+async function iniciarPWA() {
+  // Registar Service Worker
+  if ('serviceWorker' in navigator) {
+    try {
+      SW_REG = await navigator.serviceWorker.register('/tipiedade-leads/sw.js');
+      console.log('✓ SW registado');
+    } catch(e) { console.warn('SW falhou:', e); }
+  }
+}
+
+// ── Notificações ─────────────────────────────────────────────────
+async function pedirPermissaoNotificacoes() {
+  if (!('Notification' in window)) {
+    toast("Este browser não suporta notificações","err"); return;
+  }
+  const perm = await Notification.requestPermission();
+  if (perm === 'granted') {
+    toast("Notificações activadas ✓","ok");
+    agendarNotificacaoDiaria();
+    guardarPreferencia('notif', 'on');
+  } else {
+    toast("Notificações recusadas","err");
+  }
+}
+
+function agendarNotificacaoDiaria() {
+  // Verificar diariamente às 08h30 e às 14h00
+  const agora = new Date();
+  const horas = [{ h:8, m:30 }, { h:14, m:0 }];
+
+  horas.forEach(({h, m}) => {
+    const alvo = new Date();
+    alvo.setHours(h, m, 0, 0);
+    if (alvo <= agora) alvo.setDate(alvo.getDate() + 1);
+    const delay = alvo - agora;
+    setTimeout(() => {
+      enviarNotificacaoDiaria();
+      setInterval(enviarNotificacaoDiaria, 24 * 60 * 60 * 1000);
+    }, delay);
+  });
+}
+
+function enviarNotificacaoDiaria() {
+  if (Notification.permission !== 'granted') return;
+  const user   = UTILIZADOR_ATUAL;
+  const leads  = Object.values(HIST.leads||{}).filter(v =>
+    (v.canal_id === user || v.comercial === USERS[user]?.nome) &&
+    (v.emails_enviados||[]).length >= 4 &&
+    v.estado !== 'Cliente' && v.estado !== 'Desistiu'
+  );
+  const prontos = leads.length;
+  if (!prontos) return;
+
+  // Verificar se já visitou hoje
+  const hoje = new Date().toISOString().slice(0,10);
+  const visitasHoje = Object.values(HIST.leads||{}).filter(v =>
+    (v.visitas||[]).some(vis => vis.data === hoje)
+  ).length;
+
+  const titulo = visitasHoje === 0
+    ? `🎯 Bom dia! Tens ${prontos} leads prontas para visitar`
+    : visitasHoje < 2
+    ? `📍 Ainda tens leads por visitar hoje (${prontos - visitasHoje} prontas)`
+    : `✅ Bom trabalho! ${visitasHoje} visitas feitas hoje`;
+
+  new Notification("CRM Ti'Piedade", {
+    body: titulo,
+    icon: '/tipiedade-leads/icons/icon-192.png',
+    tag:  'crm-daily'
+  });
+}
+
+// ── Geolocalização — leads próximas ──────────────────────────────
+let GEO_WATCH = null;
+let ULTIMA_POS = null;
+const RAIO_KM  = 2; // alertar quando a menos de 2km de uma lead
+
+function iniciarGeolocalizacao() {
+  if (!navigator.geolocation) {
+    toast("Geolocalização não disponível","err"); return;
+  }
+  if (GEO_WATCH) { navigator.geolocation.clearWatch(GEO_WATCH); }
+
+  GEO_WATCH = navigator.geolocation.watchPosition(
+    pos => {
+      ULTIMA_POS = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+      verificarLeadsProximas(ULTIMA_POS);
+    },
+    err => console.warn("Geo erro:", err),
+    { enableHighAccuracy: true, maximumAge: 60000, timeout: 10000 }
+  );
+  toast("Localização activa — vais receber alertas de leads próximas","ok");
+  guardarPreferencia('geo', 'on');
+}
+
+function pararGeolocalizacao() {
+  if (GEO_WATCH) navigator.geolocation.clearWatch(GEO_WATCH);
+  GEO_WATCH = null;
+  ULTIMA_POS = null;
+  guardarPreferencia('geo', 'off');
+  toast("Localização desactivada","ok");
+}
+
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2-lat1) * Math.PI/180;
+  const dLon = (lon2-lon1) * Math.PI/180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+let ULTIMO_ALERTA_KEY = null;
+let ULTIMO_ALERTA_TS  = 0;
+
+async function verificarLeadsProximas(pos) {
+  const user = UTILIZADOR_ATUAL;
+  if (!user) return;
+  const nomeUser = USERS[user]?.nome || "";
+
+  // Apenas leads prontas para visita do utilizador actual
+  const candidatas = Object.entries(HIST.leads||{}).filter(([k,v]) => {
+    const eDoUser = v.canal_id === user || v.comercial === nomeUser;
+    const pronta  = (v.emails_enviados||[]).length >= 4;
+    const activa  = v.estado !== 'Cliente' && v.estado !== 'Desistiu';
+    const temMorada = v.morada && v.morada !== "—";
+    return eDoUser && pronta && activa && temMorada;
+  });
+
+  // Geocodificar moradas (usar cache local)
+  for (const [k, v] of candidatas) {
+    if (v._lat && v._lon) {
+      const dist = haversineKm(pos.lat, pos.lon, v._lat, v._lon);
+      if (dist <= RAIO_KM) {
+        const agora = Date.now();
+        // Não repetir alerta para a mesma lead em menos de 30 min
+        if (ULTIMO_ALERTA_KEY === k && agora - ULTIMO_ALERTA_TS < 30*60*1000) continue;
+        ULTIMO_ALERTA_KEY = k;
+        ULTIMO_ALERTA_TS  = agora;
+        mostrarAlertaProximidade(v, dist);
+      }
+    } else {
+      // Geocodificar via Nominatim (gratuito, sem API key)
+      geocodificarMorada(k, v);
+    }
+  }
+}
+
+async function geocodificarMorada(key, lead) {
+  if (lead._geo_tentado) return;
+  lead._geo_tentado = true;
+  const morada = `${lead.morada}, Portugal`;
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(morada)}&format=json&limit=1`;
+    const r   = await fetch(url, { headers: { 'User-Agent': 'TiPiedade-CRM' } });
+    const data = await r.json();
+    if (data.length) {
+      HIST.leads[key]._lat = parseFloat(data[0].lat);
+      HIST.leads[key]._lon = parseFloat(data[0].lon);
+    }
+  } catch(e) { /* falhou silenciosamente */ }
+}
+
+function mostrarAlertaProximidade(lead, distKm) {
+  const dist = distKm < 1 ? `${Math.round(distKm*1000)}m` : `${distKm.toFixed(1)}km`;
+
+  // Banner no topo do CRM
+  const banner = document.createElement('div');
+  banner.id = 'geo-alert';
+  banner.style.cssText = `position:fixed;top:0;left:0;right:0;z-index:9998;background:#1A6B3A;color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 20px rgba(0,0,0,.3);animation:slideDown .3s ease`;
+  banner.innerHTML = `
+    <span style="font-size:24px">📍</span>
+    <div style="flex:1">
+      <div style="font-size:13px;font-weight:700">Estás a ${dist} de uma lead!</div>
+      <div style="font-size:12px;opacity:.85">${lead.nome} — ${lead.zona||lead.morada}</div>
+    </div>
+    <button onclick="abrirLeadDoBanner('${Object.keys(HIST.leads).find(k=>HIST.leads[k]===lead)}')" style="padding:8px 14px;background:#fff;color:#1A6B3A;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">Ver →</button>
+    <button onclick="this.parentElement.remove()" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;padding:4px">✕</button>
+  `;
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 15000);
+
+  // Notificação push se a app estiver em background
+  if (Notification.permission === 'granted') {
+    new Notification(`📍 ${lead.nome} a ${dist}!`, {
+      body: `Lead pronta para visita — ${lead.zona||""}. Toca para abrir.`,
+      icon: '/tipiedade-leads/icons/icon-192.png',
+      tag:  'geo-alert'
+    });
+  }
+}
+
+function abrirLeadDoBanner(k) {
+  document.getElementById('geo-alert')?.remove();
+  if (k) abrirLead(k);
+}
+
+function guardarPreferencia(key, val) {
+  try { localStorage.setItem('crm_pref_'+key, val); } catch(e){}
+}
+
+function lerPreferencia(key) {
+  try { return localStorage.getItem('crm_pref_'+key); } catch(e){ return null; }
+}
+
+// ── Vista de leads próximas ───────────────────────────────────────
+function verLeadsProximas() {
+  if (!ULTIMA_POS) {
+    toast("Activa a localização primeiro","err"); return;
+  }
+  const user    = UTILIZADOR_ATUAL;
+  const nomeUser= USERS[user]?.nome||"";
+  const leads   = Object.entries(HIST.leads||{})
+    .filter(([k,v])=>(v.canal_id===user||v.comercial===nomeUser)&&v._lat&&v._lon)
+    .map(([k,v])=>({k,v,dist:haversineKm(ULTIMA_POS.lat,ULTIMA_POS.lon,v._lat,v._lon)}))
+    .sort((a,b)=>a.dist-b.dist)
+    .slice(0,10);
+
+  if (!leads.length) {
+    toast("Sem leads com localização conhecida próximas","err"); return;
+  }
+
+  const modal = document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.5);display:flex;align-items:flex-end';
+  modal.innerHTML=`<div style="background:var(--br);border-radius:20px 20px 0 0;padding:20px;width:100%;max-height:70vh;overflow-y:auto">
+    <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--cast);margin-bottom:14px">📍 Leads próximas de ti</div>
+    ${leads.map(({k,v,dist})=>`
+      <div onclick="abrirLead('${k}');this.closest('[style*=fixed]').remove()" style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--borda);cursor:pointer">
+        <div style="width:44px;height:44px;background:${dist<1?'var(--verde)':dist<2?'var(--laranja)':'var(--cast)'};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">${dist<1?Math.round(dist*1000)+'m':dist.toFixed(1)+'km'}</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--cast)">${v.nome}</div>
+             <div style="font-size:11px;color:var(--txt2)">${v.morada||v.zona||""}</div></div>
+        <div style="margin-left:auto;font-size:11px;color:var(--laranja);font-weight:600">Ver →</div>
+      </div>`).join('')}
+    <button onclick="this.closest('[style*=fixed]').remove()" style="width:100%;margin-top:14px;padding:12px;background:var(--creme);border:1px solid var(--borda);border-radius:10px;font-size:13px;cursor:pointer">Fechar</button>
+  </div>`;
+  document.body.appendChild(modal);
 }
 
 // ═══════════════════════════════════════════════════
