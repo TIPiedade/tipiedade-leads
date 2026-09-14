@@ -531,6 +531,10 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
       <span class="ico">👤</span> Óscar
       <span class="nav-badge" id="badge-oscar">0</span>
     </button>
+    <button class="nav-btn" data-view="ana" onclick="mudarVista('ana',this)">
+      <span class="ico">🌍</span> Ana Filipa
+      <span class="nav-badge" id="badge-ana">0</span>
+    </button>
 
     <div class="sidebar-section">Rui</div>
     <button class="nav-btn" data-view="rui" onclick="mudarVista('rui',this)">
@@ -676,6 +680,34 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
       <div id="resumo-oscar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-oscar"></tbody></table></div>
     </div>
+    <!-- VISTA ANA FILIPA — MERCADO INTERNACIONAL -->
+    <div class="view" id="view-ana">
+      <div class="toolbar">
+        <span class="toolbar-title">🌍 Ana Filipa — Internacional</span>
+        <select class="filter-select" id="filt-pais-ana" onchange="renderVistaAna()" style="width:auto;font-size:12px">
+          <option value="">Todos os países</option>
+          <option value="Espanha">🇪🇸 Espanha</option>
+          <option value="França">🇫🇷 França</option>
+          <option value="Holanda">🇳🇱 Holanda</option>
+          <option value="Reino Unido">🇬🇧 Reino Unido</option>
+          <option value="Brasil">🇧🇷 Brasil</option>
+          <option value="Canadá">🇨🇦 Canadá</option>
+          <option value="Alemanha">🇩🇪 Alemanha</option>
+          <option value="Suíça">🇨🇭 Suíça</option>
+          <option value="Luxemburgo">🇱🇺 Luxemburgo</option>
+          <option value="Japão">🇯🇵 Japão</option>
+        </select>
+        <select class="filter-select" id="filt-seg-ana" onchange="renderVistaAna()" style="width:auto;font-size:12px">
+          <option value="">Todos os segmentos</option>
+          <option value="saudade">🫙 Saudade</option>
+          <option value="congelados">❄️ Congelados</option>
+          <option value="horeca">🍽 HORECA</option>
+        </select>
+      </div>
+      <div id="kpis-ana" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"></div>
+      <div id="cards-ana" style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid #E8E2D8"></div>
+    </div>
+
     <div class="view" id="view-rui">
       <div class="toolbar">
         <span class="toolbar-title">As minhas leads — Rui</span>
@@ -2199,6 +2231,7 @@ function renderTabela(tbodyId, filtroFn, cols="normal") {
 }
 
 function renderVista(vista) {
+  if (vista === "ana") { renderVistaAna(); return; }
   const search    = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
   const canalRui  = document.getElementById("filt-canal-rui")?.value||"";
   const estadoFilt= document.getElementById(`filt-estado-${vista}`)?.value||"";
@@ -2355,7 +2388,7 @@ function renderTudo() {
   renderDashboard();
   renderBadges();
   filtrarTabela();
-  ["nuno","joao","oscar","rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
+  ["nuno","joao","oscar","ana","rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
   renderDocumentosGlobal();
   actualizarEstadoTemplates();
   if(document.getElementById("view-estatisticas")?.classList.contains("ativo")) renderEstatisticas();
@@ -2433,6 +2466,7 @@ function mudarVista(vista, btn) {
   btn?.classList.add("ativo");
   renderVista(vista);
   if(vista==='documentos') renderDocumentosGlobal();
+  if(vista==='ana') renderVistaAna();
   if(vista==='estatisticas') renderEstatisticas();
   fecharDrawer();
   // Sincronizar bottom nav
