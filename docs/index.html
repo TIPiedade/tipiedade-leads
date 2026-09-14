@@ -4032,30 +4032,51 @@ const SENHAS_DEFAULT = {
 let UTILIZADOR_ATUAL = null;
 
 function fazerLogin() {
-  const user  = document.getElementById("login-user").value;
-  const pass  = document.getElementById("login-pass").value;
-  const erroEl= document.getElementById("login-erro");
-  if (!user) { erroEl.textContent="Selecciona o teu nome."; return; }
-  if (!pass)  { erroEl.textContent="Introduz a tua senha.";  return; }
-  const senhaCorrecta = HIST?.senhas?.[user] || SENHAS_DEFAULT[user];
+  var userEl  = document.getElementById("login-user");
+  var passEl  = document.getElementById("login-pass");
+  var erroEl  = document.getElementById("login-erro");
+  if (!userEl || !passEl || !erroEl) { alert("Erro: elementos de login não encontrados"); return; }
+  var user = userEl.value;
+  var pass = passEl.value;
+  if (!user) { erroEl.textContent = "Selecciona o teu nome."; return; }
+  if (!pass)  { erroEl.textContent = "Introduz a tua senha.";  return; }
+
+  // Senhas hardcoded — independente do HIST
+  var SENHAS = {
+    rui:   "tipiedade2024",
+    nuno:  "tipiedade2024",
+    joao:  "tipiedade2024",
+    oscar: "tipiedade2024",
+    ana:   "tipiedade2024"
+  };
+  // Verificar se há senha personalizada no HIST (se já carregou)
+  var senhaCorrecta = SENHAS[user];
+  if (typeof HIST !== "undefined" && HIST && HIST.senhas && HIST.senhas[user]) {
+    senhaCorrecta = HIST.senhas[user];
+  }
+
   if (!senhaCorrecta || pass !== senhaCorrecta) {
-    erroEl.textContent = "Senha incorrecta. A senha inicial é tipiedade2024";
-    erroEl.style.color = "var(--vermelho)";
+    erroEl.textContent = "Senha incorrecta. A senha inicial é: tipiedade2024";
+    erroEl.style.color = "#8B1A1A";
     erroEl.style.fontWeight = "700";
-    document.getElementById("login-pass").value = "";
-    document.getElementById("login-pass").focus();
+    passEl.value = "";
+    passEl.focus();
     return;
   }
+
+  // Login bem sucedido
   UTILIZADOR_ATUAL = user;
-  sessionStorage.setItem("crm_user", user);
-  sessionStorage.setItem("crm_pass", pass);
-  document.getElementById("login-screen").style.display="none";
-  const vista = USERS[user].vista;
-  const btn   = document.querySelector(`[data-view="${vista}"]`);
+  try { sessionStorage.setItem("crm_user", user); sessionStorage.setItem("crm_pass", pass); } catch(e) {}
+  document.getElementById("login-screen").style.display = "none";
+
+  var VISTAS = { rui:"dashboard", nuno:"nuno", joao:"joao", oscar:"oscar", ana:"ana" };
+  var NOMES  = { rui:"Rui Bernardes", nuno:"Nuno", joao:"João", oscar:"Óscar", ana:"Ana Filipa Martins" };
+  var vista = VISTAS[user] || "dashboard";
+  var btn   = document.querySelector('[data-view="' + vista + '"]');
   if (btn) mudarVista(vista, btn);
-  const el = document.getElementById("header-user");
-  if (el) el.textContent = USERS[user].nome;
-  erroEl.textContent="";
+  var headerEl = document.getElementById("header-user");
+  if (headerEl) headerEl.textContent = NOMES[user] || user;
+  erroEl.textContent = "";
 }
 
 function fazerLogout() {
