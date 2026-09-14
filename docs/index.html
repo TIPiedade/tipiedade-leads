@@ -704,9 +704,23 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
     <!-- VISTA ANA FILIPA — MERCADO INTERNACIONAL -->
     <div class="view" id="view-ana">
       <div class="toolbar">
-        <span class="toolbar-title">🌍 Ana Filipa — Mercado Internacional</span>
-        <div style="display:flex;gap:6px;flex-wrap:wrap" id="pills-ana"></div>
+        <span class="toolbar-title">🌍 Ana Filipa — Internacional</span>
+        <select class="filter-select" id="filt-pais-ana" onchange="renderVistaAna()" style="width:auto">
+          <option value="">Todos os países</option>
+          <option value="Espanha">🇪🇸 Espanha</option>
+          <option value="França">🇫🇷 França</option>
+          <option value="Holanda">🇳🇱 Holanda</option>
+          <option value="Reino Unido">🇬🇧 Reino Unido</option>
+          <option value="Brasil">🇧🇷 Brasil</option>
+        </select>
+        <select class="filter-select" id="filt-seg-ana" onchange="renderVistaAna()" style="width:auto">
+          <option value="">Todos os segmentos</option>
+          <option value="saudade">🫙 Saudade</option>
+          <option value="congelados">❄️ Congelados</option>
+          <option value="horeca">🍽 HORECA</option>
+        </select>
       </div>
+      <div id="kpis-ana" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div id="cards-ana" class="lead-cards"></div>
     </div>
 
@@ -1830,6 +1844,9 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
         <input class="form-input" id="m-email-edit" type="email" style="display:none;margin-top:4px;padding:6px 10px;font-size:13px" placeholder="email@exemplo.pt" onblur="guardarCampo('email')">
         </div>
         <div class="info-item"><div class="info-lbl">Zona</div><div class="info-val" id="m-zona">—</div></div>
+        <div class="info-item" id="m-item-pais" style="display:none"><div class="info-lbl">País</div><div class="info-val" id="m-pais">—</div></div>
+        <div class="info-item" id="m-item-segmento" style="display:none"><div class="info-lbl">Segmento</div><div class="info-val" id="m-segmento">—</div></div>
+        <div class="info-item" id="m-item-lingua" style="display:none"><div class="info-lbl">Língua contacto</div><div class="info-val" id="m-lingua">—</div></div>
         <div class="info-item"><div class="info-lbl">Comercial</div><div class="info-val" id="m-comercial">—</div></div>
         <div class="info-item"><div class="info-lbl">Prioridade</div><div class="info-val" id="m-prio">—</div></div>
         <div class="info-item"><div class="info-lbl">Tipologia</div><div class="info-val" id="m-tipologia">—</div></div>
@@ -3810,15 +3827,33 @@ function getWeekNum(d) {
 // ANA FILIPA — MERCADO INTERNACIONAL
 // ═══════════════════════════════════════════════════
 function renderVistaAna() {
-  const leads = Object.entries(HIST.leads||{}).filter(([k,v])=>
+  const filtPais = document.getElementById("filt-pais-ana")?.value||"";
+  const filtSeg  = document.getElementById("filt-seg-ana")?.value||"";
+
+  let leads = Object.entries(HIST.leads||{}).filter(([k,v])=>
     v.comercial==="Ana Filipa" || v.canal_id==="ana_internacional"
   );
+  if (filtPais) leads = leads.filter(([k,v])=>v.pais===filtPais);
+  if (filtSeg)  leads = leads.filter(([k,v])=>v.segmento===filtSeg);
+
+  // KPIs por país
+  const all = Object.entries(HIST.leads||{}).filter(([k,v])=>v.canal_id==="ana_internacional");
+  const porPais = {};
+  all.forEach(([k,v])=>{ porPais[v.pais]=(porPais[v.pais]||0)+1; });
+  const bandeiras = {"Espanha":"🇪🇸","França":"🇫🇷","Holanda":"🇳🇱","Reino Unido":"🇬🇧","Brasil":"🇧🇷"};
+  const kpisEl = document.getElementById("kpis-ana");
+  if (kpisEl) kpisEl.innerHTML = Object.entries(porPais).map(([p,n])=>`
+    <div style="padding:8px 14px;background:var(--br);border:1px solid var(--borda);border-radius:10px;display:flex;align-items:center;gap:8px;cursor:pointer"
+         onclick="document.getElementById('filt-pais-ana').value='${p}';renderVistaAna()">
+      <span style="font-size:18px">${bandeiras[p]||"🌍"}</span>
+      <div><div style="font-size:13px;font-weight:700;color:var(--cast)">${p}</div>
+           <div style="font-size:10px;color:var(--txt2)">${n} leads</div></div>
+    </div>`).join("");
+
   const cardsEl = document.getElementById("cards-ana");
-  const pillsEl = document.getElementById("pills-ana");
   const badge   = document.getElementById("badge-ana");
   if (cardsEl) cardsEl.innerHTML = buildCards(leads, "abrirLead");
-  if (pillsEl) pillsEl.innerHTML = buildPills(leads);
-  if (badge)   badge.textContent = leads.length;
+  if (badge)   badge.textContent = all.length;
 }
 
 // ═══════════════════════════════════════════════════
