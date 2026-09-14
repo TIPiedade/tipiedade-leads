@@ -2136,6 +2136,7 @@ function fazerLogout(){
 <div class="toast" id="toast"></div>
 
 <script>
+
 // ═══════════════════════════════════════════════════
 // LOGOS
 // ═══════════════════════════════════════════════════
@@ -3190,7 +3191,37 @@ function gerarHTMLEmail(grupo, num) {
     + '</table></td></tr></table>';
   return H;
 }
+
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  HIST = getDemoData();
+  renderTudo();
+  carregarHistorico();
+  // Auto-sessão
+  var su=null,sp=null;
+  try{su=sessionStorage.getItem("crm_user");sp=sessionStorage.getItem("crm_pass");}catch(e){}
+  if(su&&sp&&SENHAS_USUARIOS[su]&&sp===SENHAS_USUARIOS[su]){
+    document.getElementById("login-screen").style.display="none";
+    _ativarSessao(su);
+  } else if(window._loginPendente){ _ativarSessao(window._loginPendente); }
+
+  // Fechar drawer com swipe esquerdo (mobile)
+  let touchX = 0;
+  document.getElementById("sidebar")?.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, {passive:true});
+  document.getElementById("sidebar")?.addEventListener("touchend", e => {
+    if (touchX - e.changedTouches[0].clientX > 60) fecharDrawer();
+  }, {passive:true});
+
+  // Fechar modal com swipe para baixo
+  document.getElementById("modal")?.addEventListener("touchstart", e => { touchX = e.touches[0].clientY; }, {passive:true});
+  document.getElementById("modal")?.addEventListener("touchend", e => {
+    if (e.changedTouches[0].clientY - touchX > 80) fecharModal();
+  }, {passive:true});
+});
+
+
 </script>
+
 <div class="fab-overlay" id="fab-overlay" onclick="fecharFAB()"></div>
 <div class="fab-menu" id="fab-menu">
   <div class="fab-item" onclick="fecharFAB();abrirNovaLead()"><span class="fab-item-label">Nova lead</span><button class="fab-item-btn">➕</button></div>
@@ -4367,31 +4398,6 @@ function fecharFAB(){
   });
 }
 
-document.addEventListener("DOMContentLoaded", ()=>{
-  HIST = getDemoData();
-  renderTudo();
-  carregarHistorico();
-  // Auto-sessão
-  var su=null,sp=null;
-  try{su=sessionStorage.getItem("crm_user");sp=sessionStorage.getItem("crm_pass");}catch(e){}
-  if(su&&sp&&SENHAS_USUARIOS[su]&&sp===SENHAS_USUARIOS[su]){
-    document.getElementById("login-screen").style.display="none";
-    _ativarSessao(su);
-  } else if(window._loginPendente){ _ativarSessao(window._loginPendente); }
-
-  // Fechar drawer com swipe esquerdo (mobile)
-  let touchX = 0;
-  document.getElementById("sidebar")?.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, {passive:true});
-  document.getElementById("sidebar")?.addEventListener("touchend", e => {
-    if (touchX - e.changedTouches[0].clientX > 60) fecharDrawer();
-  }, {passive:true});
-
-  // Fechar modal com swipe para baixo
-  document.getElementById("modal")?.addEventListener("touchstart", e => { touchX = e.touches[0].clientY; }, {passive:true});
-  document.getElementById("modal")?.addEventListener("touchend", e => {
-    if (e.changedTouches[0].clientY - touchX > 80) fecharModal();
-  }, {passive:true});
-});
 
 </body>
 </html>
