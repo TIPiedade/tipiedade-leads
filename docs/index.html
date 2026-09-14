@@ -4500,6 +4500,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   HIST = getDemoData();
   renderTudo();
   carregarHistorico();
+  if (window._pendingUser) _completarLogin(window._pendingUser, window._pendingPass);
 
   // Fechar drawer com swipe esquerdo (mobile)
   let touchX = 0;
