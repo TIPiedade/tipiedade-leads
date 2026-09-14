@@ -2243,6 +2243,7 @@ async function carregarHistorico() {
     if (!r.ok) throw new Error("historico.json não encontrado");
     HIST = await r.json();
     renderTudo();  // Renderizar IMEDIATAMENTE com os dados reais
+    tentarAutoLogin();  // Auto-login após HIST carregado
     toast("Dados sincronizados", "ok");
 
     // PASSO 2: Obter SHA em background (só para escrita futura, não bloqueia UI)
@@ -4032,9 +4033,12 @@ function fazerLogin() {
   if (!user) { erroEl.textContent="Selecciona o teu nome."; return; }
   if (!pass)  { erroEl.textContent="Introduz a tua senha.";  return; }
   const senhaCorrecta = HIST?.senhas?.[user] || SENHAS_DEFAULT[user];
-  if (pass !== senhaCorrecta) {
-    erroEl.textContent="Senha incorrecta. Tenta novamente.";
-    document.getElementById("login-pass").value="";
+  if (!senhaCorrecta || pass !== senhaCorrecta) {
+    erroEl.textContent = "Senha incorrecta. A senha inicial é tipiedade2024";
+    erroEl.style.color = "var(--vermelho)";
+    erroEl.style.fontWeight = "700";
+    document.getElementById("login-pass").value = "";
+    document.getElementById("login-pass").focus();
     return;
   }
   UTILIZADOR_ATUAL = user;
@@ -4060,12 +4064,28 @@ function fazerLogout() {
 }
 
 function verificarSessao() {
-  const user=sessionStorage.getItem("crm_user");
-  const pass=sessionStorage.getItem("crm_pass");
+  // Apenas pré-preencher — não fazer login automático antes do HIST carregar
+  const user = sessionStorage.getItem("crm_user");
+  if (user && USERS[user]) {
+    document.getElementById("login-user").value = user;
+  }
+}
+
+function tentarAutoLogin() {
+  // Chamado APÓS carregarHistorico — HIST já está disponível
+  const user = sessionStorage.getItem("crm_user");
+  const pass = sessionStorage.getItem("crm_pass");
   if (user && pass && USERS[user]) {
-    document.getElementById("login-user").value=user;
-    document.getElementById("login-pass").value=pass;
-    fazerLogin();
+    const senhaCorrecta = HIST?.senhas?.[user] || SENHAS_DEFAULT[user];
+    if (pass === senhaCorrecta) {
+      UTILIZADOR_ATUAL = user;
+      document.getElementById("login-screen").style.display = "none";
+      const vista = USERS[user].vista;
+      const btn   = document.querySelector('[data-view="' + vista + '"]');
+      if (btn) mudarVista(vista, btn);
+      const el = document.getElementById("header-user");
+      if (el) el.textContent = USERS[user].nome;
+    }
   }
 }
 
