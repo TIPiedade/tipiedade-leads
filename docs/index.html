@@ -3810,6 +3810,57 @@ function renderTabela(tbodyId, filtroFn, cols="normal") {
 // ═══════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════
+function renderVistaAna() {
+  var filtPais = (document.getElementById("filt-pais-ana")||{}).value||"";
+  var filtSeg  = (document.getElementById("filt-seg-ana")||{}).value||"";
+  var BAN = {"Espanha":"\ud83c\uddea\ud83c\uddf8","Fran\u00e7a":"\ud83c\uddeb\ud83c\uddf7","Holanda":"\ud83c\uddf3\ud83c\uddf1","Reino Unido":"\ud83c\uddec\ud83c\udde7","Brasil":"\ud83c\udde7\ud83c\uddf7","Canad\u00e1":"\ud83c\udde8\ud83c\udde6","Alemanha":"\ud83c\udde9\ud83c\uddea","Su\u00ed\u00e7a":"\ud83c\udde8\ud83c\udded","Luxemburgo":"\ud83c\uddf1\ud83c\uddfa","Jap\u00e3o":"\ud83c\uddef\ud83c\uddf5"};
+  var SEG = {saudade:"\ud83e\udecf Saudade", congelados:"\u274c\ufe0f Congelados", horeca:"\ud83c\udf7d HORECA"};
+  var todas = Object.entries(HIST.leads||{}).filter(function(e){
+    return e[1].canal_id==="ana_internacional" || e[1].comercial==="Ana Filipa";
+  });
+  var vis = todas.filter(function(e){
+    if (filtPais && e[1].pais !== filtPais) return false;
+    if (filtSeg  && e[1].segmento !== filtSeg) return false;
+    return true;
+  });
+  var porPais = {};
+  todas.forEach(function(e){ var p=e[1].pais||"?"; porPais[p]=(porPais[p]||0)+1; });
+  var kEl = document.getElementById("kpis-ana");
+  if (kEl) {
+    kEl.innerHTML = Object.entries(porPais).sort(function(a,b){return b[1]-a[1];}).map(function(kv){
+      var p=kv[0], n=kv[1], ban=BAN[p]||"\ud83c\udf0d";
+      return "<div style='padding:8px 14px;background:#fff;border:1px solid #E8E2D8;border-radius:10px;display:flex;align-items:center;gap:8px;cursor:pointer' onclick='document.getElementById(\"filt-pais-ana\").value=\""+p+"\";renderVistaAna()'>"
+        +"<span style='font-size:18px'>"+ban+"</span>"
+        +"<div><div style='font-size:12px;font-weight:700;color:#2d1208'>"+p+"</div>"
+        +"<div style='font-size:10px;color:#6B5D50'>"+n+" leads</div></div></div>";
+    }).join("");
+  }
+  var bEl = document.getElementById("badge-ana");
+  if (bEl) bEl.textContent = todas.length;
+  var cEl = document.getElementById("cards-ana");
+  if (!cEl) return;
+  if (!vis.length) {
+    cEl.innerHTML = "<div style='text-align:center;padding:40px 20px;color:#6B5D50;font-size:13px'>"+(todas.length?"Sem leads para este filtro.":"Sem leads internacionais.")+"</div>";
+    return;
+  }
+  var cores = {Cliente:"#1A6B3A","Em aberto":"#1A4A7A",Contactado:"#7A5A00",Visitado:"#5C2D0E",Desistiu:"#8B1A1A"};
+  cEl.innerHTML = vis.map(function(entry){
+    var k=entry[0], v=entry[1];
+    var ban=BAN[v.pais]||"\ud83c\udf0d", seg=SEG[v.segmento]||v.segmento||"", estado=v.estado||"Em aberto";
+    var cor=cores[estado]||"#5A5A5A", ks=k.replace(/\\/g,"\\\\").replace(/"/g,"&quot;");
+    return "<div class='lead-card' onclick='abrirLead(\""+ks+"\")'>"
+      +"<div class='lead-card-main'>"
+      +"<div class='lead-card-nome'>"+(v.nome||"—")+"</div>"
+      +"<div class='lead-card-sub'><span style='font-size:15px'>"+ban+"</span>"
+      +" <span style='font-size:11px;color:#6B5D50'>"+(v.cidade||"")+"</span>"
+      +(seg?" <span style='font-size:10px;color:#7B3FB5;font-weight:600'>"+seg+"</span>":"")
+      +"</div></div>"
+      +"<div class='lead-card-right'>"
+      +"<span style='font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;background:"+cor+"1a;color:"+cor+"'>"+estado+"</span>"
+      +"</div></div>";
+  }).join("");
+}
+
 document.addEventListener("DOMContentLoaded", ()=>{
   carregarHistorico();
   // Auto-sessão
