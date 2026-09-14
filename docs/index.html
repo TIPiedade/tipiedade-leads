@@ -2139,6 +2139,11 @@ async function carregarHistorico() {
     HIST = getDemoData();
     renderTudo();
   }
+  // Activar sessão após dados carregados (login manual ou auto-sessão)
+  if (window._loginPendente) {
+    _ativarSessao(window._loginPendente);
+    window._loginPendente = null;
+  }
 }
 
 async function guardarHistorico() {
@@ -3803,10 +3808,15 @@ function renderTabela(tbodyId, filtroFn, cols="normal") {
 // ═══════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════
-document.addEventListener("DOMContentLoaded", ()=>{
-  HIST = getDemoData();
-  renderTudo();
-  carregarHistorico();
+document.addEventListener("DOMContentLoaded", async ()=>{
+  await carregarHistorico();
+  // Auto-sessão
+  var su=null,sp=null;
+  try{su=sessionStorage.getItem("crm_user");sp=sessionStorage.getItem("crm_pass");}catch(ex){}
+  if(su&&sp&&typeof SENHAS!=="undefined"&&SENHAS[su]&&sp===SENHAS[su]){
+    document.getElementById("login-screen").style.display="none";
+    _ativarSessao(su);
+  }
 
   // Fechar drawer com swipe esquerdo (mobile)
   let touchX = 0;
