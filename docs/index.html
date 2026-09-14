@@ -712,6 +712,11 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
           <option value="Holanda">🇳🇱 Holanda</option>
           <option value="Reino Unido">🇬🇧 Reino Unido</option>
           <option value="Brasil">🇧🇷 Brasil</option>
+          <option value="Canadá">🇨🇦 Canadá</option>
+          <option value="Alemanha">🇩🇪 Alemanha</option>
+          <option value="Suíça">🇨🇭 Suíça</option>
+          <option value="Luxemburgo">🇱🇺 Luxemburgo</option>
+          <option value="Japão">🇯🇵 Japão</option>
         </select>
         <select class="filter-select" id="filt-seg-ana" onchange="renderVistaAna()" style="width:auto">
           <option value="">Todos os segmentos</option>
@@ -3840,7 +3845,7 @@ function renderVistaAna() {
   const all = Object.entries(HIST.leads||{}).filter(([k,v])=>v.canal_id==="ana_internacional");
   const porPais = {};
   all.forEach(([k,v])=>{ porPais[v.pais]=(porPais[v.pais]||0)+1; });
-  const bandeiras = {"Espanha":"🇪🇸","França":"🇫🇷","Holanda":"🇳🇱","Reino Unido":"🇬🇧","Brasil":"🇧🇷"};
+  const bandeiras = {"Espanha":"🇪🇸","França":"🇫🇷","Holanda":"🇳🇱","Reino Unido":"🇬🇧","Brasil":"🇧🇷","Canadá":"🇨🇦","Alemanha":"🇩🇪","Suíça":"🇨🇭","Luxemburgo":"🇱🇺","Japão":"🇯🇵"};
   const kpisEl = document.getElementById("kpis-ana");
   if (kpisEl) kpisEl.innerHTML = Object.entries(porPais).map(([p,n])=>`
     <div style="padding:8px 14px;background:var(--br);border:1px solid var(--borda);border-radius:10px;display:flex;align-items:center;gap:8px;cursor:pointer"
