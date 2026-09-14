@@ -433,8 +433,7 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
 
   .overlay-nova-inner { height: 100vh; border-radius: 0; }
 }
-.fab{position:fixed;bottom:calc(72px + var(--safe-bottom));right:20px;width:56px;height:56px;border-radius:50%;background:#4a2417;color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(74,36,23,.5);display:flex;align-items:center;justify-content:center;font-size:26px;z-index:80;transition:transform .22s}
-.fab.aberto{transform:rotate(45deg)}.fab-menu{position:fixed;bottom:calc(138px + var(--safe-bottom));right:20px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:79;pointer-events:none;opacity:0;transform:translateY(12px);transition:all .2s}.fab-menu.aberto{pointer-events:auto;opacity:1;transform:translateY(0)}.fab-item{display:flex;align-items:center;gap:8px;cursor:pointer}.fab-item-label{background:#2d1208;color:#fff;font-size:12px;font-weight:600;padding:6px 12px;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.2);white-space:nowrap}.fab-item-btn{width:42px;height:42px;border-radius:50%;background:#fff;border:none;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:18px}.fab-overlay{position:fixed;inset:0;z-index:78;display:none}.fab-overlay.aberto{display:block}@media(min-width:768px){.fab{bottom:24px;right:24px}.fab-menu{bottom:92px;right:24px}}
+
 </style>
 <script>
 var SENHAS={rui:"rui2024",nuno:"nuno2024",joao:"joao2024",oscar:"oscar2024",ana:"ana2024"};
@@ -2384,6 +2383,7 @@ function renderBadges() {
     "nuno":ls.filter(([k,v])=>v.canal_id==="nuno").length,
     "joao":ls.filter(([k,v])=>v.canal_id==="joao").length,
     "oscar":ls.filter(([k,v])=>v.canal_id==="oscar").length,
+    "ana":ls.filter(([k,v])=>v.canal_id==="ana_internacional"||v.comercial==="Ana Filipa").length,
     "rui":ls.filter(([k,v])=>v.comercial==="Rui").length,
     "catering":ls.filter(([k,v])=>v.canal_id==="rui_catering").length,
     "distribuidores":ls.filter(([k,v])=>v.canal_id==="rui_distribuidores").length,
@@ -2398,7 +2398,8 @@ function renderTudo() {
   renderDashboard();
   renderBadges();
   filtrarTabela();
-  ["nuno","joao","oscar","ana","rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
+  ["nuno","joao","oscar","rui","catering","distribuidores","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
+  renderVistaAna();
   renderDocumentosGlobal();
   actualizarEstadoTemplates();
   if(document.getElementById("view-estatisticas")?.classList.contains("ativo")) renderEstatisticas();
@@ -3834,14 +3835,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
 });
 </script>
 
-<!-- FAB -->
-<div class="fab-overlay" id="fab-overlay" onclick="fecharFAB()"></div>
-<div class="fab-menu" id="fab-menu">
-  <div class="fab-item" onclick="fecharFAB();abrirNovaLead()"><span class="fab-item-label">Nova lead</span><button class="fab-item-btn">➕</button></div>
-  <div class="fab-item" onclick="fecharFAB();verLeadsProximas()"><span class="fab-item-label">Leads próximas</span><button class="fab-item-btn">📍</button></div>
-  <div class="fab-item" onclick="fecharFAB();mudarVista('prontos',document.querySelector('[data-view=prontos]'))"><span class="fab-item-label">Prontos p/ visitar</span><button class="fab-item-btn">✅</button></div>
-  <div class="fab-item" onclick="fecharFAB();mudarVista('estatisticas',document.querySelector('[data-view=estatisticas]'))"><span class="fab-item-label">Estatísticas</span><button class="fab-item-btn">📈</button></div>
-</div>
-<button class="fab" id="fab-btn" onclick="toggleFAB()" aria-label="Menu">+</button>
 </body>
 </html>
