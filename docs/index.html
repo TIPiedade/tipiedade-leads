@@ -2503,6 +2503,26 @@ function abrirLead(k) {
   document.getElementById("m-tel").innerHTML = v.tel&&v.tel!=="—"?`<a href="tel:${v.tel}" style="color:var(--laranja)">${v.tel}</a>`:v.tel||"—";
   document.getElementById("m-email").innerHTML = v.email_lead&&v.email_lead!=="—"?`<a href="mailto:${v.email_lead}" style="color:var(--laranja)">${v.email_lead}</a>`:v.email_lead||"—";
   document.getElementById("m-zona").textContent = v.zona||"—";
+
+  // ── CAMPOS INTERNACIONAIS ─────────────────────────────────
+  var isIntl = !!(v.internacional || v.canal_id==="ana_internacional");
+  var intlEls = ["m-item-pais","m-item-segmento","m-item-lingua","m-item-website"];
+  intlEls.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display=isIntl?"flex":"none"; });
+  if (isIntl) {
+    var segLabel = {saudade:"🫙 Mercado Saudade",congelados:"❄️ Congelados Premium",horeca:"🍽 HORECA Internacional"};
+    var lingLabel = {pt:"Português",en:"Inglês",fr:"Francês",es:"Espanhol"};
+    var mPais = document.getElementById("m-pais"); if(mPais) mPais.textContent = v.pais||"—";
+    var mSeg  = document.getElementById("m-segmento"); if(mSeg) mSeg.textContent = segLabel[v.segmento]||v.segmento||"—";
+    var mLing = document.getElementById("m-lingua"); if(mLing) mLing.textContent = lingLabel[v.lingua]||v.lingua||"—";
+    var mWeb  = document.getElementById("m-website");
+    if (mWeb) {
+      var website = v.website||v.morada||"";
+      if (website && website.includes(".") && !website.includes(" ")) {
+        var wUrl = website.startsWith("http") ? website : "https://"+website;
+        mWeb.innerHTML = "<a href='" + wUrl + "' target='_blank' style='color:var(--laranja)'>" + website + "</a>";
+      } else { mWeb.textContent = "—"; }
+    }
+  }
   document.getElementById("m-comercial").textContent = v.comercial||"—";
   document.getElementById("m-prio").innerHTML = badgePrio(v.prioridade);
   document.getElementById("m-tipologia").textContent = v.tipologia_cliente||"—";
@@ -2593,6 +2613,56 @@ function abrirLead(k) {
 
   document.getElementById("overlay").classList.add("aberto");
 }
+
+// ── EDIÇÃO INLINE DE CAMPOS ──────────────────────────────────────
+var CAMPOS_MAP = {
+  tel:     {campo:"tel",     input:"m-tel-edit",     display:"m-tel",     placeholder:"Telefone"},
+  email:   {campo:"email_lead", input:"m-email-edit", display:"m-email",  placeholder:"Email"},
+  morada:  {campo:"morada",  input:"m-morada-edit",  display:"m-morada",  placeholder:"Morada"},
+  website: {campo:"website", input:"m-website-edit", display:"m-website", placeholder:"https://"},
+};
+
+function editarCampo(tipo) {
+  var m = CAMPOS_MAP[tipo]; if (!m) return;
+  var disp  = document.getElementById(m.display);
+  var input = document.getElementById(m.input);
+  if (!disp || !input || !LEAD_ATUAL) return;
+  var val = HIST.leads[LEAD_ATUAL]?.[m.campo]||"";
+  input.value = val === "—" ? "" : val;
+  disp.style.display  = "none";
+  input.style.display = "block";
+  input.focus();
+}
+
+function guardarCampo(tipo) {
+  var m = CAMPOS_MAP[tipo]; if (!m) return;
+  var input = document.getElementById(m.input);
+  var disp  = document.getElementById(m.display);
+  if (!input || !LEAD_ATUAL) return;
+  var novo = input.value.trim() || "—";
+  HIST.leads[LEAD_ATUAL][m.campo] = novo;
+  if (tipo === "tel") {
+    disp.innerHTML = novo !== "—" ? "<a href='tel:"+novo+"' style='color:var(--laranja)'>"+novo+"</a>" : "—";
+    var btn = document.getElementById("m-tel-btn");
+    if (btn) { btn.href=novo!=="—"?"tel:"+novo.replace(/[^0-9+]/g,""):"#"; btn.style.opacity=novo!=="—"?"1":".4"; btn.style.pointerEvents=novo!=="—"?"auto":"none"; }
+  } else if (tipo === "email") {
+    disp.innerHTML = novo !== "—" ? "<a href='mailto:"+novo+"' style='color:var(--laranja)'>"+novo+"</a>" : "—";
+    var btn2 = document.getElementById("m-email-btn");
+    if (btn2) { btn2.href=novo!=="—"?"mailto:"+novo:"#"; btn2.style.opacity=novo!=="—"?"1":".4"; btn2.style.pointerEvents=novo!=="—"?"auto":"none"; }
+  } else if (tipo === "website") {
+    if (novo !== "—" && novo.includes(".")) {
+      var wUrl = novo.startsWith("http") ? novo : "https://"+novo;
+      disp.innerHTML = "<a href='"+wUrl+"' target='_blank' style='color:var(--laranja)'>"+novo+"</a>";
+    } else { disp.textContent = "—"; }
+  } else {
+    disp.textContent = novo;
+  }
+  disp.style.display  = "block";
+  input.style.display = "none";
+  guardarHistorico();
+  toast((tipo.charAt(0).toUpperCase()+tipo.slice(1))+" guardado ✓","ok");
+}
+
 
 function fecharModal(e) {
   if (e && e.target !== document.getElementById("overlay")) return;
