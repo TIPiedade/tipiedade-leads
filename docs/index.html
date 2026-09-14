@@ -1818,6 +1818,16 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
         <div class="info-val" id="m-email">—</div>
         <input class="form-input" id="m-email-edit" type="email" style="display:none;margin-top:4px;padding:6px 10px;font-size:13px" placeholder="email@exemplo.pt" onblur="guardarCampo('email')">
         </div>
+        <div class="info-item" id="m-item-website" style="display:none">
+          <div class="info-lbl">Website
+            <button onclick="editarCampo('website')" style="background:none;border:none;color:var(--laranja);font-size:10px;cursor:pointer;padding:0 4px;font-weight:700">✏</button>
+          </div>
+          <div class="info-val" id="m-website">—</div>
+          <input class="form-input" id="m-website-edit" type="url" style="display:none;margin-top:4px;padding:6px 10px;font-size:13px" placeholder="https://..." onblur="guardarCampo('website')">
+        </div>
+        <div class="info-item" id="m-item-pais" style="display:none"><div class="info-lbl">País</div><div class="info-val" id="m-pais">—</div></div>
+        <div class="info-item" id="m-item-segmento" style="display:none"><div class="info-lbl">Segmento</div><div class="info-val" id="m-segmento">—</div></div>
+        <div class="info-item" id="m-item-lingua" style="display:none"><div class="info-lbl">Língua</div><div class="info-val" id="m-lingua">—</div></div>
         <div class="info-item"><div class="info-lbl">Zona</div><div class="info-val" id="m-zona">—</div></div>
         <div class="info-item"><div class="info-lbl">Comercial</div><div class="info-val" id="m-comercial">—</div></div>
         <div class="info-item"><div class="info-lbl">Prioridade</div><div class="info-val" id="m-prio">—</div></div>
