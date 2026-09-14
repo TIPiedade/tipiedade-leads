@@ -2116,34 +2116,28 @@ let LEAD_ATUAL = null;
 // CARREGAR HISTÓRICO
 // ═══════════════════════════════════════════════════
 async function carregarHistorico() {
-  try {
-    // PASSO 1: Leitura pública — sem token, funciona sempre
-    const r = await fetch(RAW_URL + "?t=" + Date.now(), {cache: "no-store", mode: "cors"});
-    if (!r.ok) throw new Error("historico.json não encontrado");
-    HIST = await r.json();
-    renderTudo();  // Renderizar IMEDIATAMENTE com os dados reais
-    toast("Dados sincronizados", "ok");
-
-    // PASSO 2: Obter SHA em background (só para escrita futura, não bloqueia UI)
-    const token = localStorage.getItem("gh_token");
-    if (token) {
-      fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${HIST_FILE}`, {
-        headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" }
-      }).then(api => {
-        if (api.ok) api.json().then(d => { HIST_SHA = d.sha; });
-      }).catch(()=>{});  // Falha silenciosa — SHA obtido quando necessário guardar
-    }
-  } catch(e) {
-    console.error("carregarHistorico:", e);
-    toast("Sem ligação — modo demonstração", "err");
-    HIST = getDemoData();
-    renderTudo();
+  var tentativas = [
+    RAW_URL + "?nc=" + Date.now(),
+    "https://raw.githubusercontent.com/TIPiedade/tipiedade-leads/main/historico.json?r=" + Math.random()
+  ];
+  for (var i = 0; i < tentativas.length; i++) {
+    try {
+      var resp = await fetch(tentativas[i], { cache: "no-store" });
+      if (!resp.ok) continue;
+      var dados = await resp.json();
+      if (dados && dados.leads && Object.keys(dados.leads).length > 50) {
+        HIST = dados;
+        renderTudo();
+        toast("✓ " + Object.keys(HIST.leads).length + " leads carregadas", "ok");
+        if (window._loginPendente) { _ativarSessao(window._loginPendente); window._loginPendente = null; }
+        return;
+      }
+    } catch(err) { console.warn("Tentativa " + i + ":", err); }
   }
-  // Activar sessão após dados carregados (login manual ou auto-sessão)
-  if (window._loginPendente) {
-    _ativarSessao(window._loginPendente);
-    window._loginPendente = null;
-  }
+  HIST = getDemoData();
+  renderTudo();
+  toast("Sem ligação — a tentar novamente...", "err");
+  setTimeout(carregarHistorico, 3000);
 }
 
 async function guardarHistorico() {
@@ -2651,14 +2645,7 @@ function toast(msg, tipo="") {
 // DEMO DATA
 // ═══════════════════════════════════════════════════
 function getDemoData() {
-  return { leads: {
-    "nuno::Tasca do Chico::Lisboa": { nome:"Tasca do Chico", tipo:"Restaurante", zona:"Lisboa", morada:"R. do Diário de Notícias 39, Lisboa", email_lead:"info@tascadochico.pt", tel:"965 059 670", comercial:"Nuno", canal_id:"nuno", canal:"horeca", prioridade:"Alta", tipologia_cliente:"Tasca contemporânea", gancho:"Rotatividade alta de turistas — sobremesa pronta a servir com zero desperdício.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Em aberto", emails_enviados:[{num:1,data:"2025-08-14",assunto:"Nurturing Email 1"}], visitas:[], notas:"" },
-    "nuno::Emporium Gourmet::Linha Sintra–Cascais": { nome:"Emporium Gourmet", tipo:"Mercearia Gourmet", zona:"Cascais", morada:"Av. Nossa Senhora do Cabo 101, Cascais", email_lead:"info@emporiumgourmet.pt", tel:"211 541 588", comercial:"Nuno", canal_id:"nuno", canal:"horeca", prioridade:"Alta", tipologia_cliente:"Mercearia gourmet", gancho:"História de 40 anos — receita da D. Piedade vende-se sozinha.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Contactado", emails_enviados:[{num:1,data:"2025-08-14"},{num:2,data:"2025-08-21"}], visitas:[], notas:"Responsável chama-se Ana" },
-    "joao::Tromba Rija::Leiria": { nome:"Tromba Rija", tipo:"Restaurante", zona:"Leiria", morada:"R. Professores Portelas, Marrazes, Leiria", email_lead:"geral@trombarja.com", tel:"244 855 072", comercial:"João", canal_id:"joao", canal:"horeca", prioridade:"Alta", tipologia_cliente:"Restaurante regional / referência", gancho:"Referência gastronómica da região.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Visitado", emails_enviados:[{num:1,data:"2025-08-14"},{num:2,data:"2025-08-21"},{num:3,data:"2025-08-28"},{num:4,data:"2025-09-04"}], visitas:[{data:"2025-09-06",resultado:"Positivo — interesse demonstrado",notas:"Chefe muito interessado. Quer amostras dos 4 sabores."}], notas:"Follow-up a 15 set" },
-    "oscar::Café Santa Cruz::Coimbra": { nome:"Café Santa Cruz", tipo:"Café", zona:"Coimbra", morada:"Pr. 8 de Maio, Coimbra", email_lead:"cafesantacruz@sapo.pt", tel:"239 833 617", comercial:"Óscar", canal_id:"oscar", canal:"horeca", prioridade:"Alta", tipologia_cliente:"Café histórico / turismo", gancho:"Mais emblemático de Coimbra — produto artesanal com história.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Cliente", emails_enviados:[{num:1,data:"2025-08-14"},{num:2,data:"2025-08-21"},{num:3,data:"2025-08-28"},{num:4,data:"2025-09-04"}], visitas:[{data:"2025-09-05",resultado:"Proposta aceite",notas:"Encomenda inicial de 50 unidades Original + 20 Chocolate"}], notas:"Primeira encomenda confirmada" },
-    "rui_catering::Quinta de Sant'Ana Eventos::Oeste": { nome:"Quinta de Sant'Ana Eventos", tipo:"Catering & Eventos", zona:"Oeste", morada:"Gradil, Mafra", email_lead:"eventos@quintadesantana.pt", tel:"261 963 480", comercial:"Rui", canal_id:"rui_catering", canal:"catering", prioridade:"Alta", tipologia_cliente:"Eventos de luxo / casamentos premium", gancho:"Casamentos em quinta histórica — pão de ló artesanal é a sobremesa com mais narrativa.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Em aberto", emails_enviados:[], visitas:[], notas:"" },
-    "rui_distribuidores::Frigoríficos do Algarve::Algarve": { nome:"Frigoríficos do Algarve", tipo:"Distribuidor Congelados", zona:"Algarve", morada:"Zona Industrial, Loulé", email_lead:"geral@frigorificos-algarve.pt", tel:"289 416 200", comercial:"Rui", canal_id:"rui_distribuidores", canal:"distribuidores", prioridade:"Alta", tipologia_cliente:"Distribuidor regional congelados Algarve", gancho:"Algarve sem cobertura — canal HORECA forte com turismo de alto valor.", semana_entrada:33, data_entrada:"2025-08-11", estado:"Em aberto", emails_enviados:[], visitas:[], notas:"" },
-  }, ultima_atualizacao: new Date().toISOString().slice(0,10), versao:"2.0" };
+  return { leads: {}, ultima_atualizacao: "", versao: "2.0" };
 }
 
 // ═══════════════════════════════════════════════════
