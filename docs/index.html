@@ -542,6 +542,29 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
   .fab-menu { bottom: 98px; right: 28px; }
 }
 </style>
+
+<script>
+// Mini login — executado imediatamente, não depende do script principal
+function fazerLogin() {
+  var user = document.getElementById("login-user").value;
+  var pass = document.getElementById("login-pass").value;
+  var erro = document.getElementById("login-erro");
+  if (!user) { erro.textContent = "Selecciona o teu nome."; return; }
+  if (!pass)  { erro.textContent = "Introduz a tua senha."; return; }
+  var SENHAS = {rui:"tipiedade2024",nuno:"tipiedade2024",joao:"tipiedade2024",oscar:"tipiedade2024",ana:"tipiedade2024"};
+  if (pass !== (SENHAS[user]||"")) {
+    erro.textContent = "Senha incorrecta. Usa: tipiedade2024";
+    erro.style.color = "#8B1A1A"; erro.style.fontWeight = "700";
+    document.getElementById("login-pass").value = ""; return;
+  }
+  // Esconder login e esperar que o script principal carregue
+  document.getElementById("login-screen").style.display = "none";
+  window._pendingUser = user;
+  window._pendingPass = pass;
+  // Tentar chamar o login completo se já carregou
+  if (typeof _completarLogin === "function") _completarLogin(user, pass);
+}
+</script>
 </head>
 <body>
 
@@ -4031,6 +4054,21 @@ const SENHAS_DEFAULT = {
   joao:"tipiedade2024", oscar:"tipiedade2024", ana:"tipiedade2024",
 };
 let UTILIZADOR_ATUAL = null;
+
+function _completarLogin(user, pass) {
+  var VISTAS = {rui:"dashboard",nuno:"nuno",joao:"joao",oscar:"oscar",ana:"ana"};
+  var NOMES  = {rui:"Rui Bernardes",nuno:"Nuno",joao:"João",oscar:"Óscar",ana:"Ana Filipa Martins"};
+  UTILIZADOR_ATUAL = user;
+  try { sessionStorage.setItem("crm_user",user); sessionStorage.setItem("crm_pass",pass); } catch(e){}
+  var vista = VISTAS[user]||"dashboard";
+  var btn   = document.querySelector('[data-view="'+vista+'"]');
+  if (btn) mudarVista(vista, btn);
+  var headerEl = document.getElementById("header-user");
+  if (headerEl) headerEl.textContent = NOMES[user]||user;
+}
+
+// Se o login foi feito antes do script carregar, completar agora
+if (window._pendingUser) _completarLogin(window._pendingUser, window._pendingPass);
 
 function fazerLogin() {
   var userEl  = document.getElementById("login-user");
