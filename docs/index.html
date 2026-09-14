@@ -2280,6 +2280,9 @@ function renderTabela(tbodyId, filtroFn, cols="normal") {
 }
 
 function renderVista(vista) {
+  // Vista Ana usa cards, não tbody
+  if (vista === "ana") { renderVistaAna(); return; }
+
   const search    = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
   const canalRui  = document.getElementById("filt-canal-rui")?.value||"";
   const estadoFilt= document.getElementById(`filt-estado-${vista}`)?.value||"";
@@ -2518,6 +2521,7 @@ function mudarVista(vista, btn) {
   renderVista(vista);
   if(vista==='documentos') renderDocumentosGlobal();
   if(vista==='estatisticas') renderEstatisticas();
+  if(vista==='ana') renderVistaAna();
   fecharDrawer();
   // Sincronizar bottom nav
   const map = {dashboard:"bn-dashboard",nuno:"bn-nuno",joao:"bn-joao",oscar:"bn-oscar"};
