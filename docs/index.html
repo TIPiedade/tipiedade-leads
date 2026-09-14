@@ -3952,34 +3952,62 @@ function getWeekNum(d) {
 // ANA FILIPA — MERCADO INTERNACIONAL
 // ═══════════════════════════════════════════════════
 function renderVistaAna() {
-  const filtPais = document.getElementById("filt-pais-ana")?.value||"";
-  const filtSeg  = document.getElementById("filt-seg-ana")?.value||"";
+  var filtPais = document.getElementById("filt-pais-ana")?.value||"";
+  var filtSeg  = document.getElementById("filt-seg-ana")?.value||"";
+  var BAN = {"Espanha":"🇪🇸","França":"🇫🇷","Holanda":"🇳🇱","Reino Unido":"🇬🇧","Brasil":"🇧🇷","Canadá":"🇨🇦","Alemanha":"🇩🇪","Suíça":"🇨🇭","Luxemburgo":"🇱🇺","Japão":"🇯🇵"};
+  var SEG = {saudade:"🫙 Saudade",congelados:"❄️ Congelados",horeca:"🍽 HORECA"};
 
-  let leads = Object.entries(HIST.leads||{}).filter(([k,v])=>
-    v.comercial==="Ana Filipa" || v.canal_id==="ana_internacional"
-  );
-  if (filtPais) leads = leads.filter(([k,v])=>v.pais===filtPais);
-  if (filtSeg)  leads = leads.filter(([k,v])=>v.segmento===filtSeg);
+  var todas = Object.entries(HIST.leads||{}).filter(function(e){ return e[1].canal_id==="ana_internacional" || e[1].comercial==="Ana Filipa"; });
+  var vis   = todas.filter(function(e){
+    if (filtPais && e[1].pais !== filtPais) return false;
+    if (filtSeg  && e[1].segmento !== filtSeg) return false;
+    return true;
+  });
 
-  // KPIs por país
-  const all = Object.entries(HIST.leads||{}).filter(([k,v])=>v.canal_id==="ana_internacional");
-  const porPais = {};
-  all.forEach(([k,v])=>{ porPais[v.pais]=(porPais[v.pais]||0)+1; });
-  const bandeiras = {"Espanha":"🇪🇸","França":"🇫🇷","Holanda":"🇳🇱","Reino Unido":"🇬🇧","Brasil":"🇧🇷","Canadá":"🇨🇦","Alemanha":"🇩🇪","Suíça":"🇨🇭","Luxemburgo":"🇱🇺","Japão":"🇯🇵"};
-  const kpisEl = document.getElementById("kpis-ana");
-  if (kpisEl) kpisEl.innerHTML = Object.entries(porPais).map(([p,n])=>`
-    <div style="padding:8px 14px;background:var(--br);border:1px solid var(--borda);border-radius:10px;display:flex;align-items:center;gap:8px;cursor:pointer"
-         onclick="document.getElementById('filt-pais-ana').value='${p}';renderVistaAna()">
-      <span style="font-size:18px">${bandeiras[p]||"🌍"}</span>
-      <div><div style="font-size:13px;font-weight:700;color:var(--cast)">${p}</div>
-           <div style="font-size:10px;color:var(--txt2)">${n} leads</div></div>
-    </div>`).join("");
+  // KPIs
+  var porPais = {};
+  todas.forEach(function(e){ var p=e[1].pais||"?"; porPais[p]=(porPais[p]||0)+1; });
+  var kEl = document.getElementById("kpis-ana");
+  if (kEl) {
+    kEl.innerHTML = Object.entries(porPais).sort(function(a,b){return b[1]-a[1];}).map(function(e){
+      var p=e[0], n=e[1];
+      return '<div onclick="document.getElementById(\'filt-pais-ana\').value=\''+p+'\';renderVistaAna()" style="padding:8px 14px;background:var(--surf-1);border:1px solid var(--borda);border-radius:10px;display:flex;align-items:center;gap:8px;cursor:pointer;box-shadow:var(--sh-sm)">'
+        +'<span style="font-size:18px">'+(BAN[p]||"🌍")+'</span>'
+        +'<div><div style="font-size:12px;font-weight:700;color:var(--cast2)">'+p+'</div>'
+        +'<div style="font-size:10px;color:var(--txt3)">'+n+' leads</div></div></div>';
+    }).join("");
+  }
 
-  const cardsEl = document.getElementById("cards-ana");
-  const badge   = document.getElementById("badge-ana");
-  if (cardsEl) cardsEl.innerHTML = buildCards(leads, "abrirLead");
-  if (badge)   badge.textContent = all.length;
+  // Cards
+  var cEl = document.getElementById("cards-ana");
+  var bEl = document.getElementById("badge-ana");
+  if (bEl) bEl.textContent = todas.length;
+  if (!cEl) return;
+
+  if (!vis.length) {
+    cEl.innerHTML = '<div class="empty"><div class="empty-ico">🌍</div><div class="empty-txt">Sem leads para este filtro</div></div>';
+    return;
+  }
+
+  cEl.innerHTML = vis.map(function(entry){
+    var k=entry[0], v=entry[1];
+    var estado = v.estado||"Em aberto";
+    var ban    = BAN[v.pais]||"🌍";
+    var seg    = SEG[v.segmento]||v.segmento||"";
+    var ks     = k.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+    return '<div class="lead-card" onclick="abrirLead(\''+ks+'\')">'
+      +'<div class="lead-card-main">'
+      +'<div class="lead-card-nome">'+(v.nome||"—")+'</div>'
+      +'<div class="lead-card-sub">'
+      +'<span style="font-size:15px">'+ban+'</span>'
+      +'<span style="color:var(--txt2);font-size:11px">'+(v.cidade||"")+'</span>'
+      +'<span style="font-size:10px;color:#7B3FB5;font-weight:600">'+seg+'</span>'
+      +'</div></div>'
+      +'<div class="lead-card-right">'+badgeEstado(estado)+'</div>'
+      +'</div>';
+  }).join("");
 }
+
 
 // ═══════════════════════════════════════════════════
 // AUTENTICAÇÃO
