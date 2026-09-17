@@ -1483,8 +1483,25 @@ def enviar_emails(ficheiro, sem, modo):
     smtp_user = os.environ["SMTP_USER"]
     smtp_pass = os.environ["SMTP_PASS"]
 
-    with smtplib.SMTP(smtp_host, smtp_port) as server:
-        server.ehlo(); server.starttls(); server.login(smtp_user, smtp_pass)
+    print(f"[SMTP] A ligar a {smtp_host}:{smtp_port}...")
+    try:
+        smtp_conn = smtplib.SMTP(smtp_host, smtp_port, timeout=30)
+        smtp_conn.ehlo()
+        smtp_conn.starttls()
+        smtp_conn.login(smtp_user, smtp_pass)
+        print(f"[SMTP] Login OK — {smtp_user}")
+    except Exception as smtp_err:
+        print(f"[SMTP] ERRO: {smtp_err}")
+        print("[SMTP] A tentar porta 465 (SSL)...")
+        try:
+            smtp_conn = smtplib.SMTP_SSL(smtp_host, 465, timeout=30)
+            smtp_conn.login(smtp_user, smtp_pass)
+            print("[SMTP] Login SSL OK")
+        except Exception as e2:
+            print(f"[SMTP] ERRO SSL: {e2}")
+            print("[SMTP] Impossível enviar emails. Guardar histórico e sair.")
+            return
+    with smtp_conn as server:
 
         if modo == "coordenador":
             total_horeca = sum(len(gerar_leads_horeca(c,sem)) for c in ["nuno","joao","oscar"])
