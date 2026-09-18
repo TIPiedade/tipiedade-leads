@@ -29,55 +29,7 @@ jobs:
       - run: pip install openpyxl
       - name: Gerar e enviar resumo
         env:
-          SMTP_HOST:   ${{ secrets.SMTP_HOST }}
-          SMTP_PORT:   ${{ secrets.SMTP_PORT }}
-          SMTP_USER:   ${{ secrets.SMTP_USER }}
-          SMTP_PASS:   ${{ secrets.SMTP_PASS }}
-          EMAIL_NUNO:  ${{ secrets.EMAIL_NUNO }}
-          EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
-          EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
-          EMAIL_RUI:   ${{ secrets.EMAIL_RUI }}
-          GH_PAT:      ${{ secrets.GH_PAT }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          MODO: "coordenador"
-        run: python scripts/generate_leads.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: leads-s${{ github.run_number }}-segunda
-          path: "*.xlsx"
-          retention-days: 60
-
-  quarta-comerciais:
-    name: "Leads e nurturing"
-    if: >
-      (github.event_name == 'schedule' && github.event.schedule == '30 6 * * 3') ||
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.modo == 'comerciais')
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install openpyxl
-      - name: Gerar, enviar e registar
-        env:
-          SMTP_HOST:   ${{ secrets.SMTP_HOST }}
-          SMTP_PORT:   ${{ secrets.SMTP_PORT }}
-          SMTP_USER:   ${{ secrets.SMTP_USER }}
-          SMTP_PASS:   ${{ secrets.SMTP_PASS }}
-          EMAIL_NUNO:  ${{ secrets.EMAIL_NUNO }}
-          EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
-          EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
-          EMAIL_RUI:   ${{ secrets.EMAIL_RUI }}
-          GH_PAT:      ${{ secrets.GH_PAT }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          MODO: "comerciais"
-        run: python scripts/generate_leads.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: leads-s${{ github.run_number }}-quarta
-          path: "*.xlsx"
-          retention-days: 60
+          SMTP_HOST:      ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:      ${{ secrets.SMTP_PORT }}
+          SMTP_USER:      ${{ secrets.SMTP_USER }}
+          SMTP_PASS:      ${{ secrets.SMTP_PASS }}
