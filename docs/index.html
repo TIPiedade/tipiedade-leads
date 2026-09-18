@@ -2943,12 +2943,30 @@ async function uploadDocumentoGlobal() {
     });
     const path = `docs/ficheiros/global/${file.name}`;
     const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+    // Verificar se o ficheiro já existe (para obter o SHA)
+    let existingSha = null;
+    try {
+      const checkResp = await fetch(apiUrl, {
+        headers:{"Authorization":`Bearer ${token}`,"Accept":"application/vnd.github+json"}
+      });
+      if (checkResp.ok) {
+        const existing = await checkResp.json();
+        existingSha = existing.sha;
+      }
+    } catch(checkErr) { /* ficheiro não existe — ok */ }
+
+    const uploadBody = {message:`doc: ${nome}`, content:b64};
+    if (existingSha) uploadBody.sha = existingSha;
+
     const resp = await fetch(apiUrl, {
       method:"PUT",
       headers:{"Authorization":`Bearer ${token}`,"Accept":"application/vnd.github+json","Content-Type":"application/json"},
-      body: JSON.stringify({message:`doc: ${nome}`, content:b64})
+      body: JSON.stringify(uploadBody)
     });
-    if (!resp.ok) throw new Error(await resp.text());
+    if (!resp.ok) {
+      const errText = await resp.text();
+      throw new Error(`HTTP ${resp.status}: ${errText.slice(0,200)}`);
+    }
     const rawUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${path}`;
     const tamanho = file.size>1024*1024?(file.size/1024/1024).toFixed(1)+"MB":(file.size/1024).toFixed(0)+"KB";
     if (!HIST.documentos_globais) HIST.documentos_globais = [];
@@ -2962,8 +2980,9 @@ async function uploadDocumentoGlobal() {
     document.getElementById("upload-panel").style.display="none";
     toast(`"${nome}" carregado ✓`,"ok");
   } catch(e) {
-    console.error(e);
-    toast("Erro ao carregar — verifica o token","err");
+    console.error("Upload erro:", e);
+    const msg = e?.message ? e.message.slice(0,120) : String(e).slice(0,120);
+    toast("Erro: " + msg, "err", 8000);
   } finally {
     btn.textContent="⬆ Carregar"; btn.disabled=false;
   }
