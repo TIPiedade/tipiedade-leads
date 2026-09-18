@@ -8417,13 +8417,6 @@
   },
   "documentos_globais": [
     {
-      "nome": "FT_Chocolata_Uni_congelado",
-      "cat": "Ficha Técnica",
-      "url": "https://raw.githubusercontent.com/TIPiedade/tipiedade-leads/main/docs/ficheiros/global/TP.FT.10 - PL Chocolate 85g - Cong - Rev.11.pdf",
-      "data": "2026-09-18",
-      "tamanho": "611KB"
-    },
-    {
       "nome": "FT_Canela_uni_congelado",
       "cat": "Ficha Técnica",
       "url": "https://raw.githubusercontent.com/TIPiedade/tipiedade-leads/main/docs/ficheiros/global/TP.FT.26 - PL Canela 85g - Cong. COM COBERTURA - Rev.05.pdf",
