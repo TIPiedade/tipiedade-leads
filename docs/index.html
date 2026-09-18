@@ -238,6 +238,7 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
 .b-visitado  { background: var(--amar-bg); color: var(--amarelo); }
 .b-cliente   { background: var(--verd-bg); color: var(--verde); }
 .b-desistiu  { background: var(--cinza-bg);color: var(--cinza); }
+.b-na        { background: transparent;color: var(--cinza);border:1px dashed var(--cinza); }
 .b-proposta  { background: #EEE8FA;        color: #5B21B6; }
 .b-alta      { background: var(--verm-bg); color: var(--vermelho); }
 .b-media     { background: var(--amar-bg); color: var(--amarelo); }
@@ -628,7 +629,7 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
         <select class="filter-select" onchange="filtrarTabela()" id="filt-estado-todos">
           <option value="">Todos os estados</option>
           <option>Em aberto</option><option>Contactado</option><option>Proposta enviada</option>
-          <option>Visitado</option><option>Cliente</option><option>Desistiu</option>
+          <option>Visitado</option><option>Cliente</option><option>Desistiu</option><option value="N/A">N/A (não aplicável)</option>
         </select>
         <select class="filter-select" onchange="filtrarTabela()" id="filt-canal-todos">
           <option value="">Todos os canais</option>
@@ -654,7 +655,7 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
           <option>Proposta enviada</option>
           <option>Visitado</option>
           <option>Cliente</option>
-          <option>Desistiu</option>
+          <option>Desistiu</option><option value="N/A">N/A (não aplicável)</option>
         </select>
       </div>
       <div id="resumo-nuno" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
@@ -671,7 +672,7 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
           <option>Proposta enviada</option>
           <option>Visitado</option>
           <option>Cliente</option>
-          <option>Desistiu</option>
+          <option>Desistiu</option><option value="N/A">N/A (não aplicável)</option>
         </select>
       </div>
       <div id="resumo-joao" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
@@ -688,7 +689,7 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
           <option>Proposta enviada</option>
           <option>Visitado</option>
           <option>Cliente</option>
-          <option>Desistiu</option>
+          <option>Desistiu</option><option value="N/A">N/A (não aplicável)</option>
         </select>
       </div>
       <div id="resumo-oscar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
@@ -1913,7 +1914,7 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
           <option>Proposta enviada</option>
           <option>Visitado</option>
           <option>Cliente</option>
-          <option>Desistiu</option>
+          <option>Desistiu</option><option value="N/A">N/A (não aplicável)</option>
         </select>
       </div>
 
@@ -2255,9 +2256,9 @@ function emailDots(emails_enviados) {
 function badgeEstado(e) {
   const m = {
     "Em aberto":"b-aberto","Contactado":"b-contactado","Visitado":"b-visitado",
-    "Cliente":"b-cliente","Desistiu":"b-desistiu","Proposta enviada":"b-proposta"
+    "Cliente":"b-cliente","Desistiu":"b-desistiu","Proposta enviada":"b-proposta","N/A":"b-na"
   };
-  return `<span class="badge ${m[e]||'b-aberto'}">${e||"Em aberto"}</span>`;
+  return `<span class="badge ${m[e]||'b-aberto'}">${e==="N/A"?"N/A · não aplicável":(e||"Em aberto")}</span>`;
 }
 
 function badgePrio(p) {
@@ -2311,7 +2312,7 @@ function renderVista(vista) {
     "catering":      ([k,v]) => v.canal_id==="rui_catering",
     "distribuidores":([k,v]) => v.canal_id==="rui_distribuidores",
     "grupos":        ([k,v]) => v.canal_id==="rui_grupos",
-    "prontos":       ([k,v]) => (v.emails_enviados||[]).length >= 4 && v.estado !== "Cliente" && v.estado !== "Desistiu",
+    "prontos":       ([k,v]) => (v.emails_enviados||[]).length >= 4 && v.estado !== "Cliente" && v.estado !== "Desistiu" && v.estado !== "N/A",
     "clientes":      ([k,v]) => v.estado==="Cliente",
     "desistencias":  ([k,v]) => v.estado==="Desistiu",
   };
@@ -2330,8 +2331,8 @@ function renderVista(vista) {
     const resumoDiv = document.getElementById(`resumo-${vista}`);
     if (resumoDiv) {
       const todosBase = leads().filter(([k,v]) => fn([k,v]));
-      const estados = ["Em aberto","Contactado","Proposta enviada","Visitado","Cliente","Desistiu"];
-      const cores   = {"Em aberto":"b-aberto","Contactado":"b-contactado","Proposta enviada":"b-proposta","Visitado":"b-visitado","Cliente":"b-cliente","Desistiu":"b-desistiu"};
+      const estados = ["Em aberto","Contactado","Proposta enviada","Visitado","Cliente","Desistiu","N/A"];
+      const cores   = {"Em aberto":"b-aberto","Contactado":"b-contactado","Proposta enviada":"b-proposta","Visitado":"b-visitado","Cliente":"b-cliente","Desistiu":"b-desistiu","N/A":"b-na"};
       resumoDiv.innerHTML = estados.map(e => {
         const n = todosBase.filter(([k,v])=>(v.estado||"Em aberto")===e).length;
         if (!n) return "";
@@ -2401,7 +2402,7 @@ function renderDashboard() {
   const tot = ls.length;
   const nur = ls.filter(([k,v])=>(v.emails_enviados||[]).length>0 && (v.emails_enviados||[]).length<4).length;
   const cli = ls.filter(([k,v])=>v.estado==="Cliente").length;
-  const prt = ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4 && v.estado!=="Cliente" && v.estado!=="Desistiu").length;
+  const prt = ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4 && v.estado!=="Cliente" && v.estado!=="Desistiu" && v.estado!=="N/A").length;
   document.getElementById("k-total").textContent=tot;
   document.getElementById("k-nurturing").textContent=nur;
   document.getElementById("k-clientes").textContent=cli;
@@ -2444,7 +2445,7 @@ function renderBadges() {
     "catering":ls.filter(([k,v])=>v.canal_id==="rui_catering").length,
     "distribuidores":ls.filter(([k,v])=>v.canal_id==="rui_distribuidores").length,
     "grupos":ls.filter(([k,v])=>v.canal_id==="rui_grupos").length,
-    "prontos":ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4&&v.estado!=="Cliente"&&v.estado!=="Desistiu").length,
+    "prontos":ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4&&v.estado!=="Cliente"&&v.estado!=="Desistiu"&&v.estado!=="N/A").length,
     "clientes":ls.filter(([k,v])=>v.estado==="Cliente").length,
     "desistencias":ls.filter(([k,v])=>v.estado==="Desistiu").length,
   };
@@ -3941,7 +3942,7 @@ function buildCards(leads_list, abreFn) {
     const emails   = v.emails_enviados||[];
     const estado   = v.estado||"Em aberto";
     const prio     = v.prioridade||"";
-    const pronto   = emails.length >= 4 && estado !== "Cliente" && estado !== "Desistiu";
+    const pronto   = emails.length >= 4 && estado !== "Cliente" && estado !== "Desistiu" && estado !== "N/A";
     const temTel   = v.tel && v.tel !== "—";
     const temEmail = v.email_lead && v.email_lead !== "—";
     return `<div class="lead-card" onclick="${abreFn}('${k}')" style="${pronto?'border-left:3px solid var(--verde);':''}">
