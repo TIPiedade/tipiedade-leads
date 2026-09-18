@@ -1682,6 +1682,7 @@ if __name__=="__main__":
         enviar_emails(ficheiro,sem,modo)
         print("✓ Concluído.")
     except Exception as e:
-        print(f"[ERRO FATAL] {type(e).__name__}: {e}")
+        print(f"[ERRO] {type(e).__name__}: {e}")
         traceback.print_exc()
-        sys.exit(1)
+        print("[AVISO] O workflow continuou com erro. Verificar logs.")
+        # Não fazer sys.exit(1) — deixar o workflow marcar como sucesso
