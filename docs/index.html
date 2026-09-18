@@ -722,12 +722,13 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
 
     <div class="view" id="view-rui">
       <div class="toolbar">
-        <span class="toolbar-title">Rui — Catering & Distribuidores</span>
+        <span class="toolbar-title">Rui — Leads Comerciais</span>
         <input class="search-input" placeholder="🔍 Pesquisar..." oninput="renderVista('rui')" id="search-rui">
         <select class="filter-select" onchange="renderVista('rui')" id="filt-canal-rui">
           <option value="">Todos os canais</option>
           <option value="rui_catering">Catering & Eventos</option>
           <option value="rui_distribuidores">Distribuidores</option>
+          <option value="rui_grupos">🏢 Grupos Nacionais</option>
           <option value="manual_rui">Adicionadas manualmente</option>
         </select>
         <button class="btn-primary" onclick="abrirNovaLead()" style="padding:7px 14px;font-size:12px">+ Nova lead</button>
@@ -2303,6 +2304,7 @@ function renderVista(vista) {
     "rui":           ([k,v]) => v.comercial==="Rui" && (!canalRui || v.canal_id===canalRui),
     "catering":      ([k,v]) => v.canal_id==="rui_catering",
     "distribuidores":([k,v]) => v.canal_id==="rui_distribuidores",
+    "grupos":        ([k,v]) => v.canal_id==="rui_grupos",
     "prontos":       ([k,v]) => (v.emails_enviados||[]).length >= 4 && v.estado !== "Cliente" && v.estado !== "Desistiu",
     "clientes":      ([k,v]) => v.estado==="Cliente",
     "desistencias":  ([k,v]) => v.estado==="Desistiu",
