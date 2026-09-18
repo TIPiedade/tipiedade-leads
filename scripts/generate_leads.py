@@ -1450,8 +1450,9 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
         # Enviar via Brevo API (HTTPS — sem problemas de porta SMTP)
         ok, mid = brevo_send(
             api_key, EMAIL_FROM, "Pão de Ló Ti'Piedade",
-            [dest_email, EMAIL_CC, EMAIL_BCC2], None,
-            f"{assunto} | Ti'Piedade", texto, corpo_html=html
+            [dest_email], EMAIL_CC,  # lead no To, sales em CC
+            f"{assunto} | Ti'Piedade", texto, corpo_html=html,
+            bcc_list=[EMAIL_BCC2]    # geral em BCC
         )
         if ok:
             sucesso = True
@@ -1462,7 +1463,7 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
     return sucesso, html
 
 
-def brevo_send(api_key, de_email, de_nome, para_list, cc_email, assunto, corpo_text, corpo_html=None, anexo_path=None):
+def brevo_send(api_key, de_email, de_nome, para_list, cc_email, assunto, corpo_text, corpo_html=None, anexo_path=None, bcc_list=None):
     """Envia email via Brevo API — sem dependência de porta SMTP."""
     payload = {
         "sender":  {"email": de_email, "name": de_nome},
@@ -1472,6 +1473,8 @@ def brevo_send(api_key, de_email, de_nome, para_list, cc_email, assunto, corpo_t
     }
     if cc_email:
         payload["cc"] = [{"email": cc_email}]
+    if bcc_list:
+        payload["bcc"] = [{"email": b} for b in bcc_list if b]
     if corpo_html:
         payload["htmlContent"] = corpo_html
     if anexo_path and os.path.exists(anexo_path):
