@@ -1666,10 +1666,16 @@ Ti'Piedade — Sistema de Prospeção
 # ════════════════════════════════════════════════════════════════
 
 if __name__=="__main__":
-    sem=semana_num(); modo=os.environ.get("MODO","coordenador")
-    print(f"▶ Semana {sem} — {semana_datas()} — Modo: {modo}")
-    historico,sha=ler_historico()
-    ficheiro=criar_excel(sem,historico)
-    print(f"✓ Excel: {ficheiro}")
-    enviar_emails(ficheiro,sem,modo)
-    print("✓ Concluído.")
+    import traceback
+    try:
+        sem=semana_num(); modo=os.environ.get("MODO","coordenador")
+        print(f"▶ Semana {sem} — {semana_datas()} — Modo: {modo}")
+        historico,sha_hist=ler_historico()
+        ficheiro=criar_excel(sem,historico)
+        print(f"✓ Excel: {ficheiro}")
+        enviar_emails(ficheiro,sem,modo)
+        print("✓ Concluído.")
+    except Exception as e:
+        print(f"[ERRO FATAL] {type(e).__name__}: {e}")
+        traceback.print_exc()
+        sys.exit(1)
