@@ -570,6 +570,10 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
     <button class="nav-btn" onclick="abrirBrevo()">
       <span class="ico">📊</span> Estatísticas Brevo
     </button>
+    <div style="padding:12px 8px;margin-top:8px;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:6px">
+      <button id="btn-geo" onclick="toggleGeolocalizacao()" style="width:100%;padding:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:12px;color:rgba(255,255,255,.75);cursor:pointer;font-weight:600;text-align:left">📍 Activar localização</button>
+      <button onclick="fazerLogout()" style="width:100%;padding:8px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:8px;font-size:11px;color:rgba(255,255,255,.4);cursor:pointer;font-weight:600;text-align:left">← Terminar sessão</button>
+    </div>
   </nav>
 
   <!-- CONTEÚDO -->
@@ -4038,6 +4042,8 @@ function activarGeolocalizacao() {
     { enableHighAccuracy: true, maximumAge: 30000, timeout: 10000 }
   );
   toast("📍 Localização activa — alertas dentro de " + GEO_RAIO_KM + "km", "ok");
+  var b = document.getElementById("btn-geo");
+  if (b) { b.textContent = "📍 Localização activa ✓"; b.style.color = "#7BC67E"; b.style.borderColor = "#7BC67E"; }
 }
 
 function desactivarGeolocalizacao() {
@@ -4046,6 +4052,8 @@ function desactivarGeolocalizacao() {
     GEO_WATCH_ID = null;
     GEO_ALERTADOS.clear();
     toast("📍 Localização desactivada", "ok");
+  var b = document.getElementById("btn-geo");
+  if (b) { b.textContent = "📍 Activar localização"; b.style.color = ""; b.style.borderColor = ""; }
   }
 }
 
