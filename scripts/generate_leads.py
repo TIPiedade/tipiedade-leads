@@ -1513,12 +1513,13 @@ def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
 
 
 def enviar_emails(ficheiro, sem, modo):
-    api_key = os.environ.get("SMTP_PASS","")
+    # Usar BREVO_API_KEY (xkeysib-...) ou fallback para SMTP_PASS
+    api_key = os.environ.get("BREVO_API_KEY", os.environ.get("SMTP_PASS",""))
     smtp_user = EMAIL_FROM
     if not api_key:
-        print("[Brevo] API key (SMTP_PASS) não configurada.")
+        print("[Brevo] Nenhuma API key configurada (BREVO_API_KEY ou SMTP_PASS).")
         return
-    print(f"[Brevo] API key configurada: ...{api_key[-8:]}")
+    print(f"[Brevo] API key: ...{api_key[-8:]}")
 
     print(f"[Brevo API] A enviar emails via HTTPS...")
     if True:  # bloco de compatibilidade (substitui 'with smtp_conn as server:')
