@@ -1478,10 +1478,14 @@ def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
 
 
 def enviar_emails(ficheiro, sem, modo):
-    smtp_host = os.environ["SMTP_HOST"]
+    smtp_host = os.environ.get("SMTP_HOST","smtp-relay.brevo.com")
     smtp_port = int(os.environ.get("SMTP_PORT","587"))
-    smtp_user = os.environ["SMTP_USER"]
-    smtp_pass = os.environ["SMTP_PASS"]
+    smtp_user = os.environ.get("SMTP_USER","")
+    smtp_pass = os.environ.get("SMTP_PASS","")
+    if not smtp_user or not smtp_pass:
+        print("[SMTP] Credenciais não configuradas — a saltar envio de emails.")
+        print("[SMTP] Configura os secrets SMTP_USER e SMTP_PASS no GitHub.")
+        return
 
     print(f"[SMTP] A ligar a {smtp_host}:{smtp_port}...")
     try:
