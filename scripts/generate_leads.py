@@ -603,6 +603,7 @@ def registar_envios(historico, canal_id, leads, email_num, comercial_nome, html_
 def calcular_email_num(historico, canal_id, lead):
     k = lead_key(canal_id, lead)
     if k not in historico["leads"]: return 1
+    if historico["leads"][k].get("estado") == "N/A": return None  # empresa fechou / não existe: não enviar
     enviados = [e["num"] for e in historico["leads"][k].get("emails_enviados",[])]
     for n in [1,2,3,4]:
         if n not in enviados: return n
