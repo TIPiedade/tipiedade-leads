@@ -2164,48 +2164,71 @@ let LEAD_ATUAL = null;
 // ═══════════════════════════════════════════════════
 // CARREGAR HISTÓRICO
 // ═══════════════════════════════════════════════════
+// Lê o historico.json diretamente da API do GitHub (sem a cache de 5 minutos do raw.githubusercontent)
+const API_HIST = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${HIST_FILE}`;
+let HIST_BASE = { leads:{}, top:{} };   // cópia do que foi lido, para saber o que foi alterado aqui
+function marcarBase() {
+  HIST_BASE = { leads:{}, top:{} };
+  Object.keys(HIST.leads||{}).forEach(k => { HIST_BASE.leads[k] = JSON.stringify(HIST.leads[k]); });
+  Object.keys(HIST).forEach(k => { if (k !== "leads") HIST_BASE.top[k] = JSON.stringify(HIST[k]); });
+}
+async function lerRemoto() {
+  const headers = { "Accept": "application/vnd.github+json" };
+  const token = localStorage.getItem("gh_token");
+  if (token) headers["Authorization"] = "Bearer " + token;
+  const r = await fetch(API_HIST + "?ref=main&t=" + Date.now(), { headers, cache: "no-store" });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  const d = await r.json();
+  const bin = atob(String(d.content || "").replace(/\n/g, ""));
+  const bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return { dados: JSON.parse(new TextDecoder("utf-8").decode(bytes)), sha: d.sha };
+}
 async function carregarHistorico() {
-  // 1. Usar dados embutidos imediatamente (sempre funciona)
+  // 1. Dados embutidos para mostrar logo alguma coisa
   HIST = getDemoData();
   renderTudo();
-  // 2. Tentar actualizar com dados mais recentes do servidor
+  // 2. Versão atual do GitHub (API, sempre fresca)
+  let ok = false;
   try {
-    var url = "https://raw.githubusercontent.com/TIPiedade/tipiedade-leads/main/historico.json?t=" + Date.now();
-    var resp = await fetch(url, { cache: "no-store" });
-    if (resp.ok) {
-      var dados = await resp.json();
-      if (dados && dados.leads && Object.keys(dados.leads).length >= Object.keys(HIST.leads).length) {
-        HIST = dados;
-        renderTudo();
-        toast("✓ " + Object.keys(HIST.leads).length + " leads actualizadas", "ok");
-      }
-    }
-  } catch(err) {
-    console.warn("Fetch background falhou:", err);
-    toast("A usar dados locais (" + Object.keys(HIST.leads).length + " leads)", "ok");
+    const { dados, sha } = await lerRemoto();
+    if (dados && dados.leads) { HIST = dados; HIST_SHA = sha; ok = true; }
+  } catch (err) { console.warn("API falhou, a tentar raw:", err); }
+  if (!ok) {
+    try {
+      const resp = await fetch("https://raw.githubusercontent.com/TIPiedade/tipiedade-leads/main/historico.json?t=" + Date.now(), { cache: "no-store" });
+      if (resp.ok) { const dados = await resp.json(); if (dados && dados.leads) { HIST = dados; ok = true; } }
+    } catch (err) { console.warn("Raw falhou:", err); }
   }
-  // SHA para escrita
-  var token = localStorage.getItem("gh_token");
-  if (token) {
-    fetch("https://api.github.com/repos/TIPiedade/tipiedade-leads/contents/historico.json", {
-      headers: { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json" }
-    }).then(function(r){ if(r.ok) r.json().then(function(d){ HIST_SHA=d.sha; }); }).catch(function(){});
-  }
-  if (window._loginPendente) { _ativarSessao(window._loginPendente); window._loginPendente = null; }
+  marcarBase();
+  renderTudo();
+  toast(ok ? "✓ " + Object.keys(HIST.leads).length + " leads atualizadas" : "A usar dados locais (" + Object.keys(HIST.leads).length + " leads)", "ok");
+  if (window._loginPendente && typeof _ativarSessao === "function") { _ativarSessao(window._loginPendente); window._loginPendente = null; }
 }
 
-async function guardarHistorico() {
+let _aGuardar = Promise.resolve();
+function guardarHistorico() { _aGuardar = _aGuardar.then(() => _guardarHistorico()).catch(e => console.error(e)); return _aGuardar; }
+async function _guardarHistorico(tentativa = 1) {
   let token = localStorage.getItem("gh_token");
   if (!token) {
-    // Guardar o que estava pendente e pedir token
     window._pendingSave = () => guardarHistorico();
     abrirModalToken();
     return;
   }
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(HIST, null, 2))));
+  // Juntar as alterações feitas aqui à versão mais recente do GitHub,
+  // para não apagar o que outros (comerciais, emails automáticos) gravaram entretanto
+  let alvo = HIST, sha = HIST_SHA;
+  try {
+    const remoto = await lerRemoto();
+    const m = remoto.dados; m.leads = m.leads || {};
+    Object.keys(HIST.leads).forEach(k => { if (HIST_BASE.leads[k] !== JSON.stringify(HIST.leads[k])) m.leads[k] = HIST.leads[k]; });
+    Object.keys(HIST_BASE.leads).forEach(k => { if (!(k in HIST.leads)) delete m.leads[k]; });
+    Object.keys(HIST).forEach(k => { if (k !== "leads" && HIST_BASE.top[k] !== JSON.stringify(HIST[k])) m[k] = HIST[k]; });
+    alvo = m; sha = remoto.sha;
+  } catch (e) { console.warn("Não consegui ler a versão remota antes de guardar:", e); }
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(alvo, null, 2))));
   const body = { message: `CRM: atualizado ${new Date().toISOString().slice(0,10)}`, content };
-  if (HIST_SHA) body.sha = HIST_SHA;
-  const r = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${HIST_FILE}`, {
+  if (sha) body.sha = sha;
+  const r = await fetch(API_HIST, {
     method: "PUT",
     headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
     body: JSON.stringify(body)
@@ -2213,7 +2236,14 @@ async function guardarHistorico() {
   if (r.ok) {
     const d = await r.json();
     HIST_SHA = d.content.sha;
+    // manter os mesmos objetos das leads abertas; trazer as alterações dos outros
+    Object.keys(alvo.leads).forEach(k => { if (!HIST.leads[k] || HIST_BASE.leads[k] === JSON.stringify(HIST.leads[k]) || alvo.leads[k] === HIST.leads[k]) HIST.leads[k] = alvo.leads[k]; });
+    Object.keys(HIST.leads).forEach(k => { if (!(k in alvo.leads)) delete HIST.leads[k]; });
+    Object.keys(alvo).forEach(k => { if (k !== "leads") HIST[k] = alvo[k]; });
+    marcarBase();
     toast("Guardado ✓", "ok");
+  } else if (r.status === 409 && tentativa < 3) {
+    return _guardarHistorico(tentativa + 1);   // alguém gravou no mesmo instante: juntar outra vez
   } else if (r.status === 401 || r.status === 403) {
     localStorage.removeItem("gh_token");
     window._pendingSave = () => guardarHistorico();
@@ -4247,7 +4277,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   if(su&&sp&&typeof SENHAS!=="undefined"&&SENHAS[su]&&sp===SENHAS[su]){
     document.getElementById("login-screen").style.display="none";
     mostrarAtalhosRui(su);
-    _ativarSessao(su);
+    window._CRM_USER=su;
+    if (typeof _ativarSessao === "function") _ativarSessao(su);
   }
 
   // Fechar drawer com swipe esquerdo (mobile)
