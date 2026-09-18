@@ -449,11 +449,15 @@ function fazerLogin(){
     document.getElementById("login-pass").value="";return;
   }
   window._CRM_USER=u;
+  mostrarAtalhosRui(u);
   try{sessionStorage.setItem("crm_user",u);sessionStorage.setItem("crm_pass",p);}catch(ex){}
   document.getElementById("login-screen").style.display="none";
   if(typeof _ativarSessao==="function")_ativarSessao(u);
   else window._loginPendente=u;
 }
+var REUNIAO_URL="https://claude.ai/artifact/VtKCs9J8XeEupaYN7V5uHS";
+function abrirReuniao(){ window.open(REUNIAO_URL,"_blank","noopener"); }
+function mostrarAtalhosRui(u){ var b=document.getElementById("btn-reuniao"); if(b) b.style.display = (u==="rui") ? "" : "none"; }
 function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();}
 </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
@@ -571,6 +575,9 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
     </button>
     <button class="nav-btn" onclick="abrirBrevo()">
       <span class="ico">📊</span> Estatísticas Brevo
+    </button>
+    <button class="nav-btn" id="btn-reuniao" style="display:none" onclick="abrirReuniao()">
+      <span class="ico">🗓️</span> Reunião semanal
     </button>
     <div style="padding:12px 8px;margin-top:8px;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:6px">
       <button id="btn-geo" onclick="toggleGeolocalizacao()" style="width:100%;padding:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:12px;color:rgba(255,255,255,.75);cursor:pointer;font-weight:600;text-align:left">📍 Activar localização</button>
@@ -2110,14 +2117,22 @@ function getToken(pedirSeFaltar=false) {
 }
 
 function abrirModalToken() {
-  // Auto-preencher token se ainda não estiver guardado
-  if (!localStorage.getItem("gh_token")) {
-    const _t = ["ghp_i3qiKiED2wEp44Za","zEmt9LRnhaOz3e0ZbopV"].join("");
-    localStorage.setItem("gh_token", _t);
-    toast("Acesso configurado ✓","ok");
-    return;
-  }
-  toast("Token já configurado — tenta de novo","ok");
+  if (document.getElementById("modal-token")) return;
+  const m = document.createElement("div");
+  m.id = "modal-token";
+  m.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+  m.innerHTML = '<div style="background:#fff;border-radius:14px;max-width:420px;width:100%;padding:22px;color:#2e211d">'
+    + '<h3 style="margin:0 0 6px;font-size:18px">Acesso para guardar alterações</h3>'
+    + '<p style="margin:0 0 14px;font-size:13px;color:#6b5a50">Cola o token do GitHub. Fica guardado só neste browser.</p>'
+    + '<input id="token-input" type="password" autocomplete="off" placeholder="github_pat_… ou ghp_…" style="width:100%;padding:10px;border:1px solid #d9cbbd;border-radius:8px;font-size:14px;box-sizing:border-box">'
+    + '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">'
+    + '<button id="token-cancel" style="padding:9px 14px;border:1px solid #d9cbbd;background:#fff;border-radius:8px;cursor:pointer">Cancelar</button>'
+    + '<button id="token-ok" style="padding:9px 14px;border:0;background:#4a2417;color:#fff;border-radius:8px;cursor:pointer;font-weight:600">Guardar</button>'
+    + '</div></div>';
+  document.body.appendChild(m);
+  document.getElementById("token-cancel").onclick = () => m.remove();
+  document.getElementById("token-ok").onclick = () => guardarToken();
+  setTimeout(()=>document.getElementById("token-input")?.focus(), 50);
 }
 
 function guardarToken() {
@@ -2130,7 +2145,7 @@ function guardarToken() {
 
 function guardarToken() {
   const t = document.getElementById("token-input")?.value?.trim();
-  if (!t || !t.startsWith("ghp_")) { toast("Token inválido — deve começar por ghp_","err"); return; }
+  if (!t || !(t.startsWith("ghp_") || t.startsWith("github_pat_"))) { toast("Token inválido — deve começar por ghp_ ou github_pat_","err"); return; }
   localStorage.setItem("gh_token", t);
   document.getElementById("modal-token")?.remove();
   toast("Token guardado ✓","ok");
@@ -4220,6 +4235,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   try{su=sessionStorage.getItem("crm_user");sp=sessionStorage.getItem("crm_pass");}catch(ex){}
   if(su&&sp&&typeof SENHAS!=="undefined"&&SENHAS[su]&&sp===SENHAS[su]){
     document.getElementById("login-screen").style.display="none";
+    mostrarAtalhosRui(su);
     _ativarSessao(su);
   }
 
