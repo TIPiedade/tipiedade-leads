@@ -3941,6 +3941,119 @@ function renderVistaAna() {
   }).join("");
 }
 
+// ── GEOLOCALIZAÇÃO — ALERTAS DE LEADS PRÓXIMAS ──────────────────
+var GEO_WATCH_ID  = null;
+var GEO_ALERTADOS = new Set(); // evitar repetir alertas para a mesma lead
+var GEO_RAIO_KM   = 1.5;      // raio em km para alerta
+
+function grausParaRad(g) { return g * Math.PI / 180; }
+
+function distanciaKm(lat1, lon1, lat2, lon2) {
+  var R = 6371;
+  var dLat = grausParaRad(lat2 - lat1);
+  var dLon = grausParaRad(lon2 - lon1);
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2)
+        + Math.cos(grausParaRad(lat1)) * Math.cos(grausParaRad(lat2))
+        * Math.sin(dLon/2) * Math.sin(dLon/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+async function geocodificarMorada(morada) {
+  if (!morada || morada.length < 5) return null;
+  try {
+    var q = encodeURIComponent(morada + ", Portugal");
+    var resp = await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + q, {
+      headers: {"User-Agent": "TIPiedade-CRM/1.0"}
+    });
+    var res = await resp.json();
+    if (res && res[0]) return {lat: parseFloat(res[0].lat), lon: parseFloat(res[0].lon)};
+  } catch(e) {}
+  return null;
+}
+
+async function verificarProximidade(posUser) {
+  var lat = posUser.coords.latitude;
+  var lon = posUser.coords.longitude;
+  var user = window._CRM_USER || "rui";
+  
+  // Filtrar leads do utilizador actual que ainda não são clientes/desistências
+  var leads = Object.entries(HIST.leads || {}).filter(function(e) {
+    var v = e[1];
+    if (v.comercial && user !== "rui" && user !== "ana") {
+      // Comercial vê só as suas leads
+      if (v.canal_id !== user) return false;
+    }
+    if (v.estado === "Cliente" || v.estado === "Desistiu") return false;
+    if (!v.morada || v.morada.length < 5) return false;
+    return true;
+  });
+
+  for (var i = 0; i < leads.length; i++) {
+    var k = leads[i][0], v = leads[i][1];
+    if (GEO_ALERTADOS.has(k)) continue;
+
+    // Usar coordenadas em cache ou geocodificar
+    var coords = v._geo_cache;
+    if (!coords) {
+      coords = await geocodificarMorada(v.morada);
+      if (coords) v._geo_cache = coords;
+    }
+    if (!coords) continue;
+
+    var dist = distanciaKm(lat, lon, coords.lat, coords.lon);
+    if (dist <= GEO_RAIO_KM) {
+      GEO_ALERTADOS.add(k);
+      var estado = v.estado || "Em aberto";
+      var emoji = estado === "Pronto p/ visita" ? "✅" : "📍";
+      // Notificação visual
+      toast(emoji + " " + (v.nome || k) + " a " + dist.toFixed(1) + "km! (" + estado + ")", "ok", 8000);
+      // Notificação do sistema se permitido
+      if (Notification && Notification.permission === "granted") {
+        new Notification("Lead próxima — Ti'Piedade CRM", {
+          body: (v.nome || "") + " a " + dist.toFixed(1) + "km\n" + (v.morada || "") + "\nEstado: " + estado,
+          icon: "/tipiedade-leads/icons/icon-192.png",
+          tag: k
+        });
+      }
+    }
+  }
+}
+
+function activarGeolocalizacao() {
+  if (!navigator.geolocation) {
+    toast("Geolocalização não suportada neste browser", "err"); return;
+  }
+  if (GEO_WATCH_ID !== null) {
+    toast("📍 Localização já activa — a monitorizar leads próximas", "ok"); return;
+  }
+  
+  // Pedir permissão de notificações
+  if (Notification && Notification.permission === "default") {
+    Notification.requestPermission();
+  }
+
+  GEO_WATCH_ID = navigator.geolocation.watchPosition(
+    function(pos) { verificarProximidade(pos); },
+    function(err) { console.warn("Geo erro:", err.message); },
+    { enableHighAccuracy: true, maximumAge: 30000, timeout: 10000 }
+  );
+  toast("📍 Localização activa — alertas dentro de " + GEO_RAIO_KM + "km", "ok");
+}
+
+function desactivarGeolocalizacao() {
+  if (GEO_WATCH_ID !== null) {
+    navigator.geolocation.clearWatch(GEO_WATCH_ID);
+    GEO_WATCH_ID = null;
+    GEO_ALERTADOS.clear();
+    toast("📍 Localização desactivada", "ok");
+  }
+}
+
+function toggleGeolocalizacao() {
+  if (GEO_WATCH_ID !== null) desactivarGeolocalizacao();
+  else activarGeolocalizacao();
+}
+
 document.addEventListener("DOMContentLoaded", ()=>{
   carregarHistorico();
   // Auto-sessão
