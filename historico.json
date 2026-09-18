@@ -5922,11 +5922,20 @@
       "gancho": "Importador de produtos tradicionais portugueses para o mercado espanhol.",
       "semana_entrada": 38,
       "data_entrada": "2026-09-18",
-      "estado": "Em aberto",
+      "estado": "Desistiu",
       "emails_enviados": [],
       "visitas": [],
       "notas": "",
-      "internacional": true
+      "internacional": true,
+      "actividade": [
+        {
+          "tipo": "nao-interessado",
+          "label": "Não interessado",
+          "nota": "",
+          "data": "2026-09-18",
+          "hora": "16:24"
+        }
+      ]
     },
     "ana_internacional::Ibercongelados Sur::Espanha": {
       "nome": "Ibercongelados Sur",
