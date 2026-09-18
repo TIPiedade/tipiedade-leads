@@ -1512,7 +1512,7 @@ def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
         encoders.encode_base64(part)
         part.add_header("Content-Disposition", f'attachment; filename="{os.path.basename(ficheiro)}"')
         msg.attach(part)
-    server.sendmail(de, [para, cc], msg.as_string())
+    # (envio via Brevo API na função acima)
 
 
 def enviar_emails(ficheiro, sem, modo):
