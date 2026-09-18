@@ -2305,7 +2305,6 @@ function renderVista(vista) {
     "catering":      ([k,v]) => v.canal_id==="rui_catering",
     "distribuidores":([k,v]) => v.canal_id==="rui_distribuidores",
     "grupos":        ([k,v]) => v.canal_id==="rui_grupos",
-    "grupos":        ([k,v]) => v.canal_id==="rui_grupos",
     "prontos":       ([k,v]) => (v.emails_enviados||[]).length >= 4 && v.estado !== "Cliente" && v.estado !== "Desistiu",
     "clientes":      ([k,v]) => v.estado==="Cliente",
     "desistencias":  ([k,v]) => v.estado==="Desistiu",
