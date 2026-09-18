@@ -2098,20 +2098,31 @@ function abrirModalToken() {
     m = document.createElement("div");
     m.id = "modal-token";
     m.style.cssText = "position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px";
+    const tokenActual = localStorage.getItem("gh_token") || "";
     m.innerHTML = `
       <div style="background:#fff;border-radius:14px;padding:24px;width:100%;max-width:400px;box-shadow:0 8px 40px rgba(0,0,0,.3)">
-        <div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#5C2D0E;margin-bottom:8px">Token GitHub</div>
-        <p style="font-size:13px;color:#6B5744;margin-bottom:16px;line-height:1.5">Para guardar alterações no CRM é necessário o teu Personal Access Token do GitHub (começa por <code>ghp_</code>).</p>
-        <input id="token-input" type="password" placeholder="ghp_..." style="width:100%;padding:12px;border:1.5px solid #E8D5B8;border-radius:8px;font-size:14px;margin-bottom:12px;font-family:monospace">
+        <div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#5C2D0E;margin-bottom:8px">🔑 Acesso a Documentos</div>
+        <p style="font-size:13px;color:#6B5D50;margin:0 0 16px">Para carregar documentos é necessário um token de acesso.<br><br>Contacta o Rui para obteres o token de acesso.</p>
+        <input id="token-input" type="password" placeholder="ghp_..." value="${tokenActual}"
+          style="width:100%;padding:10px 12px;border:1.5px solid #E8E2D8;border-radius:8px;font-size:13px;box-sizing:border-box;margin-bottom:12px;font-family:monospace">
         <div style="display:flex;gap:8px">
-          <button onclick="guardarToken()" style="flex:1;padding:12px;background:#5C2D0E;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer">Confirmar</button>
-          <button onclick="document.getElementById('modal-token').remove()" style="flex:1;padding:12px;background:transparent;color:#5C2D0E;border:1.5px solid #5C2D0E;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Cancelar</button>
+          <button onclick="guardarToken()" style="flex:1;padding:11px;background:#5C2D0E;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">Guardar</button>
+          <button onclick="document.getElementById('modal-token')?.remove()" style="padding:11px 16px;background:#F5EDE4;color:#5C2D0E;border:none;border-radius:8px;font-size:13px;cursor:pointer">Cancelar</button>
         </div>
-        <p style="font-size:11px;color:#aaa;margin-top:10px;line-height:1.4">GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic). Scope: repo.</p>
       </div>`;
     document.body.appendChild(m);
     setTimeout(()=>document.getElementById("token-input")?.focus(), 100);
+  } else {
+    m.style.display = "flex";
   }
+}
+
+function guardarToken() {
+  const t = (document.getElementById("token-input")?.value || "").trim();
+  if (!t) { toast("Token inválido","err"); return; }
+  localStorage.setItem("gh_token", t);
+  document.getElementById("modal-token")?.remove();
+  toast("Token guardado ✓ — tenta de novo","ok");
 }
 
 function guardarToken() {
@@ -2914,8 +2925,8 @@ async function uploadDocumentoGlobal() {
   if (!file) { toast("Seleciona um ficheiro","err"); return; }
   const nome = document.getElementById("gdoc-nome")?.value?.trim() || file.name;
   const cat  = document.getElementById("gdoc-cat")?.value || "Outro";
-  const token = getToken();
-  if (!token) { toast("Token não configurado","err"); return; }
+  const token = getToken(true);
+  if (!token) return;
   const btn = document.getElementById("btn-gdoc-upload");
   btn.textContent = "A carregar..."; btn.disabled = true;
   try {
