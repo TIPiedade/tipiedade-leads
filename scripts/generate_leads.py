@@ -1459,6 +1459,41 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
     return True, html
 
 
+def brevo_send(api_key, de_email, de_nome, para_list, cc_email, assunto, corpo_text, corpo_html=None, anexo_path=None):
+    """Envia email via Brevo API — sem dependência de porta SMTP."""
+    payload = {
+        "sender":  {"email": de_email, "name": de_nome},
+        "to":      [{"email": p} for p in para_list if p],
+        "subject": assunto,
+        "textContent": corpo_text,
+    }
+    if cc_email:
+        payload["cc"] = [{"email": cc_email}]
+    if corpo_html:
+        payload["htmlContent"] = corpo_html
+    if anexo_path and os.path.exists(anexo_path):
+        with open(anexo_path, "rb") as f:
+            import base64 as b64enc
+            payload["attachment"] = [{"content": b64enc.b64encode(f.read()).decode(), "name": os.path.basename(anexo_path)}]
+    body = json.dumps(payload).encode("utf-8")
+    api_req = urllib.request.Request(
+        "https://api.brevo.com/v3/smtp/email",
+        data=body,
+        headers={"api-key": api_key, "Content-Type": "application/json", "Accept": "application/json"},
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(api_req, timeout=30) as r:
+            resp = json.loads(r.read())
+            return True, resp.get("messageId","ok")
+    except urllib.error.HTTPError as e:
+        err = e.read().decode()
+        print(f"    [Brevo] HTTP {e.code}: {err[:300]}")
+        return False, err
+    except Exception as exc:
+        print(f"    [Brevo] Erro: {exc}")
+        return False, str(exc)
+
 def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
     """Envia email com ou sem anexo."""
     msg = MIMEMultipart()
@@ -1478,46 +1513,16 @@ def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
 
 
 def enviar_emails(ficheiro, sem, modo):
-    smtp_host = os.environ.get("SMTP_HOST","smtp-relay.brevo.com")
-    smtp_port = int(os.environ.get("SMTP_PORT","587"))
-    smtp_user = os.environ.get("SMTP_USER","")
-    smtp_pass = os.environ.get("SMTP_PASS","")
-    if not smtp_user or not smtp_pass:
-        print("[SMTP] Credenciais não configuradas — a saltar envio de emails.")
-        print("[SMTP] Configura os secrets SMTP_USER e SMTP_PASS no GitHub.")
+    api_key = os.environ.get("SMTP_PASS","")
+    smtp_user = EMAIL_FROM
+    if not api_key:
+        print("[Brevo] API key (SMTP_PASS) não configurada.")
         return
+    print(f"[Brevo] API key configurada: ...{api_key[-8:]}")
 
-    smtp_conn = None
-    print(f"[SMTP] A ligar a {smtp_host}:{smtp_port}...")
-    try:
-        smtp_conn = smtplib.SMTP(smtp_host, smtp_port, timeout=30)
-        smtp_conn.ehlo()
-        smtp_conn.starttls()
-        smtp_conn.login(smtp_user, smtp_pass)
-        print(f"[SMTP] Login OK — {smtp_user}")
-    except smtplib.SMTPAuthenticationError as smtp_auth_err:
-        print(f"[SMTP] AUTENTICAÇÃO FALHADA: {smtp_auth_err.smtp_code} — {smtp_auth_err.smtp_error}")
-        print("[SMTP] A SMTP key do Brevo pode estar errada ou expirada.")
-        smtp_conn = None
-        if smtp_conn is None:
-            return
-    except Exception as smtp_err:
-        print(f"[SMTP] ERRO porta 587: {type(smtp_err).__name__}: {smtp_err}")
-        print("[SMTP] A tentar porta 465 (SSL)...")
-        try:
-            smtp_conn = smtplib.SMTP_SSL(smtp_host, 465, timeout=30)
-            smtp_conn.login(smtp_user, smtp_pass)
-            print("[SMTP] Login SSL OK")
-        except Exception as e2:
-            print(f"[SMTP] ERRO SSL: {type(e2).__name__}: {e2}")
-            print("[SMTP] Impossível ligar ao SMTP. Emails não enviados.")
-            smtp_conn = None
-
-    if smtp_conn is None:
-        print("[SMTP] A sair sem enviar emails.")
-        return
-
-    with smtp_conn as server:
+    print(f"[Brevo API] A enviar emails via HTTPS...")
+    if True:  # bloco de compatibilidade (substitui 'with smtp_conn as server:')
+        server = None  # não usado — brevo_send usa API directamente
 
         if modo == "coordenador":
             total_horeca = sum(len(gerar_leads_horeca(c,sem)) for c in ["nuno","joao","oscar"])
