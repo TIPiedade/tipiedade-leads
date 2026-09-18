@@ -1430,10 +1430,11 @@ def corpo_html(email_num, grupo, nome_lead, zona, nome_comercial, texto_plain):
 
 
 def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
-    """Envia o email de nurturing em HTML directamente ao email da lead."""
+    """Envia o email de nurturing via Brevo API directamente ao email da lead."""
+    api_key   = os.environ.get("BREVO_API_KEY", os.environ.get("SMTP_PASS",""))
     email_dest = lead.get("email","").strip()
     if not email_dest or email_dest == "—" or "@" not in email_dest:
-        return False
+        return False, ""
 
     emails = [e.strip() for e in email_dest.replace(";",",").split(",") if "@" in e.strip()]
     if not emails:
@@ -1444,19 +1445,21 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
     texto   = corpo_email(email_num, grupo, lead.get("n",""), lead.get("zona",""), nome_comercial)
     html    = corpo_html(email_num, grupo, lead.get("n",""), lead.get("zona",""), nome_comercial, texto)
 
+    sucesso = False
     for dest_email in emails:
-        msg = MIMEMultipart("alternative")
-        msg["From"]    = "Pão de Ló Ti'Piedade <sales@tipiedade.com>"
-        msg["To"]      = dest_email
-        msg["Subject"] = f"{assunto} | Ti'Piedade"
-        # Plain text fallback
-        msg.attach(MIMEText(texto, "plain", "utf-8"))
-        # HTML principal
-        msg.attach(MIMEText(html, "html", "utf-8"))
-        # Enviar para destinatário + BCC duplo
-        server.sendmail(EMAIL_FROM, [dest_email, EMAIL_CC, EMAIL_BCC2], msg.as_string())
+        # Enviar via Brevo API (HTTPS — sem problemas de porta SMTP)
+        ok, mid = brevo_send(
+            api_key, EMAIL_FROM, "Pão de Ló Ti'Piedade",
+            [dest_email, EMAIL_CC, EMAIL_BCC2], None,
+            f"{assunto} | Ti'Piedade", texto, corpo_html=html
+        )
+        if ok:
+            sucesso = True
+            print(f"    [Brevo] ✓ E{email_num} → {dest_email}")
+        else:
+            print(f"    [Brevo] ✗ E{email_num} → {dest_email}: {mid[:80]}")
 
-    return True, html
+    return sucesso, html
 
 
 def brevo_send(api_key, de_email, de_nome, para_list, cc_email, assunto, corpo_text, corpo_html=None, anexo_path=None):
