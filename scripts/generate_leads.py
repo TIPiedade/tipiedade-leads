@@ -1487,6 +1487,7 @@ def enviar_emails(ficheiro, sem, modo):
         print("[SMTP] Configura os secrets SMTP_USER e SMTP_PASS no GitHub.")
         return
 
+    smtp_conn = None
     print(f"[SMTP] A ligar a {smtp_host}:{smtp_port}...")
     try:
         smtp_conn = smtplib.SMTP(smtp_host, smtp_port, timeout=30)
@@ -1495,7 +1496,7 @@ def enviar_emails(ficheiro, sem, modo):
         smtp_conn.login(smtp_user, smtp_pass)
         print(f"[SMTP] Login OK — {smtp_user}")
     except Exception as smtp_err:
-        print(f"[SMTP] ERRO: {smtp_err}")
+        print(f"[SMTP] ERRO porta 587: {smtp_err}")
         print("[SMTP] A tentar porta 465 (SSL)...")
         try:
             smtp_conn = smtplib.SMTP_SSL(smtp_host, 465, timeout=30)
@@ -1503,8 +1504,13 @@ def enviar_emails(ficheiro, sem, modo):
             print("[SMTP] Login SSL OK")
         except Exception as e2:
             print(f"[SMTP] ERRO SSL: {e2}")
-            print("[SMTP] Impossível enviar emails. Guardar histórico e sair.")
-            return
+            print("[SMTP] Impossível ligar ao SMTP. Emails não enviados.")
+            smtp_conn = None
+
+    if smtp_conn is None:
+        print("[SMTP] A sair sem enviar emails.")
+        return
+
     with smtp_conn as server:
 
         if modo == "coordenador":
