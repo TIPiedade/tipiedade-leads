@@ -456,6 +456,8 @@ function fazerLogin(){
 }
 function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();}
 </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body>
 
@@ -587,6 +589,16 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
         <div class="kpi"><div class="kpi-icon">⭐</div><div><div class="kpi-num" id="k-clientes">—</div><div class="kpi-lbl">Clientes conquistados</div></div></div>
         <div class="kpi"><div class="kpi-icon">✅</div><div><div class="kpi-num" id="k-prontos">—</div><div class="kpi-lbl">Prontos p/ visita</div></div></div>
       </div>
+      <button onclick="iniciarMapaDashboard()" id="btn-mapa" style="width:100%;padding:12px 16px;background:#fff;border:1.5px solid #E8E2D8;border-radius:14px;font-size:13px;font-weight:700;color:#4a2417;cursor:pointer;text-align:left;margin-bottom:14px">📍 Ver leads próximas de mim</button>
+      <div id="dash-mapa-box" style="display:none;background:#fff;border-radius:14px;border:1px solid #E8E2D8;margin-bottom:14px;overflow:hidden">
+        <div style="padding:10px 14px 6px;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:13px;font-weight:700;color:#2d1208">📍 Leads próximas</span>
+          <span id="dash-mapa-status" style="font-size:11px;color:#6B5D50"></span>
+        </div>
+        <div id="dash-mapa" style="height:260px;width:100%"></div>
+        <div id="dash-mapa-lista" style="padding:6px 12px 10px;max-height:160px;overflow-y:auto"></div>
+      </div>
+
       <div class="funil">
         <h3>Funil de Vendas</h3>
         <div class="funil-steps">
@@ -4057,6 +4069,90 @@ function desactivarGeolocalizacao() {
 function toggleGeolocalizacao() {
   if (GEO_WATCH_ID !== null) desactivarGeolocalizacao();
   else activarGeolocalizacao();
+}
+
+// ── MAPA LEADS PRÓXIMAS ──────────────────────────────────────────
+var _mapaInst = null;
+var _geoCache = {};
+
+async function geocodMorada(m) {
+  if (_geoCache[m]) return _geoCache[m];
+  try {
+    var r = await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + encodeURIComponent(m + ", Portugal"), {headers:{"User-Agent":"TIPiedade/1.0"}});
+    var d = await r.json();
+    if (d && d[0]) { var c={lat:+d[0].lat,lon:+d[0].lon}; _geoCache[m]=c; return c; }
+  } catch(e) {}
+  return null;
+}
+
+async function iniciarMapaDashboard() {
+  if (typeof L === "undefined") { setTimeout(iniciarMapaDashboard,800); return; }
+  var box = document.getElementById("dash-mapa-box");
+  var btn = document.getElementById("btn-mapa");
+  var st  = document.getElementById("dash-mapa-status");
+  var lst = document.getElementById("dash-mapa-lista");
+  if (!box) return;
+  if (!navigator.geolocation) { if(st) st.textContent="Geolocalização não suportada"; return; }
+  box.style.display = "block";
+  if (btn) btn.style.display = "none";
+  if (st) st.textContent = "A obter localização...";
+  navigator.geolocation.getCurrentPosition(async function(pos) {
+    var ulat = pos.coords.latitude, ulon = pos.coords.longitude;
+    var user = window._CRM_USER || "rui";
+    var cores = {"Pronto p/ visita":"#1A6B3A","Contactado":"#C49A3C","Em aberto":"#4a2417","Visitado":"#1A4A7A"};
+    // Filtrar leads
+    var leads = Object.entries(HIST.leads||{}).filter(function(e){
+      var v=e[1];
+      if(v.estado==="Cliente"||v.estado==="Desistiu") return false;
+      if(!v.morada||v.morada.length<5) return false;
+      if(user!=="rui"&&user!=="ana"&&v.canal_id!==user) return false;
+      return true;
+    }).slice(0,25);
+    if(st) st.textContent = "A calcular distâncias (" + leads.length + " leads)...";
+    // Mapa
+    if (_mapaInst) { _mapaInst.remove(); _mapaInst=null; }
+    _mapaInst = L.map("dash-mapa").setView([ulat,ulon],13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OSM",maxZoom:18}).addTo(_mapaInst);
+    L.marker([ulat,ulon],{icon:L.divIcon({className:"",html:"<div style='width:14px;height:14px;background:#4a2417;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.5)'></div>",iconSize:[14,14],iconAnchor:[7,7]})}).addTo(_mapaInst).bindPopup("📍 A tua posição");
+    // Geocodificar e ordenar
+    var geo = [];
+    for (var i=0;i<leads.length;i++) {
+      var k=leads[i][0],v=leads[i][1];
+      var c = await geocodMorada(v.morada);
+      if (!c) continue;
+      var dist = Math.sqrt(Math.pow((c.lat-ulat)*111,2)+Math.pow((c.lon-ulon)*85,2));
+      geo.push({k:k,v:v,c:c,dist:dist});
+    }
+    geo.sort(function(a,b){return a.dist-b.dist;});
+    geo.forEach(function(it){
+      var cor = cores[it.v.estado]||"#4a2417";
+      L.marker([it.c.lat,it.c.lon],{icon:L.divIcon({className:"",html:"<div style='width:11px;height:11px;background:"+cor+";border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.3)'></div>",iconSize:[11,11],iconAnchor:[5,5]})}).addTo(_mapaInst).bindPopup("<b>"+(it.v.nome||"?")+"</b><br><span style='color:"+cor+";font-weight:700'>"+(it.v.estado||"")+"</span><br><small>~"+it.dist.toFixed(1)+"km</small>");
+    });
+    // Lista top 8
+    var top = geo.slice(0,8);
+    if (lst) {
+      lst.innerHTML = top.length ? "" : "<div style='padding:10px;color:#6B5D50;font-size:12px;text-align:center'>Sem leads com morada nas proximidades.</div>";
+      top.forEach(function(it,i){
+        var cor=cores[it.v.estado]||"#4a2417";
+        var el=document.createElement("div");
+        el.style.cssText="display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid #F0EBE3;cursor:pointer";
+        el.innerHTML="<div style='width:10px;height:10px;background:"+cor+";border-radius:50%;flex-shrink:0'></div><div style='flex:1;min-width:0'><div style='font-size:12px;font-weight:600;color:#2d1208;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>"+(it.v.nome||"?")+"</div><div style='font-size:10px;color:#6B5D50'>"+(it.v.tipo||"")+"</div></div><div style='font-size:11px;color:"+cor+";font-weight:700;flex-shrink:0'>~"+it.dist.toFixed(1)+"km</div>";
+        el.addEventListener("click",function(){abrirLead(it.k);});
+        lst.appendChild(el);
+      });
+    }
+    if (st) st.textContent = geo.length + " leads no mapa";
+    if (geo.length>0) {
+      var b=L.latLngBounds([[ulat,ulon]]);
+      geo.slice(0,5).forEach(function(it){b.extend([it.c.lat,it.c.lon]);});
+      _mapaInst.fitBounds(b,{padding:[20,20]});
+    }
+  }, function(err){
+    box.style.display="none";
+    if(btn) btn.style.display="block";
+    if(st) st.textContent="";
+    toast("Permissão de localização negada","err");
+  }, {enableHighAccuracy:true,timeout:15000});
 }
 
 document.addEventListener("DOMContentLoaded", ()=>{
