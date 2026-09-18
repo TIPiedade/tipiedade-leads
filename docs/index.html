@@ -153,7 +153,7 @@ header {
 .bnav-btn.tem-items .bnav-dot { display: block; }
 
 /* ── CONTENT ── */
-.content { min-width: 0; }
+.content { min-width: 0; width: 100%; }
 .view { display: none; }
 .view.ativo { display: block; }
 
@@ -2478,15 +2478,17 @@ function guardarNovaLead() {
 // NAVEGAÇÃO
 // ═══════════════════════════════════════════════════
 function mudarVista(vista, btn) {
+  fecharDrawer();
   document.querySelectorAll(".view").forEach(v=>v.classList.remove("ativo"));
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("ativo"));
-  document.getElementById(`view-${vista}`)?.classList.add("ativo");
+  var el = document.getElementById("view-"+vista);
+  if (el) el.classList.add("ativo");
   btn?.classList.add("ativo");
+  window.scrollTo({top:0, behavior:"instant"});
   renderVista(vista);
-  if(vista==='documentos') renderDocumentosGlobal();
-  if(vista==='ana') renderVistaAna();
-  if(vista==='estatisticas') renderEstatisticas();
-  fecharDrawer();
+  if(vista==="documentos") renderDocumentosGlobal();
+  if(vista==="ana") renderVistaAna();
+  if(vista==="estatisticas") renderEstatisticas();
   // Sincronizar bottom nav
   const map = {dashboard:"bn-dashboard",prontos:"bn-prontos",estatisticas:"bn-estatisticas",documentos:"bn-documentos"};
   document.querySelectorAll(".bnav-btn").forEach(b=>b.classList.remove("ativo"));
