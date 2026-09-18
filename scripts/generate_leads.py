@@ -594,8 +594,8 @@ def registar_envios(historico, canal_id, leads, email_num, comercial_nome, html_
         if not any(e["num"]==email_num and e["data"]==d for e in entry["emails_enviados"]):
             entry["emails_enviados"].append({
                 "num": email_num, "data": d,
-                "assunto": f"Nurturing Email {email_num}",
-                "html": html_content[:50000] if html_content else ""
+                "assunto": f"Nurturing Email {email_num}"
+                # HTML não guardado — reduz tamanho do ficheiro
             })
     historico["ultima_atualizacao"] = d
     return historico
