@@ -2213,8 +2213,13 @@ async function guardarHistorico() {
     const d = await r.json();
     HIST_SHA = d.content.sha;
     toast("Guardado ✓", "ok");
+  } else if (r.status === 401 || r.status === 403) {
+    localStorage.removeItem("gh_token");
+    window._pendingSave = () => guardarHistorico();
+    toast("Token inválido ou revogado — cola o token novo", "err");
+    abrirModalToken();
   } else {
-    toast("Erro ao guardar — verifica o token", "err");
+    toast("Erro ao guardar — tenta outra vez", "err");
   }
 }
 
@@ -3001,6 +3006,11 @@ async function uploadDocumentoGlobal() {
       headers:{"Authorization":`Bearer ${token}`,"Accept":"application/vnd.github+json","Content-Type":"application/json"},
       body: JSON.stringify(uploadBody)
     });
+    if (resp.status === 401 || resp.status === 403) {
+      localStorage.removeItem("gh_token");
+      abrirModalToken();
+      throw new Error("Token inválido ou revogado — cola o token novo e tenta outra vez");
+    }
     if (!resp.ok) {
       const errText = await resp.text();
       throw new Error(`HTTP ${resp.status}: ${errText.slice(0,200)}`);
