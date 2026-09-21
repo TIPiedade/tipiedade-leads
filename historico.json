@@ -6307,11 +6307,20 @@
       "gancho": "Especialista em produtos alimentares portugueses para o mercado alemão.",
       "semana_entrada": 38,
       "data_entrada": "2026-09-18",
-      "estado": "Em aberto",
+      "estado": "Desistiu",
       "emails_enviados": [],
       "visitas": [],
       "notas": "",
-      "internacional": true
+      "internacional": true,
+      "actividade": [
+        {
+          "tipo": "nao-interessado",
+          "label": "Não interessado",
+          "nota": "",
+          "data": "2026-09-21",
+          "hora": "14:25"
+        }
+      ]
     },
     "ana_internacional::Casa Lisboa Hamburg::Alemanha": {
       "nome": "Casa Lisboa Hamburg",
