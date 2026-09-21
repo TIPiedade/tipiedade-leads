@@ -18,7 +18,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1533845,
+        "lon": -8.6184243
+      }
     },
     "oscar::Masseira::Porto": {
       "nome": "Masseira",
@@ -38,7 +42,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1479755,
+        "lon": -8.6234217
+      }
     },
     "oscar::Chá das Cinco::Porto": {
       "nome": "Chá das Cinco",
@@ -58,7 +66,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1444708,
+        "lon": -8.599746
+      }
     },
     "oscar::Lazy Breakfast Club::Porto": {
       "nome": "Lazy Breakfast Club",
@@ -78,7 +90,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1496498,
+        "lon": -8.6147418
+      }
     },
     "oscar::Duquesa::Porto": {
       "nome": "Duquesa",
@@ -98,7 +114,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1515003,
+        "lon": -8.6175009
+      }
     },
     "oscar::Nola Kitchen::Porto": {
       "nome": "Nola Kitchen",
@@ -138,7 +158,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1417055,
+        "lon": -8.6180517
+      }
     },
     "oscar::Do Norte Cafe by Hungry Biker::Porto": {
       "nome": "Do Norte Cafe by Hungry Biker",
@@ -158,7 +182,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1465814,
+        "lon": -8.6121975
+      }
     },
     "oscar::Epoca Café::Porto": {
       "nome": "Epoca Café",
@@ -178,7 +206,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.14789,
+        "lon": -8.6204265
+      }
     },
     "oscar::Leitaria da Quinta do Paço (Matosinhos)::Matosinhos": {
       "nome": "Leitaria da Quinta do Paço (Matosinhos)",
@@ -198,7 +230,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1818553,
+        "lon": -8.6897802
+      }
     },
     "oscar::Adega de São Nicolau::Porto": {
       "nome": "Adega de São Nicolau",
@@ -218,7 +254,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1404291,
+        "lon": -8.6148874
+      }
     },
     "oscar::Brasão Cervejaria (Aliados)::Porto": {
       "nome": "Brasão Cervejaria (Aliados)",
@@ -238,7 +278,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1491669,
+        "lon": -8.6117779
+      }
     },
     "oscar::O Paparico::Porto": {
       "nome": "O Paparico",
@@ -258,7 +302,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1767035,
+        "lon": -8.5852221
+      }
     },
     "oscar::Taberna dos Mercadores::Porto": {
       "nome": "Taberna dos Mercadores",
@@ -278,7 +326,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1413555,
+        "lon": -8.6130436
+      }
     },
     "oscar::Cantinho do Avillez (Porto)::Porto": {
       "nome": "Cantinho do Avillez (Porto)",
@@ -298,7 +350,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1431775,
+        "lon": -8.613441
+      }
     },
     "oscar::Muu Steakhouse::Porto": {
       "nome": "Muu Steakhouse",
@@ -318,7 +374,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1512312,
+        "lon": -8.6120667
+      }
     },
     "oscar::Abadia do Porto::Porto": {
       "nome": "Abadia do Porto",
@@ -338,7 +398,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.148048,
+        "lon": -8.6079063
+      }
     },
     "oscar::A Regaleira::Porto": {
       "nome": "A Regaleira",
@@ -358,7 +422,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.1470883,
+        "lon": -8.6095832
+      }
     },
     "oscar::Semente - Padaria Artesanal::Braga": {
       "nome": "Semente - Padaria Artesanal",
@@ -378,7 +446,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.5545554,
+        "lon": -8.4230605
+      }
     },
     "oscar::Ferreira Capa::Braga": {
       "nome": "Ferreira Capa",
@@ -398,7 +470,11 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "_geo_cache": {
+        "lat": 41.5505863,
+        "lon": -8.4260066
+      }
     },
     "oscar::Koyo Specialty Coffee::Braga": {
       "nome": "Koyo Specialty Coffee",
@@ -4965,7 +5041,7 @@
       "gancho": "Coimbra com muitos eventos académicos — sobremesa artesanal diferencia o menu.",
       "semana_entrada": 33,
       "data_entrada": "2026-08-10",
-      "estado": "Contactado",
+      "estado": "Proposta enviada",
       "emails_enviados": [],
       "visitas": [],
       "notas": "",
