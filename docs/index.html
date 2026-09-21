@@ -437,32 +437,231 @@ table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; 
 
 </style>
 <script>
-var SENHAS={rui:"rui2024",nuno:"nuno2024",joao:"joao2024",oscar:"oscar2024",ana:"ana2024"};
+var WORKER_URL="https://tipiedade-crm.nameless-unit-fa2c.workers.dev";
 window._CRM_USER=null;
-function fazerLogin(){
+function sessao(){ try{ var t=localStorage.getItem("crm_sess"); var exp=Number(localStorage.getItem("crm_exp")||0); if(t&&exp>Date.now()) return t; }catch(ex){} return null; }
+function terminarSessao(){ try{ localStorage.removeItem("crm_sess"); localStorage.removeItem("crm_exp"); }catch(ex){} }
+function pedirLogin(msg){ var ls=document.getElementById("login-screen"); if(ls) ls.style.display="flex"; var su=document.getElementById("login-user"); if(su&&window._CRM_USER) su.value=window._CRM_USER; var sp=document.getElementById("login-pass"); if(sp) setTimeout(function(){sp.focus();},50); var e=document.getElementById("login-erro"); if(e){ e.textContent=msg||"A tua sessão expirou. Entra outra vez para guardar."; e.style.color="#8B1A1A"; } window._reloginPendente=true; }
+async function fazerLogin(){
   var u=(document.getElementById("login-user")||{}).value||"";
   var p=(document.getElementById("login-pass")||{}).value||"";
-  var e=document.getElementById("login-erro");
-  if(!u){if(e)e.textContent="Selecciona o teu nome.";return;}
+  var e=document.getElementById("login-erro"); var b=document.getElementById("login-btn");
+  if(!u){if(e)e.textContent="Seleciona o teu nome.";return;}
   if(!p){if(e)e.textContent="Introduz a tua senha.";return;}
-  if(!SENHAS[u]||p!==SENHAS[u]){
-    if(e){e.textContent="Senha incorrecta.";e.style.color="#8B1A1A";e.style.fontWeight="700";}
-    document.getElementById("login-pass").value="";return;
-  }
+  if(e){e.textContent="A entrar…";e.style.color="";} if(b) b.disabled=true;
+  try{
+    var r=await fetch(WORKER_URL+"/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user:u,pass:p})});
+    if(r.status===401){ if(e){e.textContent="Senha incorreta.";e.style.color="#8B1A1A";} document.getElementById("login-pass").value=""; return; }
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    var d=await r.json();
+    localStorage.setItem("crm_sess",d.token); localStorage.setItem("crm_exp",String(d.exp)); localStorage.setItem("crm_user",d.user);
+  }catch(ex){ if(e){e.textContent="Sem ligação ao servidor. Tenta outra vez.";e.style.color="#8B1A1A";} return; }
+  finally{ if(b) b.disabled=false; }
+  document.getElementById("login-pass").value="";
+  document.getElementById("login-screen").style.display="none";
+  var jaEstava=window._reloginPendente; window._reloginPendente=false;
+  if(jaEstava && window._CRM_USER===u){ if(window._pendingSave){ var f=window._pendingSave; window._pendingSave=null; f(); } return; }
   window._CRM_USER=u;
   mostrarAtalhosRui(u);
-  try{sessionStorage.setItem("crm_user",u);sessionStorage.setItem("crm_pass",p);}catch(ex){}
-  document.getElementById("login-screen").style.display="none";
-  if(typeof _ativarSessao==="function")_ativarSessao(u);
-  else window._loginPendente=u;
+  if(typeof carregarHistorico==="function") carregarHistorico();
+  if(typeof _ativarSessao==="function")_ativarSessao(u); else window._loginPendente=u;
 }
 var REUNIAO_URL="https://claude.ai/artifact/VtKCs9J8XeEupaYN7V5uHS";
 function abrirReuniao(){ window.open(REUNIAO_URL,"_blank","noopener"); }
-function mostrarAtalhosRui(u){ var b=document.getElementById("btn-reuniao"); if(b) b.style.display = (u==="rui") ? "" : "none"; }
-function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();}
+function mostrarAtalhosRui(u){ var b=document.getElementById("btn-reuniao"); if(b) b.style.display = (u==="rui") ? "" : "none";
+  if (typeof carregarObjetivos === "function") { carregarObjetivos().then(function(){ if (typeof abrirObjetivosSeHash === "function") abrirObjetivosSeHash(); }); } }
+function fazerLogout(){terminarSessao();try{localStorage.removeItem("crm_user");sessionStorage.clear();}catch(ex){}location.reload();}
 </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+.obj-head{font-family:Georgia,serif;font-size:20px;font-weight:600;margin:6px 0 12px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.obj-head span{font-family:inherit;font-size:13px;font-weight:400;color:#8a7a70}
+.obj-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.obj-tab{border:1px solid #e7dbcd;background:#fff;border-radius:999px;padding:7px 14px;font-weight:600;cursor:pointer}
+.obj-tab span{font-size:12px;color:#8a7a70;font-weight:500;margin-left:4px}
+.obj-tab.on{background:#4a2417;color:#fff;border-color:#4a2417}.obj-tab.on span{color:#e8cdb4}
+.obj-card{background:#fff;border:1px solid #e7dbcd;border-radius:14px;margin-bottom:14px;overflow:hidden;padding:0}
+.obj-card>b,.obj-card>.obj-sub{display:block;padding:12px 14px 0}
+.obj-card>textarea{margin:8px 14px 0;width:calc(100% - 28px)}
+.obj-prog{padding:12px 14px}.obj-bar{height:8px;background:#f3e9dd;border-radius:5px;margin-top:6px;overflow:hidden}.obj-bar i{display:block;height:100%;background:#5f8358;border-radius:5px}
+.obj-it{display:flex;gap:12px;padding:13px 14px;border-top:1px solid #efe4d6}
+.obj-it input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:#5f8358;margin-top:1px}
+.obj-it.ok .obj-nm{text-decoration:line-through;color:#8a7a70}
+.obj-nm{font-weight:600}.obj-ac{font-size:14px;margin-top:3px}.obj-em{font-size:11.5px;color:#8a7a70;margin-top:4px}
+.obj-nota{width:100%;margin-top:8px;border:1px solid #e7dbcd;border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;background:#fbf6f0;min-height:40px;box-sizing:border-box}
+.obj-tg{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;margin-right:6px;background:#f3e9dd;color:#7a5c4f}
+.obj-tg.t-cobranca{background:#f6e0df;color:#af3f3c}.obj-tg.t-recuperar{background:#f5decb;color:#a95a20}.obj-tg.t-reativacao{background:#f5e9d1;color:#9a6a1c}.obj-tg.t-mix{background:#e4e8f1;color:#4a5a80}.obj-tg.t-campanha{background:#f3e2f0;color:#8a3d7c}.obj-tg.t-lead{background:#e3ecdf;color:#4d6b47}
+.btn-obj{border:0;border-radius:10px;padding:9px 14px;font-weight:700;background:#4a2417;color:#fff;cursor:pointer;text-decoration:none;font-size:14px;display:inline-block}
+.btn-obj.sec{background:#fff;color:#4a2417;border:1px solid #d9cbbd}
+.obj-vazio{padding:28px 16px;text-align:center;color:#8a7a70}.obj-sub{font-size:13px;color:#8a7a70}
+</style>
+<!-- ═══ Tema profissional (camada visual) ═══ -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style id="tema-pro">
+:root{
+  --cast:#2a1c17; --cast2:#1d1411; --laranja:#a9582a; --lar-cl:#d9a27c; --lar-bg:#faf4ee; --creme:#f7f5f2; --borda:#e7e1d9; --ouro:#a9582a;
+  --txt:#1f1a17; --txt2:#6b625c; --br:#fff;
+  --verde:#2f6b45; --verd-bg:#eaf3ec; --azul:#2f4f7a; --azul-bg:#eef2f8; --amarelo:#8a6412; --amar-bg:#faf3e3; --cinza:#6b625c; --cinza-bg:#f2efeb; --vermelho:#a3322e; --verm-bg:#f8e9e7;
+  --tp-sombra:0 1px 2px rgba(31,26,23,.04),0 1px 1px rgba(31,26,23,.03);
+  --tp-raio:12px;
+}
+html,body{background:#f7f5f2!important;color:var(--txt);font-family:Inter,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif!important;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+button,input,select,textarea{font-family:inherit!important}
+.tp-i{width:18px;height:18px;flex:none;display:inline-block;vertical-align:middle;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* cabeçalho */
+header{background:#fff!important;box-shadow:none!important;border-bottom:1px solid var(--borda)!important;color:#1f1a17!important}
+.header-sep{background:var(--borda)!important}
+.header-sub{color:#8b8079!important;letter-spacing:.08em!important;font-weight:600!important;font-size:10.5px!important}
+.btn-menu{color:#1f1a17!important;background:transparent!important}
+.hstat-num{font-family:Inter,sans-serif!important;color:#1f1a17!important;font-weight:600!important;font-size:17px!important}
+.hstat-lbl{color:#8b8079!important;text-transform:none!important;font-size:11px!important}
+.btn-sync{background:#fff!important;border:1px solid var(--borda)!important;color:#2a1c17!important;border-radius:8px!important;font-weight:600!important;box-shadow:none!important}
+.btn-sync:hover{background:#f7f5f2!important}
+header .btn-sync[style*="laranja"]{background:#2a1c17!important;color:#fff!important;border-color:#2a1c17!important}
+/* barra lateral */
+.sidebar{background:#fff!important;border-right:1px solid var(--borda)!important;box-shadow:none!important}
+.sidebar-section{color:#9d938b!important;font-size:10.5px!important;font-weight:600!important;letter-spacing:.08em!important;margin-top:14px!important}
+.nav-btn{color:#3d3531!important;font-weight:500!important;font-size:13.5px!important;border-radius:8px!important;padding:8px 10px!important;gap:10px!important;border:0!important;background:transparent!important;position:relative}
+.nav-btn:hover{background:#f4f1ed!important}
+.nav-btn.ativo{background:#f4ede6!important;color:#1f1a17!important;font-weight:600!important;box-shadow:none!important}
+.nav-btn.ativo:before{content:"";position:absolute;left:-10px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:var(--laranja)}
+.nav-btn .ico{width:18px!important;height:18px!important;font-size:0!important;display:inline-flex!important;align-items:center;justify-content:center;color:#7d726a}
+.nav-btn.ativo .ico{color:var(--laranja)}
+.nav-badge{background:transparent!important;color:#8b8079!important;font-weight:500!important;font-size:12px!important;padding:0!important;min-width:0!important;box-shadow:none!important}
+.nav-btn.ativo .nav-badge{background:transparent!important;color:#5c524b!important}
+/* conteúdo e cartões */
+.content{background:transparent!important}
+.kpi,.funil,.table-wrap,.lead-card,#dash-mapa-box,.obj-card{background:#fff!important;border:1px solid var(--borda)!important;border-radius:var(--tp-raio)!important;box-shadow:var(--tp-sombra)!important}
+.kpi{padding:16px 18px!important;gap:14px!important;align-items:center}
+.kpi-icon{width:38px!important;height:38px!important;border-radius:10px!important;background:#f4ede6!important;color:var(--laranja)!important;font-size:0!important;display:flex!important;align-items:center;justify-content:center}
+.kpi-num{font-family:Inter,sans-serif!important;font-weight:600!important;font-size:26px!important;letter-spacing:-.02em;color:#1f1a17!important}
+.kpi-lbl{color:var(--txt2)!important;font-size:12.5px!important;font-weight:500!important}
+#btn-mapa{border:1px solid var(--borda)!important;border-radius:var(--tp-raio)!important;color:#3d3531!important;font-weight:600!important;display:flex;align-items:center;gap:8px;box-shadow:var(--tp-sombra)}
+.funil h3,.toolbar-title,.obj-head,.modal-titulo{font-family:Fraunces,Georgia,serif!important;font-weight:600!important;letter-spacing:-.01em;color:#1f1a17!important}
+.funil h3{font-size:17px!important}
+.funil-steps{gap:0!important;border:1px solid var(--borda);border-radius:10px;overflow:hidden}
+.funil-step{background:#fff!important;border:0!important;border-right:1px solid var(--borda)!important;border-top:3px solid #e7e1d9!important;border-radius:0!important;padding:14px 8px!important}
+.funil-step:last-child{border-right:0!important}
+.funil-step.s1{border-top-color:#b8aca3!important}.funil-step.s2{border-top-color:#d9a27c!important}.funil-step.s3{border-top-color:#a9582a!important}.funil-step.s4{border-top-color:#2f6b45!important}.funil-step.s5{border-top-color:#c9c0b8!important}
+.funil-num{font-family:Inter,sans-serif!important;font-weight:600!important;color:#1f1a17!important;font-size:22px!important}
+.funil-lbl{color:var(--txt2)!important;text-transform:none!important;font-weight:500!important;letter-spacing:0!important;font-size:12px!important}
+@media (max-width:767px){.funil-steps{display:grid!important;grid-template-columns:repeat(3,1fr)}.funil-step{border-bottom:1px solid var(--borda)!important}}
+/* barra de ferramentas e filtros */
+.toolbar{gap:10px!important}
+.toolbar-title{font-size:21px!important}
+.search-input,.filter-select,.form-input,.form-textarea,.form-sel,.estado-select{border:1px solid var(--borda)!important;border-radius:8px!important;background:#fff!important;box-shadow:none!important;font-size:13.5px!important;color:#1f1a17!important}
+.search-input:focus,.filter-select:focus,.form-input:focus,.form-textarea:focus,.form-sel:focus,.estado-select:focus{border-color:#a9582a!important;outline:0;box-shadow:0 0 0 3px rgba(169,88,42,.12)!important}
+/* tabelas */
+table{border-collapse:separate!important;border-spacing:0!important}
+thead th{background:#faf8f5!important;color:#7d726a!important;font-size:11.5px!important;font-weight:600!important;text-transform:none!important;letter-spacing:0!important;border-bottom:1px solid var(--borda)!important;padding:10px 14px!important}
+tbody td{border-bottom:1px solid #f0ebe5!important;padding:11px 14px!important;font-size:13.5px!important;color:#2b2420}
+tbody tr:hover td{background:#fbf9f6!important}
+.td-nome{font-weight:600!important;color:#1f1a17!important}.td-sub{color:#8b8079!important;font-size:12px!important}
+/* etiquetas */
+.badge{border-radius:6px!important;font-weight:600!important;font-size:11.5px!important;padding:3px 8px!important;letter-spacing:0!important;text-transform:none!important;border:1px solid transparent}
+.b-aberto{background:#f2efeb!important;color:#5c524b!important}
+.b-contactado{background:#faf1e8!important;color:#9a5325!important}
+.b-proposta{background:#eef2f8!important;color:#2f4f7a!important}
+.b-visitado{background:#f3f0fa!important;color:#5a4a8a!important}
+.b-cliente{background:#eaf3ec!important;color:#2f6b45!important}
+.b-desistiu{background:#f8e9e7!important;color:#a3322e!important}
+.b-na{background:#fff!important;color:#8b8079!important;border:1px dashed #c9c0b8!important}
+.b-alta{background:transparent!important;color:#a3322e!important;border:1px solid #efcfcb!important}
+.b-media{background:transparent!important;color:#8a6412!important;border:1px solid #eadcb8!important}
+.b-baixa{background:transparent!important;color:#6b625c!important;border:1px solid #e0d9d2!important}
+.edot{border-radius:50%!important;box-shadow:none!important}
+.edot-done{background:#a9582a!important;color:#fff!important;border-color:#a9582a!important}
+.edot-next{background:#fff!important;color:#a9582a!important;border:1.5px solid #a9582a!important}
+.edot-vazio{background:#f2efeb!important;color:#b8aca3!important;border-color:#f2efeb!important}
+/* botões */
+.btn-primary{background:#2a1c17!important;border-color:#2a1c17!important;color:#fff!important;border-radius:8px!important;font-weight:600!important;box-shadow:none!important}
+.btn-primary:hover{background:#1d1411!important}
+.btn-secondary{background:#fff!important;color:#2a1c17!important;border:1px solid var(--borda)!important;border-radius:8px!important;font-weight:600!important}
+.btn-danger{border-radius:8px!important;font-weight:600!important}
+/* ficha do lead */
+.modal{border-radius:14px 0 0 14px!important;box-shadow:-12px 0 40px rgba(31,26,23,.12)!important}
+.modal-header{background:#fff!important;color:#1f1a17!important;border-bottom:1px solid var(--borda)!important}
+.modal-header *{color:inherit}
+.modal-tipo{color:var(--txt2)!important}
+.modal-close{color:#6b625c!important;background:#f4f1ed!important;border-radius:8px!important}
+.info-lbl{color:#8b8079!important;text-transform:none!important;letter-spacing:0!important;font-weight:500!important;font-size:11.5px!important}
+.info-val{color:#1f1a17!important;font-weight:500!important}
+.secao-titulo,.nurturing-track h4{color:#7d726a!important;text-transform:none!important;letter-spacing:0!important;font-size:12px!important;font-weight:600!important}
+.gancho-box{background:#faf8f5!important;border:1px solid var(--borda)!important;border-left:3px solid #a9582a!important;border-radius:8px!important;color:#3d3531!important;font-style:normal!important}
+.modal-body button:not(.btn-primary):not(.btn-secondary):not(.btn-danger):not(.modal-close){border-radius:8px!important;box-shadow:none!important}
+.tp-contacto{background:#fff!important;color:#2a1c17!important;border:1px solid var(--borda)!important;font-weight:600!important;display:inline-flex!important;align-items:center;justify-content:center;gap:6px}
+.tp-contacto:hover{background:#f7f5f2!important}
+/* navegação móvel */
+.bottom-nav{background:#fff!important;border-top:1px solid var(--borda)!important;box-shadow:0 -4px 16px rgba(31,26,23,.05)!important}
+.bnav-btn{color:#8b8079!important;font-weight:500!important;text-transform:none!important;letter-spacing:0!important;font-size:10.5px!important}
+.bnav-btn.ativo{color:#a9582a!important;background:transparent!important}
+.bnav-btn .bnav-ico{font-size:0!important;height:22px;display:flex!important;align-items:center;justify-content:center}
+.bnav-btn .bnav-ico .tp-i{width:21px;height:21px}
+/* avisos */
+.toast{background:#1f1a17!important;color:#fff!important;border-radius:10px!important;box-shadow:0 8px 24px rgba(0,0,0,.18)!important;font-weight:500!important}
+.toast.ok{background:#1f1a17!important}.toast.err{background:#a3322e!important}
+/* ecrã de entrada */
+#login-screen{background:#f7f5f2!important}
+#login-screen>div{border:1px solid var(--borda);box-shadow:0 12px 40px rgba(31,26,23,.08)!important;border-radius:16px!important}
+#login-screen select,#login-screen input{border:1px solid var(--borda)!important;border-radius:8px!important;background:#fff!important}
+#login-btn{background:#2a1c17!important;border-radius:8px!important}
+/* objetivos */
+.obj-tab.on,.btn-obj:not(.sec){background:#2a1c17!important;border-color:#2a1c17!important}
+.obj-bar i{background:#2f6b45!important}
+</style>
+<script>
+/* ícones de linha no lugar dos emojis */
+(function(){
+  const P={
+    grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+    target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+    list:'<path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/>',
+    user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>',
+    globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
+    check:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/>',
+    star:'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+    x:'<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',
+    chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+    folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>',
+    activity:'<path d="M3 12h4l3-8 4 16 3-8h4"/>',
+    calendar:'<rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/>',
+    pin:'<path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+    menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',
+    home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+    users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.3c2.2.7 3.5 2.8 3.5 5.7"/>',
+    truck:'<path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/>',
+    phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+    chat:'<path d="M20 12a8 8 0 0 1-11.8 7L4 20l1-4.1A8 8 0 1 1 20 12z"/>',
+    link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+    plus:'<path d="M12 5v14M5 12h14"/>', refresh:'<path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/>'
+  };
+  const svg=k=>`<svg class="tp-i" viewBox="0 0 24 24" aria-hidden="true">${P[k]||''}</svg>`;
+  const NAV={dashboard:'grid',objetivos:'target',todos:'list',nuno:'user',joao:'user',oscar:'user',rui:'user',ana:'globe',prontos:'check',clientes:'star',desistencias:'x',estatisticas:'chart',documentos:'folder',templates:'mail',catering:'users',distribuidores:'truck',grupos:'users'};
+  const EMO=/^[\s\u2190-\u2BFF\u2600-\u27BF\uFE0F\u200D]*(?:\p{Extended_Pictographic}[\uFE0F\u200D]*)+\s*/u;
+  function limpar(el){ // tira o emoji inicial do texto
+    for(const n of el.childNodes){ if(n.nodeType===3 && n.textContent.trim()){ n.textContent=n.textContent.replace(EMO,''); return; } }
+  }
+  function aplicar(){
+    document.querySelectorAll('.nav-btn').forEach(b=>{ const ic=b.querySelector('.ico'); if(!ic||ic.dataset.tp) return;
+      let k=NAV[b.dataset.view]; const oc=b.getAttribute('onclick')||'';
+      if(!k){ if(/Brevo/i.test(oc)) k='activity'; else if(/Reuniao/i.test(oc)) k='calendar'; else if(/Mapa|mapa/.test(oc)) k='pin'; else k='list'; }
+      ic.innerHTML=svg(k); ic.dataset.tp=1; });
+    const BN={'bn-dashboard':'home','bn-prontos':'check','bn-objetivos':'target','bn-documentos':'folder','bn-estatisticas':'chart','bn-menu':'menu'};
+    Object.entries(BN).forEach(([id,k])=>{ const b=document.getElementById(id); const ic=b&&b.querySelector('.bnav-ico'); if(ic&&!ic.dataset.tp){ ic.innerHTML=svg(k); ic.dataset.tp=1; } });
+    const KP=['list','mail','star','check']; document.querySelectorAll('.kpi .kpi-icon').forEach((ic,i)=>{ if(!ic.dataset.tp){ ic.innerHTML=svg(KP[i]||'list'); ic.dataset.tp=1; } });
+    const bm=document.getElementById('btn-mapa'); if(bm&&!bm.dataset.tp){ limpar(bm); bm.insertAdjacentHTML('afterbegin',svg('pin')); bm.dataset.tp=1; }
+    document.querySelectorAll('.toolbar-title,.funil h3,.secao-titulo,.nurturing-track h4,.sidebar-section').forEach(limpar);
+    document.querySelectorAll('.modal-body button, .modal-body a').forEach(b=>{ if(b.dataset.tp) return; const t=b.textContent.trim();
+      const m=[['Whats','chat'],['Waze','pin'],['Maps','pin'],['Ligar','phone'],['Email','mail'],['Website','link'],['Site','link']].find(([w])=>t.includes(w)&&t.length<20);
+      if(m){ limpar(b); b.classList.add('tp-contacto'); b.insertAdjacentHTML('afterbegin',svg(m[1])); b.dataset.tp=1; } });
+  }
+  document.addEventListener('DOMContentLoaded',()=>{ aplicar(); new MutationObserver(()=>{ clearTimeout(window._tpT); window._tpT=setTimeout(aplicar,30); }).observe(document.body,{childList:true,subtree:true}); });
+})();
+</script>
+
 </head>
 <body>
 
@@ -504,7 +703,7 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
       <option value="ana">Ana Filipa Martins</option>
     </select>
     <input type="password" id="login-pass" placeholder="Senha" onkeydown="if(event.key==='Enter')fazerLogin()" style="width:100%;margin-bottom:16px;padding:10px 13px;border:1.5px solid #E8E2D8;border-radius:10px;font-size:14px;background:#F9F7F5;font-family:inherit;outline:none">
-    <button onclick="fazerLogin()" style="width:100%;padding:13px;background:#4a2417;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Entrar →</button>
+    <button id="login-btn" onclick="fazerLogin()" style="width:100%;padding:13px;background:#4a2417;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Entrar →</button>
     <div id="login-erro" style="font-size:12px;text-align:center;margin-top:10px;min-height:18px"></div>
   </div>
 </div>
@@ -518,6 +717,10 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
     <div class="sidebar-section">Vistas</div>
     <button class="nav-btn ativo" data-view="dashboard" onclick="mudarVista('dashboard',this)">
       <span class="ico">📊</span> Dashboard
+    </button>
+    <button class="nav-btn" data-view="objetivos" onclick="mudarVista('objetivos',this)">
+      <span class="ico">🎯</span> Objetivos da semana
+      <span class="nav-badge" id="badge-obj">0</span>
     </button>
     <button class="nav-btn" data-view="todos" onclick="mudarVista('todos',this)">
       <span class="ico">📋</span> Todos os leads
@@ -622,6 +825,7 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
     </div>
 
     <!-- VISTAS DE LEADS -->
+    <div class="view" id="view-objetivos"><div id="obj-root"></div></div>
     <div class="view" id="view-todos">
       <div class="toolbar">
         <span class="toolbar-title">Todos os leads</span>
@@ -2079,8 +2283,8 @@ function fazerLogout(){try{sessionStorage.clear();}catch(ex){}location.reload();
   <button class="bnav-btn" id="bn-prontos" onclick="mudarVistaMobile('prontos',this)">
     <span class="bnav-ico">✅</span>Visitar
   </button>
-  <button class="bnav-btn" id="bn-estatisticas" onclick="mudarVistaMobile('estatisticas',this)">
-    <span class="bnav-ico">📈</span>Stats
+  <button class="bnav-btn" id="bn-objetivos" onclick="mudarVistaMobile('objetivos',this)">
+    <span class="bnav-ico">🎯</span>Objetivos
   </button>
   <button class="bnav-btn" id="bn-documentos" onclick="mudarVistaMobile('documentos',this)">
     <span class="bnav-ico">📁</span>Docs
@@ -2109,10 +2313,10 @@ const RAW_URL    = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}
 
 // GH_TOKEN para escrita — guardado em localStorage (pedido 1x)
 function getToken(pedirSeFaltar=false) {
-  let t = localStorage.getItem("gh_token");
+  let t = sessao();
   if (!t && pedirSeFaltar) {
     // Só pede token quando o utilizador tenta GUARDAR algo
-    abrirModalToken();
+    pedirLogin();
   }
   return t || null;
 }
@@ -2165,7 +2369,7 @@ let LEAD_ATUAL = null;
 // CARREGAR HISTÓRICO
 // ═══════════════════════════════════════════════════
 // Lê o historico.json diretamente da API do GitHub (sem a cache de 5 minutos do raw.githubusercontent)
-const API_HIST = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${HIST_FILE}`;
+const API_HIST = `${WORKER_URL}/contents/${HIST_FILE}`;
 let HIST_BASE = { leads:{}, top:{} };   // cópia do que foi lido, para saber o que foi alterado aqui
 function marcarBase() {
   HIST_BASE = { leads:{}, top:{} };
@@ -2174,7 +2378,7 @@ function marcarBase() {
 }
 async function lerRemoto() {
   const headers = { "Accept": "application/vnd.github+json" };
-  const token = localStorage.getItem("gh_token");
+  const token = sessao();
   if (token) headers["Authorization"] = "Bearer " + token;
   const r = await fetch(API_HIST + "?ref=main&t=" + Date.now(), { headers, cache: "no-store" });
   if (!r.ok) throw new Error("HTTP " + r.status);
@@ -2208,10 +2412,10 @@ async function carregarHistorico() {
 let _aGuardar = Promise.resolve();
 function guardarHistorico() { _aGuardar = _aGuardar.then(() => _guardarHistorico()).catch(e => console.error(e)); return _aGuardar; }
 async function _guardarHistorico(tentativa = 1) {
-  let token = localStorage.getItem("gh_token");
+  let token = sessao();
   if (!token) {
     window._pendingSave = () => guardarHistorico();
-    abrirModalToken();
+    pedirLogin();
     return;
   }
   // Juntar as alterações feitas aqui à versão mais recente do GitHub,
@@ -2245,10 +2449,10 @@ async function _guardarHistorico(tentativa = 1) {
   } else if (r.status === 409 && tentativa < 3) {
     return _guardarHistorico(tentativa + 1);   // alguém gravou no mesmo instante: juntar outra vez
   } else if (r.status === 401 || r.status === 403) {
-    localStorage.removeItem("gh_token");
+    terminarSessao();
     window._pendingSave = () => guardarHistorico();
-    toast("Token inválido ou revogado — cola o token novo", "err");
-    abrirModalToken();
+    toast("Sessão expirada — entra outra vez", "err");
+    pedirLogin();
   } else {
     toast("Erro ao guardar — tenta outra vez", "err");
   }
@@ -2558,6 +2762,130 @@ function guardarNovaLead() {
 // ═══════════════════════════════════════════════════
 // NAVEGAÇÃO
 // ═══════════════════════════════════════════════════
+
+// ════════════════════════════════════════════════════════════════
+// OBJETIVOS DA SEMANA (publicados a partir da app da reunião)
+// ════════════════════════════════════════════════════════════════
+const OBJ_FILE = "objetivos.json";
+const API_OBJ = `${WORKER_URL}/contents/${OBJ_FILE}`;
+const OBJ_NOMES = { nuno:"Nuno", joao:"João", oscar:"Óscar" };
+let OBJ = null, OBJ_SHA = null, OBJ_BASE = {}, OBJ_TAB = "nuno", OBJ_PUBLICAR = false, OBJ_CARREGADO = false;
+
+async function lerObjetivosRemoto() {
+  const headers = { "Accept": "application/vnd.github+json" };
+  const token = sessao(); if (token) headers["Authorization"] = "Bearer " + token;
+  const r = await fetch(API_OBJ + "?ref=main&t=" + Date.now(), { headers, cache: "no-store" });
+  if (r.status === 404) return { dados: null, sha: null };
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  const d = await r.json();
+  const bin = atob(String(d.content || "").replace(/\n/g, "")); const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return { dados: JSON.parse(new TextDecoder("utf-8").decode(bytes)), sha: d.sha };
+}
+function objMarcarBase() { OBJ_BASE = {}; if (!OBJ) return; Object.keys(OBJ.comerciais||{}).forEach(u => (OBJ.comerciais[u]||[]).forEach(it => { OBJ_BASE[u+"#"+it.n] = JSON.stringify([!!it.ok, it.nota||""]); })); }
+async function carregarObjetivos() {
+  try { const { dados, sha } = await lerObjetivosRemoto(); OBJ = dados; OBJ_SHA = sha; objMarcarBase(); }
+  catch (e) { console.warn("Objetivos:", e); }
+  OBJ_CARREGADO = true; atualizarBadgeObj(); renderObjetivos();
+}
+function atualizarBadgeObj() {
+  const b = document.getElementById("badge-obj"); if (!b) return;
+  const u = window._CRM_USER; if (!OBJ || !OBJ.comerciais) { b.textContent = "0"; return; }
+  const lista = (u && OBJ.comerciais[u]) ? OBJ.comerciais[u] : Object.values(OBJ.comerciais).flat();
+  b.textContent = lista.filter(x => !x.ok).length;
+}
+function objTexto(u) {
+  const L = (OBJ && OBJ.comerciais && OBJ.comerciais[u]) || [];
+  let t = `Ponto de situação · ${OBJ_NOMES[u]} · semana ${OBJ.semana} (${OBJ.range}) · ref ${OBJ.ref}\n\n`;
+  L.forEach(it => { t += `${it.ok ? "✅" : "⬜"} ${it.n}. ${it.tipo} · ${it.nome}${it.nota ? " — " + it.nota : ""}\n`; });
+  return t;
+}
+function objEsc(s) { return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function renderObjetivos() {
+  const root = document.getElementById("obj-root"); if (!root) return;
+  const u = window._CRM_USER || "";
+  if (!OBJ_CARREGADO) { root.innerHTML = `<div class="obj-vazio">A carregar os objetivos…</div>`; return; }
+  const ehRui = u === "rui";
+  let h = `<div class="toolbar"><span class="toolbar-title">🎯 Objetivos da semana</span>${ehRui ? `<button class="btn-obj" onclick="OBJ_PUBLICAR=!OBJ_PUBLICAR;renderObjetivos()">Publicar objetivos da reunião</button>` : ""}</div>`;
+  if (ehRui && OBJ_PUBLICAR) h += `<div class="obj-card"><b>Publicar objetivos da reunião</b><p class="obj-sub">Na app da reunião, carrega em "Publicar objetivos no CRM", copia o código e cola-o aqui. Substitui os objetivos da semana anterior.</p><textarea id="obj-codigo" class="obj-nota" style="min-height:90px;font-family:monospace" placeholder="TPOBJ1:…"></textarea><div style="margin-top:8px;display:flex;gap:8px;justify-content:flex-end"><button class="btn-obj sec" onclick="OBJ_PUBLICAR=false;renderObjetivos()">Cancelar</button><button class="btn-obj" onclick="publicarObjetivos()">Guardar e publicar</button></div></div>`;
+  if (!OBJ || !OBJ.comerciais) { root.innerHTML = h + `<div class="obj-vazio">Ainda não há objetivos publicados.</div>`; return; }
+  h += `<div class="obj-head">Semana ${OBJ.semana} · ${objEsc(OBJ.range)}<span>reunião de ${objEsc(OBJ.reuniao)}</span></div>`;
+  let users;
+  if (ehRui) {
+    users = [OBJ_TAB];
+    h += `<div class="obj-tabs">${Object.keys(OBJ_NOMES).map(k => { const L = OBJ.comerciais[k] || []; return `<button class="obj-tab ${OBJ_TAB===k?"on":""}" onclick="OBJ_TAB='${k}';renderObjetivos()">${OBJ_NOMES[k]} <span>${L.filter(x=>x.ok).length}/${L.length}</span></button>`; }).join("")}
+      <button class="btn-obj sec" style="margin-left:auto" onclick="copiarPontoSituacao('todos')">Copiar ponto de situação (todos)</button></div>`;
+  } else if (OBJ_NOMES[u]) users = [u];
+  else { root.innerHTML = h + `<div class="obj-vazio">Os objetivos da semana são dos comerciais Nuno, João e Óscar.</div>`; return; }
+  users.forEach(k => {
+    const L = OBJ.comerciais[k] || []; const feitos = L.filter(x => x.ok).length;
+    h += `<div class="obj-card"><div class="obj-prog"><b>${OBJ_NOMES[k]} · ${feitos} de ${L.length} tratados</b><div class="obj-bar"><i style="width:${L.length ? feitos / L.length * 100 : 0}%"></i></div></div>
+      ${L.length ? L.map(it => `<div class="obj-it ${it.ok ? "ok" : ""}"><input type="checkbox" ${it.ok ? "checked" : ""} onchange="marcarObjetivo('${k}',${it.n},this.checked)" aria-label="Tratado">
+        <div style="flex:1"><div class="obj-nm"><span class="obj-tg t-${objEsc(it.t)}">${objEsc(it.tipo)}</span>${objEsc(it.nome)}</div>${it.acao ? `<div class="obj-ac">${objEsc(it.acao)}</div>` : ""}
+        <textarea class="obj-nota" placeholder="Nota (opcional): o que ficou combinado, porque não deu…" oninput="notaObjetivo('${k}',${it.n},this.value)">${objEsc(it.nota || "")}</textarea>${it.em ? `<div class="obj-em">atualizado ${new Date(it.em).toLocaleString("pt-PT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</div>` : ""}</div></div>`).join("") : `<div class="obj-vazio">Sem objetivos esta semana.</div>`}
+      <div style="display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid var(--borda,#e7dbcd)"><button class="btn-obj sec" onclick="copiarPontoSituacao('${k}')">Copiar ponto de situação</button>${ehRui ? "" : `<a class="btn-obj" href="https://wa.me/?text=${encodeURIComponent(objTexto(k))}" target="_blank" rel="noopener">Enviar ao Rui por WhatsApp</a>`}</div></div>`;
+  });
+  h += `<p class="obj-sub" style="margin-top:10px">As marcações ficam gravadas automaticamente${ehRui ? ". Na app da reunião, em \"Rever semana anterior\", usa \"Colar resposta\" com o ponto de situação copiado daqui." : "."}</p>`;
+  root.innerHTML = h;
+}
+let _objTimer = null;
+function marcarObjetivo(u, n, ok) { const it = (OBJ.comerciais[u] || []).find(x => x.n === n); if (!it) return; it.ok = ok; it.em = new Date().toISOString(); agendarGuardarObj(); renderObjetivos(); atualizarBadgeObj(); }
+function notaObjetivo(u, n, v) { const it = (OBJ.comerciais[u] || []).find(x => x.n === n); if (!it) return; it.nota = v; it.em = new Date().toISOString(); agendarGuardarObj(); }
+function agendarGuardarObj() { clearTimeout(_objTimer); _objTimer = setTimeout(() => guardarObjetivos(), 1200); }
+let _objFila = Promise.resolve();
+function guardarObjetivos() { _objFila = _objFila.then(() => _guardarObjetivos()).catch(e => console.error(e)); return _objFila; }
+async function _guardarObjetivos(tentativa = 1) {
+  const token = sessao();
+  if (!token) { window._pendingSave = () => guardarObjetivos(); pedirLogin(); return; }
+  let alvo = OBJ, sha = OBJ_SHA;
+  try {
+    const rem = await lerObjetivosRemoto();
+    if (rem.dados && rem.dados.ref !== OBJ.ref) { OBJ = rem.dados; OBJ_SHA = rem.sha; objMarcarBase(); renderObjetivos(); toast("Foram publicados objetivos novos — a lista foi atualizada", "err"); return; }
+    if (rem.dados) {
+      const m = rem.dados;
+      Object.keys(OBJ.comerciais).forEach(u => (OBJ.comerciais[u] || []).forEach(it => {
+        if (OBJ_BASE[u + "#" + it.n] !== JSON.stringify([!!it.ok, it.nota || ""])) { const t = (m.comerciais[u] || []).find(x => x.n === it.n); if (t) { t.ok = it.ok; t.nota = it.nota; t.em = it.em; } }
+      }));
+      alvo = m; sha = rem.sha;
+    }
+  } catch (e) { console.warn("Objetivos: leitura antes de gravar falhou", e); }
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(alvo, null, 2))));
+  const body = { message: `Objetivos: atualizado ${new Date().toISOString().slice(0, 10)}`, content }; if (sha) body.sha = sha;
+  const r = await fetch(API_OBJ, { method: "PUT", headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  if (r.ok) { const d = await r.json(); OBJ_SHA = d.content.sha;
+    Object.keys(alvo.comerciais).forEach(u => (alvo.comerciais[u] || []).forEach(t => { const it = (OBJ.comerciais[u] || []).find(x => x.n === t.n); if (it && OBJ_BASE[u + "#" + it.n] === JSON.stringify([!!it.ok, it.nota || ""])) { it.ok = t.ok; it.nota = t.nota; it.em = t.em; } }));
+    objMarcarBase(); toast("Guardado ✓", "ok"); }
+  else if (r.status === 409 && tentativa < 3) return _guardarObjetivos(tentativa + 1);
+  else if (r.status === 401 || r.status === 403) { terminarSessao(); window._pendingSave = () => guardarObjetivos(); toast("Sessão expirada — entra outra vez", "err"); pedirLogin(); }
+  else toast("Erro ao guardar os objetivos — tenta outra vez", "err");
+}
+async function publicarObjetivos() {
+  const txt = (document.getElementById("obj-codigo") || {}).value || "";
+  const m = txt.trim().match(/^TPOBJ1:([A-Za-z0-9+/=\s]+)$/);
+  if (!m) { toast("Código inválido — copia-o outra vez da app da reunião", "err"); return; }
+  let pay;
+  try { const bin = atob(m[1].replace(/\s/g, "")); const bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); pay = JSON.parse(new TextDecoder("utf-8").decode(bytes)); }
+  catch (e) { toast("Código inválido", "err"); return; }
+  const token = sessao();
+  if (!token) { window._pendingSave = () => publicarObjetivos(); pedirLogin(); return; }
+  const novo = { ref: pay.ref, semana: pay.semana, range: pay.range, reuniao: pay.reuniao, publicado: new Date().toISOString(), comerciais: {} };
+  Object.keys(pay.comerciais || {}).forEach(u => { novo.comerciais[u] = pay.comerciais[u].map(x => ({ n: x.n, tipo: x.tipo, t: x.t, nome: x.nome, acao: x.acao || "", ok: false, nota: "" })); });
+  let sha = null; try { sha = (await lerObjetivosRemoto()).sha; } catch (e) {}
+  const body = { message: `Objetivos: semana ${novo.semana} publicada`, content: btoa(unescape(encodeURIComponent(JSON.stringify(novo, null, 2)))) }; if (sha) body.sha = sha;
+  const r = await fetch(API_OBJ, { method: "PUT", headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  if (r.ok) { const d = await r.json(); OBJ = novo; OBJ_SHA = d.content.sha; objMarcarBase(); OBJ_PUBLICAR = false; renderObjetivos(); atualizarBadgeObj(); toast("Objetivos da semana " + novo.semana + " publicados ✓", "ok"); }
+  else if (r.status === 401 || r.status === 403) { terminarSessao(); toast("Sessão expirada — entra outra vez", "err"); pedirLogin(); }
+  else toast("Erro ao publicar — tenta outra vez", "err");
+}
+function copiarPontoSituacao(u) {
+  const t = u === "todos" ? Object.keys(OBJ_NOMES).map(objTexto).join("\n") : objTexto(u);
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Ponto de situação copiado ✓", "ok")).catch(() => {
+    const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); toast("Ponto de situação copiado ✓", "ok"); } catch (e) { toast("Não foi possível copiar", "err"); } ta.remove(); });
+}
+function abrirObjetivosSeHash() {
+  if (location.hash === "#objetivos") { const b = document.querySelector('.nav-btn[data-view="objetivos"]'); mudarVista("objetivos", b); }
+}
+
 function mudarVista(vista, btn) {
   fecharDrawer();
   document.querySelectorAll(".view").forEach(v=>v.classList.remove("ativo"));
@@ -2570,6 +2898,7 @@ function mudarVista(vista, btn) {
   if(vista==="documentos") renderDocumentosGlobal();
   if(vista==="ana") renderVistaAna();
   if(vista==="estatisticas") renderEstatisticas();
+  if(vista==="objetivos") renderObjetivos();
   // Sincronizar bottom nav
   const map = {dashboard:"bn-dashboard",prontos:"bn-prontos",estatisticas:"bn-estatisticas",documentos:"bn-documentos"};
   document.querySelectorAll(".bnav-btn").forEach(b=>b.classList.remove("ativo"));
@@ -3004,8 +3333,8 @@ async function uploadDocumentoGlobal() {
   if (!file) { toast("Seleciona um ficheiro","err"); return; }
   const nome = document.getElementById("gdoc-nome")?.value?.trim() || file.name;
   const cat  = document.getElementById("gdoc-cat")?.value || "Outro";
-  const token = getToken(true);
-  if (!token) return;
+  const token = sessao();
+  if (!token) { pedirLogin(); return; }
   const btn = document.getElementById("btn-gdoc-upload");
   btn.textContent = "A carregar..."; btn.disabled = true;
   try {
@@ -3016,7 +3345,7 @@ async function uploadDocumentoGlobal() {
       r.readAsDataURL(file);
     });
     const path = `docs/ficheiros/global/${file.name}`;
-    const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+    const apiUrl = `${WORKER_URL}/contents/${path}`;
     // Verificar se o ficheiro já existe (para obter o SHA)
     let existingSha = null;
     try {
@@ -3038,9 +3367,9 @@ async function uploadDocumentoGlobal() {
       body: JSON.stringify(uploadBody)
     });
     if (resp.status === 401 || resp.status === 403) {
-      localStorage.removeItem("gh_token");
-      abrirModalToken();
-      throw new Error("Token inválido ou revogado — cola o token novo e tenta outra vez");
+      terminarSessao();
+      pedirLogin();
+      throw new Error("Sessão expirada — entra outra vez e repete");
     }
     if (!resp.ok) {
       const errText = await resp.text();
@@ -3958,6 +4287,7 @@ function mudarVistaMobile(vista, btn) {
   const el = document.getElementById(`view-${vista}`);
   if (el) el.classList.add("ativo");
   renderVista(vista);
+  if (vista === "objetivos") renderObjetivos();
   window.scrollTo(0, 0);
 }
 
@@ -4272,12 +4602,11 @@ async function iniciarMapaDashboard() {
 document.addEventListener("DOMContentLoaded", ()=>{
   carregarHistorico();
   // Auto-sessão
-  var su=null,sp=null;
-  try{su=sessionStorage.getItem("crm_user");sp=sessionStorage.getItem("crm_pass");}catch(ex){}
-  if(su&&sp&&typeof SENHAS!=="undefined"&&SENHAS[su]&&sp===SENHAS[su]){
+  var su=null; try{ su=localStorage.getItem("crm_user"); }catch(ex){}
+  if(su && sessao()){
     document.getElementById("login-screen").style.display="none";
-    mostrarAtalhosRui(su);
     window._CRM_USER=su;
+    mostrarAtalhosRui(su);
     if (typeof _ativarSessao === "function") _ativarSessao(su);
   }
 
