@@ -454,7 +454,7 @@ async function fazerLogin(){
     if(r.status===401){ if(e){e.textContent="Senha incorreta.";e.style.color="#8B1A1A";} document.getElementById("login-pass").value=""; return; }
     if(!r.ok) throw new Error("HTTP "+r.status);
     var d=await r.json();
-    localStorage.setItem("crm_sess",d.token); localStorage.setItem("crm_exp",String(d.exp)); localStorage.setItem("crm_user",d.user);
+    localStorage.setItem("crm_sess",d.token); localStorage.setItem("crm_exp",String(d.exp)); localStorage.setItem("crm_user",d.user); localStorage.setItem("crm_admin",d.admin?"1":"0");
   }catch(ex){ if(e){e.textContent="Sem ligação ao servidor. Tenta outra vez.";e.style.color="#8B1A1A";} return; }
   finally{ if(b) b.disabled=false; }
   document.getElementById("login-pass").value="";
@@ -467,8 +467,14 @@ async function fazerLogin(){
   if(typeof _ativarSessao==="function")_ativarSessao(u); else window._loginPendente=u;
 }
 var REUNIAO_URL="https://claude.ai/artifact/VtKCs9J8XeEupaYN7V5uHS";
-function abrirReuniao(){ window.open(REUNIAO_URL,"_blank","noopener"); }
-function mostrarAtalhosRui(u){ var b=document.getElementById("btn-reuniao"); if(b) b.style.display = (u==="rui") ? "" : "none";
+var INVENTARIO_URL="https://tipiedade.github.io/inventario-factory/";
+var CONFORMIDADE_URL="https://tipiedade.github.io/rastreabilidade/";
+var ADMINS=["rui","ana","carlos"];
+function ehAdmin(u){ u=u||window._CRM_USER; try{ if(localStorage.getItem("crm_user")===u && localStorage.getItem("crm_admin")==="1") return true; }catch(e){} return ADMINS.indexOf(u)>=0; }
+function abrirConformidade(){ window.open(CONFORMIDADE_URL,"_blank","noopener"); }
+function abrirInventario(){ window.open(INVENTARIO_URL,"_blank","noopener"); }
+function abrirReuniao(){ mudarVista("reuniao", document.querySelector('.nav-btn[data-view="reuniao"]')); }
+function mostrarAtalhosRui(u){ var adm=ehAdmin(u); ["btn-reuniao","btn-inventario","btn-vendas","btn-conformidade"].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display = adm ? "" : "none"; });
   if (typeof carregarObjetivos === "function") { carregarObjetivos().then(function(){ if (typeof abrirObjetivosSeHash === "function") abrirObjetivosSeHash(); }); } }
 function fazerLogout(){terminarSessao();try{localStorage.removeItem("crm_user");sessionStorage.clear();}catch(ex){}location.reload();}
 </script>
@@ -714,14 +720,14 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
     phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
     chat:'<path d="M20 12a8 8 0 0 1-11.8 7L4 20l1-4.1A8 8 0 1 1 20 12z"/>',
     link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
-    plus:'<path d="M12 5v14M5 12h14"/>', send:'<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>'
+    pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>', trend:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>', shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>', box:'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>', plus:'<path d="M12 5v14M5 12h14"/>', send:'<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>'
   };
   const svg=k=>`<svg class="tp-i" viewBox="0 0 24 24" aria-hidden="true">${P[k]||''}</svg>`;
   window._tpSvg=svg;
-  const NAV={dashboard:'grid',objetivos:'target',todos:'list',nuno:'user',joao:'user',oscar:'user',rui:'user',ana:'globe',prontos:'check',clientes:'star',desistencias:'x',estatisticas:'chart',documentos:'folder',templates:'mail',catering:'users',distribuidores:'truck',grupos:'users'};
+  const NAV={dashboard:'grid',objetivos:'target',todos:'list',nuno:'user',joao:'user',oscar:'user',rui:'user',ana:'globe',prontos:'check',clientes:'star',desistencias:'x',estatisticas:'chart',documentos:'folder',templates:'mail',assinaturas:'pen',vendas:'trend',reuniao:'calendar',catering:'users',distribuidores:'truck',grupos:'users'};
   const EMO=/^[\s\u2190-\u21FF\u2300-\u2BFF\u2600-\u27BF\uFE0F\u200D]*(?:\p{Extended_Pictographic}[\uFE0F\u200D]*)+\s*/u;
   function limpar(el){ for(const n of el.childNodes){ if(n.nodeType===3 && n.textContent.trim()){ const t=n.textContent.replace(EMO,''); if(t!==n.textContent) n.textContent=t; return; } } }
-  const NOMES={rui:'Rui',nuno:'Nuno',joao:'João',oscar:'Óscar',ana:'Ana'};
+  const NOMES={rui:'Rui',nuno:'Nuno',joao:'João',oscar:'Óscar',ana:'Ana',carlos:'Carlos'};
   function hero(){
     const v=document.getElementById('view-dashboard'); if(!v) return;
     let h=document.getElementById('tp-hero'); if(!h){ h=document.createElement('div'); h.id='tp-hero'; h.className='tp-hero'; v.insertBefore(h, v.firstChild); }
@@ -731,7 +737,7 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
     const nome=NOMES[u]||'';
     const html=`<div class="eyebrow">${data}</div><h2>${sd}${nome?`, <em>${nome}</em>`:''}.</h2>
       <p>${g('k-total')} leads na carteira · ${g('k-nurturing')} em nurturing · ${g('k-prontos')} prontas para visita · ${g('k-clientes')} clientes conquistados.</p>
-      <div class="acoes"><button class="pri" onclick="abrirNovaLead()">${svg('plus')}Nova lead</button><button onclick="mudarVista('objetivos',document.querySelector('.nav-btn[data-view=objetivos]'))">${svg('target')}Objetivos da semana</button><button onclick="mudarVista('prontos',document.querySelector('.nav-btn[data-view=prontos]'))">${svg('check')}Prontas para visita</button>${u==='rui'?`<button onclick="abrirReuniao()">${svg('calendar')}Reunião semanal</button>`:''}</div>`;
+      <div class="acoes"><button class="pri" onclick="abrirNovaLead()">${svg('plus')}Nova lead</button><button onclick="mudarVista('objetivos',document.querySelector('.nav-btn[data-view=objetivos]'))">${svg('target')}Objetivos da semana</button><button onclick="mudarVista('prontos',document.querySelector('.nav-btn[data-view=prontos]'))">${svg('check')}Prontas para visita</button>${(typeof ehAdmin==='function'&&ehAdmin(u))?`<button onclick="mudarVista('vendas',document.querySelector('.nav-btn[data-view=vendas]'))">${svg('trend')}Vendas</button><button onclick="abrirReuniao()">${svg('calendar')}Reunião semanal</button><button onclick="abrirInventario()">${svg('box')}Inventário</button>`:''}</div>`;
     if(h.dataset.k!==html){ h.innerHTML=html; h.dataset.k=html; }
   }
   function funil(){
@@ -764,7 +770,7 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
   function aplicar(){
     document.querySelectorAll('.nav-btn').forEach(b=>{ const ic=b.querySelector('.ico'); if(!ic||ic.dataset.tp) return;
       let k=NAV[b.dataset.view]; const oc=b.getAttribute('onclick')||'';
-      if(!k){ if(/Brevo/i.test(oc)) k='activity'; else if(/Reuniao/i.test(oc)) k='calendar'; else if(/Mapa|mapa/.test(oc)) k='pin'; else k='list'; }
+      if(!k){ if(/Brevo/i.test(oc)) k='activity'; else if(/Inventario/i.test(oc)) k='box'; else if(/Conformidade/i.test(oc)) k='shield'; else if(/Reuniao/i.test(oc)) k='calendar'; else if(/Mapa|mapa/.test(oc)) k='pin'; else k='list'; }
       ic.innerHTML=svg(k); ic.dataset.tp=1; });
     const BN={'bn-dashboard':'home','bn-prontos':'check','bn-objetivos':'target','bn-documentos':'folder','bn-estatisticas':'chart','bn-menu':'menu'};
     Object.entries(BN).forEach(([id,k])=>{ const b=document.getElementById(id); const ic=b&&b.querySelector('.bnav-ico'); if(ic&&!ic.dataset.tp){ ic.innerHTML=svg(k); ic.dataset.tp=1; } });
@@ -820,6 +826,7 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
       <option value="joao">João</option>
       <option value="oscar">Óscar</option>
       <option value="ana">Ana Filipa Martins</option>
+      <option value="carlos">Carlos Henriques</option>
     </select>
     <input type="password" id="login-pass" placeholder="Senha" onkeydown="if(event.key==='Enter')fazerLogin()" style="width:100%;margin-bottom:16px;padding:10px 13px;border:1.5px solid #E8E2D8;border-radius:10px;font-size:14px;background:#F9F7F5;font-family:inherit;outline:none">
     <button id="login-btn" onclick="fazerLogin()" style="width:100%;padding:13px;background:#4a2417;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Entrar →</button>
@@ -899,8 +906,21 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
     <button class="nav-btn" onclick="abrirBrevo()">
       <span class="ico">📊</span> Estatísticas Brevo
     </button>
-    <button class="nav-btn" id="btn-reuniao" style="display:none" onclick="abrirReuniao()">
+    <div class="sidebar-section">Ferramentas</div>
+    <button class="nav-btn" data-view="assinaturas" onclick="mudarVista('assinaturas',this)">
+      <span class="ico">✍️</span> Assinaturas de email
+    </button>
+    <button class="nav-btn" id="btn-vendas" data-view="vendas" style="display:none" onclick="mudarVista('vendas',this)">
+      <span class="ico">📈</span> Dashboard de vendas
+    </button>
+    <button class="nav-btn" id="btn-reuniao" data-view="reuniao" style="display:none" onclick="mudarVista('reuniao',this)">
       <span class="ico">🗓️</span> Reunião semanal
+    </button>
+    <button class="nav-btn" id="btn-inventario" style="display:none" onclick="abrirInventario()">
+      <span class="ico">📦</span> Inventário
+    </button>
+    <button class="nav-btn" id="btn-conformidade" style="display:none" onclick="abrirConformidade()">
+      <span class="ico">🛡️</span> Conformidade (embalagens)
     </button>
     <div style="padding:12px 8px;margin-top:8px;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:6px">
       <button id="btn-geo" onclick="toggleGeolocalizacao()" style="width:100%;padding:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:12px;color:rgba(255,255,255,.75);cursor:pointer;font-weight:600;text-align:left">📍 Activar localização</button>
@@ -945,6 +965,9 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
 
     <!-- VISTAS DE LEADS -->
     <div class="view" id="view-objetivos"><div id="obj-root"></div></div>
+    <div class="view" id="view-vendas"><iframe id="if-vendas" title="Dashboard de vendas" style="width:100%;height:calc(100vh - 110px);min-height:560px;border:1px solid var(--linha,#ebe4db);border-radius:16px;background:#fff;display:block"></iframe></div>
+    <div class="view" id="view-reuniao"><iframe id="if-reuniao" title="Reunião semanal" style="width:100%;height:calc(100vh - 110px);min-height:560px;border:1px solid var(--linha,#ebe4db);border-radius:16px;background:#fff;display:block"></iframe></div>
+    <div class="view" id="view-assinaturas"><iframe id="if-assin" allow="clipboard-write" title="Gerador de assinaturas" style="width:100%;height:calc(100vh - 110px);min-height:560px;border:1px solid var(--linha,#ebe4db);border-radius:16px;background:#fff;display:block"></iframe></div>
     <div class="view" id="view-todos">
       <div class="toolbar">
         <span class="toolbar-title">Todos os leads</span>
@@ -2924,7 +2947,7 @@ function renderObjetivos() {
   const root = document.getElementById("obj-root"); if (!root) return;
   const u = window._CRM_USER || "";
   if (!OBJ_CARREGADO) { root.innerHTML = `<div class="obj-vazio">A carregar os objetivos…</div>`; return; }
-  const ehRui = u === "rui";
+  const ehRui = ehAdmin(u);
   let h = `<div class="toolbar"><span class="toolbar-title">🎯 Objetivos da semana</span>${ehRui ? `<button class="btn-obj" onclick="OBJ_PUBLICAR=!OBJ_PUBLICAR;renderObjetivos()">Publicar objetivos da reunião</button>` : ""}</div>`;
   if (ehRui && OBJ_PUBLICAR) h += `<div class="obj-card"><b>Publicar objetivos da reunião</b><p class="obj-sub">Na app da reunião, carrega em "Publicar objetivos no CRM", copia o código e cola-o aqui. Substitui os objetivos da semana anterior.</p><textarea id="obj-codigo" class="obj-nota" style="min-height:90px;font-family:monospace" placeholder="TPOBJ1:…"></textarea><div style="margin-top:8px;display:flex;gap:8px;justify-content:flex-end"><button class="btn-obj sec" onclick="OBJ_PUBLICAR=false;renderObjetivos()">Cancelar</button><button class="btn-obj" onclick="publicarObjetivos()">Guardar e publicar</button></div></div>`;
   if (!OBJ || !OBJ.comerciais) { root.innerHTML = h + `<div class="obj-vazio">Ainda não há objetivos publicados.</div>`; return; }
@@ -3018,6 +3041,9 @@ function mudarVista(vista, btn) {
   if(vista==="ana") renderVistaAna();
   if(vista==="estatisticas") renderEstatisticas();
   if(vista==="objetivos") renderObjetivos();
+  if(vista==="assinaturas"){ var fa=document.getElementById("if-assin"); if(fa && !fa.getAttribute("src")) fa.setAttribute("src","assinaturas.html"); }
+  if(vista==="vendas"){ var fv=document.getElementById("if-vendas"); if(fv && !fv.getAttribute("src")) fv.setAttribute("src","vendas.html"); }
+  if(vista==="reuniao"){ var fr=document.getElementById("if-reuniao"); if(fr && !fr.getAttribute("src")) fr.setAttribute("src","reuniao.html"); }
   // Sincronizar bottom nav
   const map = {dashboard:"bn-dashboard",prontos:"bn-prontos",estatisticas:"bn-estatisticas",documentos:"bn-documentos"};
   document.querySelectorAll(".bnav-btn").forEach(b=>b.classList.remove("ativo"));
@@ -4668,7 +4694,7 @@ async function iniciarMapaDashboard() {
       var v=e[1];
       if(v.estado==="Cliente"||v.estado==="Desistiu") return false;
       if(!v.morada||v.morada.length<5) return false;
-      if(user!=="rui"&&user!=="ana"&&v.canal_id!==user) return false;
+      if(!ehAdmin(user)&&v.canal_id!==user) return false;
       return true;
     }).slice(0,25);
     if(st) st.textContent = "A calcular distâncias (" + leads.length + " leads)...";
