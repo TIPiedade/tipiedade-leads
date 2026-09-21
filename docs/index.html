@@ -472,9 +472,31 @@ var CONFORMIDADE_URL="https://tipiedade.github.io/rastreabilidade/";
 var ADMINS=["rui","ana","carlos"];
 function ehAdmin(u){ u=u||window._CRM_USER; try{ if(localStorage.getItem("crm_user")===u && localStorage.getItem("crm_admin")==="1") return true; }catch(e){} return ADMINS.indexOf(u)>=0; }
 function abrirConformidade(){ window.open(CONFORMIDADE_URL,"_blank","noopener"); }
+/* Lembrete: carregar os dados da Análise Administração até ao dia 5 de cada mês (só para o Rui) */
+var DIA_LIMITE_DADOS=5;
+async function verificarLembreteDados(u){
+  var old=document.getElementById("tp-lembrete"); if(old) old.remove();
+  var bd=document.getElementById("badge-lembrete"); if(bd) bd.style.display="none";
+  if(u!=="rui" || typeof sessao!=="function" || !sessao()) return;
+  var meta=null; try{ var r=await fetch(WORKER_URL+"/kv/vendas-meta",{headers:{Authorization:"Bearer "+sessao()},cache:"no-store"}); if(r.ok) meta=await r.json(); }catch(e){ return; }
+  var hoje=new Date(); var inicioMes=new Date(hoje.getFullYear(),hoje.getMonth(),1);
+  var ultima = meta&&meta.em ? new Date(meta.em) : null;
+  if(ultima && ultima>=inicioMes) return;
+  var prazo=new Date(hoje.getFullYear(),hoje.getMonth(),DIA_LIMITE_DADOS);
+  var atraso = hoje.getDate()>DIA_LIMITE_DADOS;
+  var fmt=function(d){ return d.toLocaleDateString("pt-PT",{day:"2-digit",month:"2-digit"}); };
+  var v=document.getElementById("view-dashboard"); if(!v) return;
+  var el=document.createElement("div"); el.id="tp-lembrete";
+  el.style.cssText="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 16px;padding:14px 18px;border-radius:14px;border:1px solid "+(atraso?"#efcfcb":"#eadcb8")+";background:"+(atraso?"#fbeceb":"#faf3e3");
+  el.innerHTML='<div style="flex:1;min-width:220px"><div style="font-weight:700;color:'+(atraso?'#a3322e':'#8a6412')+'">'+(atraso?'Dados da Análise Administração em atraso':'Lembrete: atualizar os dados da Análise Administração')+'</div>'
+    +'<div style="font-size:13px;color:#6b625c;margin-top:2px">Carrega o Excel do Primavera até dia '+fmt(prazo)+(atraso?' — o prazo já passou':'')+'. '+(ultima?'Última atualização: '+ultima.toLocaleDateString("pt-PT")+'.':'Ainda não há dados carregados.')+'</div></div>'
+    +'<button class="btn-sync" style="background:#1b1310!important;color:#fff!important;border-color:#1b1310!important;padding:9px 14px" onclick="mudarVista(\'vendas\',document.getElementById(\'btn-vendas\'))">Carregar agora</button>';
+  var ref=document.getElementById("tp-hero"); if(ref&&ref.nextSibling) v.insertBefore(el,ref.nextSibling); else v.insertBefore(el,v.firstChild);
+  if(bd) bd.style.display="";
+}
 function abrirInventario(){ window.open(INVENTARIO_URL,"_blank","noopener"); }
 function abrirReuniao(){ mudarVista("reuniao", document.querySelector('.nav-btn[data-view="reuniao"]')); }
-function mostrarAtalhosRui(u){ var adm=ehAdmin(u); ["btn-reuniao","btn-inventario","btn-vendas","btn-conformidade"].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display = adm ? "" : "none"; });
+function mostrarAtalhosRui(u){ setTimeout(function(){ verificarLembreteDados(u); },1500); var adm=ehAdmin(u); ["btn-reuniao","btn-inventario","btn-vendas","btn-conformidade"].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display = adm ? "" : "none"; });
   if (typeof carregarObjetivos === "function") { carregarObjetivos().then(function(){ if (typeof abrirObjetivosSeHash === "function") abrirObjetivosSeHash(); }); } }
 function fazerLogout(){terminarSessao();try{localStorage.removeItem("crm_user");sessionStorage.clear();}catch(ex){}location.reload();}
 </script>
@@ -737,7 +759,7 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
     const nome=NOMES[u]||'';
     const html=`<div class="eyebrow">${data}</div><h2>${sd}${nome?`, <em>${nome}</em>`:''}.</h2>
       <p>${g('k-total')} leads na carteira · ${g('k-nurturing')} em nurturing · ${g('k-prontos')} prontas para visita · ${g('k-clientes')} clientes conquistados.</p>
-      <div class="acoes"><button class="pri" onclick="abrirNovaLead()">${svg('plus')}Nova lead</button><button onclick="mudarVista('objetivos',document.querySelector('.nav-btn[data-view=objetivos]'))">${svg('target')}Objetivos da semana</button><button onclick="mudarVista('prontos',document.querySelector('.nav-btn[data-view=prontos]'))">${svg('check')}Prontas para visita</button>${(typeof ehAdmin==='function'&&ehAdmin(u))?`<button onclick="mudarVista('vendas',document.querySelector('.nav-btn[data-view=vendas]'))">${svg('trend')}Vendas</button><button onclick="abrirReuniao()">${svg('calendar')}Reunião semanal</button><button onclick="abrirInventario()">${svg('box')}Inventário</button>`:''}</div>`;
+      <div class="acoes"><button class="pri" onclick="abrirNovaLead()">${svg('plus')}Nova lead</button><button onclick="mudarVista('objetivos',document.querySelector('.nav-btn[data-view=objetivos]'))">${svg('target')}Objetivos da semana</button><button onclick="mudarVista('prontos',document.querySelector('.nav-btn[data-view=prontos]'))">${svg('check')}Prontas para visita</button>${(typeof ehAdmin==='function'&&ehAdmin(u))?`<button onclick="mudarVista('vendas',document.querySelector('.nav-btn[data-view=vendas]'))">${svg('trend')}Análise Administração</button><button onclick="abrirReuniao()">${svg('calendar')}Reunião semanal</button><button onclick="abrirInventario()">${svg('box')}Inventário</button>`:''}</div>`;
     if(h.dataset.k!==html){ h.innerHTML=html; h.dataset.k=html; }
   }
   function funil(){
@@ -911,7 +933,8 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
       <span class="ico">✍️</span> Assinaturas de email
     </button>
     <button class="nav-btn" id="btn-vendas" data-view="vendas" style="display:none" onclick="mudarVista('vendas',this)">
-      <span class="ico">📈</span> Dashboard de vendas
+      <span class="ico">📈</span> Análise Administração
+      <span class="nav-badge" id="badge-lembrete" style="display:none;background:#b2473f!important;color:#fff!important">!</span>
     </button>
     <button class="nav-btn" id="btn-reuniao" data-view="reuniao" style="display:none" onclick="mudarVista('reuniao',this)">
       <span class="ico">🗓️</span> Reunião semanal
@@ -965,7 +988,7 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
 
     <!-- VISTAS DE LEADS -->
     <div class="view" id="view-objetivos"><div id="obj-root"></div></div>
-    <div class="view" id="view-vendas"><iframe id="if-vendas" title="Dashboard de vendas" style="width:100%;height:calc(100vh - 110px);min-height:560px;border:1px solid var(--linha,#ebe4db);border-radius:16px;background:#fff;display:block"></iframe></div>
+    <div class="view" id="view-vendas"><iframe id="if-vendas" title="Análise Administração" style="width:100%;height:calc(100vh - 110px);min-height:560px;border:1px solid var(--linha,#ebe4db);border-radius:16px;background:#fff;display:block"></iframe></div>
     <div class="view" id="view-reuniao"><iframe id="if-reuniao" title="Reunião semanal" style="width:100%;height:calc(100vh - 110px);min-height:560px;border:1px solid var(--linha,#ebe4db);border-radius:16px;background:#fff;display:block"></iframe></div>
     <div class="view" id="view-assinaturas"><iframe id="if-assin" allow="clipboard-write" title="Gerador de assinaturas" style="width:100%;height:calc(100vh - 110px);min-height:560px;border:1px solid var(--linha,#ebe4db);border-radius:16px;background:#fff;display:block"></iframe></div>
     <div class="view" id="view-todos">
