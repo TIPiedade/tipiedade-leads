@@ -9,15 +9,10 @@ MODO=coordenador → segunda-feira → resumo para Rui
 MODO=comerciais  → quarta-feira → leads + nurturing para equipa
 """
 
-import math, smtplib, os, datetime, json, base64, urllib.request, urllib.error
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email.mime.text import MIMEText
-from email import encoders
+import math, os, datetime, json, base64, urllib.request, urllib.error
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
-import sys, importlib.util
 
 EMAIL_FROM = "sales@tipiedade.com"          # remetente
 EMAIL_CC   = "sales@tipiedade.com"          # BCC 1
@@ -1395,8 +1390,52 @@ def corpo_html(email_num, grupo, nome_lead, zona, nome_comercial, texto_plain):
 </html>"""
 
 
-def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
-    """Envia o email de nurturing em HTML directamente ao email da lead."""
+def brevo_send(to_email, to_name, subject, html_content, text_content=None, attachment_path=None):
+    """Envia email via Brevo HTTP API. Retorna True se OK."""
+    api_key = os.environ.get("BREVO_API_KEY","")
+    if not api_key:
+        print("[AVISO] BREVO_API_KEY não configurada — email não enviado.")
+        return False
+
+    payload = {
+        "sender": {"name": "Pão de Ló Ti'Piedade", "email": EMAIL_FROM},
+        "to": [{"email": to_email, "name": to_name}],
+        "bcc": [{"email": EMAIL_CC}, {"email": EMAIL_BCC2}],
+        "subject": subject,
+        "htmlContent": html_content,
+    }
+    if text_content:
+        payload["textContent"] = text_content
+
+    if attachment_path and os.path.exists(attachment_path):
+        with open(attachment_path, "rb") as f:
+            attachment_b64 = base64.b64encode(f.read()).decode()
+        payload["attachment"] = [{
+            "content": attachment_b64,
+            "name": os.path.basename(attachment_path)
+        }]
+
+    body = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.brevo.com/v3/smtp/email",
+        data=body,
+        headers={
+            "api-key": api_key,
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(req) as r:
+            return r.status in (200, 201)
+    except urllib.error.HTTPError as e:
+        print(f"[Brevo] Erro {e.code}: {e.read().decode()[:300]}")
+        return False
+
+
+def enviar_nurturing_lead(lead, email_num, nome_comercial):
+    """Envia o email de nurturing via Brevo directamente ao email da lead."""
     email_dest = lead.get("email","").strip()
     if not email_dest or email_dest == "—" or "@" not in email_dest:
         return False
@@ -1410,45 +1449,25 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
     texto   = corpo_email(email_num, grupo, lead.get("n",""), lead.get("zona",""), nome_comercial)
     html    = corpo_html(email_num, grupo, lead.get("n",""), lead.get("zona",""), nome_comercial, texto)
 
+    ok_total = False
     for dest_email in emails:
-        msg = MIMEMultipart("alternative")
-        msg["From"]    = f"Pão de Ló Ti'Piedade <{EMAIL_FROM}>"
-        msg["To"]      = dest_email
-        msg["Subject"] = f"{assunto} | Ti'Piedade"
-        # Plain text fallback
-        msg.attach(MIMEText(texto, "plain", "utf-8"))
-        # HTML principal
-        msg.attach(MIMEText(html, "html", "utf-8"))
-        # Enviar para destinatário + BCC duplo
-        server.sendmail(EMAIL_FROM, [dest_email, EMAIL_CC, EMAIL_BCC2], msg.as_string())
-
-    return True
+        ok = brevo_send(dest_email, lead.get("n",""), f"{assunto} | Ti'Piedade", html, texto)
+        if ok:
+            ok_total = True
+    return ok_total
 
 
-def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
-    """Envia email com ou sem anexo."""
-    msg = MIMEMultipart()
-    msg["From"] = f"Ti'Piedade HORECA <{de}>"
-    msg["To"]   = para
-    msg["CC"]   = cc
-    msg["Subject"] = assunto
-    msg.attach(MIMEText(corpo, "plain", "utf-8"))
-    if ficheiro:
-        with open(ficheiro,"rb") as f:
-            part = MIMEBase("application","octet-stream")
-            part.set_payload(f.read())
-        encoders.encode_base64(part)
-        part.add_header("Content-Disposition", f'attachment; filename="{os.path.basename(ficheiro)}"')
-        msg.attach(part)
-    server.sendmail(de, [para, cc], msg.as_string())
+def brevo_send_resumo(para, assunto, corpo_texto, ficheiro=None):
+    """Envia email de resumo/comercial via Brevo, com anexo opcional."""
+    html_body = f"<pre style='font-family:Arial,sans-serif;font-size:13px'>{corpo_texto}</pre>"
+    return brevo_send(para, para, assunto, html_body, corpo_texto, ficheiro)
 
 
 def enviar_emails(ficheiro, sem, modo):
-    server = None  # envio via Brevo API HTTP
-
-        if modo == "coordenador":
-            total_horeca = sum(len(gerar_leads_horeca(c,sem)) for c in ["nuno","joao","oscar"])
-            corpo = f"""Bom dia,
+    if modo == "coordenador":
+        historico, _ = ler_historico()
+        total_horeca = sum(len(gerar_leads_horeca(c,sem)) for c in ["nuno","joao","oscar"])
+        corpo = f"""Bom dia,
 
 Resumo de leads gerados para revisão — Semana {sem} ({semana_datas()}):
 
@@ -1472,47 +1491,47 @@ O Excel em anexo tem o detalhe completo.
 
 Ti'Piedade — Sistema de Prospeção HORECA
 """
-            enviar(server, smtp_user, EMAIL_RUI, EMAIL_CC,
-                   f"[REVISÃO] Leads Semana {sem} — {total_horeca+10} contactos | Ti'Piedade",
-                   corpo, ficheiro)
-            print(f"✓ Resumo enviado para {EMAIL_RUI}")
+        ok = brevo_send_resumo(EMAIL_RUI,
+                               f"[REVISÃO] Leads Semana {sem} — {total_horeca+10} contactos | Ti'Piedade",
+                               corpo, ficheiro)
+        print(f"{'✓' if ok else '✗'} Resumo enviado para {EMAIL_RUI}")
 
-        elif modo == "comerciais":
-            historico, sha = ler_historico()
-            enviados_leads = 0
-            sem_email = 0
+    elif modo == "comerciais":
+        historico, sha = ler_historico()
+        enviados_leads = 0
+        sem_email = 0
 
-            for com_id in ["nuno","joao","oscar"]:
-                com = COMERCIAIS[com_id]
-                leads = gerar_leads_horeca(com_id, sem)
-                dest = com["email"]
+        for com_id in ["nuno","joao","oscar"]:
+            com = COMERCIAIS[com_id]
+            leads = gerar_leads_horeca(com_id, sem)
+            dest = com["email"]
 
-                # Determinar email_num para esta semana (leads novas = 1, continuação = próximo)
-                email_num = next(
-                    (calcular_email_num(historico, com_id, l) for l in leads
-                     if calcular_email_num(historico, com_id, l)),
-                    1
-                )
+            # Determinar email_num para esta semana
+            email_num = next(
+                (calcular_email_num(historico, com_id, l) for l in leads
+                 if calcular_email_num(historico, com_id, l)),
+                1
+            )
 
-                # ── Enviar nurturing diretamente às leads ──────────
-                leads_com_email = 0
-                for lead in leads:
-                    n = calcular_email_num(historico, com_id, lead)
-                    if n is None:
-                        continue  # sequência completa
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, com["nome"])
-                    if ok:
-                        leads_com_email += 1
-                        enviados_leads += 1
-                        historico = registar_envios(historico, com_id, [lead], n, com["nome"])
-                    else:
-                        sem_email += 1
+            # ── Enviar nurturing directamente às leads ─────────────
+            leads_com_email = 0
+            for lead in leads:
+                n = calcular_email_num(historico, com_id, lead)
+                if n is None:
+                    continue  # sequência completa
+                ok = enviar_nurturing_lead(lead, n, com["nome"])
+                if ok:
+                    leads_com_email += 1
+                    enviados_leads += 1
+                    historico = registar_envios(historico, com_id, [lead], n, com["nome"])
+                else:
+                    sem_email += 1
 
-                # ── Email resumo ao comercial ───────────────────────
-                if dest:
-                    grupo_exemplo = tipologia_grupo(leads[0]["t"]) if leads else "restaurante"
-                    assunto_ex = ASSUNTOS.get(grupo_exemplo, ASSUNTOS["restaurante"]).get(email_num,"")
-                    corpo_com = f"""Olá {com['nome']},
+            # ── Email resumo ao comercial ──────────────────────────
+            if dest:
+                grupo_exemplo = tipologia_grupo(leads[0]["t"]) if leads else "restaurante"
+                assunto_ex = ASSUNTOS.get(grupo_exemplo, ASSUNTOS["restaurante"]).get(email_num,"")
+                corpo_com = f"""Olá {com['nome']},
 
 Aqui estão os teus {len(leads)} leads HORECA para a semana {sem} ({semana_datas()}).
 
@@ -1526,22 +1545,22 @@ Quando aparecer "✓ Pronto p/ visita" — o contacto recebeu os 4 emails. É al
 Bom trabalho,
 Equipa Comercial Ti'Piedade
 """
-                    enviar(server, smtp_user, dest, EMAIL_CC,
-                           f"Leads Semana {sem} — {len(leads)} contactos | Ti'Piedade",
-                           corpo_com, ficheiro)
-                    print(f"✓ {com['nome']} — {leads_com_email} emails nurturing enviados às leads")
+                ok = brevo_send_resumo(dest,
+                                       f"Leads Semana {sem} — {len(leads)} contactos | Ti'Piedade",
+                                       corpo_com, ficheiro)
+                print(f"{'✓' if ok else '✗'} {com['nome']} — {leads_com_email} nurturing + resumo enviado")
 
-            # ── Rui — catering ────────────────────────────────────
-            leads_cat = gerar_leads_canal(DB_CATERING, "rui_catering", sem, 5)
-            for lead in leads_cat:
-                n = calcular_email_num(historico, "rui_catering", lead)
-                if n:
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui")
-                    if ok:
-                        enviados_leads += 1
-                        historico = registar_envios(historico, "rui_catering", [lead], n, "Rui")
+        # ── Rui — catering ─────────────────────────────────────────
+        leads_cat = gerar_leads_canal(DB_CATERING, "rui_catering", sem, 5)
+        for lead in leads_cat:
+            n = calcular_email_num(historico, "rui_catering", lead)
+            if n:
+                ok = enviar_nurturing_lead(lead, n, "Rui")
+                if ok:
+                    enviados_leads += 1
+                    historico = registar_envios(historico, "rui_catering", [lead], n, "Rui")
 
-            corpo_cat = f"""Olá,
+        corpo_cat = f"""Olá,
 
 Aqui estão os 5 leads de Catering & Eventos para a semana {sem} ({semana_datas()}).
 
@@ -1550,22 +1569,22 @@ Para as restantes, o contacto é telefónico direto.
 
 Ti'Piedade — Sistema de Prospeção
 """
-            enviar(server, smtp_user, EMAIL_RUI, EMAIL_CC,
-                   f"Leads Catering & Eventos — Semana {sem} | Ti'Piedade",
-                   corpo_cat, ficheiro)
-            print(f"✓ Catering → Rui")
+        ok = brevo_send_resumo(EMAIL_RUI,
+                               f"Leads Catering & Eventos — Semana {sem} | Ti'Piedade",
+                               corpo_cat, ficheiro)
+        print(f"{'✓' if ok else '✗'} Catering → Rui")
 
-            # ── Rui — distribuidores ──────────────────────────────
-            leads_dist = gerar_leads_canal(DB_DISTRIBUIDORES, "rui_distribuidores", sem, 5)
-            for lead in leads_dist:
-                n = calcular_email_num(historico, "rui_distribuidores", lead)
-                if n:
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui")
-                    if ok:
-                        enviados_leads += 1
-                        historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui")
+        # ── Rui — distribuidores ───────────────────────────────────
+        leads_dist = gerar_leads_canal(DB_DISTRIBUIDORES, "rui_distribuidores", sem, 5)
+        for lead in leads_dist:
+            n = calcular_email_num(historico, "rui_distribuidores", lead)
+            if n:
+                ok = enviar_nurturing_lead(lead, n, "Rui")
+                if ok:
+                    enviados_leads += 1
+                    historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui")
 
-            corpo_dist = f"""Olá,
+        corpo_dist = f"""Olá,
 
 Aqui estão os 5 leads de Distribuidores para a semana {sem} ({semana_datas()}).
 
@@ -1573,13 +1592,13 @@ O Email 1 de nurturing foi enviado automaticamente às leads com email disponív
 
 Ti'Piedade — Sistema de Prospeção
 """
-            enviar(server, smtp_user, EMAIL_RUI, EMAIL_CC,
-                   f"Leads Distribuidores — Semana {sem} | Ti'Piedade",
-                   corpo_dist, ficheiro)
-            print(f"✓ Distribuidores → Rui")
+        ok = brevo_send_resumo(EMAIL_RUI,
+                               f"Leads Distribuidores — Semana {sem} | Ti'Piedade",
+                               corpo_dist, ficheiro)
+        print(f"{'✓' if ok else '✗'} Distribuidores → Rui")
 
-            print(f"\n📧 Total nurturing enviado: {enviados_leads} emails às leads | {sem_email} sem email")
-            escrever_historico(historico, sha)
+        print(f"\n📧 Total nurturing enviado: {enviados_leads} emails às leads | {sem_email} sem email")
+        escrever_historico(historico, sha)
 
 # ════════════════════════════════════════════════════════════════
 
