@@ -1444,13 +1444,7 @@ def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
 
 
 def enviar_emails(ficheiro, sem, modo):
-    smtp_host = os.environ["SMTP_HOST"]
-    smtp_port = int(os.environ.get("SMTP_PORT","587"))
-    smtp_user = os.environ["SMTP_USER"]
-    smtp_pass = os.environ["SMTP_PASS"]
-
-    with smtplib.SMTP(smtp_host, smtp_port) as server:
-        server.ehlo(); server.starttls(); server.login(smtp_user, smtp_pass)
+    server = None  # envio via Brevo API HTTP
 
         if modo == "coordenador":
             total_horeca = sum(len(gerar_leads_horeca(c,sem)) for c in ["nuno","joao","oscar"])
