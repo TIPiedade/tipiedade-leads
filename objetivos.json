@@ -1,0 +1,339 @@
+{
+  "ref": "2026-09-28",
+  "semana": 40,
+  "range": "28 set a 4 out",
+  "reuniao": "28/09/2026",
+  "publicado": "2026-09-28T15:53:13.328Z",
+  "comerciais": {
+    "nuno": [
+      {
+        "n": 1,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "CRISMARTI",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 2,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "LUÍSA PINTO-PAST CHARC, UNIP,LDA |CANTINHO LUISA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 3,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "A HORTA DE TELHEIRAS",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 4,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "ELENCO UNICO,LDA | PASTELARIA FERRARI |",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 5,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "SAO NICOLAU | ROL DOS SABORES . COM.REST.LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 6,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "VERSO ROOFTOP | COLIBRI DOURADO UNIP.LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 7,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "CAISDIS - SOC DISTRIBUICAO S.A",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 8,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "O POMAR DA ROSA - ROSA E RICARDO, LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 9,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "REST. ZE DOS CORNOS | JOAO DOMINGOS FERREIRA, LD",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 10,
+        "tipo": "Cobrança",
+        "t": "cobranca",
+        "nome": "ALIRIO SANTOS CHARCT FRUT UNIP,LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 11,
+        "tipo": "Cobrança",
+        "t": "cobranca",
+        "nome": "SABORES DO CAIS UNIP.LDA |DOCE CANELA|",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 12,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "PAO NOSSO CADA DIA- PADARIA PASTELARIA LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      }
+    ],
+    "oscar": [
+      {
+        "n": 1,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "PASTELARIA SANTIAGO",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 2,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "PIAO & PAQUINCHA,LDA|CAFE CENTRAL|",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 3,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "João Filipe Carmo da Silva",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 4,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "BARCELODIS- SOCIADADE DE DISTRIBUICAO, SA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 5,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "FAMALIMAR,SOCIEDADE DE DISTRIBUIÇÃO, S.A.",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 6,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "SIMAO, MENESES & AZEVEDO, LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 7,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "JOICE TEIXEIRA DO NASCIMENTO BARROS",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 8,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "Intervnsa - Supermercados, Lda | INTERMARCHÉ LOU",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 9,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "DORI | ARTE DO TEMPERO,UNIPESSOAL,LDA|",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 10,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "RESTAURANTE FISH FISH | CAISTUR, LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 11,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "COOPERATIVA AGRICOLA FRUTICULTORES CADAVAL, CRL",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 12,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "QUIOSQUE LASANTI | ELIZABETH LEITE",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      }
+    ],
+    "joao": [
+      {
+        "n": 1,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "CASTRO`S | MONLYAN RESTAURACAO, UNIP. LDA.",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 2,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "NAIROBI | SOMA DE TALENTOS, LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 3,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "ZEPORSIL,LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 4,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "O Pinto | Carlos Pinto & Sílvia Pinto",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 5,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "PAST. FULGOR- RITA GLORIA ALMEIDA ,LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 6,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "DELICIAS UNANIMES LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 7,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "ELETRICO | SOMA DE TALENTOS, LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 8,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "FABIO FILIPE CORDEIRO CAETANO",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 9,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "Proeza Histórica, Lda",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 10,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "Leitão e Companhia | Alexandres ao Quadrado, Lda",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 11,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "CHARCUTARIA RIVIERA, LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 12,
+        "tipo": "Cobrança",
+        "t": "cobranca",
+        "nome": "NATA REAL | SANDRA MARIA LUCAS SANTOS",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      }
+    ]
+  }
+}
