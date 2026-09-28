@@ -2832,8 +2832,8 @@ function renderInactiveClientsSection(agg, rows){
     try{ var r=await fetch(W+'/kv/vendas',{headers:{Authorization:'Bearer '+t},cache:'no-store'});
       if(r.status===404){ aviso('Ainda não há dados partilhados. Carrega o Excel do Primavera.'); return null; }
       if(!r.ok){ aviso(r.status===403?'Sem acesso aos dados de vendas.':'Erro a obter os dados ('+r.status+').',true); return null; }
-      var j=await r.json(); var d=new Date(j.em), h=new Date(), atual=d>=new Date(h.getFullYear(),h.getMonth(),1);
-      aviso('Dados de '+d.toLocaleDateString('pt-PT')+(j.ficheiro?' · '+j.ficheiro:'')+(atual?'':' · atualizar até dia 05'), !atual && h.getDate()>5); return j.b64;
+        var j=await r.json(); var d=new Date(j.em), h=new Date();
+      var prazo=new Date(d.getFullYear(),d.getMonth()+2,6); var emAtraso=h>=prazo; var prazoLabel='05/'+String(d.getMonth()+2>11?1:d.getMonth()+2).padStart(2,'0')+'/'+(d.getMonth()+2>11?d.getFullYear()+1:d.getFullYear()); aviso('Dados de '+d.toLocaleDateString('pt-PT')+(j.ficheiro?' · '+j.ficheiro:'')+(emAtraso?'':' · atualizar até '+prazoLabel),emAtraso); return j.b64;
     }catch(e){ aviso('Sem ligação ao servidor.',true); return null; }
   }
   function payloadB64(){
