@@ -1535,12 +1535,17 @@ async function generateShareableHTML(mode){
 
     const suffix = mode === 'mobile' ? '_mobile' : '_desktop';
     const blob = new Blob([shareHTML], {type:"text/html;charset=utf-8"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
     const mn = MESES_PT[CURRENT_PERIOD.mes-1] + "_" + CURRENT_PERIOD.ano;
-    a.href = url; a.download = "TiPiedade_" + mn + suffix + ".html";
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    setTimeout(()=>URL.revokeObjectURL(url), 5000);
+    const nomeFich = "TiPiedade_" + mn + suffix + ".html";
+    if (typeof window.partilharFicheiro === "function") {
+      await window.partilharFicheiro(blob, nomeFich);
+    } else {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = nomeFich;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(url), 5000);
+    }
   }catch(e){ alert("Nao foi possivel gerar o ficheiro:\n" + e.message); }
   finally{
     const btn = document.getElementById("btnGenerateShare");
@@ -2822,7 +2827,7 @@ function renderInactiveClientsSection(agg, rows){
 (function(){
   var W="https://tipiedade-crm.nameless-unit-fa2c.workers.dev";
   function sess(){ try{ var t=localStorage.getItem('crm_sess'), e=+(localStorage.getItem('crm_exp')||0); return (t&&e>Date.now())?t:null; }catch(x){ return null; } }
-  var st=document.createElement('style'); st.textContent='#btnShare{display:none!important}#portalBar{position:fixed;right:16px;bottom:16px;z-index:9999;display:flex;gap:8px;align-items:center;background:#1b1310;color:#f5ece3;padding:8px 10px 8px 14px;border-radius:12px;font:13px Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.25)}#portalBar button{border:0;border-radius:8px;padding:7px 12px;font-weight:600;cursor:pointer;background:#f3e4d0;color:#1b1310}';
+  var st=document.createElement('style'); st.textContent='#portalBar{position:fixed;right:16px;bottom:16px;z-index:9999;display:flex;gap:8px;align-items:center;background:#1b1310;color:#f5ece3;padding:8px 10px 8px 14px;border-radius:12px;font:13px Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.25)}#portalBar button{border:0;border-radius:8px;padding:7px 12px;font-weight:600;cursor:pointer;background:#f3e4d0;color:#1b1310}';
   document.head.appendChild(st);
   function aviso(txt,erro){ var b=document.getElementById('portalBar'); if(!b){ b=document.createElement('div'); b.id='portalBar'; document.body.appendChild(b); }
     b.innerHTML='<span>'+txt+'</span><button id="portalUpload">Carregar novo Excel</button>'; b.style.background=erro?'#a3322e':'#1b1310';
@@ -2832,8 +2837,8 @@ function renderInactiveClientsSection(agg, rows){
     try{ var r=await fetch(W+'/kv/vendas',{headers:{Authorization:'Bearer '+t},cache:'no-store'});
       if(r.status===404){ aviso('Ainda não há dados partilhados. Carrega o Excel do Primavera.'); return null; }
       if(!r.ok){ aviso(r.status===403?'Sem acesso aos dados de vendas.':'Erro a obter os dados ('+r.status+').',true); return null; }
-        var j=await r.json(); var d=new Date(j.em), h=new Date();
-      var prazo=new Date(d.getFullYear(),d.getMonth()+2,6); var emAtraso=h>=prazo; var prazoLabel='05/'+String(d.getMonth()+2>11?1:d.getMonth()+2).padStart(2,'0')+'/'+(d.getMonth()+2>11?d.getFullYear()+1:d.getFullYear()); aviso('Dados de '+d.toLocaleDateString('pt-PT')+(j.ficheiro?' · '+j.ficheiro:'')+(emAtraso?'':' · atualizar até '+prazoLabel),emAtraso); return j.b64;
+      var j=await r.json(); var d=new Date(j.em), h=new Date(), atual=d>=new Date(h.getFullYear(),h.getMonth(),1);
+      aviso('Dados de '+d.toLocaleDateString('pt-PT')+(j.ficheiro?' · '+j.ficheiro:'')+(atual?'':' · atualizar até dia 05'), !atual && h.getDate()>5); return j.b64;
     }catch(e){ aviso('Sem ligação ao servidor.',true); return null; }
   }
   function payloadB64(){
@@ -2855,6 +2860,33 @@ function renderInactiveClientsSection(agg, rows){
       aviso('Dados atualizados e partilhados · '+LAST_FILE_NAME);
     }catch(e){ console.error(e); aviso('Não foi possível partilhar os dados ('+(e.message||e)+').',true); }
   }
+  /* ---- partilhar o HTML pronto a consultar (WhatsApp, e-mail, etc.) ---- */
+  function painel(html){
+    var d=document.getElementById('tpShare'); if(!d){ d=document.createElement('div'); d.id='tpShare'; document.body.appendChild(d); }
+    d.style.cssText='position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10000;max-width:460px;width:calc(100% - 32px);background:#fff;color:#1d1714;border:1px solid #ebe4db;border-radius:16px;box-shadow:0 24px 60px rgba(27,19,16,.28);padding:20px 22px;font:14px Inter,system-ui,sans-serif;line-height:1.5';
+    d.innerHTML=html+'<div style="text-align:right;margin-top:14px"><button onclick="document.getElementById(\'tpShare\').remove()" style="border:1px solid #ebe4db;background:#fff;border-radius:10px;padding:8px 14px;font-weight:600;cursor:pointer">Fechar</button></div>';
+  }
+  function descarregar(blob, nome){
+    var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download=nome;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(url);},5000);
+  }
+  window.partilharFicheiro = async function(blob, nome){
+    var txt='Análise Administração · Ti’Piedade — '+nome.replace(/_/g,' ').replace('.html','')+'\nAbre o ficheiro em anexo no browser (no iPhone: Partilhar → Guardar em Ficheiros → abrir no Safari).';
+    try{
+      var f=new File([blob], nome, {type:'text/html'});
+      if(navigator.canShare && navigator.canShare({files:[f]})){
+        await navigator.share({files:[f], title:'Análise Administração', text:txt});
+        return;
+      }
+    }catch(e){ if(e && e.name==='AbortError') return; }
+    descarregar(blob, nome);
+    painel('<b style="font-size:15px">Ficheiro guardado</b>'
+      +'<p style="margin:8px 0 0;color:#6b625c">O <b>'+nome+'</b> foi para a pasta de transferências. O WhatsApp não deixa anexar ficheiros a partir de uma página, por isso tens de o anexar na conversa.</p>'
+      +'<ol style="margin:10px 0 0;padding-left:18px;color:#6b625c"><li>Abre o WhatsApp e a conversa.</li><li>Clica no clipe 📎 → <b>Documento</b> → escolhe o ficheiro.</li></ol>'
+      +'<p style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0"><a href="https://web.whatsapp.com/" target="_blank" rel="noopener" style="background:#25a244;color:#fff;border-radius:10px;padding:9px 14px;font-weight:700;text-decoration:none">Abrir WhatsApp</a>'
+      +'<button onclick="navigator.clipboard&&navigator.clipboard.writeText(this.dataset.t);this.textContent=\'Texto copiado\'" data-t="'+txt.replace(/"/g,'&quot;').replace(/\n/g,'&#10;')+'" style="border:1px solid #ebe4db;background:#fff;border-radius:10px;padding:9px 14px;font-weight:600;cursor:pointer">Copiar mensagem</button></p>'
+      +'<p style="margin:12px 0 0;font-size:12.5px;color:#958a82">Quem tem acesso ao portal pode abrir a Análise Administração diretamente, sem ficheiro.</p>');
+  };
   var _restaurar=tryRestoreSession;
   tryRestoreSession=async function(){ if(!window.__sharedPayloadB64){ var b=await carregar(); if(b) window.__sharedPayloadB64=b; } return _restaurar(); };
   var _handle=handleFile;
