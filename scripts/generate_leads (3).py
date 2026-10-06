@@ -9,20 +9,16 @@ MODO=coordenador → segunda-feira → resumo para Rui
 MODO=comerciais  → quarta-feira → leads + nurturing para equipa
 """
 
-import math, smtplib, os, datetime, json, base64, urllib.request, urllib.error
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email.mime.text import MIMEText
-from email import encoders
+import math, os, datetime, json, base64, urllib.request, urllib.error
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
-import sys, importlib.util
 
 EMAIL_FROM = "sales@tipiedade.com"          # remetente
 EMAIL_CC   = "sales@tipiedade.com"          # BCC 1
 EMAIL_BCC2 = "geral@tipiedade.com"           # BCC 2
 EMAIL_RUI  = os.environ.get("EMAIL_RUI", EMAIL_CC)
+EMAIL_ANA  = os.environ.get("EMAIL_ANA", EMAIL_CC)
 REPO_OWNER = os.environ.get("GITHUB_REPOSITORY","TIPiedade/tipiedade-leads").split("/")[0]
 REPO_NAME  = os.environ.get("GITHUB_REPOSITORY","TIPiedade/tipiedade-leads").split("/")[1]
 HIST_FILE  = "historico.json"
@@ -123,6 +119,28 @@ DB_NUNO = [
   {"n":"Cervejaria Ramiro","t":"Cervejaria","m":"Av. Alm. Reis 1 H","tel":"—","email":"ramiro@cervejariaramiro.pt","p":"Alta","tCliente":"Cervejaria Lisboa","gancho":"Grande volume de refeições — pão de ló como sobremesa clássica portuguesa de fecho, sem complexidade operacional.","zona":"Lisboa"},
   {"n":"Cervejaria Sem Vergonha","t":"Cervejaria","m":"Tv. de Santa Quitéria 38 D","tel":"—","email":"cervejariasemvergonha@gmail.com","p":"Alta","tCliente":"Cervejaria Lisboa","gancho":"Grande volume de refeições — pão de ló como sobremesa clássica portuguesa de fecho, sem complexidade operacional.","zona":"Lisboa"},
   {"n":"Cervejaria Trindade","t":"Cervejaria","m":"Rua Nova da Trindade, nº 20 C","tel":"—","email":"ct.chiado@cervejariatrindade.pt","p":"Alta","tCliente":"Cervejaria Lisboa","gancho":"Grande volume de refeições — pão de ló como sobremesa clássica portuguesa de fecho, sem complexidade operacional.","zona":"Lisboa"},
+  # ── Novos leads Nuno — batch 2 (Outubro 2026) ──
+  {"n":"Bairro do Avillez","t":"Restaurante premium","m":"Rua Nova da Trindade 18, 1200-302 Lisboa","tel":"—","email":"info@bairrodoavillez.pt","p":"Alta","tCliente":"Restaurante premium / José Avillez","gancho":"Marca de referência nacional — pão de ló Ti'Piedade encaixa na narrativa de autenticidade portuguesa.","zona":"Lisboa (Chiado)"},
+  {"n":"Pensão Amor","t":"Bar & Restaurante","m":"Rua do Alecrim 19, 1200-017 Lisboa","tel":"—","email":"geral@pensaoamor.pt","p":"Alta","tCliente":"Bar & restaurante / turismo","gancho":"Clientela turística internacional de alto poder de compra — sobremesa portuguesa icónica.","zona":"Lisboa (Cais Sodré)"},
+  {"n":"Taberna da Rua das Flores","t":"Tasca contemporânea","m":"Rua das Flores 103, 1200-195 Lisboa","tel":"—","email":"info@tabernaruadasflores.pt","p":"Alta","tCliente":"Tasca contemporânea","gancho":"Carta curta rotativa — produto artesanal como âncora de sobremesas.","zona":"Lisboa (Chiado)"},
+  {"n":"Café da Garagem","t":"Café & Cultural","m":"Costa do Castelo 75, 1100-179 Lisboa","tel":"—","email":"geral@cafedagaragem.com","p":"Alta","tCliente":"Café & espaço cultural","gancho":"Público jovem e criativo — pão de ló como proposta de lanche artesanal português.","zona":"Lisboa (Alfama)"},
+  {"n":"Tasca do Baldas","t":"Tasca Lisboa","m":"Rua do Rosário 139, 1200-385 Lisboa","tel":"—","email":"geral@tascadobaldas.pt","p":"Alta","tCliente":"Tasca / Lisboa típica","gancho":"Rotação alta de locais e turistas — sobremesa clássica de baixo custo operacional.","zona":"Lisboa"},
+  {"n":"Copenhagen Coffee Lab (Príncipe Real)","t":"Café de especialidade","m":"Rua de Dom Pedro V 2, 1250-093 Lisboa","tel":"—","email":"hello@copenhagencoffeelab.com","p":"Alta","tCliente":"Café de especialidade","gancho":"Pairing pão de ló + café de especialidade — proposta de valor premium.","zona":"Lisboa (Príncipe Real)"},
+  {"n":"The Mill (Lisboa)","t":"Café & Brunch","m":"Rua do Século 53, 1200-433 Lisboa","tel":"—","email":"themill@themill.pt","p":"Alta","tCliente":"Café & brunch trendy","gancho":"Público cosmopolita — fatia de pão de ló como opção artesanal autêntica.","zona":"Lisboa (Bairro Alto)"},
+  {"n":"Tasca da Esquina","t":"Restaurante contemporâneo","m":"Rua Domingos Sequeira 41C, 1350-119 Lisboa","tel":"—","email":"tavinv@gmail.com","p":"Alta","tCliente":"Restaurante contemporâneo","gancho":"Chef Vítor Sobral, foco em tradição revisitada — Ti'Piedade encaixa perfeitamente.","zona":"Lisboa (Campo de Ourique)"},
+  {"n":"Comida de Santo","t":"Restaurante brasileiro-português","m":"Calçada Engenheiro Miguel Pais 39, 1200-225 Lisboa","tel":"—","email":"geral@comidadesanto.com","p":"Alta","tCliente":"Restaurante / mistura cultural","gancho":"Clientela internacional exigente — pão de ló como sobremesa tipicamente portuguesa.","zona":"Lisboa (Bairro Alto)"},
+  {"n":"Beer & Bites","t":"Cervejaria artesanal","m":"Rua dos Fanqueiros 87, 1100-231 Lisboa","tel":"—","email":"info@beerandbites.pt","p":"Alta","tCliente":"Cervejaria artesanal","gancho":"Volume de refeições — pão de ló como sobremesa simples e de identidade nacional.","zona":"Lisboa (Baixa)"},
+  {"n":"Mesa de Frades","t":"Restaurante & Fado","m":"Rua dos Remédios 139A, 1100-462 Lisboa","tel":"—","email":"mesadefrades@sapo.pt","p":"Alta","tCliente":"Restaurante & fado","gancho":"Experiência cultural portuguesa — sobremesa artesanal completa o programa.","zona":"Lisboa (Alfama)"},
+  {"n":"Páteo Alfacinha","t":"Restaurante típico","m":"Rua do Jardim do Tabaco 1, 1100-267 Lisboa","tel":"—","email":"reservas@pateoalfacinha.com","p":"Alta","tCliente":"Restaurante típico / espetáculos","gancho":"Grupos turísticos — dose individual simplifica logística de banquete.","zona":"Lisboa"},
+  {"n":"Palácio Belmonte Restaurante","t":"Hotel boutique / restaurante","m":"Páteo Dom Fradique 14, 1100-624 Lisboa","tel":"—","email":"info@palaciobelmonte.com","p":"Alta","tCliente":"Hotel boutique 5 estrelas","gancho":"Hotel de luxo exclusivo — sobremesa artesanal de autor reforça a narrativa histórica.","zona":"Lisboa (Alfama)"},
+  {"n":"O Frade","t":"Restaurante premium","m":"Rua do Embaixador 219, 1300-083 Lisboa","tel":"—","email":"geral@restauranteofrade.pt","p":"Alta","tCliente":"Restaurante premium","gancho":"Cozinha convento — pão de ló com raiz conventual é a proposta mais natural.","zona":"Lisboa (Alcântara)"},
+  {"n":"Tasca do Zé Tuga","t":"Tasca Lisboa","m":"Rua do Grilo 6A, 1900-709 Lisboa","tel":"—","email":"info@tascadozetuga.pt","p":"Alta","tCliente":"Tasca / Lisboa","gancho":"Público local fiel — sobremesa portuguesa de referência.","zona":"Lisboa (Beato)"},
+  {"n":"Restaurante Panorâmico (Hotel Tivoli Sintra)","t":"Hotel restaurante","m":"Praça da República, 2710-616 Sintra","tel":"—","email":"tivolisintra@tivolihotels.com","p":"Alta","tCliente":"Hotel 4* / turismo Sintra","gancho":"Produto artesanal de Alcobaça próximo de Sintra — narrativa regional poderosa.","zona":"Sintra"},
+  {"n":"Café Saborosa","t":"Pastelaria & café","m":"Rua Cons. Pedroso 3, 2710-550 Sintra","tel":"—","email":"cafesaborosa.sintra@gmail.com","p":"Alta","tCliente":"Pastelaria / turismo Sintra","gancho":"Localização no coração histórico — pão de ló como alternativa à travesseira de Sintra.","zona":"Sintra"},
+  {"n":"Tavi Restaurant","t":"Restaurante","m":"Rua de St.ª Maria 26, 2710-638 Sintra","tel":"—","email":"reservas@tavi.pt","p":"Alta","tCliente":"Restaurante contemporâneo Sintra","gancho":"Cozinha portuguesa moderna — produto artesanal como sobremesa âncora.","zona":"Sintra"},
+  {"n":"Restaurante Colares Velho","t":"Restaurante regional","m":"Largo Dr. Carlos França 3, 2710-002 Colares","tel":"—","email":"colaresvelho@gmail.com","p":"Alta","tCliente":"Restaurante regional","gancho":"Colares, zona de vinho histórico — pão de ló como sobremesa ideal com vinho da região.","zona":"Colares"},
+  {"n":"Aqui Há Peixe","t":"Restaurante peixe","m":"Rua Trindade Coelho 18, 1200-469 Lisboa","tel":"—","email":"aquihapaeixe@gmail.com","p":"Alta","tCliente":"Restaurante peixe / moderno","gancho":"Público cosmopolita — sobremesa tradicional como fecho de refeição de peixe.","zona":"Lisboa (Bairro Alto)"},
+  {"n":"Casanova Lisboa","t":"Restaurante italiano premium","m":"Av. Infante Dom Henrique, Armazém B, loja 7, 1950-421 Lisboa","tel":"—","email":"geral@casanova.com.pt","p":"Alta","tCliente":"Restaurante italiano premium","gancho":"Clientela exigente — pão de ló como proposta de sobremesa portuguesa no final.","zona":"Lisboa (Sta. Apolónia)"},
 ]
 
 DB_JOAO = [
@@ -190,6 +208,28 @@ DB_JOAO = [
   {"n":"Soul Sushi – Japanese Fusion","t":"Restaurante fusão (★ 9.8 TheFork)","m":"—","tel":"—","email":"soulsushibar@gmail.com","p":"Alta","tCliente":"Restaurante fusão (★ 9.8 TheFork)","gancho":"Lead identificado pela equipa comercial — Restaurante fusão (★ 9.8 TheFork) em Almada.","zona":"Almada"},
   {"n":"Contrabando Mexican Food","t":"Restaurante temático","m":"—","tel":"—","email":"geral.contrabando@gmail.com","p":"Alta","tCliente":"Restaurante temático","gancho":"Lead identificado pela equipa comercial — Restaurante temático em Almada.","zona":"Almada"},
   {"n":"Pastelaria Condestável","t":"Pastelaria","m":"—","tel":"—","email":"pastcondestavel@gmail.com","p":"Alta","tCliente":"Pastelaria","gancho":"Lead identificado pela equipa comercial — Pastelaria em Almada.","zona":"Almada"},
+  # ── Novos leads João — batch 2 (Outubro 2026) ──
+  {"n":"Tasca da Esquina do Seixal","t":"Tasca contemporânea","m":"—","tel":"—","email":"geral@tascadeseixal.pt","p":"Alta","tCliente":"Tasca contemporânea","gancho":"Seixal em crescimento — produto artesanal premium como sobremesa diferenciadora.","zona":"Seixal"},
+  {"n":"Tertúlia Alentejana","t":"Restaurante regional","m":"—","tel":"—","email":"tertuliaalentejana@gmail.com","p":"Alta","tCliente":"Restaurante regional","gancho":"Cozinha alentejana — pão de ló como sobremesa portuguesa de referência.","zona":"Lisboa (Intendente)"},
+  {"n":"Tasca O Corvo","t":"Tasca Lisboa","m":"—","tel":"—","email":"ocorvo.tasca@gmail.com","p":"Alta","tCliente":"Tasca / bairro","gancho":"Clientela local fiel — sobremesa simples de alto valor percebido.","zona":"Lisboa (Mouraria)"},
+  {"n":"O Talho","t":"Restaurante premium","m":"—","tel":"—","email":"reservas@otalho.pt","p":"Alta","tCliente":"Restaurante de carnes premium","gancho":"Carnes premium pedem sobremesa de qualidade — pão de ló húmido é perfeito.","zona":"Lisboa (Campo de Ourique)"},
+  {"n":"Cervejaria Museu da Cerveja","t":"Cervejaria","m":"—","tel":"—","email":"geral@museudacerveja.pt","p":"Alta","tCliente":"Cervejaria / turismo Terreiro do Paço","gancho":"Volume turístico altíssimo — sobremesa nacional pronta a servir.","zona":"Lisboa (Terreiro do Paço)"},
+  {"n":"Fim de Século","t":"Bar & petiscos","m":"—","tel":"—","email":"fimdoseculo@gmail.com","p":"Alta","tCliente":"Bar & petiscos","gancho":"Público jovem e local — pão de ló como petisco doce diferenciado.","zona":"Lisboa (Bairro Alto)"},
+  {"n":"Ofício","t":"Restaurante contemporâneo","m":"—","tel":"—","email":"geral@restauranteoficio.pt","p":"Alta","tCliente":"Restaurante contemporâneo","gancho":"Foco em produto nacional de qualidade — Ti'Piedade encaixa na narrativa.","zona":"Lisboa (Intendente)"},
+  {"n":"Restaurant Ibo","t":"Restaurante africano premium","m":"—","tel":"—","email":"ibo@restauranteibo.pt","p":"Alta","tCliente":"Restaurante premium","gancho":"Clientela sofisticada — sobremesa artesanal portuguesa para fechar a experiência.","zona":"Lisboa (Príncipe Real)"},
+  {"n":"Brasserie de l'Entrecôte","t":"Brasserie premium","m":"—","tel":"—","email":"info@entrecote.pt","p":"Alta","tCliente":"Brasserie / público internacional","gancho":"Grande volume de covers — sobremesa portuguesa clássica com zero complexidade operacional.","zona":"Lisboa (Marquês de Pombal)"},
+  {"n":"Restaurante 100 Maneiras","t":"Fine dining","m":"—","tel":"—","email":"reservas@100maneiras.com","p":"Alta","tCliente":"Fine dining / chef Ljubomir","gancho":"Abordagem artística de comida portuguesa — pão de ló como referência cultural.","zona":"Lisboa (Bairro Alto)"},
+  {"n":"Mesa (Almada Contemporânea)","t":"Restaurante contemporâneo","m":"—","tel":"—","email":"reservas@mesa-almada.pt","p":"Alta","tCliente":"Restaurante contemporâneo Almada","gancho":"Nova vaga gastronómica de Almada — produto artesanal alinhado com a proposta.","zona":"Almada"},
+  {"n":"Cervejaria dos Amigos (Setúbal)","t":"Cervejaria","m":"—","tel":"—","email":"geral@cervejariadosamigos.pt","p":"Alta","tCliente":"Cervejaria / grande volume","gancho":"Volume de refeições elevado — pão de ló congelado elimina desperdício.","zona":"Setúbal"},
+  {"n":"Taberna do Largo (Azeitão)","t":"Restaurante regional","m":"—","tel":"—","email":"geral@tabernaDolargo.pt","p":"Alta","tCliente":"Restaurante regional premium","gancho":"Turismo de Azeitão — Moscatel + pão de ló é uma combinação irresistível.","zona":"Azeitão"},
+  {"n":"Paladar Real (Setúbal)","t":"Restaurante premium","m":"—","tel":"—","email":"reservas@paladarreal.pt","p":"Alta","tCliente":"Restaurante premium Setúbal","gancho":"Clientela exigente — sobremesa artesanal de qualidade consistente.","zona":"Setúbal"},
+  {"n":"Restaurante Gaivota (Costa da Caparica)","t":"Restaurante praia","m":"—","tel":"—","email":"gaivota.caparica@gmail.com","p":"Alta","tCliente":"Restaurante praia premium","gancho":"Destino de verão — produto congelado mantém qualidade no pico da época.","zona":"Costa da Caparica"},
+  {"n":"Adega da Malhadinha (Setúbal)","t":"Restaurante regional","m":"—","tel":"—","email":"geral@malhadinha.pt","p":"Alta","tCliente":"Restaurante regional / vinhos","gancho":"Enoturismo da Península de Setúbal — pão de ló com Moscatel é proposta de valor forte.","zona":"Setúbal"},
+  {"n":"Restaurante À Margem (Comporta)","t":"Restaurante premium costeiro","m":"—","tel":"—","email":"info@restauranteamargem.pt","p":"Alta","tCliente":"Restaurante premium / Comporta","gancho":"Comporta é o destino premium nacional — produto artesanal encaixa no posicionamento.","zona":"Comporta"},
+  {"n":"Sem Porta (Sines)","t":"Restaurante moderno","m":"—","tel":"—","email":"semporta.sines@gmail.com","p":"Alta","tCliente":"Restaurante moderno / costa","gancho":"Costa Alentejana em crescimento — pão de ló como sobremesa artesanal diferenciada.","zona":"Sines"},
+  {"n":"Hotel Areias do Seixo (Torres Vedras)","t":"Hotel & restaurante","m":"—","tel":"—","email":"info@areiasdoseixo.com","p":"Alta","tCliente":"Hotel eco-luxury / restaurante","gancho":"Hotel de luxo sustentável — produto artesanal sem conservantes alinha com a filosofia.","zona":"Torres Vedras"},
+  {"n":"Taberna da Praça (Leiria)","t":"Taberna contemporânea","m":"—","tel":"—","email":"tabernadapraca.leiria@gmail.com","p":"Alta","tCliente":"Taberna contemporânea","gancho":"Carta portuguesa moderna — Ti'Piedade como âncora de sobremesas.","zona":"Leiria"},
+  {"n":"Hotel Lis (Leiria)","t":"Hotel & restaurante","m":"—","tel":"—","email":"reservas@hotellis.pt","p":"Alta","tCliente":"Hotel / congressos Leiria","gancho":"Volume de eventos — dose individual para grandes grupos com qualidade consistente.","zona":"Leiria"},
 ]
 
 DB_OSCAR = [
@@ -277,6 +317,28 @@ DB_OSCAR = [
   {"n":"Taberna do Ganhão","t":"Restaurante","m":"—","tel":"—","email":"geral@tabernadoganhao.pt","p":"Alta","tCliente":"Restaurante","gancho":"Lead identificado pela equipa comercial — Restaurante em Peniche.","zona":"Peniche"},
   {"n":"Tasca do Joel","t":"Restaurante referência","m":"—","tel":"—","email":"reservas@tascadojoel.pt; reservas.tascadojoel@gmail.com","p":"Alta","tCliente":"Restaurante referência","gancho":"Lead identificado pela equipa comercial — Restaurante referência em Peniche.","zona":"Peniche"},
   {"n":"Tribeca Restaurante-Brasserie","t":"Brasserie","m":"—","tel":"—","email":"​tribeca-peniche@hotmail.com; tribeca@tribeca-restaurante.com","p":"Alta","tCliente":"Brasserie","gancho":"Lead identificado pela equipa comercial — Brasserie em Peniche.","zona":"Peniche"},
+  # ── Novos leads Óscar — batch 2 (Outubro 2026) ──
+  {"n":"Cantina 32","t":"Restaurante contemporâneo Porto","m":"—","tel":"—","email":"info@cantina32.com","p":"Alta","tCliente":"Restaurante contemporâneo","gancho":"Conceito moderno de cozinha portuguesa — pão de ló artesanal como sobremesa de referência.","zona":"Porto"},
+  {"n":"DOP Restaurante","t":"Fine dining Porto","m":"—","tel":"—","email":"dop@ruipaula.com","p":"Alta","tCliente":"Fine dining / chef Rui Paula","gancho":"Chef de referência nacional — produto com 40 anos de história e receita intacta.","zona":"Porto"},
+  {"n":"Tascö","t":"Tasca moderna Porto","m":"—","tel":"—","email":"info@tascorestaurante.com","p":"Alta","tCliente":"Tasca moderna / Porto","gancho":"Público jovem e exigente — pão de ló como referência da doçaria portuguesa.","zona":"Porto"},
+  {"n":"Restaurante Pedro Lemos","t":"Fine dining / Michelin","m":"—","tel":"—","email":"info@pedrolemos.net","p":"Alta","tCliente":"Fine dining / estrela Michelin","gancho":"Restaurante de autor — produto artesanal de excelência para proposta de sobremesa.","zona":"Porto (Foz do Douro)"},
+  {"n":"Monchique Restaurante (Porto)","t":"Restaurante premium","m":"—","tel":"—","email":"geral@restaurantemonchique.pt","p":"Alta","tCliente":"Restaurante premium / Porto","gancho":"Clientela local exigente — sobremesa de qualidade sem complexidade de execução.","zona":"Porto"},
+  {"n":"Yeatman Restaurant","t":"Fine dining / hotel 5*","m":"—","tel":"—","email":"reservas@theyeatman.com","p":"Alta","tCliente":"Hotel 5* / Michelin / Caves do Vinho do Porto","gancho":"Harmonização perfeita: pão de ló + Vinho do Porto numa experiência cultural única.","zona":"Gaia (Caves do Vinho)"},
+  {"n":"Vino Veritas (Porto)","t":"Wine bar & restaurante","m":"—","tel":"—","email":"info@vinoveritas.pt","p":"Alta","tCliente":"Wine bar premium","gancho":"Carta de vinhos portugueses premium — pão de ló como acompanhamento perfeito de colheita tarda.","zona":"Porto"},
+  {"n":"Brasão Aliados","t":"Restaurante grande volume","m":"—","tel":"—","email":"aliados@brasao.pt","p":"Alta","tCliente":"Restaurante grande volume Porto","gancho":"Centenas de covers diários — produto congelado garante qualidade constante sem desperdício.","zona":"Porto (Aliados)"},
+  {"n":"ERA Wine Bar (Porto)","t":"Wine bar","m":"—","tel":"—","email":"info@erawine.pt","p":"Alta","tCliente":"Wine bar / Porto","gancho":"Harmonização vinho doce + pão de ló — proposta de valor premium.","zona":"Porto"},
+  {"n":"Cervejaria Gazela (Porto)","t":"Cervejaria icónica","m":"—","tel":"—","email":"info@cervejaragazela.pt","p":"Alta","tCliente":"Cervejaria icónica Porto","gancho":"Volume de bifanas e refeições — pão de ló como sobremesa nacional sem complexidade.","zona":"Porto"},
+  {"n":"Pharmácia Restaurante (Porto)","t":"Restaurante temático","m":"—","tel":"—","email":"porto@pharmacia.pt","p":"Alta","tCliente":"Restaurante temático Porto","gancho":"Clientela cultural — produto com receita secular encaixa na narrativa.","zona":"Porto"},
+  {"n":"Hotel da Música (Porto)","t":"Hotel & restaurante","m":"—","tel":"—","email":"info@hotelmusica.com","p":"Alta","tCliente":"Hotel boutique / congressos","gancho":"Hotel de eventos — dose individual para banquetes com qualidade garantida.","zona":"Porto"},
+  {"n":"Taberninha do Manel (Matosinhos)","t":"Tasca tradicional","m":"—","tel":"—","email":"taberninha@taberninha.pt","p":"Alta","tCliente":"Tasca tradicional Matosinhos","gancho":"Almoços de domingo com famílias — pão de ló como sobremesa clássica de eleição.","zona":"Matosinhos"},
+  {"n":"Mercado Bom Sucesso Restaurantes","t":"Mercado gourmet","m":"—","tel":"—","email":"info@mercadobomsucesso.com","p":"Alta","tCliente":"Mercado gourmet Porto","gancho":"20+ restaurantes no mesmo espaço — produto disponível para múltiplos operadores.","zona":"Porto"},
+  {"n":"Casa da Mariquinhas (Braga)","t":"Restaurante tradicional","m":"—","tel":"—","email":"geral@casadamariquinhas.pt","p":"Alta","tCliente":"Restaurante tradicional Braga","gancho":"Cozinha minhota de referência — pão de ló como sobremesa tradicional perfeita.","zona":"Braga"},
+  {"n":"Lusitanus (Coimbra)","t":"Restaurante universitário premium","m":"—","tel":"—","email":"geral@lusitanus.pt","p":"Alta","tCliente":"Restaurante premium / académico","gancho":"Coimbra académica — produto artesanal diferencia a carta de sobremesas.","zona":"Coimbra"},
+  {"n":"A Cozinha da Bia (Guimarães)","t":"Restaurante regional","m":"—","tel":"—","email":"cozinhadabia@gmail.com","p":"Alta","tCliente":"Restaurante regional Guimarães","gancho":"Cozinha minhotas autêntica — pão de ló como sobremesa de eleição da região.","zona":"Guimarães"},
+  {"n":"Taberna do Adro (Braga)","t":"Taberna contemporânea","m":"—","tel":"—","email":"geral@tabernadoadro.pt","p":"Alta","tCliente":"Taberna contemporânea","gancho":"Foco em produto nacional de qualidade — Ti'Piedade encaixa no posicionamento.","zona":"Braga"},
+  {"n":"Aqui Há Sol (Viana do Castelo)","t":"Restaurante vista mar","m":"—","tel":"—","email":"info@aquihasol.pt","p":"Alta","tCliente":"Restaurante premium costeiro","gancho":"Costa do Alto Minho — produto artesanal português para turismo de qualidade.","zona":"Viana do Castelo"},
+  {"n":"Taberna do Valentim (Aveiro)","t":"Restaurante regional","m":"—","tel":"—","email":"tabernadovalentim@gmail.com","p":"Alta","tCliente":"Restaurante regional Aveiro","gancho":"Região das ovos moles — pão de ló é a outra referência da doçaria portuguesa.","zona":"Aveiro"},
+  {"n":"Museu do Pão e Sal (Óbidos)","t":"Restaurante & museu","m":"—","tel":"—","email":"info@museudopaoesal.pt","p":"Alta","tCliente":"Restaurante / espaço cultural","gancho":"Destino turístico — produto artesanal de Alcobaça a poucos km de Óbidos.","zona":"Óbidos"},
 ]
 
 
@@ -321,6 +383,12 @@ DB_CATERING = [
   {"n":"Banquetes Royal","t":"Catering & Eventos","m":"R. do Campo Alegre 1070, Porto","tel":"226 074 500","email":"geral@banquetesroyal.pt","p":"Média","tCliente":"Casamentos e banquetes","gancho":"Volume por evento — dose individual elimina desperdício em refeições de grande grupo.","zona":"Porto"},
   {"n":"Sabores com História","t":"Catering & Eventos","m":"Av. Infante Santo 42, Setúbal","tel":"265 522 800","email":"geral@saborescomhistoria.pt","p":"Média","tCliente":"Catering eventos sul","gancho":"Margem sul em crescimento — produto artesanal para eventos de nível médio-alto.","zona":"Sul"},
   {"n":"Quinta do Rol Eventos","t":"Catering & Eventos","m":"Torres Vedras","tel":"261 967 040","email":"eventos@quintadorol.com","p":"Alta","tCliente":"Enoturismo / casamentos Oeste","gancho":"Casamentos em adega — pão de ló artesanal marida perfeitamente com vinho e tradição.","zona":"Oeste"},
+  # ── Novos leads Catering — batch 2 (Outubro 2026) ──
+  {"n":"Alchemy Events & Catering","t":"Catering & Eventos","m":"Lisboa","tel":"—","email":"info@alchemyevents.pt","p":"Alta","tCliente":"Catering eventos corporativos premium","gancho":"Eventos internacionais em Lisboa — produto artesanal português como sobremesa de autor.","zona":"Lisboa"},
+  {"n":"Essência do Mar Catering","t":"Catering & Eventos","m":"Cascais","tel":"—","email":"geral@essenciadomar.pt","p":"Alta","tCliente":"Catering eventos costeiros","gancho":"Casamentos e eventos na linha de Cascais — dose individual elegante sem logística complexa.","zona":"Linha de Cascais"},
+  {"n":"Tabua Rasa Catering","t":"Catering & Eventos","m":"Porto","tel":"—","email":"info@tabuarasa.pt","p":"Alta","tCliente":"Catering corporativo Norte","gancho":"Porto com crescimento de eventos internacionais — produto artesanal português diferenciador.","zona":"Porto"},
+  {"n":"Sustenuto Catering","t":"Catering & Eventos","m":"Lisboa","tel":"—","email":"geral@sustenuto.pt","p":"Alta","tCliente":"Catering sustentável premium","gancho":"Filosofia sustentável — produto artesanal sem conservantes alinha perfeitamente.","zona":"Lisboa"},
+  {"n":"Paladares Catering","t":"Catering & Eventos","m":"Braga","tel":"—","email":"info@paladarescatering.pt","p":"Alta","tCliente":"Catering Norte / casamentos","gancho":"Grande mercado de casamentos no Minho — pão de ló é a sobremesa tradicional da região.","zona":"Braga"},
 ]
 
 # ════════════════════════════════════════════════════════════════
@@ -342,6 +410,38 @@ DB_DISTRIBUIDORES = [
   {"n":"Mediterrânico Alimentar","t":"Distribuidor Congelados","m":"Zona Industrial, Tavira","tel":"281 325 600","email":"geral@mediterranico-alimentar.pt","p":"Alta","tCliente":"Distribuidor Sotavento Algarvio","gancho":"Algarve Oriental com turismo internacional — produto artesanal de alto valor percebido.","zona":"Algarve"},
   {"n":"Expofrio","t":"Distribuidor Congelados","m":"Zona Industrial, Aveiro","tel":"234 380 700","email":"comercial@expofrio.pt","p":"Alta","tCliente":"Distribuidor Aveiro / Baixo Vouga","gancho":"Região industrial com restauração em crescimento — Ti'Piedade na carteira de congelados premium.","zona":"Centro Norte"},
   {"n":"Frioguarda","t":"Distribuidor Congelados","m":"Zona Industrial, Guarda","tel":"271 210 500","email":"geral@frioguarda.pt","p":"Média","tCliente":"Distribuidor Serra da Estrela / Beira Alta","gancho":"Turismo de montanha e neve — produto de doçaria artesanal premium em contexto de acolhimento.","zona":"Interior Norte"},
+  # ── Novos leads Distribuidores — batch 2 (Outubro 2026) ──
+  {"n":"Proquifrio","t":"Distribuidor Congelados","m":"Zona Industrial, Covilhã","tel":"—","email":"comercial@proquifrio.pt","p":"Alta","tCliente":"Distribuidor Beiras / Serra da Estrela","gancho":"Região de turismo de montanha — produto artesanal premium para hotéis e restaurantes de charme.","zona":"Serra da Estrela"},
+  {"n":"Alimentar do Algarve","t":"Distribuidor Congelados","m":"Zona Industrial, Portimão","tel":"—","email":"geral@alimentardoalgarve.pt","p":"Alta","tCliente":"Distribuidor Barlavento Algarvio","gancho":"Algarve com maior concentração turística do país — Ti'Piedade como referência nacional.","zona":"Algarve"},
+  {"n":"Norfrio","t":"Distribuidor Congelados","m":"Zona Industrial, Barcelos","tel":"—","email":"comercial@norfrio.pt","p":"Alta","tCliente":"Distribuidor Minho / Barcelos","gancho":"Minho com forte tradição gastronómica e de eventos — produto artesanal de origem secular.","zona":"Minho"},
+  {"n":"Terrafrio","t":"Distribuidor Congelados","m":"Zona Industrial, Mirandela","tel":"—","email":"geral@terrafrio.pt","p":"Alta","tCliente":"Distribuidor Nordeste Transmontano","gancho":"Região com turismo rural em crescimento — pão de ló como referência da doçaria nacional.","zona":"Trás-os-Montes"},
+  {"n":"Frigosul Distribuição","t":"Distribuidor Congelados","m":"Zona Industrial, Beja","tel":"—","email":"comercial@frigosul.pt","p":"Alta","tCliente":"Distribuidor Baixo Alentejo","gancho":"Baixo Alentejo com turismo rural e enoturismo — Ti'Piedade na carteira premium.","zona":"Baixo Alentejo"},
+]
+
+# ════════════════════════════════════════════════════════════════
+# LEADS INTERNACIONAIS — exportação / distribuidores europeus
+# ════════════════════════════════════════════════════════════════
+DB_INTERNACIONAL = [
+  {"n":"Taberna do Bacalhau (Paris)","t":"Restaurante português","m":"Rue de la Roquette 56, 75011 Paris, França","tel":"—","email":"info@tabernodobacalhau.fr","p":"Alta","tCliente":"Restaurante português Paris","gancho":"Paris com grande comunidade portuguesa — pão de ló Ti'Piedade como produto de nostalgia e qualidade.","zona":"Paris, França"},
+  {"n":"O Café de Portugal (Bruxelas)","t":"Restaurante português","m":"Rue du Bailli 20, 1050 Ixelles, Bélgica","tel":"—","email":"geral@ocafedeportugal.be","p":"Alta","tCliente":"Restaurante português / comunidade lusófona","gancho":"Bruxelas com comunidade portuguesa enorme — produto artesanal autêntico de Alcobaça.","zona":"Bruxelas, Bélgica"},
+  {"n":"Taberna Portuguesa (Londres)","t":"Restaurante português","m":"Notting Hill Gate 57, London W11 3JS, UK","tel":"—","email":"info@tabernaportuguesalondon.com","p":"Alta","tCliente":"Restaurante português Londres","gancho":"Londres premium — produto artesanal diferencia da concorrência de pastelaria industrial.","zona":"Londres, Reino Unido"},
+  {"n":"Portugal's House (Amesterdão)","t":"Restaurante português","m":"Utrechtsestraat 45, 1017 VH Amsterdam, Países Baixos","tel":"—","email":"info@portugalshouse.nl","p":"Alta","tCliente":"Restaurante português / turismo","gancho":"Amesterdão com turismo premium — pão de ló como experiência cultural portuguesa autêntica.","zona":"Amesterdão, Países Baixos"},
+  {"n":"Casa do Porto (Hamburgo)","t":"Restaurante português","m":"Eppendorfer Landstraße 81, 20249 Hamburg, Alemanha","tel":"—","email":"info@casadoporto.de","p":"Alta","tCliente":"Restaurante português Alemanha","gancho":"Comunidade luso-brasileira em Hamburgo — produto artesanal com 40 anos de história.","zona":"Hamburgo, Alemanha"},
+  {"n":"Portugália Delicatessen (Paris)","t":"Deli & mercearia portuguesa","m":"Rue Saint-Lazare 105, 75009 Paris, França","tel":"—","email":"contact@portugalia-deli.fr","p":"Alta","tCliente":"Deli portuguesa Paris","gancho":"Mercearia gourmet portuguesa — pão de ló congelado encaixa no linear premium.","zona":"Paris, França"},
+  {"n":"Iberian Foods (Londres)","t":"Distribuidor alimentar ibérico","m":"Borough Market area, London SE1, UK","tel":"—","email":"orders@iberianfoods.co.uk","p":"Alta","tCliente":"Distribuidor alimentar ibérico UK","gancho":"Distribuidor de produtos ibéricos premium no UK — Ti'Piedade como referência da doçaria portuguesa.","zona":"Londres, Reino Unido"},
+  {"n":"Sabores de Portugal (Berlim)","t":"Mercearia portuguesa","m":"Kantstraße 85, 10627 Berlin, Alemanha","tel":"—","email":"info@saboresdeportugal.de","p":"Alta","tCliente":"Mercearia portuguesa Berlim","gancho":"Comunidade portuguesa e turistas — produto artesanal como referência cultural.","zona":"Berlim, Alemanha"},
+  {"n":"Lusitano Deli (Zurique)","t":"Deli portuguesa","m":"Langstraße 197, 8005 Zürich, Suíça","tel":"—","email":"geral@lusitanodeli.ch","p":"Alta","tCliente":"Deli portuguesa Suíça","gancho":"Suíça com grande comunidade portuguesa — produto de qualidade artesanal sem conservantes.","zona":"Zurique, Suíça"},
+  {"n":"Portuguese Food Imports (Madrid)","t":"Importador alimentar português","m":"Calle de Narváez 12, 28009 Madrid, Espanha","tel":"—","email":"importaciones@portuguesefood.es","p":"Alta","tCliente":"Importador productos portugueses Espanha","gancho":"Mercado espanhol com crescente interesse em produtos portugueses artesanais premium.","zona":"Madrid, Espanha"},
+  {"n":"Tasca da Lusa (Toronto)","t":"Restaurante português","m":"1339 Dundas St W, Toronto, Ontario, Canadá","tel":"—","email":"info@tascadalusa.ca","p":"Alta","tCliente":"Restaurante português Canadá","gancho":"Toronto com maior comunidade portuguesa fora de Portugal — produto de eleição da diáspora.","zona":"Toronto, Canadá"},
+  {"n":"O Navegador (São Paulo)","t":"Restaurante português","m":"Rua dos Pinheiros 123, São Paulo, Brasil","tel":"—","email":"geral@onavegador.com.br","p":"Alta","tCliente":"Restaurante português São Paulo","gancho":"São Paulo com grande comunidade lusófona — pão de ló como produto de nostalgia e qualidade.","zona":"São Paulo, Brasil"},
+  {"n":"Casa Portuguesa (Nova Iorque)","t":"Restaurante português","m":"East Village, New York City, USA","tel":"—","email":"info@casaportuguesa.nyc","p":"Alta","tCliente":"Restaurante português Nova Iorque","gancho":"Nova Iorque premium — produto artesanal português autentico num mercado que valoriza origem.","zona":"Nova Iorque, USA"},
+  {"n":"Fado Lisboa Restaurante (Milão)","t":"Restaurante português / fado","m":"Via Montevideo 5, 20144 Milano, Itália","tel":"—","email":"info@fadolisboa.it","p":"Alta","tCliente":"Restaurante português Milão","gancho":"Milão com público gourmet — pão de ló como sobremesa artesanal de origem monástica.","zona":"Milão, Itália"},
+  {"n":"Portugal Shop (Bruxelas)","t":"Loja de produtos portugueses","m":"Rue du Trône 98, 1050 Ixelles, Bélgica","tel":"—","email":"shop@portugal-shop.be","p":"Alta","tCliente":"Loja de produtos portugueses","gancho":"Loja especializada em produtos de Portugal — pão de ló congelado é referência nacional.","zona":"Bruxelas, Bélgica"},
+  {"n":"A Cegonha (Luxemburgo)","t":"Restaurante português","m":"Rue de la Loge 12, L-1945 Luxembourg","tel":"—","email":"geral@acegonha.lu","p":"Alta","tCliente":"Restaurante português Luxemburgo","gancho":"Comunidade portuguesa no Luxemburgo — produto artesanal de eleição da diáspora.","zona":"Luxemburgo"},
+  {"n":"Ibérica Restaurants (UK)","t":"Grupo restaurantes ibéricos","m":"195 Great Portland Street, London W1W 5PS, UK","tel":"—","email":"info@ibericarestaurants.com","p":"Alta","tCliente":"Grupo restaurantes ibéricos UK","gancho":"Grupo com múltiplas unidades no UK — parceria de volume com produto artesanal português.","zona":"Londres, Reino Unido"},
+  {"n":"Tasca MED (Frankfurt)","t":"Restaurante mediterrânico","m":"Berger Straße 44, 60316 Frankfurt, Alemanha","tel":"—","email":"info@tascamed.de","p":"Alta","tCliente":"Restaurante mediterrânico Frankfurt","gancho":"Frankfurt com comunidade europeia cosmopolita — pão de ló como produto ibérico premium.","zona":"Frankfurt, Alemanha"},
+  {"n":"Sabor Ibérico (Estocolmo)","t":"Deli ibérica","m":"Österlånggatan 19, 111 31 Stockholm, Suécia","tel":"—","email":"info@saboriberico.se","p":"Alta","tCliente":"Deli ibérica Estocolmo","gancho":"Suécia com interesse crescente em produtos mediterrânicos — Ti'Piedade como jóia artesanal.","zona":"Estocolmo, Suécia"},
+  {"n":"Portugal Gourmet (Viena)","t":"Loja e deli portuguesa","m":"Mariahilfer Straße 85, 1060 Wien, Áustria","tel":"—","email":"office@portugalgourmet.at","p":"Alta","tCliente":"Loja portuguesa Viena","gancho":"Viena com público gourmet exigente — pão de ló artesanal como referência da doçaria portuguesa.","zona":"Viena, Áustria"},
 ]
 
 
@@ -480,8 +580,9 @@ COMERCIAIS = {
     "nuno":  {"nome":"Nuno",  "email":os.environ.get("EMAIL_NUNO",""),  "canal":"horeca", "zonas":["Lisboa","Santarém","Linha Sintra–Cascais","SuperIndep_Nuno"]},
     "joao":  {"nome":"João",  "email":os.environ.get("EMAIL_JOAO",""),  "canal":"horeca", "zonas":["Lisboa","Margem Sul","Costa Oeste (S. Martinho–Vieira)","Leiria","SuperIndep_Joao"]},
     "oscar": {"nome":"Óscar", "email":os.environ.get("EMAIL_OSCAR",""), "canal":"horeca", "zonas":["Ericeira–Caldas da Rainha","Coimbra","Porto","Braga","Guimarães","SuperIndep_Oscar"]},
-    "rui_catering":     {"nome":"Rui", "email":EMAIL_RUI, "canal":"catering",     "zonas":[]},
-    "rui_distribuidores":{"nome":"Rui","email":EMAIL_RUI, "canal":"distribuidores","zonas":[]},
+    "rui_catering":       {"nome":"Rui", "email":EMAIL_RUI, "canal":"catering",       "zonas":[]},
+    "rui_distribuidores": {"nome":"Rui", "email":EMAIL_RUI, "canal":"distribuidores", "zonas":[]},
+    "ana_internacional":  {"nome":"Ana Filipa", "email":EMAIL_ANA, "canal":"internacional",  "zonas":[]},
 }
 
 TIPOS_HORECA = ["Restaurante","Pastelaria","Hotel","Mercearia Gourmet","Café","Supermercado Independente"]
@@ -542,9 +643,11 @@ def lead_key(canal_id, lead):
 # ════════════════════════════════════════════════════════════════
 
 def github_api(method, path, data=None):
-    token = os.environ.get("GH_PAT","")
+    # GITHUB_TOKEN é gerado automaticamente em cada run e nunca expira.
+    # GH_PAT é fallback para compatibilidade com runs locais.
+    token = os.environ.get("GITHUB_TOKEN","") or os.environ.get("GH_PAT","")
     if not token:
-        print("[AVISO] GH_PAT não configurado — histórico não será guardado.")
+        print("[AVISO] GITHUB_TOKEN/GH_PAT não configurado — histórico não será guardado.")
         return None
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/{path}"
     headers = {"Authorization":f"Bearer {token}","Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","Content-Type":"application/json"}
@@ -714,6 +817,10 @@ def criar_excel(sem, historico):
     # Aba Distribuidores (Rui)
     leads_dist=gerar_leads_canal(DB_DISTRIBUIDORES,"rui_distribuidores",sem,5)
     aba_leads(wb,"Distribuidores — Rui",leads_dist,"rui_distribuidores",historico)
+
+    # Aba Internacional (Rui)
+    leads_int=gerar_leads_canal(DB_INTERNACIONAL,"ana_internacional",sem,20)
+    aba_leads(wb,"Internacional — Ana Filipa",leads_int,"ana_internacional",historico)
 
     fname=f"TiPiedade_Leads_S{sem}_{datetime.date.today().year}.xlsx"
     wb.save(fname); return fname
@@ -1393,8 +1500,52 @@ def corpo_html(email_num, grupo, nome_lead, zona, nome_comercial, texto_plain):
 </html>"""
 
 
-def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
-    """Envia o email de nurturing em HTML directamente ao email da lead."""
+def brevo_send(to_email, to_name, subject, html_content, text_content=None, attachment_path=None):
+    """Envia email via Brevo HTTP API. Retorna True se OK."""
+    api_key = os.environ.get("BREVO_API_KEY","")
+    if not api_key:
+        print("[AVISO] BREVO_API_KEY não configurada — email não enviado.")
+        return False
+
+    payload = {
+        "sender": {"name": "Pão de Ló Ti'Piedade", "email": EMAIL_FROM},
+        "to": [{"email": to_email, "name": to_name}],
+        "bcc": [{"email": EMAIL_CC}, {"email": EMAIL_BCC2}],
+        "subject": subject,
+        "htmlContent": html_content,
+    }
+    if text_content:
+        payload["textContent"] = text_content
+
+    if attachment_path and os.path.exists(attachment_path):
+        with open(attachment_path, "rb") as f:
+            attachment_b64 = base64.b64encode(f.read()).decode()
+        payload["attachment"] = [{
+            "content": attachment_b64,
+            "name": os.path.basename(attachment_path)
+        }]
+
+    body = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.brevo.com/v3/smtp/email",
+        data=body,
+        headers={
+            "api-key": api_key,
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(req) as r:
+            return r.status in (200, 201)
+    except urllib.error.HTTPError as e:
+        print(f"[Brevo] Erro {e.code}: {e.read().decode()[:300]}")
+        return False
+
+
+def enviar_nurturing_lead(lead, email_num, nome_comercial):
+    """Envia o email de nurturing via Brevo directamente ao email da lead."""
     email_dest = lead.get("email","").strip()
     if not email_dest or email_dest == "—" or "@" not in email_dest:
         return False
@@ -1408,51 +1559,25 @@ def enviar_nurturing_lead(server, smtp_user, lead, email_num, nome_comercial):
     texto   = corpo_email(email_num, grupo, lead.get("n",""), lead.get("zona",""), nome_comercial)
     html    = corpo_html(email_num, grupo, lead.get("n",""), lead.get("zona",""), nome_comercial, texto)
 
+    ok_total = False
     for dest_email in emails:
-        msg = MIMEMultipart("alternative")
-        msg["From"]    = f"Pão de Ló Ti'Piedade <{EMAIL_FROM}>"
-        msg["To"]      = dest_email
-        msg["Subject"] = f"{assunto} | Ti'Piedade"
-        # Plain text fallback
-        msg.attach(MIMEText(texto, "plain", "utf-8"))
-        # HTML principal
-        msg.attach(MIMEText(html, "html", "utf-8"))
-        # Enviar para destinatário + BCC duplo
-        server.sendmail(EMAIL_FROM, [dest_email, EMAIL_CC, EMAIL_BCC2], msg.as_string())
-
-    return True
+        ok = brevo_send(dest_email, lead.get("n",""), f"{assunto} | Ti'Piedade", html, texto)
+        if ok:
+            ok_total = True
+    return ok_total
 
 
-def enviar(server, de, para, cc, assunto, corpo, ficheiro=None):
-    """Envia email com ou sem anexo."""
-    msg = MIMEMultipart()
-    msg["From"] = f"Ti'Piedade HORECA <{de}>"
-    msg["To"]   = para
-    msg["CC"]   = cc
-    msg["Subject"] = assunto
-    msg.attach(MIMEText(corpo, "plain", "utf-8"))
-    if ficheiro:
-        with open(ficheiro,"rb") as f:
-            part = MIMEBase("application","octet-stream")
-            part.set_payload(f.read())
-        encoders.encode_base64(part)
-        part.add_header("Content-Disposition", f'attachment; filename="{os.path.basename(ficheiro)}"')
-        msg.attach(part)
-    server.sendmail(de, [para, cc], msg.as_string())
+def brevo_send_resumo(para, assunto, corpo_texto, ficheiro=None):
+    """Envia email de resumo/comercial via Brevo, com anexo opcional."""
+    html_body = f"<pre style='font-family:Arial,sans-serif;font-size:13px'>{corpo_texto}</pre>"
+    return brevo_send(para, para, assunto, html_body, corpo_texto, ficheiro)
 
 
 def enviar_emails(ficheiro, sem, modo):
-    smtp_host = os.environ["SMTP_HOST"]
-    smtp_port = int(os.environ.get("SMTP_PORT","587"))
-    smtp_user = os.environ["SMTP_USER"]
-    smtp_pass = os.environ["SMTP_PASS"]
-
-    with smtplib.SMTP(smtp_host, smtp_port) as server:
-        server.ehlo(); server.starttls(); server.login(smtp_user, smtp_pass)
-
-        if modo == "coordenador":
-            total_horeca = sum(len(gerar_leads_horeca(c,sem)) for c in ["nuno","joao","oscar"])
-            corpo = f"""Bom dia,
+    if modo == "coordenador":
+        historico, _ = ler_historico()
+        total_horeca = sum(len(gerar_leads_horeca(c,sem)) for c in ["nuno","joao","oscar"])
+        corpo = f"""Bom dia,
 
 Resumo de leads gerados para revisão — Semana {sem} ({semana_datas()}):
 
@@ -1476,47 +1601,47 @@ O Excel em anexo tem o detalhe completo.
 
 Ti'Piedade — Sistema de Prospeção HORECA
 """
-            enviar(server, smtp_user, EMAIL_RUI, EMAIL_CC,
-                   f"[REVISÃO] Leads Semana {sem} — {total_horeca+10} contactos | Ti'Piedade",
-                   corpo, ficheiro)
-            print(f"✓ Resumo enviado para {EMAIL_RUI}")
+        ok = brevo_send_resumo(EMAIL_RUI,
+                               f"[REVISÃO] Leads Semana {sem} — {total_horeca+10} contactos | Ti'Piedade",
+                               corpo, ficheiro)
+        print(f"{'✓' if ok else '✗'} Resumo enviado para {EMAIL_RUI}")
 
-        elif modo == "comerciais":
-            historico, sha = ler_historico()
-            enviados_leads = 0
-            sem_email = 0
+    elif modo == "comerciais":
+        historico, sha = ler_historico()
+        enviados_leads = 0
+        sem_email = 0
 
-            for com_id in ["nuno","joao","oscar"]:
-                com = COMERCIAIS[com_id]
-                leads = gerar_leads_horeca(com_id, sem)
-                dest = com["email"]
+        for com_id in ["nuno","joao","oscar"]:
+            com = COMERCIAIS[com_id]
+            leads = gerar_leads_horeca(com_id, sem)
+            dest = com["email"]
 
-                # Determinar email_num para esta semana (leads novas = 1, continuação = próximo)
-                email_num = next(
-                    (calcular_email_num(historico, com_id, l) for l in leads
-                     if calcular_email_num(historico, com_id, l)),
-                    1
-                )
+            # Determinar email_num para esta semana
+            email_num = next(
+                (calcular_email_num(historico, com_id, l) for l in leads
+                 if calcular_email_num(historico, com_id, l)),
+                1
+            )
 
-                # ── Enviar nurturing diretamente às leads ──────────
-                leads_com_email = 0
-                for lead in leads:
-                    n = calcular_email_num(historico, com_id, lead)
-                    if n is None:
-                        continue  # sequência completa
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, com["nome"])
-                    if ok:
-                        leads_com_email += 1
-                        enviados_leads += 1
-                        historico = registar_envios(historico, com_id, [lead], n, com["nome"])
-                    else:
-                        sem_email += 1
+            # ── Enviar nurturing directamente às leads ─────────────
+            leads_com_email = 0
+            for lead in leads:
+                n = calcular_email_num(historico, com_id, lead)
+                if n is None:
+                    continue  # sequência completa
+                ok = enviar_nurturing_lead(lead, n, com["nome"])
+                if ok:
+                    leads_com_email += 1
+                    enviados_leads += 1
+                    historico = registar_envios(historico, com_id, [lead], n, com["nome"])
+                else:
+                    sem_email += 1
 
-                # ── Email resumo ao comercial ───────────────────────
-                if dest:
-                    grupo_exemplo = tipologia_grupo(leads[0]["t"]) if leads else "restaurante"
-                    assunto_ex = ASSUNTOS.get(grupo_exemplo, ASSUNTOS["restaurante"]).get(email_num,"")
-                    corpo_com = f"""Olá {com['nome']},
+            # ── Email resumo ao comercial ──────────────────────────
+            if dest:
+                grupo_exemplo = tipologia_grupo(leads[0]["t"]) if leads else "restaurante"
+                assunto_ex = ASSUNTOS.get(grupo_exemplo, ASSUNTOS["restaurante"]).get(email_num,"")
+                corpo_com = f"""Olá {com['nome']},
 
 Aqui estão os teus {len(leads)} leads HORECA para a semana {sem} ({semana_datas()}).
 
@@ -1530,22 +1655,22 @@ Quando aparecer "✓ Pronto p/ visita" — o contacto recebeu os 4 emails. É al
 Bom trabalho,
 Equipa Comercial Ti'Piedade
 """
-                    enviar(server, smtp_user, dest, EMAIL_CC,
-                           f"Leads Semana {sem} — {len(leads)} contactos | Ti'Piedade",
-                           corpo_com, ficheiro)
-                    print(f"✓ {com['nome']} — {leads_com_email} emails nurturing enviados às leads")
+                ok = brevo_send_resumo(dest,
+                                       f"Leads Semana {sem} — {len(leads)} contactos | Ti'Piedade",
+                                       corpo_com, ficheiro)
+                print(f"{'✓' if ok else '✗'} {com['nome']} — {leads_com_email} nurturing + resumo enviado")
 
-            # ── Rui — catering ────────────────────────────────────
-            leads_cat = gerar_leads_canal(DB_CATERING, "rui_catering", sem, 5)
-            for lead in leads_cat:
-                n = calcular_email_num(historico, "rui_catering", lead)
-                if n:
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui")
-                    if ok:
-                        enviados_leads += 1
-                        historico = registar_envios(historico, "rui_catering", [lead], n, "Rui")
+        # ── Rui — catering ─────────────────────────────────────────
+        leads_cat = gerar_leads_canal(DB_CATERING, "rui_catering", sem, 5)
+        for lead in leads_cat:
+            n = calcular_email_num(historico, "rui_catering", lead)
+            if n:
+                ok = enviar_nurturing_lead(lead, n, "Rui")
+                if ok:
+                    enviados_leads += 1
+                    historico = registar_envios(historico, "rui_catering", [lead], n, "Rui")
 
-            corpo_cat = f"""Olá,
+        corpo_cat = f"""Olá,
 
 Aqui estão os 5 leads de Catering & Eventos para a semana {sem} ({semana_datas()}).
 
@@ -1554,22 +1679,22 @@ Para as restantes, o contacto é telefónico direto.
 
 Ti'Piedade — Sistema de Prospeção
 """
-            enviar(server, smtp_user, EMAIL_RUI, EMAIL_CC,
-                   f"Leads Catering & Eventos — Semana {sem} | Ti'Piedade",
-                   corpo_cat, ficheiro)
-            print(f"✓ Catering → Rui")
+        ok = brevo_send_resumo(EMAIL_RUI,
+                               f"Leads Catering & Eventos — Semana {sem} | Ti'Piedade",
+                               corpo_cat, ficheiro)
+        print(f"{'✓' if ok else '✗'} Catering → Rui")
 
-            # ── Rui — distribuidores ──────────────────────────────
-            leads_dist = gerar_leads_canal(DB_DISTRIBUIDORES, "rui_distribuidores", sem, 5)
-            for lead in leads_dist:
-                n = calcular_email_num(historico, "rui_distribuidores", lead)
-                if n:
-                    ok = enviar_nurturing_lead(server, smtp_user, lead, n, "Rui")
-                    if ok:
-                        enviados_leads += 1
-                        historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui")
+        # ── Rui — distribuidores ───────────────────────────────────
+        leads_dist = gerar_leads_canal(DB_DISTRIBUIDORES, "rui_distribuidores", sem, 5)
+        for lead in leads_dist:
+            n = calcular_email_num(historico, "rui_distribuidores", lead)
+            if n:
+                ok = enviar_nurturing_lead(lead, n, "Rui")
+                if ok:
+                    enviados_leads += 1
+                    historico = registar_envios(historico, "rui_distribuidores", [lead], n, "Rui")
 
-            corpo_dist = f"""Olá,
+        corpo_dist = f"""Olá,
 
 Aqui estão os 5 leads de Distribuidores para a semana {sem} ({semana_datas()}).
 
@@ -1577,13 +1702,37 @@ O Email 1 de nurturing foi enviado automaticamente às leads com email disponív
 
 Ti'Piedade — Sistema de Prospeção
 """
-            enviar(server, smtp_user, EMAIL_RUI, EMAIL_CC,
-                   f"Leads Distribuidores — Semana {sem} | Ti'Piedade",
-                   corpo_dist, ficheiro)
-            print(f"✓ Distribuidores → Rui")
+        ok = brevo_send_resumo(EMAIL_RUI,
+                               f"Leads Distribuidores — Semana {sem} | Ti'Piedade",
+                               corpo_dist, ficheiro)
+        print(f"{'✓' if ok else '✗'} Distribuidores → Rui")
 
-            print(f"\n📧 Total nurturing enviado: {enviados_leads} emails às leads | {sem_email} sem email")
-            escrever_historico(historico, sha)
+        # ── Ana Filipa — internacional ─────────────────────────────
+        leads_int = gerar_leads_canal(DB_INTERNACIONAL, "ana_internacional", sem, 20)
+        for lead in leads_int:
+            n = calcular_email_num(historico, "ana_internacional", lead)
+            if n:
+                ok = enviar_nurturing_lead(lead, n, "Ana Filipa")
+                if ok:
+                    enviados_leads += 1
+                    historico = registar_envios(historico, "ana_internacional", [lead], n, "Ana Filipa")
+
+        corpo_int = f"""Olá Ana Filipa,
+
+Aqui estão os 20 leads Internacionais para a semana {sem} ({semana_datas()}).
+
+Estes são restaurantes, delis e distribuidores fora de Portugal com perfil para o Pão de Ló Ti'Piedade.
+O Email 1 de nurturing foi enviado automaticamente às leads com email disponível.
+
+Ti'Piedade — Sistema de Prospeção Internacional
+"""
+        ok = brevo_send_resumo(EMAIL_ANA,
+                               f"Leads Internacionais — Semana {sem} | Ti'Piedade",
+                               corpo_int, ficheiro)
+        print(f"{'✓' if ok else '✗'} Internacional → Ana Filipa")
+
+        print(f"\n📧 Total nurturing enviado: {enviados_leads} emails às leads | {sem_email} sem email")
+        escrever_historico(historico, sha)
 
 # ════════════════════════════════════════════════════════════════
 
