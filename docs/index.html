@@ -1084,6 +1084,8 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
         </div>
       </div>
       <div id="dash-por-comercial"></div>
+      <div id="dash-pool-alerta" style="margin-top:8px"></div>
+      <div id="dash-ultimo-envio" style="margin-top:8px"></div>
     </div>
 
     <!-- VISTAS DE LEADS -->
@@ -1126,6 +1128,9 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
           <option>Cliente</option>
           <option>Desistiu</option><option value="N/A">N/A (não aplicável)</option>
         </select>
+        <select class="filter-select" id="filt-zona-nuno" onchange="renderVista('nuno')" style="width:auto;font-size:12px">
+          <option value="">Todas as zonas</option>
+        </select>
       </div>
       <div id="resumo-nuno" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-nuno"></tbody></table></div>
@@ -1143,6 +1148,9 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
           <option>Cliente</option>
           <option>Desistiu</option><option value="N/A">N/A (não aplicável)</option>
         </select>
+        <select class="filter-select" id="filt-zona-joao" onchange="renderVista('joao')" style="width:auto;font-size:12px">
+          <option value="">Todas as zonas</option>
+        </select>
       </div>
       <div id="resumo-joao" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-joao"></tbody></table></div>
@@ -1159,6 +1167,9 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
           <option>Visitado</option>
           <option>Cliente</option>
           <option>Desistiu</option><option value="N/A">N/A (não aplicável)</option>
+        </select>
+        <select class="filter-select" id="filt-zona-oscar" onchange="renderVista('oscar')" style="width:auto;font-size:12px">
+          <option value="">Todas as zonas</option>
         </select>
       </div>
       <div id="resumo-oscar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
@@ -2794,11 +2805,20 @@ function renderTabela(tbodyId, filtroFn, cols="normal") {
   tbody.innerHTML = rows.map(([k,v])=>trLead(k,v,cols)).join("");
 }
 
+function popularZonaSelect(vista, allLeads) {
+  const sel = document.getElementById(`filt-zona-${vista}`);
+  if (!sel) return;
+  const cur = sel.value;
+  const zonas = [...new Set(allLeads.map(([k,v])=>v.zona||"").filter(Boolean))].sort();
+  sel.innerHTML = `<option value="">Todas as zonas</option>` + zonas.map(z=>`<option value="${z}"${z===cur?` selected`:""}>${z}</option>`).join("");
+}
+
 function renderVista(vista) {
   if (vista === "ana") { renderVistaAna(); return; }
   const search    = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
   const canalRui  = document.getElementById("filt-canal-rui")?.value||"";
   const estadoFilt= document.getElementById(`filt-estado-${vista}`)?.value||"";
+  const zonaFilt  = document.getElementById(`filt-zona-${vista}`)?.value||"";
   const tbody     = document.getElementById(`tbody-${vista}`);
   if (!tbody) return;
 
@@ -2818,11 +2838,16 @@ function renderVista(vista) {
   const fn = filtroBase[vista];
   if (!fn) return;
 
-  // Aplicar filtros: base + pesquisa + estado (para comerciais)
+  // Popular dropdown de zona com as zonas desta vista
+  const leadsBase = leads().filter(([k,v]) => fn([k,v]));
+  if (["nuno","joao","oscar"].includes(vista)) popularZonaSelect(vista, leadsBase);
+
+  // Aplicar filtros: base + pesquisa + estado + zona (para comerciais)
   const rows = leads().filter(([k,v]) =>
     fn([k,v]) &&
     (!search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search)) &&
-    (!estadoFilt || (v.estado||"Em aberto") === estadoFilt)
+    (!estadoFilt || (v.estado||"Em aberto") === estadoFilt) &&
+    (!zonaFilt || (v.zona||"") === zonaFilt)
   );
 
   // ── Resumo rápido por estado (para vistas de comercial) ────
@@ -2916,20 +2941,86 @@ function renderDashboard() {
     document.getElementById(ids[i]).textContent=n;
   });
 
-  // Por comercial
-  const comerciais=["Nuno","João","Óscar","Rui"];
+  // Por comercial (com % sem email + alerta pool)
+  const canalMap = {
+    "Nuno":      { canal:"nuno",           db_size:40 },
+    "João":      { canal:"joao",           db_size:40 },
+    "Óscar":     { canal:"oscar",          db_size:40 },
+    "Rui":       { canal:"rui_catering",   db_size:25, extra:["rui_distribuidores","rui_grupos"] },
+    "Ana Filipa":{ canal:"ana_internacional", db_size:20 },
+  };
+  const comerciais=["Nuno","João","Óscar","Rui","Ana Filipa"];
+  const alertas=[];
   const html=comerciais.map(nome=>{
-    const cl=ls.filter(([k,v])=>v.comercial===nome);
+    const info = canalMap[nome]||{};
+    const cl=ls.filter(([k,v])=>v.comercial===nome || v.canal_id===info.canal || (info.extra||[]).includes(v.canal_id));
     const cc=cl.filter(([k,v])=>v.estado==="Cliente").length;
     const ca=cl.filter(([k,v])=>(v.estado||"Em aberto")==="Em aberto").length;
-    return `<div style="display:inline-flex;align-items:center;gap:8px;background:var(--br);border:1px solid var(--borda);border-radius:10px;padding:10px 16px;margin:4px">
-      <strong style="font-size:13px;color:var(--cast)">${nome}</strong>
-      <span style="font-size:11px;color:var(--txt2)">${cl.length} leads</span>
-      <span class="badge b-cliente">${cc} clientes</span>
-      <span class="badge b-aberto">${ca} abertos</span>
+    const semEmail=cl.filter(([k,v])=>!v.email_lead||v.email_lead==="—").length;
+    const pctSemEmail=cl.length?Math.round(semEmail/cl.length*100):0;
+    const esgotados=cl.filter(([k,v])=>(v.emails_enviados||[]).length>=4).length;
+    const disponiveis=(info.db_size||0) - cl.filter(([k,v])=>(v.emails_enviados||[]).length>0).length;
+    if (info.db_size && disponiveis < 5) alertas.push({nome, disponiveis});
+    const pctColor=pctSemEmail>50?"var(--vermelho)":pctSemEmail>25?"var(--amarelo)":"var(--verde)";
+    return `<div style="display:flex;flex-direction:column;gap:6px;background:var(--br);border:1px solid var(--borda);border-radius:10px;padding:10px 16px;margin:4px;min-width:160px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <strong style="font-size:13px;color:var(--cast)">${nome}</strong>
+        <span style="font-size:11px;color:var(--txt2)">${cl.length} leads</span>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        <span class="badge b-cliente">${cc} clientes</span>
+        <span class="badge b-aberto">${ca} abertos</span>
+        <span style="font-size:10px;padding:2px 7px;border-radius:99px;background:var(--cinza-bg);color:${pctColor};font-weight:700">${pctSemEmail}% sem email</span>
+      </div>
     </div>`;
   }).join("");
-  document.getElementById("dash-por-comercial").innerHTML=`<div style="background:var(--br);border:1px solid var(--borda);border-radius:14px;padding:16px 20px"><h4 style="font-family:'Playfair Display',serif;font-size:14px;color:var(--cast);margin-bottom:12px">Por comercial</h4><div>${html}</div></div>`;
+  document.getElementById("dash-por-comercial").innerHTML=`<div style="background:var(--br);border:1px solid var(--borda);border-radius:14px;padding:16px 20px"><h4 style="font-family:'Playfair Display',serif;font-size:14px;color:var(--cast);margin-bottom:12px">Por comercial</h4><div style="display:flex;flex-wrap:wrap">${html}</div></div>`;
+
+  // ── Alerta pool esgotado (melhoria 7) ───────────────────────
+  const poolDiv = document.getElementById("dash-pool-alerta");
+  if (poolDiv) {
+    if (alertas.length) {
+      poolDiv.innerHTML=`<div style="background:var(--amar-bg);border:1px solid var(--ouro);border-radius:12px;padding:12px 16px;display:flex;align-items:flex-start;gap:10px">
+        <span style="font-size:20px">⚠️</span>
+        <div>
+          <strong style="font-size:13px;color:var(--amarelo)">Pool de leads quase esgotada</strong>
+          <div style="font-size:12px;color:var(--txt2);margin-top:4px">${alertas.map(a=>`<b>${a.nome}</b>: apenas ${a.disponiveis} leads disponíveis`).join(" · ")}</div>
+        </div>
+      </div>`;
+    } else {
+      poolDiv.innerHTML="";
+    }
+  }
+
+  // ── Último envio de nurturing (melhoria 1) ───────────────────
+  const envioDiv = document.getElementById("dash-ultimo-envio");
+  if (envioDiv) {
+    const todasDatas = ls.flatMap(([k,v])=>(v.emails_enviados||[]).map(e=>e.data)).filter(Boolean);
+    let ultimaData = HIST.ultima_atualizacao || (todasDatas.length ? todasDatas.slice().sort().pop() : null);
+    if (ultimaData) {
+      // Calcular "há X dias"
+      const partes = ultimaData.split(/[-\/]/);
+      let diffDias = null;
+      if (partes.length===3) {
+        const [a,m,d] = partes.map(Number);
+        const dt = a>1000 ? new Date(a,m-1,d) : new Date(d<100?2000+d:d,m-1,a);
+        if (!isNaN(dt)) {
+          diffDias = Math.round((Date.now()-dt.getTime())/(1000*60*60*24));
+        }
+      }
+      const diffTxt = diffDias===null?"":diffDias===0?" (hoje)":diffDias===1?" (ontem)":` (há ${diffDias} dias)`;
+      const corEstado = diffDias===null||diffDias<=7?"var(--verde)":diffDias<=14?"var(--amarelo)":"var(--vermelho)";
+      envioDiv.innerHTML=`<div style="background:var(--br);border:1px solid var(--borda);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">📬</span>
+        <div>
+          <span style="font-size:12px;color:var(--txt2)">Último nurturing enviado:</span>
+          <strong style="font-size:13px;color:${corEstado};margin-left:6px">${ultimaData}${diffTxt}</strong>
+        </div>
+      </div>`;
+    } else {
+      envioDiv.innerHTML="";
+    }
+  }
 }
 
 function renderBadges() {
@@ -4235,17 +4326,58 @@ function registarActividade(tipo) {
 function renderActividade(leadKey) {
   const div = document.getElementById("m-actividade");
   if (!div) return;
-  const acts = HIST.leads[leadKey]?.actividade || [];
-  if (!acts.length) {
+  const v = HIST.leads[leadKey];
+  if (!v) return;
+
+  // Compilar timeline: actividade manual + emails enviados + visitas
+  const timeline = [];
+
+  // Actividade manual (já existe)
+  (v.actividade||[]).forEach(a => timeline.push({
+    data: a.data, hora: a.hora||"",
+    icon: "📝", label: a.label, nota: a.nota||"",
+    tipo: "actividade"
+  }));
+
+  // Emails enviados (melhoria 5)
+  const etiqEmail = {1:"📧 Email 1 — Apresentação",2:"📧 Email 2 — Caso de sucesso",3:"📧 Email 3 — Tendência",4:"📧 Email 4 — Convite"};
+  (v.emails_enviados||[]).forEach(e => timeline.push({
+    data: e.data, hora: "",
+    icon: "📧", label: etiqEmail[e.num]||`Email ${e.num}`, nota: "",
+    tipo: "email"
+  }));
+
+  // Visitas
+  (v.visitas||[]).forEach(vis => timeline.push({
+    data: vis.data, hora: "",
+    icon: "🤝", label: `Visita — ${vis.resultado||"sem resultado"}`, nota: vis.notas||"",
+    tipo: "visita"
+  }));
+
+  if (!timeline.length) {
     div.innerHTML = `<div style="font-size:12px;color:var(--txt2)">Sem registos de actividade.</div>`;
     return;
   }
-  div.innerHTML = acts.slice(0,5).map(a => `
-    <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:var(--lar-bg);border:1px solid var(--borda);border-radius:8px">
-      <div style="font-size:10px;color:var(--txt2);flex-shrink:0;padding-top:2px">${a.data}<br>${a.hora}</div>
-      <div>
-        <div style="font-size:12px;font-weight:700;color:var(--cast)">${a.label}</div>
-        ${a.nota?`<div style="font-size:11px;color:var(--txt2);margin-top:2px">${a.nota}</div>`:''}
+
+  // Ordenar por data desc (mais recente primeiro)
+  timeline.sort((a,b)=>{
+    const da = a.data.split(/[-\/]/).reverse().join("")+a.hora;
+    const db = b.data.split(/[-\/]/).reverse().join("")+b.hora;
+    return db.localeCompare(da);
+  });
+
+  const corTipo = {email:"var(--azul-bg)",visita:"var(--verd-bg)",actividade:"var(--lar-bg)"};
+  const bordaTipo = {email:"var(--azul)",visita:"var(--verde)",actividade:"var(--borda)"};
+
+  div.innerHTML = timeline.slice(0,8).map(a => `
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:${corTipo[a.tipo]||"var(--lar-bg)"};border:1px solid ${bordaTipo[a.tipo]||"var(--borda)"};border-radius:8px">
+      <div style="font-size:14px;flex-shrink:0;padding-top:1px">${a.icon}</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span style="font-size:12px;font-weight:700;color:var(--cast)">${a.label}</span>
+          <span style="font-size:10px;color:var(--txt2)">${a.data}${a.hora?" · "+a.hora:""}</span>
+        </div>
+        ${a.nota?`<div style="font-size:11px;color:var(--txt2);margin-top:2px">${a.nota}</div>`:""}
       </div>
     </div>`).join("");
 }
