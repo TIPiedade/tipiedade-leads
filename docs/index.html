@@ -499,6 +499,71 @@ function abrirReuniao(){ mudarVista("reuniao", document.querySelector('.nav-btn[
 function mostrarAtalhosRui(u){ setTimeout(function(){ verificarLembreteDados(u); },1500); var adm=ehAdmin(u); ["btn-reuniao","btn-inventario","btn-vendas","btn-conformidade"].forEach(function(id){ var b=document.getElementById(id); if(b) b.style.display = adm ? "" : "none"; });
   if (typeof carregarObjetivos === "function") { carregarObjetivos().then(function(){ if (typeof abrirObjetivosSeHash === "function") abrirObjetivosSeHash(); }); } }
 function fazerLogout(){terminarSessao();try{localStorage.removeItem("crm_user");sessionStorage.clear();}catch(ex){}location.reload();}
+// ---- Reset de senha ----
+var _resetToken=null;
+function abrirReset(){
+  var rs=document.getElementById("reset-screen");
+  if(rs){rs.style.display="flex";}
+  document.getElementById("reset-passo1").style.display="";
+  document.getElementById("reset-passo2").style.display="none";
+  document.getElementById("reset-passo3").style.display="none";
+  var e1=document.getElementById("reset-erro1"); if(e1) e1.textContent="";
+  // pré-selecionar user se já estava selecionado no login
+  var lu=document.getElementById("login-user"); var ru=document.getElementById("reset-user");
+  if(lu&&ru&&lu.value) ru.value=lu.value;
+}
+function fecharReset(){
+  var rs=document.getElementById("reset-screen"); if(rs) rs.style.display="none";
+  _resetToken=null;
+}
+async function pedirResetEmail(){
+  var u=(document.getElementById("reset-user")||{}).value||"";
+  var e=document.getElementById("reset-erro1");
+  if(!u){if(e)e.textContent="Seleciona o teu nome.";return;}
+  if(e){e.textContent="A enviar…";e.style.color="";}
+  try{
+    await fetch(WORKER_URL+"/reset-request",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user:u})});
+    document.getElementById("reset-passo1").style.display="none";
+    document.getElementById("reset-passo2").style.display="";
+  }catch(ex){if(e){e.textContent="Erro de ligação. Tenta outra vez.";e.style.color="#8B1A1A";}}
+}
+async function confirmarReset(){
+  var p1=(document.getElementById("reset-pass1")||{}).value||"";
+  var p2=(document.getElementById("reset-pass2")||{}).value||"";
+  var e=document.getElementById("reset-erro3");
+  if(!p1){if(e)e.textContent="Introduz a nova senha.";return;}
+  if(p1.length<6){if(e)e.textContent="A senha deve ter pelo menos 6 caracteres.";return;}
+  if(p1!==p2){if(e)e.textContent="As senhas não coincidem.";return;}
+  if(!_resetToken){if(e)e.textContent="Token inválido. Pede um novo link.";return;}
+  if(e){e.textContent="A guardar…";e.style.color="";}
+  try{
+    var r=await fetch(WORKER_URL+"/reset-confirm",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:_resetToken,pass:p1})});
+    var d=await r.json();
+    if(!r.ok){if(e){e.textContent=d.erro||"Erro. Tenta outra vez.";e.style.color="#8B1A1A";}return;}
+    fecharReset();
+    var le=document.getElementById("login-erro");
+    if(le){le.textContent="✓ Senha alterada. Podes entrar agora.";le.style.color="#2a6b3a";}
+    document.getElementById("login-pass").value="";
+  }catch(ex){if(e){e.textContent="Erro de ligação. Tenta outra vez.";e.style.color="#8B1A1A";}}
+}
+// Verificar se há token de reset no URL (ao abrir a página)
+(function(){
+  var params=new URLSearchParams(location.search);
+  var t=params.get("reset");
+  if(!t) return;
+  _resetToken=t;
+  // Limpar o token do URL sem recarregar
+  var limpo=location.pathname+(location.hash||"");
+  history.replaceState(null,"",limpo);
+  // Mostrar passo 3
+  var rs=document.getElementById("reset-screen");
+  if(rs) rs.style.display="flex";
+  var p1=document.getElementById("reset-passo1"); if(p1) p1.style.display="none";
+  var p2=document.getElementById("reset-passo2"); if(p2) p2.style.display="none";
+  var p3=document.getElementById("reset-passo3"); if(p3) p3.style.display="";
+  // Ocultar o login por baixo
+  var ls=document.getElementById("login-screen"); if(ls) ls.style.display="none";
+})();
 </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -853,6 +918,41 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
     <input type="password" id="login-pass" placeholder="Senha" onkeydown="if(event.key==='Enter')fazerLogin()" style="width:100%;margin-bottom:16px;padding:10px 13px;border:1.5px solid #E8E2D8;border-radius:10px;font-size:14px;background:#F9F7F5;font-family:inherit;outline:none">
     <button id="login-btn" onclick="fazerLogin()" style="width:100%;padding:13px;background:#4a2417;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Entrar →</button>
     <div id="login-erro" style="font-size:12px;text-align:center;margin-top:10px;min-height:18px"></div>
+    <div style="text-align:center;margin-top:14px"><button onclick="abrirReset()" style="background:none;border:none;color:#9B8B80;font-size:12px;cursor:pointer;font-family:inherit;text-decoration:underline">Esqueci a senha</button></div>
+  </div>
+</div>
+<!-- ECRÃ DE RESET DE SENHA -->
+<div id="reset-screen" style="display:none;position:fixed;inset:0;z-index:10000;background:#F5F3EF;align-items:center;justify-content:center;padding:24px">
+  <div style="background:#fff;border-radius:20px;padding:36px 32px;max-width:380px;width:100%;box-shadow:0 8px 40px rgba(26,16,9,.12)">
+    <div style="font-family:'Playfair Display',serif;font-size:22px;color:#2d1208;text-align:center;margin-bottom:6px">Redefinir senha</div>
+    <div style="font-size:12px;color:#6B5D50;text-align:center;margin-bottom:24px">CRM Ti'Piedade</div>
+    <div id="reset-passo1">
+      <p style="font-size:13px;color:#4a3728;margin-bottom:16px">Seleciona o teu nome e enviamos um link para o teu email.</p>
+      <select id="reset-user" style="width:100%;margin-bottom:16px;padding:10px 13px;border:1.5px solid #E8E2D8;border-radius:10px;font-size:14px;background:#F9F7F5;font-family:inherit;outline:none">
+        <option value="">Selecciona o teu nome...</option>
+        <option value="rui">Rui Bernardes</option>
+        <option value="nuno">Nuno</option>
+        <option value="joao">João</option>
+        <option value="oscar">Óscar</option>
+        <option value="ana">Ana Filipa Martins</option>
+        <option value="carlos">Carlos Henriques</option>
+        <option value="beatriz">Beatriz</option>
+        <option value="ines">Inês</option>
+      </select>
+      <button onclick="pedirResetEmail()" style="width:100%;padding:13px;background:#4a2417;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Enviar link →</button>
+      <div id="reset-erro1" style="font-size:12px;text-align:center;margin-top:10px;min-height:18px"></div>
+    </div>
+    <div id="reset-passo2" style="display:none">
+      <p style="font-size:13px;color:#4a3728;margin-bottom:16px" id="reset-msg2">✓ Email enviado. Verifica a tua caixa de entrada e clica no link.</p>
+    </div>
+    <div id="reset-passo3" style="display:none">
+      <p style="font-size:13px;color:#4a3728;margin-bottom:16px">Escolhe a tua nova senha.</p>
+      <input type="password" id="reset-pass1" placeholder="Nova senha" style="width:100%;margin-bottom:10px;padding:10px 13px;border:1.5px solid #E8E2D8;border-radius:10px;font-size:14px;background:#F9F7F5;font-family:inherit;outline:none">
+      <input type="password" id="reset-pass2" placeholder="Confirmar nova senha" onkeydown="if(event.key==='Enter')confirmarReset()" style="width:100%;margin-bottom:16px;padding:10px 13px;border:1.5px solid #E8E2D8;border-radius:10px;font-size:14px;background:#F9F7F5;font-family:inherit;outline:none">
+      <button onclick="confirmarReset()" style="width:100%;padding:13px;background:#4a2417;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Guardar nova senha →</button>
+      <div id="reset-erro3" style="font-size:12px;text-align:center;margin-top:10px;min-height:18px"></div>
+    </div>
+    <div style="text-align:center;margin-top:18px"><button onclick="fecharReset()" style="background:none;border:none;color:#9B8B80;font-size:12px;cursor:pointer;font-family:inherit;text-decoration:underline">← Voltar ao login</button></div>
   </div>
 </div>
 <div class="app">
