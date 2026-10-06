@@ -35,6 +35,7 @@ jobs:
           EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
           EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
           EMAIL_RUI:   ${{ secrets.EMAIL_RUI }}
+          EMAIL_ANA:   ${{ secrets.EMAIL_ANA }}
         run: python scripts/generate_leads.py
 
       - name: Notificar falha (coordenador)
@@ -73,6 +74,7 @@ jobs:
           EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
           EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
           EMAIL_RUI:   ${{ secrets.EMAIL_RUI }}
+          EMAIL_ANA:   ${{ secrets.EMAIL_ANA }}
         run: python scripts/generate_leads.py
 
       - name: Notificar falha (comerciais)
