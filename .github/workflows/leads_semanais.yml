@@ -2,8 +2,8 @@ name: Leads Semanais Ti'Piedade
 
 on:
   schedule:
-    - cron: '30 6 * * 1'   # segunda-feira 06:30 UTC
-    - cron: '30 6 * * 3'   # quarta-feira  06:30 UTC
+    - cron: '30 6 * * 1'   # segunda-feira 06:30 UTC → modo coordenador
+    - cron: '30 6 * * 3'   # quarta-feira  06:30 UTC → modo comerciais
   workflow_dispatch:
     inputs:
       modo:
@@ -12,15 +12,19 @@ on:
         default: 'comerciais'
 
 jobs:
+  # ── SEGUNDA: resumo semanal para o coordenador ──────────────────────────
   segunda-coordenador:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && contains(github.event.schedule, '* * 1'))
+    # Corre só às segundas (schedule '* * 1') ou em dispatch manual
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && startsWith(github.event.schedule, '30 6 * * 1'))
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install openpyxl requests
+      - run: pip install --break-system-packages openpyxl requests || pip install openpyxl requests
       - name: Correr script (coordenador)
         env:
           MODO: coordenador
@@ -30,19 +34,35 @@ jobs:
           EMAIL_NUNO:  ${{ secrets.EMAIL_NUNO }}
           EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
           EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
-          EMAIL_ANA: ${{ secrets.EMAIL_ANA }}
           EMAIL_RUI:   ${{ secrets.EMAIL_RUI }}
         run: python scripts/generate_leads.py
 
+      - name: Notificar falha (coordenador)
+        if: failure()
+        run: |
+          curl -s -X POST "https://api.brevo.com/v3/smtp/email" \
+            -H "api-key: ${{ secrets.BREVO_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "sender": {"name": "CRM Ti'\''Piedade", "email": "sales@tipiedade.com"},
+              "to": [{"email": "${{ secrets.EMAIL_RUI }}", "name": "Rui"}],
+              "subject": "⚠️ Falha no nurturing HORECA — segunda-feira",
+              "htmlContent": "<p>O envio automático de segunda-feira <strong>falhou</strong>.</p><p>Verifica em: <a href=\"https://github.com/TIPiedade/tipiedade-leads/actions\">GitHub Actions</a></p>"
+            }'
+
+  # ── QUARTA: nurturing para os comerciais ────────────────────────────────
   quarta-comerciais:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && contains(github.event.schedule, '* * 3'))
+    # Corre só às quartas (schedule '* * 3') ou em dispatch manual
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && startsWith(github.event.schedule, '30 6 * * 3'))
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install openpyxl requests
+      - run: pip install --break-system-packages openpyxl requests || pip install openpyxl requests
       - name: Correr script (comerciais)
         env:
           MODO: ${{ github.event.inputs.modo || 'comerciais' }}
@@ -52,6 +72,18 @@ jobs:
           EMAIL_NUNO:  ${{ secrets.EMAIL_NUNO }}
           EMAIL_JOAO:  ${{ secrets.EMAIL_JOAO }}
           EMAIL_OSCAR: ${{ secrets.EMAIL_OSCAR }}
-          EMAIL_ANA: ${{ secrets.EMAIL_ANA }}
           EMAIL_RUI:   ${{ secrets.EMAIL_RUI }}
         run: python scripts/generate_leads.py
+
+      - name: Notificar falha (comerciais)
+        if: failure()
+        run: |
+          curl -s -X POST "https://api.brevo.com/v3/smtp/email" \
+            -H "api-key: ${{ secrets.BREVO_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "sender": {"name": "CRM Ti'\''Piedade", "email": "sales@tipiedade.com"},
+              "to": [{"email": "${{ secrets.EMAIL_RUI }}", "name": "Rui"}],
+              "subject": "⚠️ Falha no nurturing HORECA — quarta-feira",
+              "htmlContent": "<p>O envio automático de quarta-feira <strong>falhou</strong>.</p><p>Verifica em: <a href=\"https://github.com/TIPiedade/tipiedade-leads/actions\">GitHub Actions</a></p>"
+            }'
