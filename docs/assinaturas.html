@@ -381,11 +381,11 @@ function build(d){
       + `</tr></table></td></tr>` : "";
 
   const cargo = d.cargo
-    ? `<tr><td style="padding:2px 0 0 0;font-family:${SANS};font-size:7.5pt;line-height:10pt;letter-spacing:1.4px;color:${TAN};text-transform:uppercase;"><span style="font-family:${SANS};font-size:7.5pt;color:${TAN};letter-spacing:1.4px;">${esc(d.cargo.toUpperCase()).replace(/ {2}/g,"&nbsp;&nbsp;")}</span></td></tr>`
+    ? `<tr><td style="padding:2px 0 0 0;font-family:${SANS};font-size:8pt;line-height:10pt;letter-spacing:1.4px;color:${TAN};text-transform:uppercase;"><span style="font-family:${SANS};font-size:8pt;color:${TAN};letter-spacing:1.4px;">${esc(d.cargo.toUpperCase()).replace(/ {2}/g,"&nbsp;&nbsp;")}</span></td></tr>`
     : "";
 
   const nameBlock = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-    <tr><td style="padding:0;font-family:${SERIF};font-size:18pt;line-height:20pt;color:${BR};"><span style="font-family:${SERIF};font-size:18pt;color:${BR};">${esc(d.nome)}</span></td></tr>
+    <tr><td style="padding:0;font-family:${SANS};font-size:12pt;line-height:14pt;color:${BR};"><span style="font-family:${SANS};font-size:12pt;color:${BR};font-weight:600;">${esc(d.nome)}</span></td></tr>
     ${cargo}
     <tr><td style="padding:7px 0 9px 0;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td width="40" height="3" bgcolor="${OR}" style="width:40px;height:3px;font-size:0;line-height:0;background-color:${OR};">&nbsp;</td></tr></table></td></tr>
     ${rows}
