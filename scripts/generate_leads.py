@@ -14,6 +14,136 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
+# ── Normalização de tipologias ────────────────────────────────────────────────
+MAPA_TIPOLOGIA = {
+    # Café & Brunch
+    "Café de Especialidade":"Café & Brunch","Café de Especialidade & Brunch":"Café & Brunch",
+    "Café de Especialidade & Lanches":"Café & Brunch","Café & Brunch Premium":"Café & Brunch",
+    "Café & Brunch Moderno":"Café & Brunch","Cafetaria Gourmet & Regional":"Café & Brunch",
+    "Cafetaria Saudável & Brunch":"Café & Brunch","Café Histórico":"Café & Brunch",
+    "Café / Restaurante Histórico":"Café & Brunch","Café Histórico / Turismo":"Café & Brunch",
+    "Café Tradicional":"Café & Brunch","Café de Charme / Tradicional":"Café & Brunch",
+    "Café & Wine Bar":"Café & Brunch","Brunch & Comida Saudável":"Café & Brunch",
+    "Brunch & Cozy Cafe":"Café & Brunch","Brunch & Healthy Food":"Café & Brunch",
+    "Brunch & Lanches":"Café & Brunch","Brunch & Specialty Coffee":"Café & Brunch",
+    "Brunch / Gourmet (★ 4.8)":"Café & Brunch","Brunch Bar":"Café & Brunch",
+    "Brunch Club & Café":"Café & Brunch","Loja de Chocolate / Café":"Café & Brunch",
+    "Restaurante / brunch":"Café & Brunch","Restaurante & Brunch Premium":"Café & Brunch",
+    "Restaurante de Praia & Brunch":"Café & Brunch","Restaurante de Praia & Brunch Premium":"Café & Brunch",
+    "Restaurante/brunch":"Café & Brunch",
+    # Pastelaria & Padaria
+    "Pastelaria Premium":"Pastelaria & Padaria","Pastelaria Premium & Brunch":"Pastelaria & Padaria",
+    "Pastelaria Premium & Lanches":"Pastelaria & Padaria","Pastelaria & Padaria Fina":"Pastelaria & Padaria",
+    "Pastelaria":"Pastelaria & Padaria","Pastelaria Artesanal":"Pastelaria & Padaria",
+    "Pastelaria Artesanal & Casa de Chá":"Pastelaria & Padaria","Pastelaria Gourmet & Chá":"Pastelaria & Padaria",
+    "Pastelaria Histórica":"Pastelaria & Padaria","Pastelaria Regional":"Pastelaria & Padaria",
+    "Pastelaria de Referência / Tradicional":"Pastelaria & Padaria","Pastelaria / Café Clássico":"Pastelaria & Padaria",
+    "Pastelaria/Distribuidor PT":"Pastelaria & Padaria","Padaria Artesanal & Gourmet":"Pastelaria & Padaria",
+    "Padaria Artesanal Premium":"Pastelaria & Padaria","Padaria Artesanal":"Pastelaria & Padaria",
+    "Padaria Artesanal & Bistrô":"Pastelaria & Padaria","Padaria Artesanal & Cafetaria":"Pastelaria & Padaria",
+    "Padaria Artesanal & Café":"Pastelaria & Padaria","Padaria Artesanal & Orgânica":"Pastelaria & Padaria",
+    "Padaria Artesanal Sourdough":"Pastelaria & Padaria","Gelataria premium":"Pastelaria & Padaria",
+    "Grupo Restauração / Pastelaria":"Pastelaria & Padaria","Grupo Cafetaria / Pastelaria":"Pastelaria & Padaria",
+    # Casa de Chá & Pastelaria
+    "Casa de Chá & Café de Charme":"Casa de Chá & Pastelaria","Casa de Chá & Pastelaria Fina":"Casa de Chá & Pastelaria",
+    # Restaurante Premium
+    "Restaurante Premium":"Restaurante Premium","Restaurante premium":"Restaurante Premium",
+    "Restaurante Gourmet":"Restaurante Premium","Restaurante Moderno":"Restaurante Premium",
+    "Restaurante moderno":"Restaurante Premium","Restaurante Contemporâneo":"Restaurante Premium",
+    "Restaurante contemporâneo":"Restaurante Premium","Restaurante Português Moderno":"Restaurante Premium",
+    "Restaurante cozinha portuguesa reinventada":"Restaurante Premium","Restaurante premium vínico":"Restaurante Premium",
+    "Restaurante premium/tradicional":"Restaurante Premium","Restaurante Autor":"Restaurante Premium",
+    "Restaurante (Alta Cozinha Portuguesa)":"Restaurante Premium","Restaurante (Médio/Alto Padrão / Autor)":"Restaurante Premium",
+    "Fine dining / cozinha autoral":"Restaurante Premium","Restaurante Fine Dining":"Restaurante Premium",
+    "Restaurante fine dining":"Restaurante Premium","Restaurante fusão (★ 9.8 TheFork)":"Restaurante Premium",
+    "Restaurante referência":"Restaurante Premium","Restaurante português":"Restaurante Premium","Restaurante/café":"Restaurante Premium",
+    # Restaurante Michelin / Hotel
+    "Restaurante (Michelin)":"Restaurante Michelin / Hotel","Hotel/restaurante Michelin":"Restaurante Michelin / Hotel",
+    "Hotel/restaurante":"Restaurante Michelin / Hotel","Restaurante de Hotel Histórico":"Restaurante Michelin / Hotel",
+    "Restaurante/hotel":"Restaurante Michelin / Hotel","Cadeia Hoteleira":"Restaurante Michelin / Hotel",
+    "Cadeia Hoteleira Nacional":"Restaurante Michelin / Hotel",
+    # Restaurante Tradicional
+    "Restaurante Tradicional":"Restaurante Tradicional","Restaurante tradicional":"Restaurante Tradicional",
+    "Restaurante Tradicional Premium":"Restaurante Tradicional","Restaurante Tradicional de Caça & Grelhados":"Restaurante Tradicional",
+    "Restaurante Regional Premium":"Restaurante Tradicional","Restaurante regional":"Restaurante Tradicional",
+    "Restaurante Regional":"Restaurante Tradicional","Restaurante Temático":"Restaurante Tradicional",
+    "Restaurante temático":"Restaurante Tradicional","Restaurante Temático / Turismo":"Restaurante Tradicional",
+    "Restaurante turístico":"Restaurante Tradicional","Restaurante português costeiro":"Restaurante Tradicional",
+    "Restaurante (Médio/Alto Padrão / Vista Rio)":"Restaurante Tradicional","Restaurante (Médio/Alto Padrão)":"Restaurante Tradicional",
+    "Restaurante & Taberna":"Restaurante Tradicional","Taberna / Restaurante Tradicional":"Restaurante Tradicional",
+    "Taberna Contemporânea":"Restaurante Tradicional","Adega / Restaurante":"Restaurante Tradicional",
+    "Adega / Taberna":"Restaurante Tradicional","Restaurante Panorâmico":"Restaurante Tradicional",
+    "Restaurante panorâmico":"Restaurante Tradicional","Restaurante Praia":"Restaurante Tradicional",
+    "Restaurante grande volume":"Restaurante Tradicional","Restauração Colectiva":"Restaurante Tradicional",
+    "Restauração Colectiva / Facility":"Restaurante Tradicional","Restauração em Aeroportos":"Restaurante Tradicional",
+    # Restaurante Peixe & Marisco
+    "Restaurante de Peixe & Marisco":"Restaurante Peixe & Marisco","Restaurante peixe/marisco premium":"Restaurante Peixe & Marisco",
+    "Restaurante marisco/peixe com vista mar":"Restaurante Peixe & Marisco","Restaurante costeiro":"Restaurante Peixe & Marisco",
+    "Restaurante de Peixe":"Restaurante Peixe & Marisco","Restaurante de Peixe (Médio/Alto Padrão)":"Restaurante Peixe & Marisco",
+    "Restaurante de Peixe Moderno":"Restaurante Peixe & Marisco","Restaurante marisco":"Restaurante Peixe & Marisco",
+    "Restaurante peixe/marisco":"Restaurante Peixe & Marisco","Restaurante peixe":"Restaurante Peixe & Marisco",
+    "Marisqueira":"Restaurante Peixe & Marisco","Marisqueira (desde 1972)":"Restaurante Peixe & Marisco",
+    "Cervejaria / Marisco":"Restaurante Peixe & Marisco","Cervejaria/Marisqueira":"Restaurante Peixe & Marisco",
+    # Restaurante Casual
+    "Restaurante":"Restaurante Casual","Restaurante familiar":"Restaurante Casual","Restaurante informal":"Restaurante Casual",
+    "Restaurante internacional":"Restaurante Casual","Restaurante italiano":"Restaurante Casual","Italiano":"Restaurante Casual",
+    "Restaurante/bar":"Restaurante Casual","Restaurante / Bar":"Restaurante Casual","Restaurante/bar moderno":"Restaurante Casual",
+    "Restaurante/Distribuidor":"Restaurante Casual","Pizzaria Gourmet":"Restaurante Casual","Bistro americano":"Restaurante Casual",
+    "Cervejaria":"Restaurante Casual","Cervejaria / Restaurante":"Restaurante Casual","Cervejaria Tradicional":"Restaurante Casual",
+    "Cervejaria Lisboa":"Restaurante Casual","Tapas/wine bar":"Restaurante Casual","Tasca / Petiscos":"Restaurante Casual","Brasserie":"Restaurante Casual",
+    # Tasca & Fado
+    "Tasca Contemporânea":"Tasca & Fado","Tasca Moderna":"Tasca & Fado","Tasca Moderna / Ribeirinha":"Tasca & Fado",
+    "Tasca Tradicional":"Tasca & Fado","Casa de Fado Premium":"Tasca & Fado","Restaurante / Casa de Fado":"Tasca & Fado",
+    "Restaurante / Fado":"Tasca & Fado","Fado & Restaurante":"Tasca & Fado",
+    # Beach Club & Bar
+    "Beach Club / Restaurante":"Beach Club & Bar","Beach club":"Beach Club & Bar","Beach restaurant":"Beach Club & Bar",
+    # Catering & Eventos
+    "Catering & Eventos":"Catering & Eventos","Restaurante & Espaço de Eventos":"Catering & Eventos",
+    "Restaurante eventos":"Catering & Eventos","Restaurante & Eventos":"Catering & Eventos",
+    "Grupo Restauração / Catering":"Catering & Eventos","Grupo Restauração / Entretenimento":"Catering & Eventos",
+    # Grupo Restauração
+    "Grupo Restauração":"Grupo Restauração","Grupo Restauração Premium":"Grupo Restauração",
+    # Garrafeira & Gourmet
+    "Garrafeira & Gourmet Deli":"Garrafeira & Gourmet","Mercearia Gourmet PT":"Garrafeira & Gourmet",
+    "Mercearia Gourmet Europeia":"Garrafeira & Gourmet","Mercearia Portuguesa NL":"Garrafeira & Gourmet",
+    "Mercearia Saudade":"Garrafeira & Gourmet","Mercearia Saudade IT":"Garrafeira & Gourmet",
+    "Mercearia Saudade Online":"Garrafeira & Gourmet","Mercearia Saudade WA":"Garrafeira & Gourmet",
+    "Mercearia Saudade Wallonia":"Garrafeira & Gourmet","Mercearia/Distribuidor PT":"Garrafeira & Gourmet",
+    "Mercearia/Gastronomia PT":"Garrafeira & Gourmet",
+    # Distribuidor
+    "Distribuidor Congelados":"Distribuidor","Distribuidor Congelados HORECA":"Distribuidor",
+    "Distribuidor HORECA Ibérico":"Distribuidor","Distribuidor HORECA Ibérico CH":"Distribuidor",
+    "Distribuidor HORECA Étnico":"Distribuidor","Distribuidor Ibérico AU":"Distribuidor",
+    "Distribuidor Ibérico BE":"Distribuidor","Distribuidor Ibérico França":"Distribuidor",
+    "Distribuidor Ibérico HORECA":"Distribuidor","Distribuidor Ibérico IT":"Distribuidor",
+    "Distribuidor Ibérico NL":"Distribuidor","Distribuidor PT Angola":"Distribuidor",
+    "Distribuidor PT País Basco":"Distribuidor","Distribuidor Produtos PT":"Distribuidor",
+    "Distribuidor Produtos PT Suíça":"Distribuidor","Distribuidora PT (Grupo Delta)":"Distribuidor",
+    "Exportador/Distribuidor Alimentar":"Distribuidor","Gastronomia/Distribuidor PT":"Distribuidor",
+    "Importador Congelados PT":"Distribuidor","Importador Congelados PT CA":"Distribuidor",
+    "Importador Especialidades PT":"Distribuidor","Importador Gourmet PT":"Distribuidor",
+    "Importador Histórico PT Suíça":"Distribuidor","Importador Ibérico HORECA":"Distribuidor",
+    "Importador Retalho PT AO":"Distribuidor","Importador Retalho Saudade":"Distribuidor",
+    "Importador/Distribuidor PT":"Distribuidor","Importador/Distribuidor PT AU":"Distribuidor",
+    "Importador/Distribuidor PT BE":"Distribuidor","Importador/Distribuidor PT BR":"Distribuidor",
+    "Importador/Distribuidor PT Gourmet":"Distribuidor","Importador/Distribuidor PT HORECA":"Distribuidor",
+    "Importador/Distribuidor PT IT":"Distribuidor","Importador/Distribuidor PT JP":"Distribuidor",
+    "Importador/Distribuidor PT+ES":"Distribuidor","Importador/Mercearia PT":"Distribuidor",
+    "Promotor/Distribuidor PT":"Distribuidor","Retalho Gourmet Premium UK":"Distribuidor",
+    "Grande Distribuição AU":"Distribuidor","Grande Distribuição BE":"Distribuidor",
+    "Grande Distribuição BR":"Distribuidor","Grande Distribuição CA":"Distribuidor",
+    "Grande Distribuição CH":"Distribuidor","Grande Distribuição DE":"Distribuidor",
+    "Grande Distribuição ES":"Distribuidor","Grande Distribuição FR":"Distribuidor",
+    "Grande Distribuição JP":"Distribuidor","Grande Distribuição LU":"Distribuidor",
+    "Grande Distribuição NL":"Distribuidor","Grande Distribuição UK":"Distribuidor",
+    # E-commerce Saudade
+    "E-commerce Saudade Brasil":"E-commerce Saudade","E-commerce Saudade Europa":"E-commerce Saudade",
+    "E-commerce Saudade UK":"E-commerce Saudade",
+}
+
+def normalizar_tipologia(t):
+    return MAPA_TIPOLOGIA.get(t, t)
+
 EMAIL_FROM = "sales@tipiedade.com"          # remetente
 EMAIL_CC   = "sales@tipiedade.com"          # BCC 1
 EMAIL_BCC2 = "geral@tipiedade.com"           # BCC 2
@@ -711,7 +841,7 @@ def registar_envios(historico, canal_id, leads, email_num, comercial_nome):
                 "email_lead": lead.get("email",""), "tel": lead.get("tel",""),
                 "comercial": comercial_nome, "canal_id": canal_id,
                 "canal": lead.get("canal",""), "prioridade": lead.get("p",""),
-                "tipologia_cliente": lead.get("tCliente",""),
+                "tipologia_cliente": normalizar_tipologia(lead.get("tCliente","")),
                 "gancho": lead.get("gancho",""),
                 "semana_entrada": semana_num(),
                 "data_entrada": d,

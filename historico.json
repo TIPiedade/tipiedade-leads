@@ -2,7 +2,7 @@
   "leads": {
     "oscar::Oitoo::Porto": {
       "nome": "Oitoo",
-      "tipo": "Padaria Artesanal & Café",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Porto",
       "morada": "Rua de Cedofeita 443, 4050-181 Porto",
       "email_lead": "—",
@@ -26,7 +26,7 @@
     },
     "oscar::Masseira::Porto": {
       "nome": "Masseira",
-      "tipo": "Padaria Artesanal Sourdough",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Porto",
       "morada": "Rua de D. Manuel II 296, 4050-343 Porto",
       "email_lead": "—",
@@ -50,7 +50,7 @@
     },
     "oscar::Chá das Cinco::Porto": {
       "nome": "Chá das Cinco",
-      "tipo": "Pastelaria Artesanal & Casa de Chá",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Porto",
       "morada": "Praça da Alegria 50, 4000-027 Porto",
       "email_lead": "—",
@@ -74,7 +74,7 @@
     },
     "oscar::Lazy Breakfast Club::Porto": {
       "nome": "Lazy Breakfast Club",
-      "tipo": "Brunch Club & Café",
+      "tipo": "Café & Brunch",
       "zona": "Porto",
       "morada": "Rua das Oliveiras 110, 4050-449 Porto",
       "email_lead": "—",
@@ -98,7 +98,7 @@
     },
     "oscar::Duquesa::Porto": {
       "nome": "Duquesa",
-      "tipo": "Brunch & Specialty Coffee",
+      "tipo": "Café & Brunch",
       "zona": "Porto",
       "morada": "Rua de Cedofeita 300, 4050-174 Porto",
       "email_lead": "—",
@@ -122,7 +122,7 @@
     },
     "oscar::Nola Kitchen::Porto": {
       "nome": "Nola Kitchen",
-      "tipo": "Cafetaria Saudável & Brunch",
+      "tipo": "Café & Brunch",
       "zona": "Porto",
       "morada": "Praça de D. Filipa de Lencastre 25, 4050-259 Porto",
       "email_lead": "—",
@@ -142,7 +142,7 @@
     },
     "oscar::My Coffee Porto::Porto": {
       "nome": "My Coffee Porto",
-      "tipo": "Café de Especialidade",
+      "tipo": "Café & Brunch",
       "zona": "Porto",
       "morada": "Escadas do Caminho Novo 11, 4050-554 Porto",
       "email_lead": "—",
@@ -166,7 +166,7 @@
     },
     "oscar::Do Norte Cafe by Hungry Biker::Porto": {
       "nome": "Do Norte Cafe by Hungry Biker",
-      "tipo": "Brunch & Cozy Cafe",
+      "tipo": "Café & Brunch",
       "zona": "Porto",
       "morada": "Rua do Almada 516, 4050-039 Porto",
       "email_lead": "—",
@@ -190,7 +190,7 @@
     },
     "oscar::Epoca Café::Porto": {
       "nome": "Epoca Café",
-      "tipo": "Café de Especialidade & Lanches",
+      "tipo": "Café & Brunch",
       "zona": "Porto",
       "morada": "Rua do Rosário 22, 4050-522 Porto",
       "email_lead": "—",
@@ -214,7 +214,7 @@
     },
     "oscar::Leitaria da Quinta do Paço (Matosinhos)::Matosinhos": {
       "nome": "Leitaria da Quinta do Paço (Matosinhos)",
-      "tipo": "Pastelaria Premium & Lanches",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Matosinhos",
       "morada": "Rua Brito Capelo 1237, 4450-072 Matosinhos",
       "email_lead": "—",
@@ -238,7 +238,7 @@
     },
     "oscar::Adega de São Nicolau::Porto": {
       "nome": "Adega de São Nicolau",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto",
       "morada": "Rua de São Nicolau 1, 4050-561 Porto",
       "email_lead": "—",
@@ -262,7 +262,7 @@
     },
     "oscar::Brasão Cervejaria (Aliados)::Porto": {
       "nome": "Brasão Cervejaria (Aliados)",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto",
       "morada": "Rua de Ramalho Ortigão 28, 4000-407 Porto",
       "email_lead": "—",
@@ -286,7 +286,7 @@
     },
     "oscar::O Paparico::Porto": {
       "nome": "O Paparico",
-      "tipo": "Restaurante (Alta Cozinha Portuguesa)",
+      "tipo": "Restaurante Premium",
       "zona": "Porto",
       "morada": "Rua de Costa Cabral 2343, 4200-232 Porto",
       "email_lead": "—",
@@ -310,7 +310,7 @@
     },
     "oscar::Taberna dos Mercadores::Porto": {
       "nome": "Taberna dos Mercadores",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto",
       "morada": "Rua dos Mercadores 36, 4050-373 Porto",
       "email_lead": "—",
@@ -334,7 +334,7 @@
     },
     "oscar::Cantinho do Avillez (Porto)::Porto": {
       "nome": "Cantinho do Avillez (Porto)",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto",
       "morada": "Rua de Mouzinho da Silveira 166, 4050-416 Porto",
       "email_lead": "—",
@@ -358,7 +358,7 @@
     },
     "oscar::Muu Steakhouse::Porto": {
       "nome": "Muu Steakhouse",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto",
       "morada": "Rua do Almada 149, 4050-037 Porto",
       "email_lead": "—",
@@ -382,7 +382,7 @@
     },
     "oscar::Abadia do Porto::Porto": {
       "nome": "Abadia do Porto",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto",
       "morada": "Rua do Ateneu Comercial do Porto 22, 4000-380 Porto",
       "email_lead": "—",
@@ -406,7 +406,7 @@
     },
     "oscar::A Regaleira::Porto": {
       "nome": "A Regaleira",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto",
       "morada": "Rua do Bonjardim 87, 4000-124 Porto",
       "email_lead": "—",
@@ -430,7 +430,7 @@
     },
     "oscar::Semente - Padaria Artesanal::Braga": {
       "nome": "Semente - Padaria Artesanal",
-      "tipo": "Padaria Artesanal & Orgânica",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Braga",
       "morada": "Rua de S. Vicente 112, 4710-062 Braga",
       "email_lead": "—",
@@ -454,7 +454,7 @@
     },
     "oscar::Ferreira Capa::Braga": {
       "nome": "Ferreira Capa",
-      "tipo": "Pastelaria de Referência / Tradicional",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Braga",
       "morada": "Rua do Souto 131, 4700-329 Braga",
       "email_lead": "—",
@@ -478,7 +478,7 @@
     },
     "oscar::Koyo Specialty Coffee::Braga": {
       "nome": "Koyo Specialty Coffee",
-      "tipo": "Café de Especialidade",
+      "tipo": "Café & Brunch",
       "zona": "Braga",
       "morada": "Rua Dom Diogo de Sousa 37, 4700-424 Braga",
       "email_lead": "—",
@@ -498,7 +498,7 @@
     },
     "oscar::Cozinha da Terra::Braga": {
       "nome": "Cozinha da Terra",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Braga",
       "morada": "Rua de São Lourenço, 4705-551 Braga",
       "email_lead": "—",
@@ -518,7 +518,7 @@
     },
     "oscar::Retroaria Bracarense::Braga": {
       "nome": "Retroaria Bracarense",
-      "tipo": "Café de Charme / Tradicional",
+      "tipo": "Café & Brunch",
       "zona": "Braga",
       "morada": "Rua de São Marcos 17, 4700-328 Braga",
       "email_lead": "—",
@@ -538,7 +538,7 @@
     },
     "oscar::Restaurante Cozinha da Sé::Braga": {
       "nome": "Restaurante Cozinha da Sé",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Braga",
       "morada": "Rua Dom Diogo de Sousa 3, 4700-424 Braga",
       "email_lead": "—",
@@ -558,7 +558,7 @@
     },
     "oscar::Taberna Belga::Braga": {
       "nome": "Taberna Belga",
-      "tipo": "Restaurante grande volume",
+      "tipo": "Restaurante Tradicional",
       "zona": "Braga",
       "morada": "—",
       "email_lead": "geral@tabernabelga.pt",
@@ -594,7 +594,7 @@
     },
     "oscar::Restaurante Augusto::Braga": {
       "nome": "Restaurante Augusto",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Braga",
       "morada": "Rua de São Miguel 20, 4700-305 Braga",
       "email_lead": "—",
@@ -614,7 +614,7 @@
     },
     "oscar::Padaria da Esquina::Guimarães": {
       "nome": "Padaria da Esquina",
-      "tipo": "Padaria Artesanal & Cafetaria",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Guimarães",
       "morada": "Largo do Toural 104, 4810-427 Guimarães",
       "email_lead": "—",
@@ -634,7 +634,7 @@
     },
     "oscar::A Cozinha por António Loureiro::Guimarães": {
       "nome": "A Cozinha por António Loureiro",
-      "tipo": "Restaurante (Médio/Alto Padrão / Autor)",
+      "tipo": "Restaurante Premium",
       "zona": "Guimarães",
       "morada": "Largo do Serralho 4, 4800-414 Guimarães",
       "email_lead": "—",
@@ -654,7 +654,7 @@
     },
     "oscar::Histórico by Papaboa::Guimarães": {
       "nome": "Histórico by Papaboa",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Guimarães",
       "morada": "Rua de Val Donas 4, 4810-230 Guimarães",
       "email_lead": "—",
@@ -674,7 +674,7 @@
     },
     "oscar::Buxa::Guimarães": {
       "nome": "Buxa",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Guimarães",
       "morada": "Praça de São Tiago 18, 4810-244 Guimarães",
       "email_lead": "—",
@@ -694,7 +694,7 @@
     },
     "nuno::Copenhagen Coffee Lab (Cais do Sodré)::Lisboa (Cais Sodré)": {
       "nome": "Copenhagen Coffee Lab (Cais do Sodré)",
-      "tipo": "Café de Especialidade & Brunch",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Cais Sodré)",
       "morada": "Praça de São Paulo 4, 1200-428 Lisboa",
       "email_lead": "—",
@@ -714,7 +714,7 @@
     },
     "nuno::Gleba (Amoreiras)::Lisboa (Amoreiras)": {
       "nome": "Gleba (Amoreiras)",
-      "tipo": "Padaria Artesanal & Gourmet",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa (Amoreiras)",
       "morada": "Avenida Engenheiro Duarte Pacheco, Amoreiras Shopping Center, Loja 1010, 1070-103 Lisboa",
       "email_lead": "—",
@@ -734,7 +734,7 @@
     },
     "nuno::Choupana Caffe::Lisboa (Avenidas Novas)": {
       "nome": "Choupana Caffe",
-      "tipo": "Pastelaria Premium & Brunch",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa (Avenidas Novas)",
       "morada": "Avenida da República 25A, 1050-186 Lisboa",
       "email_lead": "—",
@@ -754,7 +754,7 @@
     },
     "nuno::Tartine::Lisboa (Chiado)": {
       "nome": "Tartine",
-      "tipo": "Pastelaria & Padaria Fina",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa (Chiado)",
       "morada": "Rua Serpa Pinto 15A, 1200-426 Lisboa",
       "email_lead": "—",
@@ -774,7 +774,7 @@
     },
     "nuno::Fabrica Coffee Roasters (Rua da Flores)::Lisboa (Baixa)": {
       "nome": "Fabrica Coffee Roasters (Rua da Flores)",
-      "tipo": "Café de Especialidade",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Baixa)",
       "morada": "Rua das Flores 63, 1200-193 Lisboa",
       "email_lead": "—",
@@ -794,7 +794,7 @@
     },
     "nuno::Leitaria da Quinta do Paço (Graça)::Lisboa (Graça)": {
       "nome": "Leitaria da Quinta do Paço (Graça)",
-      "tipo": "Pastelaria Premium",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa (Graça)",
       "morada": "Rua da Graça 90, 1170-170 Lisboa",
       "email_lead": "—",
@@ -814,7 +814,7 @@
     },
     "nuno::Gleba (Mercado da Vila)::Cascais": {
       "nome": "Gleba (Mercado da Vila)",
-      "tipo": "Padaria Artesanal & Gourmet",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Cascais",
       "morada": "Rua Padre Moisés da Silva, 2750-437 Cascais",
       "email_lead": "—",
@@ -834,7 +834,7 @@
     },
     "nuno::The Millstone Sourdough::Cascais": {
       "nome": "The Millstone Sourdough",
-      "tipo": "Padaria Artesanal Premium",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Cascais",
       "morada": "Rua Nova da Alfarrobeira 11, 2750-449 Cascais",
       "email_lead": "—",
@@ -854,7 +854,7 @@
     },
     "nuno::Lulu - Specialty Coffee & Brunch::Cascais": {
       "nome": "Lulu - Specialty Coffee & Brunch",
-      "tipo": "Café de Especialidade & Brunch",
+      "tipo": "Café & Brunch",
       "zona": "Cascais",
       "morada": "Avenida Valbom 12, 2750-508 Cascais",
       "email_lead": "—",
@@ -874,7 +874,7 @@
     },
     "nuno::Local Healthy Kitchen (Cascais)::Cascais": {
       "nome": "Local Healthy Kitchen (Cascais)",
-      "tipo": "Brunch & Comida Saudável",
+      "tipo": "Café & Brunch",
       "zona": "Cascais",
       "morada": "Rua Padre Moisés da Silva, Mercado da Vila, 2750-437 Cascais",
       "email_lead": "—",
@@ -894,7 +894,7 @@
     },
     "nuno::Garrafeira Imperial do Estoril::Estoril": {
       "nome": "Garrafeira Imperial do Estoril",
-      "tipo": "Garrafeira & Gourmet Deli",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Estoril",
       "morada": "Avenida Saboia 320, 2765-277 Estoril",
       "email_lead": "—",
@@ -914,7 +914,7 @@
     },
     "nuno::Café Saudade::Sintra": {
       "nome": "Café Saudade",
-      "tipo": "Casa de Chá & Café de Charme",
+      "tipo": "Casa de Chá & Pastelaria",
       "zona": "Sintra",
       "morada": "Avenida Miguel Bombarda 6, 2710-590 Sintra",
       "email_lead": "—",
@@ -934,7 +934,7 @@
     },
     "nuno::Garrafeira de Sintra::Sintra": {
       "nome": "Garrafeira de Sintra",
-      "tipo": "Garrafeira & Gourmet Deli",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Sintra",
       "morada": "Rua Consiglieri Pedroso 11, 2710-550 Sintra",
       "email_lead": "—",
@@ -954,7 +954,7 @@
     },
     "nuno::Sintra In Love::Sintra": {
       "nome": "Sintra In Love",
-      "tipo": "Cafetaria Gourmet & Regional",
+      "tipo": "Café & Brunch",
       "zona": "Sintra",
       "morada": "Rua das Padarias 12, 2710-603 Sintra",
       "email_lead": "—",
@@ -974,7 +974,7 @@
     },
     "nuno::Aromas de Sintra::Sintra": {
       "nome": "Aromas de Sintra",
-      "tipo": "Casa de Chá & Pastelaria Fina",
+      "tipo": "Casa de Chá & Pastelaria",
       "zona": "Sintra",
       "morada": "Largo Dr. Virgilio Horta 5, 2710-501 Sintra",
       "email_lead": "—",
@@ -994,7 +994,7 @@
     },
     "nuno::Frade dos Mares::Lisboa": {
       "nome": "Frade dos Mares",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Av. Dom Carlos I 55, 1200-109 Lisboa",
       "email_lead": "—",
@@ -1014,7 +1014,7 @@
     },
     "nuno::A Casa do Bacalhau::Lisboa": {
       "nome": "A Casa do Bacalhau",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Rua do Grilo 54, 1900-706 Lisboa",
       "email_lead": "—",
@@ -1034,7 +1034,7 @@
     },
     "nuno::Restaurante Solar dos Presuntos::Lisboa": {
       "nome": "Restaurante Solar dos Presuntos",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Rua das Portas de Santo Antão 150, 1150-269 Lisboa",
       "email_lead": "—",
@@ -1054,7 +1054,7 @@
     },
     "nuno::O Javali::Lisboa": {
       "nome": "O Javali",
-      "tipo": "Restaurante Tradicional de Caça & Grelhados",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Rua de São Bento 344, 1200-822 Lisboa",
       "email_lead": "—",
@@ -1074,7 +1074,7 @@
     },
     "nuno::Faz Figura::Lisboa": {
       "nome": "Faz Figura",
-      "tipo": "Restaurante (Médio/Alto Padrão / Vista Rio)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Rua do Paraíso 15B, 1100-396 Lisboa",
       "email_lead": "—",
@@ -1094,7 +1094,7 @@
     },
     "nuno::Páteo do Guincho::Cascais": {
       "nome": "Páteo do Guincho",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Cascais",
       "morada": "Estrada do Guincho, 2750-642 Cascais",
       "email_lead": "—",
@@ -1114,7 +1114,7 @@
     },
     "nuno::Polvo Vadio::Cascais": {
       "nome": "Polvo Vadio",
-      "tipo": "Restaurante de Peixe & Marisco",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Cascais",
       "morada": "Rua Afonso Sanches 26, 2750-282 Cascais",
       "email_lead": "—",
@@ -1134,7 +1134,7 @@
     },
     "nuno::Tacho Real::Sintra": {
       "nome": "Tacho Real",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Sintra",
       "morada": "Rua do Ferraria 4, 2710-590 Sintra",
       "email_lead": "—",
@@ -1154,7 +1154,7 @@
     },
     "nuno::Restaurante Curral dos Caprinos::Sintra": {
       "nome": "Restaurante Curral dos Caprinos",
-      "tipo": "Restaurante Regional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Sintra",
       "morada": "Rua da Capela 13, Cabriz, 2710-539 Sintra",
       "email_lead": "—",
@@ -1174,7 +1174,7 @@
     },
     "nuno::Restaurante Lawrence's::Sintra": {
       "nome": "Restaurante Lawrence's",
-      "tipo": "Restaurante de Hotel Histórico",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Sintra",
       "morada": "Rua Consiglieri Pedroso 38, 2710-550 Sintra",
       "email_lead": "—",
@@ -1194,7 +1194,7 @@
     },
     "nuno::Augusto Lisboa::Lisboa": {
       "nome": "Augusto Lisboa",
-      "tipo": "Café & Brunch Premium",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa",
       "morada": "Rua de Santa Marinha 26, 1100-491 Lisboa",
       "email_lead": "—",
@@ -1214,7 +1214,7 @@
     },
     "nuno::Tacho do Pescador::Lisboa (Parque das Nações)": {
       "nome": "Tacho do Pescador",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa (Parque das Nações)",
       "morada": "Rua do Pimenta 15, 1990-254 Lisboa",
       "email_lead": "—",
@@ -1234,7 +1234,7 @@
     },
     "nuno::Gleba (Parque das Nações)::Lisboa (Pq. Nações)": {
       "nome": "Gleba (Parque das Nações)",
-      "tipo": "Padaria Artesanal & Gourmet",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa (Pq. Nações)",
       "morada": "Alameda dos Oceanos, Lote 1.06.1.1 - Loja 2, 1990-207 Lisboa",
       "email_lead": "—",
@@ -1254,7 +1254,7 @@
     },
     "nuno::Copenhagen Coffee Lab (Parque das Nações)::Lisboa (Pq. Nações)": {
       "nome": "Copenhagen Coffee Lab (Parque das Nações)",
-      "tipo": "Café de Especialidade & Brunch",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Pq. Nações)",
       "morada": "Rua do Bojador 47, 1990-048 Lisboa",
       "email_lead": "—",
@@ -1274,7 +1274,7 @@
     },
     "joao::Lupis Coffee Shop::Lisboa (Marvila)": {
       "nome": "Lupis Coffee Shop",
-      "tipo": "Café de Especialidade & Brunch",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Marvila)",
       "morada": "Rua de Marvila 42, 1950-197 Lisboa",
       "email_lead": "—",
@@ -1294,7 +1294,7 @@
     },
     "joao::Restaurante Dinastia Tang::Lisboa (Marvila)": {
       "nome": "Restaurante Dinastia Tang",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa (Marvila)",
       "morada": "Rua do Açúcar 107, 1950-006 Lisboa",
       "email_lead": "—",
@@ -1314,7 +1314,7 @@
     },
     "joao::Pão do Beco::Almada": {
       "nome": "Pão do Beco",
-      "tipo": "Padaria Artesanal",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Almada",
       "morada": "Rua Capitão Leitão 72A, 2800-135 Almada",
       "email_lead": "—",
@@ -1334,7 +1334,7 @@
     },
     "joao::Under The Cover / O Pão de Ló::Almada": {
       "nome": "Under The Cover / O Pão de Ló",
-      "tipo": "Café & Brunch Moderno",
+      "tipo": "Café & Brunch",
       "zona": "Almada",
       "morada": "Rua Capitão Leitão 54, 2800-135 Almada",
       "email_lead": "—",
@@ -1354,7 +1354,7 @@
     },
     "joao::Mundet Factory::Seixal": {
       "nome": "Mundet Factory",
-      "tipo": "Restaurante & Brunch Premium",
+      "tipo": "Café & Brunch",
       "zona": "Seixal",
       "morada": "Avenida Metalúrgica Augusto de Castro 1, 2840-515 Seixal",
       "email_lead": "—",
@@ -1374,7 +1374,7 @@
     },
     "joao::Let's Coffe::Seixal": {
       "nome": "Let's Coffe",
-      "tipo": "Café de Especialidade",
+      "tipo": "Café & Brunch",
       "zona": "Seixal",
       "morada": "Praça dos Mártires da Pátria 12, 2840-496 Seixal",
       "email_lead": "—",
@@ -1394,7 +1394,7 @@
     },
     "joao::Pão com Alma::Barreiro": {
       "nome": "Pão com Alma",
-      "tipo": "Padaria Artesanal",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Barreiro",
       "morada": "Rua Miguel Bombarda 124, 2830-355 Barreiro",
       "email_lead": "—",
@@ -1414,7 +1414,7 @@
     },
     "joao::Restaurante Taberna do Manel::Barreiro": {
       "nome": "Restaurante Taberna do Manel",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Barreiro",
       "morada": "Rua Conselheiro Joaquim António d'Aguiar 32, 2830-334 Barreiro",
       "email_lead": "—",
@@ -1434,7 +1434,7 @@
     },
     "joao::Dr. Bernard::Costa da Caparica": {
       "nome": "Dr. Bernard",
-      "tipo": "Restaurante de Praia & Brunch",
+      "tipo": "Café & Brunch",
       "zona": "Costa da Caparica",
       "morada": "Avenida General Humberto Delgado, Praia do Tarquínio-Paraíso, 2825-366 Costa da Caparica",
       "email_lead": "—",
@@ -1454,7 +1454,7 @@
     },
     "joao::Palms::Costa da Caparica": {
       "nome": "Palms",
-      "tipo": "Restaurante de Praia & Brunch Premium",
+      "tipo": "Café & Brunch",
       "zona": "Costa da Caparica",
       "morada": "Praia do CDS, Apoio 9, Avenida General Humberto Delgado, 2825-366 Costa da Caparica",
       "email_lead": "—",
@@ -1474,7 +1474,7 @@
     },
     "joao::Restaurante O Sentido do Mar::Costa da Caparica": {
       "nome": "Restaurante O Sentido do Mar",
-      "tipo": "Restaurante de Peixe (Médio/Alto Padrão)",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Costa da Caparica",
       "morada": "Praia do Tarquínio, Apoio de Praia 4, 2825-366 Costa da Caparica",
       "email_lead": "—",
@@ -1494,7 +1494,7 @@
     },
     "joao::Restaurante Carolina do Aires::Costa da Caparica": {
       "nome": "Restaurante Carolina do Aires",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Costa da Caparica",
       "morada": "Avenida General Humberto Delgado 10, 2825-366 Costa da Caparica",
       "email_lead": "—",
@@ -1514,7 +1514,7 @@
     },
     "joao::Ponto Final::Almada (Cacilhas)": {
       "nome": "Ponto Final",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Almada (Cacilhas)",
       "morada": "Rua do Ginjal 72, 2800-285 Almada",
       "email_lead": "—",
@@ -1534,7 +1534,7 @@
     },
     "joao::Atira-te ao Rio::Almada (Cacilhas)": {
       "nome": "Atira-te ao Rio",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Almada (Cacilhas)",
       "morada": "Rua do Ginjal 69, 2800-285 Almada",
       "email_lead": "—",
@@ -1554,7 +1554,7 @@
     },
     "joao::Restaurante Cabrinha::Almada": {
       "nome": "Restaurante Cabrinha",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Almada",
       "morada": "Rua de Cacilhas 33, 2800-135 Almada",
       "email_lead": "—",
@@ -1574,7 +1574,7 @@
     },
     "joao::Amarra ao Cais::Almada": {
       "nome": "Amarra ao Cais",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Almada",
       "morada": "Jardim do Rio, Cais do Ginjal, 2800-285 Almada",
       "email_lead": "—",
@@ -1594,7 +1594,7 @@
     },
     "joao::O Pescador::Seixal": {
       "nome": "O Pescador",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Seixal",
       "morada": "Avenida D. Carlos I 12, 2840-515 Seixal",
       "email_lead": "—",
@@ -1614,7 +1614,7 @@
     },
     "joao::O Farribas::Setúbal": {
       "nome": "O Farribas",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Setúbal",
       "morada": "Avenida Luísa Todi 244, 2900-452 Setúbal",
       "email_lead": "—",
@@ -1634,7 +1634,7 @@
     },
     "joao::Restaurante Novo 10::Setúbal": {
       "nome": "Restaurante Novo 10",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Setúbal",
       "morada": "Avenida Luísa Todi 220, 2900-452 Setúbal",
       "email_lead": "—",
@@ -1654,7 +1654,7 @@
     },
     "joao::Casa do Peixe (Setúbal)::Setúbal": {
       "nome": "Casa do Peixe (Setúbal)",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Setúbal",
       "morada": "Rua Praia da Saúde 10, 2900-572 Setúbal",
       "email_lead": "—",
@@ -1674,7 +1674,7 @@
     },
     "joao::Casa das Tortas de Azeitão::Azeitão": {
       "nome": "Casa das Tortas de Azeitão",
-      "tipo": "Pastelaria Gourmet & Chá",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Azeitão",
       "morada": "Praça da República 1, 2925-520 Azeitão",
       "email_lead": "—",
@@ -1694,7 +1694,7 @@
     },
     "joao::Garrafeira de Azeitão::Azeitão": {
       "nome": "Garrafeira de Azeitão",
-      "tipo": "Garrafeira & Gourmet Deli",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Azeitão",
       "morada": "Avenida 25 de Abril 12, 2925-501 Azeitão",
       "email_lead": "—",
@@ -1714,7 +1714,7 @@
     },
     "joao::O Quintal::Azeitão": {
       "nome": "O Quintal",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Azeitão",
       "morada": "Rua José Augusto Coelho 82, 2925-538 Azeitão",
       "email_lead": "—",
@@ -1734,7 +1734,7 @@
     },
     "joao::Restaurante Ribeirinha do Sado::Setúbal": {
       "nome": "Restaurante Ribeirinha do Sado",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Setúbal",
       "morada": "Avenida Luísa Todi 34, 2900-450 Setúbal",
       "email_lead": "—",
@@ -1754,7 +1754,7 @@
     },
     "joao::O Alfeite::Almada": {
       "nome": "O Alfeite",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Almada",
       "morada": "Rua de Serpa Pinto 4, 2800-205 Almada",
       "email_lead": "—",
@@ -1774,7 +1774,7 @@
     },
     "joao::Lisboa à Vista::Seixal": {
       "nome": "Lisboa à Vista",
-      "tipo": "Restaurante (Médio/Alto Padrão)",
+      "tipo": "Restaurante Tradicional",
       "zona": "Seixal",
       "morada": "Av. Metalúrgica Augusto de Castro, Baía do Seixal, 2840-515 Seixal",
       "email_lead": "—",
@@ -1794,7 +1794,7 @@
     },
     "joao::Heim Cafe::Lisboa (Campo de Ourique)": {
       "nome": "Heim Cafe",
-      "tipo": "Brunch & Lanches",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Campo de Ourique)",
       "morada": "Rua de Santos-O-Velho 4, 1200-109 Lisboa",
       "email_lead": "—",
@@ -1814,7 +1814,7 @@
     },
     "joao::Dear Breakfast (Saldanha)::Lisboa (Saldanha)": {
       "nome": "Dear Breakfast (Saldanha)",
-      "tipo": "Brunch Club & Café",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Saldanha)",
       "morada": "Rua Eng. Vieira da Silva 8, 1050-105 Lisboa",
       "email_lead": "—",
@@ -1834,7 +1834,7 @@
     },
     "joao::Cajú::Lisboa (Príncipe Real)": {
       "nome": "Cajú",
-      "tipo": "Brunch & Healthy Food",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Príncipe Real)",
       "morada": "Rua da Alegria 73, 1250-182 Lisboa",
       "email_lead": "—",
@@ -1854,7 +1854,7 @@
     },
     "joao::Isco (Alvalade)::Lisboa (Alvalade)": {
       "nome": "Isco (Alvalade)",
-      "tipo": "Padaria Artesanal & Bistrô",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa (Alvalade)",
       "morada": "Rua do Arco do Carvalhão 244, 1350-026 Lisboa",
       "email_lead": "—",
@@ -1874,7 +1874,7 @@
     },
     "nuno::Angra Gatti::Praia Grande": {
       "nome": "Angra Gatti",
-      "tipo": "Italiano",
+      "tipo": "Restaurante Casual",
       "zona": "Praia Grande",
       "morada": "—",
       "email_lead": "geral@angragatti.pt",
@@ -1894,7 +1894,7 @@
     },
     "joao::Borda D`Agua::Costa da Caparica": {
       "nome": "Borda D`Agua",
-      "tipo": "Restaurante Praia",
+      "tipo": "Restaurante Tradicional",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "geral@bordadagua.com.pt",
@@ -1920,7 +1920,7 @@
     },
     "joao::Gordos Caparica::Costa da Caparica": {
       "nome": "Gordos Caparica",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "gordos.caparica@gmail.com",
@@ -1951,7 +1951,7 @@
     },
     "joao::Restaurante Leblon::Costa da Caparica": {
       "nome": "Restaurante Leblon",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "leblonsaojoao@gmail.com",
@@ -1987,7 +1987,7 @@
     },
     "joao::Coco Beach::Costa da Caparica": {
       "nome": "Coco Beach",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "Cocobeach.caparica@gmail.com",
@@ -2013,7 +2013,7 @@
     },
     "joao::Praia - Sea, Salt & Pepper::Costa da Caparica": {
       "nome": "Praia - Sea, Salt & Pepper",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "reservas@apraia.pt",
@@ -2033,7 +2033,7 @@
     },
     "joao::Fortuna Tacos & Burger::Costa da Caparica": {
       "nome": "Fortuna Tacos & Burger",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "fortuna.tacos@gmail.com",
@@ -2053,7 +2053,7 @@
     },
     "joao::Zama Beach Club::Costa da Caparica": {
       "nome": "Zama Beach Club",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "zama.costadacaparica@gmail.com",
@@ -2073,7 +2073,7 @@
     },
     "joao::O Xéxéxé::Costa da Caparica": {
       "nome": "O Xéxéxé",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "oxexexedacosta@gmail.com",
@@ -2104,7 +2104,7 @@
     },
     "joao::AHOY Surf & Snacks::Costa da Caparica": {
       "nome": "AHOY Surf & Snacks",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "Ahoycafe@hotmail.com",
@@ -2124,7 +2124,7 @@
     },
     "joao::Clássico Beach Bar by Olivier::Costa da Caparica": {
       "nome": "Clássico Beach Bar by Olivier",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "classicobeachbar@olivier.pt",
@@ -2144,7 +2144,7 @@
     },
     "joao::O Barbas::Costa da Caparica": {
       "nome": "O Barbas",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "restauranteobarbas@gmail.com",
@@ -2170,7 +2170,7 @@
     },
     "nuno::Arribas Terrace::Hotel Arribas, Praia Grande": {
       "nome": "Arribas Terrace",
-      "tipo": "Hotel/restaurante",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Hotel Arribas, Praia Grande",
       "morada": "—",
       "email_lead": "reservas@arribashotel.com",
@@ -2201,7 +2201,7 @@
     },
     "nuno::Baía do Peixe Cascais::Baía de Cascais": {
       "nome": "Baía do Peixe Cascais",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Baía de Cascais",
       "morada": "—",
       "email_lead": "reservas@baiadopeixe.com",
@@ -2221,7 +2221,7 @@
     },
     "nuno::Bar do Fundo::Praia Grande": {
       "nome": "Bar do Fundo",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Praia Grande",
       "morada": "—",
       "email_lead": "info@bardofundo.pt",
@@ -2241,7 +2241,7 @@
     },
     "nuno::Bar do Guincho::Praia do Guincho": {
       "nome": "Bar do Guincho",
-      "tipo": "Beach restaurant",
+      "tipo": "Beach Club & Bar",
       "zona": "Praia do Guincho",
       "morada": "—",
       "email_lead": "geral@bardoguincho.pt",
@@ -2272,7 +2272,7 @@
     },
     "nuno::Beira Mar::Cascais": {
       "nome": "Beira Mar",
-      "tipo": "Restaurante costeiro",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Cascais",
       "morada": "—",
       "email_lead": "geral@restaurantebeiramar.pt",
@@ -2292,7 +2292,7 @@
     },
     "nuno::Capricciosa Cascais::Cascais": {
       "nome": "Capricciosa Cascais",
-      "tipo": "Restaurante italiano",
+      "tipo": "Restaurante Casual",
       "zona": "Cascais",
       "morada": "—",
       "email_lead": "TheFork",
@@ -2312,7 +2312,7 @@
     },
     "nuno::Fortaleza do Guincho::Estrada do Guincho": {
       "nome": "Fortaleza do Guincho",
-      "tipo": "Hotel/restaurante Michelin",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Estrada do Guincho",
       "morada": "—",
       "email_lead": "info@fortalezadoguincho.com",
@@ -2332,7 +2332,7 @@
     },
     "nuno::Fuji Sushi & Steak::Cascais": {
       "nome": "Fuji Sushi & Steak",
-      "tipo": "Restaurante internacional",
+      "tipo": "Restaurante Casual",
       "zona": "Cascais",
       "morada": "—",
       "email_lead": "TheFork",
@@ -2352,7 +2352,7 @@
     },
     "nuno::Furnas do Guincho::Cascais": {
       "nome": "Furnas do Guincho",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Cascais",
       "morada": "—",
       "email_lead": "geral@furnasdoguincho.pt",
@@ -2378,7 +2378,7 @@
     },
     "nuno::Hífen::Marina de Cascais": {
       "nome": "Hífen",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Marina de Cascais",
       "morada": "—",
       "email_lead": "reservashifen@gmail.com",
@@ -2404,7 +2404,7 @@
     },
     "nuno::House of Wonders::Rua da Misericórdia, Cascais": {
       "nome": "House of Wonders",
-      "tipo": "Restaurante / brunch",
+      "tipo": "Café & Brunch",
       "zona": "Rua da Misericórdia, Cascais",
       "morada": "—",
       "email_lead": "info@houseofwonders.pt",
@@ -2435,7 +2435,7 @@
     },
     "nuno::Marisco na Praça::Mercado da Vila Cascais": {
       "nome": "Marisco na Praça",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Mercado da Vila Cascais",
       "morada": "—",
       "email_lead": "geral@marisconapraca.pt",
@@ -2466,7 +2466,7 @@
     },
     "nuno::Monte Mar::Cascais": {
       "nome": "Monte Mar",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Cascais",
       "morada": "—",
       "email_lead": "montemar@montemar.pt",
@@ -2497,7 +2497,7 @@
     },
     "nuno::Monte Mar Cascais::Boca do Inferno, Cascais": {
       "nome": "Monte Mar Cascais",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Boca do Inferno, Cascais",
       "morada": "—",
       "email_lead": "geral@montemar.pt",
@@ -2517,7 +2517,7 @@
     },
     "nuno::Moinho Dom Quixote::Colares": {
       "nome": "Moinho Dom Quixote",
-      "tipo": "Restaurante panorâmico",
+      "tipo": "Restaurante Tradicional",
       "zona": "Colares",
       "morada": "—",
       "email_lead": "info@moinhodomquixote.pt",
@@ -2537,7 +2537,7 @@
     },
     "nuno::A Toca do Júlio::Colares": {
       "nome": "A Toca do Júlio",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Colares",
       "morada": "—",
       "email_lead": "geral@atocadojulio.pt",
@@ -2573,7 +2573,7 @@
     },
     "nuno::Restaurante Azenhas do Mar::Azenhas do Mar": {
       "nome": "Restaurante Azenhas do Mar",
-      "tipo": "Restaurante marisco/peixe com vista mar",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Azenhas do Mar",
       "morada": "—",
       "email_lead": "Google Maps / site próprio",
@@ -2593,7 +2593,7 @@
     },
     "nuno::Água e Sal::Azenhas do Mar": {
       "nome": "Água e Sal",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Azenhas do Mar",
       "morada": "—",
       "email_lead": "geral@aguaesal.pt",
@@ -2613,7 +2613,7 @@
     },
     "nuno::Adega das Azenhas::Azenhas do Mar": {
       "nome": "Adega das Azenhas",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Azenhas do Mar",
       "morada": "—",
       "email_lead": "geral@adegadasazenhas.pt",
@@ -2639,7 +2639,7 @@
     },
     "nuno::Terrace Restaurant::Azenhas do Mar": {
       "nome": "Terrace Restaurant",
-      "tipo": "Restaurante/hotel",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Azenhas do Mar",
       "morada": "—",
       "email_lead": "reservas@azenhasdohotel.pt",
@@ -2659,7 +2659,7 @@
     },
     "joao::Muse Brunch Café & Wine Bar::Costa da Caparica": {
       "nome": "Muse Brunch Café & Wine Bar",
-      "tipo": "Café & Wine Bar",
+      "tipo": "Café & Brunch",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "info@musewinebar.pt",
@@ -2685,7 +2685,7 @@
     },
     "joao::O Mercado::Costa da Caparica": {
       "nome": "O Mercado",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "omercadocc@gmail.com",
@@ -2726,7 +2726,7 @@
     },
     "joao::Apeixonado::Costa da Caparica": {
       "nome": "Apeixonado",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "apeixonado@ponteslda.com",
@@ -2746,7 +2746,7 @@
     },
     "joao::Ponto Final::Cacilhas": {
       "nome": "Ponto Final",
-      "tipo": "Restaurante turístico",
+      "tipo": "Restaurante Tradicional",
       "zona": "Cacilhas",
       "morada": "—",
       "email_lead": "reservas@pontofinal.pt",
@@ -2766,7 +2766,7 @@
     },
     "joao::Atira-te ao Rio::Cacilhas": {
       "nome": "Atira-te ao Rio",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Cacilhas",
       "morada": "—",
       "email_lead": "geral@atirateaorio.pt",
@@ -2792,7 +2792,7 @@
     },
     "joao::Solar Beirão::Almada": {
       "nome": "Solar Beirão",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Almada",
       "morada": "—",
       "email_lead": "geral@solarbeirao.pt",
@@ -2812,7 +2812,7 @@
     },
     "joao::O Martinho::Costa da Caparica": {
       "nome": "O Martinho",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "geral@omartinho.pt",
@@ -2838,7 +2838,7 @@
     },
     "joao::Praia da Princesa::Costa da Caparica": {
       "nome": "Praia da Princesa",
-      "tipo": "Beach restaurant",
+      "tipo": "Beach Club & Bar",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "reservas@praiadaprincesa.pt",
@@ -2864,7 +2864,7 @@
     },
     "joao::Dr. Bernard::Costa da Caparica": {
       "nome": "Dr. Bernard",
-      "tipo": "Restaurante/bar",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "geral@drbernard.pt",
@@ -2884,7 +2884,7 @@
     },
     "nuno::Kailua Fonte da Telha::Fonte da Telha": {
       "nome": "Kailua Fonte da Telha",
-      "tipo": "Beach club",
+      "tipo": "Beach Club & Bar",
       "zona": "Fonte da Telha",
       "morada": "—",
       "email_lead": "geral@kailua.pt",
@@ -2910,7 +2910,7 @@
     },
     "joao::Sentido do Mar::Costa da Caparica": {
       "nome": "Sentido do Mar",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Costa da Caparica",
       "morada": "—",
       "email_lead": "reservas@sentidodomar.pt",
@@ -2930,7 +2930,7 @@
     },
     "oscar::Restaurante Nelson::Ribamar": {
       "nome": "Restaurante Nelson",
-      "tipo": "Restaurante peixe/marisco",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "geral@restaurantenelson.pt",
@@ -2950,7 +2950,7 @@
     },
     "oscar::A Sardinha::Peniche": {
       "nome": "A Sardinha",
-      "tipo": "Restaurante peixe",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "geral@asardinha.pt; restauranteasardinha@gmail.com",
@@ -2976,7 +2976,7 @@
     },
     "oscar::Golfinho Azul::Ribamar": {
       "nome": "Golfinho Azul",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "geral@golfinhoazul.pt",
@@ -2996,7 +2996,7 @@
     },
     "oscar::Foz Restaurante::Ribamar": {
       "nome": "Foz Restaurante",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "reservas@fozrestaurante.pt",
@@ -3032,7 +3032,7 @@
     },
     "oscar::Porto das Barcas::Ribamar": {
       "nome": "Porto das Barcas",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "geral@portodasbarcas.pt",
@@ -3063,7 +3063,7 @@
     },
     "oscar::Café Central Ribamar::Ribamar": {
       "nome": "Café Central Ribamar",
-      "tipo": "Restaurante/café",
+      "tipo": "Restaurante Premium",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "geral@cafecentralribamar.pt",
@@ -3083,7 +3083,7 @@
     },
     "oscar::Cantinho da Fonte::Peniche": {
       "nome": "Cantinho da Fonte",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "geral@cantinhodafonte.pt",
@@ -3103,7 +3103,7 @@
     },
     "oscar::Estelas::Peniche": {
       "nome": "Estelas",
-      "tipo": "Restaurante / Bar",
+      "tipo": "Restaurante Casual",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "restaurante.estelas@sapo.pt",
@@ -3123,7 +3123,7 @@
     },
     "oscar::Pateo da Saudade::Peniche": {
       "nome": "Pateo da Saudade",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "pateodasaudade@gmail.com",
@@ -3159,7 +3159,7 @@
     },
     "oscar::Profresco::Peniche": {
       "nome": "Profresco",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "profresco@profresco.pt; geral@profresco.pt",
@@ -3179,7 +3179,7 @@
     },
     "oscar::Mar d’Areia::Ericeira": {
       "nome": "Mar d’Areia",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Ericeira",
       "morada": "—",
       "email_lead": "geral@mardareia.pt",
@@ -3205,7 +3205,7 @@
     },
     "oscar::Tik Tapas::Ericeira": {
       "nome": "Tik Tapas",
-      "tipo": "Tapas/wine bar",
+      "tipo": "Restaurante Casual",
       "zona": "Ericeira",
       "morada": "—",
       "email_lead": "reservas@tiktapas.pt",
@@ -3231,7 +3231,7 @@
     },
     "oscar::Adega da Vila::Mafra": {
       "nome": "Adega da Vila",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Mafra",
       "morada": "—",
       "email_lead": "geral@adegadavila.pt",
@@ -3251,7 +3251,7 @@
     },
     "oscar::Uni Sushi::Ericeira": {
       "nome": "Uni Sushi",
-      "tipo": "Restaurante moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Ericeira",
       "morada": "—",
       "email_lead": "geral@unisushi.pt",
@@ -3271,7 +3271,7 @@
     },
     "oscar::Furnas Ericeira::Ericeira": {
       "nome": "Furnas Ericeira",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Ericeira",
       "morada": "—",
       "email_lead": "reservas@furnasericeira.pt",
@@ -3307,7 +3307,7 @@
     },
     "oscar::Pedra Dura::Ericeira": {
       "nome": "Pedra Dura",
-      "tipo": "Restaurante grande volume",
+      "tipo": "Restaurante Tradicional",
       "zona": "Ericeira",
       "morada": "—",
       "email_lead": "geral@pedradura.pt",
@@ -3333,7 +3333,7 @@
     },
     "oscar::Restaurante Prim::Ericeira": {
       "nome": "Restaurante Prim",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Ericeira",
       "morada": "—",
       "email_lead": "geral@prim.pt",
@@ -3353,7 +3353,7 @@
     },
     "oscar::Jangada::Ericeira": {
       "nome": "Jangada",
-      "tipo": "Restaurante marisco",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Ericeira",
       "morada": "—",
       "email_lead": "reservas@jangada.pt",
@@ -3379,7 +3379,7 @@
     },
     "nuno::Oh! Vargas::Santarém Centro": {
       "nome": "Oh! Vargas",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Santarém Centro",
       "morada": "—",
       "email_lead": "geral@ohvargas.pt",
@@ -3399,7 +3399,7 @@
     },
     "nuno::Taberna Ó Balcão::Santarém": {
       "nome": "Taberna Ó Balcão",
-      "tipo": "Restaurante premium/tradicional",
+      "tipo": "Restaurante Premium",
       "zona": "Santarém",
       "morada": "—",
       "email_lead": "reservas@obalcao.pt",
@@ -3419,7 +3419,7 @@
     },
     "nuno::Tascá::Santarém": {
       "nome": "Tascá",
-      "tipo": "Restaurante moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Santarém",
       "morada": "—",
       "email_lead": "geral@tasca.pt",
@@ -3445,7 +3445,7 @@
     },
     "nuno::O Quinzena::Santarém": {
       "nome": "O Quinzena",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Santarém",
       "morada": "—",
       "email_lead": "geral@oquinzena.pt",
@@ -3465,7 +3465,7 @@
     },
     "nuno::Restaurante São Domingos::Santarém": {
       "nome": "Restaurante São Domingos",
-      "tipo": "Restaurante eventos",
+      "tipo": "Catering & Eventos",
       "zona": "Santarém",
       "morada": "—",
       "email_lead": "geral@saodomingos.pt",
@@ -3496,7 +3496,7 @@
     },
     "nuno::Dom Papinhas::Santarém": {
       "nome": "Dom Papinhas",
-      "tipo": "Restaurante familiar",
+      "tipo": "Restaurante Casual",
       "zona": "Santarém",
       "morada": "—",
       "email_lead": "geral@dompapinhas.pt",
@@ -3527,7 +3527,7 @@
     },
     "nuno::Adega do Avô::Santarém": {
       "nome": "Adega do Avô",
-      "tipo": "Restaurante regional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Santarém",
       "morada": "—",
       "email_lead": "geral@adegadoavo.pt",
@@ -3547,7 +3547,7 @@
     },
     "nuno::Pátio da Graça::Santarém": {
       "nome": "Pátio da Graça",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Santarém",
       "morada": "—",
       "email_lead": "reservas@patiodagraca.pt",
@@ -3567,7 +3567,7 @@
     },
     "oscar::Cozinha da Sé::Braga Centro": {
       "nome": "Cozinha da Sé",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Braga Centro",
       "morada": "—",
       "email_lead": "reservas@cozinhadase.pt",
@@ -3593,7 +3593,7 @@
     },
     "oscar::Dona Júlia::Braga": {
       "nome": "Dona Júlia",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Braga",
       "morada": "—",
       "email_lead": "geral@donajulia.pt",
@@ -3613,7 +3613,7 @@
     },
     "oscar::Retrokitchen::Braga": {
       "nome": "Retrokitchen",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Braga",
       "morada": "—",
       "email_lead": "geral@retrokitchen.pt",
@@ -3633,7 +3633,7 @@
     },
     "oscar::Restaurante Tia Isabel::Braga": {
       "nome": "Restaurante Tia Isabel",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Braga",
       "morada": "—",
       "email_lead": "reservas@tiaisabel.pt",
@@ -3659,7 +3659,7 @@
     },
     "oscar::Bacalhau na Vila::Braga": {
       "nome": "Bacalhau na Vila",
-      "tipo": "Restaurante português",
+      "tipo": "Restaurante Premium",
       "zona": "Braga",
       "morada": "—",
       "email_lead": "geral@bacalhaunavila.pt",
@@ -3679,7 +3679,7 @@
     },
     "oscar::Michizaki::Braga": {
       "nome": "Michizaki",
-      "tipo": "Restaurante moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Braga",
       "morada": "—",
       "email_lead": "geral@michizaki.pt",
@@ -3699,7 +3699,7 @@
     },
     "oscar::Restaurante Arcoense::Braga": {
       "nome": "Restaurante Arcoense",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Braga",
       "morada": "—",
       "email_lead": "geral@arcoense.pt",
@@ -3719,7 +3719,7 @@
     },
     "oscar::Brasão Coliseu::Porto Centro": {
       "nome": "Brasão Coliseu",
-      "tipo": "Restaurante grande volume",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto Centro",
       "morada": "—",
       "email_lead": "geral@brasao.pt",
@@ -3739,7 +3739,7 @@
     },
     "nuno::Cantinho do Avillez Porto::Rua Mouzinho da Silveira": {
       "nome": "Cantinho do Avillez Porto",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Rua Mouzinho da Silveira",
       "morada": "—",
       "email_lead": "porto@cantinhodoavillez.pt",
@@ -3759,7 +3759,7 @@
     },
     "nuno::Taberna dos Mercadores::Ribeira": {
       "nome": "Taberna dos Mercadores",
-      "tipo": "Restaurante turístico",
+      "tipo": "Restaurante Tradicional",
       "zona": "Ribeira",
       "morada": "—",
       "email_lead": "reservas@tabernadosmercadores.pt",
@@ -3795,7 +3795,7 @@
     },
     "nuno::Adega São Nicolau::Ribeira": {
       "nome": "Adega São Nicolau",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Ribeira",
       "morada": "—",
       "email_lead": "geral@adegasaonicolau.pt",
@@ -3826,7 +3826,7 @@
     },
     "oscar::TerraPlana Café::Porto": {
       "nome": "TerraPlana Café",
-      "tipo": "Restaurante/brunch",
+      "tipo": "Café & Brunch",
       "zona": "Porto",
       "morada": "—",
       "email_lead": "geral@terraplana.pt",
@@ -3862,7 +3862,7 @@
     },
     "oscar::Flow Restaurant & Bar::Porto": {
       "nome": "Flow Restaurant & Bar",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Porto",
       "morada": "—",
       "email_lead": "reservas@flow.pt",
@@ -3882,7 +3882,7 @@
     },
     "oscar::DOP::Porto": {
       "nome": "DOP",
-      "tipo": "Restaurante fine dining",
+      "tipo": "Restaurante Premium",
       "zona": "Porto",
       "morada": "—",
       "email_lead": "geral@doprestaurante.pt",
@@ -3902,7 +3902,7 @@
     },
     "nuno::Caféína::Foz do Douro": {
       "nome": "Caféína",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Foz do Douro",
       "morada": "—",
       "email_lead": "geral@cafeina.pt",
@@ -3922,7 +3922,7 @@
     },
     "nuno::Wish Restaurante::Boavista": {
       "nome": "Wish Restaurante",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Boavista",
       "morada": "—",
       "email_lead": "reservas@wish.pt",
@@ -3942,7 +3942,7 @@
     },
     "oscar::Tapabento::Porto Centro": {
       "nome": "Tapabento",
-      "tipo": "Restaurante turístico",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto Centro",
       "morada": "—",
       "email_lead": "geral@tapabento.pt",
@@ -3968,7 +3968,7 @@
     },
     "oscar::Terminal 4450::Matosinhos": {
       "nome": "Terminal 4450",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Matosinhos",
       "morada": "—",
       "email_lead": "reservas@terminal4450.pt",
@@ -3988,7 +3988,7 @@
     },
     "oscar::Gaveto::Matosinhos": {
       "nome": "Gaveto",
-      "tipo": "Restaurante referência",
+      "tipo": "Restaurante Premium",
       "zona": "Matosinhos",
       "morada": "—",
       "email_lead": "geral@gaveto.pt",
@@ -4008,7 +4008,7 @@
     },
     "oscar::O Gaveto Marisqueira::Matosinhos": {
       "nome": "O Gaveto Marisqueira",
-      "tipo": "Marisqueira",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Matosinhos",
       "morada": "—",
       "email_lead": "reservas@gaveto.pt",
@@ -4028,7 +4028,7 @@
     },
     "oscar::Salta o Muro::Matosinhos": {
       "nome": "Salta o Muro",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Matosinhos",
       "morada": "—",
       "email_lead": "geral@saltaomuro.pt",
@@ -4054,7 +4054,7 @@
     },
     "oscar::Meia-Nau::Matosinhos": {
       "nome": "Meia-Nau",
-      "tipo": "Restaurante moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Matosinhos",
       "morada": "—",
       "email_lead": "geral@meianau.pt",
@@ -4085,7 +4085,7 @@
     },
     "oscar::Casa Serrão::Matosinhos": {
       "nome": "Casa Serrão",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Matosinhos",
       "morada": "—",
       "email_lead": "reservas@casaserrao.pt",
@@ -4121,7 +4121,7 @@
     },
     "oscar::Tito II::Matosinhos": {
       "nome": "Tito II",
-      "tipo": "Restaurante peixe/marisco",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Matosinhos",
       "morada": "—",
       "email_lead": "geral@tito.pt",
@@ -4141,7 +4141,7 @@
     },
     "oscar::Restaurante Mauritânia::Matosinhos": {
       "nome": "Restaurante Mauritânia",
-      "tipo": "Restaurante grande volume",
+      "tipo": "Restaurante Tradicional",
       "zona": "Matosinhos",
       "morada": "—",
       "email_lead": "geral@mauritania.pt",
@@ -4172,7 +4172,7 @@
     },
     "nuno::Vinum::Caves Graham’s": {
       "nome": "Vinum",
-      "tipo": "Restaurante premium vínico",
+      "tipo": "Restaurante Premium",
       "zona": "Caves Graham’s",
       "morada": "—",
       "email_lead": "reservas@vinumatgrahams.com",
@@ -4192,7 +4192,7 @@
     },
     "oscar::DeCastro Gaia::Gaia": {
       "nome": "DeCastro Gaia",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Gaia",
       "morada": "—",
       "email_lead": "geral@decastro.pt",
@@ -4212,7 +4212,7 @@
     },
     "oscar::Ar de Rio::Cais de Gaia": {
       "nome": "Ar de Rio",
-      "tipo": "Restaurante turístico",
+      "tipo": "Restaurante Tradicional",
       "zona": "Cais de Gaia",
       "morada": "—",
       "email_lead": "reservas@arderio.pt",
@@ -4232,7 +4232,7 @@
     },
     "oscar::Casa Adão::Gaia": {
       "nome": "Casa Adão",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Gaia",
       "morada": "—",
       "email_lead": "geral@casaadao.pt",
@@ -4258,7 +4258,7 @@
     },
     "oscar::7 Grottos::Gaia": {
       "nome": "7 Grottos",
-      "tipo": "Restaurante moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Gaia",
       "morada": "—",
       "email_lead": "geral@7grottos.pt",
@@ -4284,7 +4284,7 @@
     },
     "oscar::Esplanada do Teleférico::Gaia": {
       "nome": "Esplanada do Teleférico",
-      "tipo": "Restaurante turístico",
+      "tipo": "Restaurante Tradicional",
       "zona": "Gaia",
       "morada": "—",
       "email_lead": "geral@esplanadadoteleferico.pt",
@@ -4320,7 +4320,7 @@
     },
     "nuno::Stramuntana::Canidelo": {
       "nome": "Stramuntana",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Canidelo",
       "morada": "—",
       "email_lead": "reservas@stramuntana.pt",
@@ -4346,7 +4346,7 @@
     },
     "oscar::Mar na Brasa::Gaia": {
       "nome": "Mar na Brasa",
-      "tipo": "Restaurante peixe",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Gaia",
       "morada": "—",
       "email_lead": "geral@marnabrasa.pt",
@@ -4372,7 +4372,7 @@
     },
     "joao::Atlas Leiria::Leiria Centro": {
       "nome": "Atlas Leiria",
-      "tipo": "Restaurante/bar moderno",
+      "tipo": "Restaurante Casual",
       "zona": "Leiria Centro",
       "morada": "—",
       "email_lead": "geral@atlasleiria.pt",
@@ -4392,7 +4392,7 @@
     },
     "joao::Casinha Velha::Leiria": {
       "nome": "Casinha Velha",
-      "tipo": "Restaurante premium",
+      "tipo": "Restaurante Premium",
       "zona": "Leiria",
       "morada": "—",
       "email_lead": "reservas@casinhavelha.pt",
@@ -4423,7 +4423,7 @@
     },
     "joao::Mata Bicho::Leiria": {
       "nome": "Mata Bicho",
-      "tipo": "Restaurante contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Leiria",
       "morada": "—",
       "email_lead": "geral@matabicho.pt",
@@ -4443,7 +4443,7 @@
     },
     "joao::Cervejaria João Gordo::Leiria": {
       "nome": "Cervejaria João Gordo",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Leiria",
       "morada": "—",
       "email_lead": "geral@joaogordo.pt",
@@ -4463,7 +4463,7 @@
     },
     "joao::Tromba Rija::Leiria": {
       "nome": "Tromba Rija",
-      "tipo": "Restaurante grande volume",
+      "tipo": "Restaurante Tradicional",
       "zona": "Leiria",
       "morada": "—",
       "email_lead": "reservas@trombarija.pt",
@@ -4494,7 +4494,7 @@
     },
     "joao::Malagueta Afrobar::Leiria": {
       "nome": "Malagueta Afrobar",
-      "tipo": "Restaurante moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Leiria",
       "morada": "—",
       "email_lead": "geral@malagueta.pt",
@@ -4530,7 +4530,7 @@
     },
     "joao::Taberna do Quinzena::Leiria": {
       "nome": "Taberna do Quinzena",
-      "tipo": "Restaurante português",
+      "tipo": "Restaurante Premium",
       "zona": "Leiria",
       "morada": "—",
       "email_lead": "geral@tabernadequinzena.pt",
@@ -4550,7 +4550,7 @@
     },
     "joao::Tokio Sushi::Leiria": {
       "nome": "Tokio Sushi",
-      "tipo": "Restaurante moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Leiria",
       "morada": "—",
       "email_lead": "reservas@tokiosushi.pt",
@@ -4570,7 +4570,7 @@
     },
     "nuno::Muchaxo Restaurant::Praia do Guincho": {
       "nome": "Muchaxo Restaurant",
-      "tipo": "Hotel/restaurante",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Praia do Guincho",
       "morada": "—",
       "email_lead": "recepcao@muchaxo.com",
@@ -4590,7 +4590,7 @@
     },
     "nuno::O Faroleiro::Guincho": {
       "nome": "O Faroleiro",
-      "tipo": "Restaurante português costeiro",
+      "tipo": "Restaurante Tradicional",
       "zona": "Guincho",
       "morada": "—",
       "email_lead": "info@faroleiro.com",
@@ -4616,7 +4616,7 @@
     },
     "nuno::Palm Tree Pub & Restaurant::Cascais": {
       "nome": "Palm Tree Pub & Restaurant",
-      "tipo": "Restaurante/bar",
+      "tipo": "Restaurante Casual",
       "zona": "Cascais",
       "morada": "—",
       "email_lead": "info@palmtree.pt",
@@ -4642,7 +4642,7 @@
     },
     "nuno::Panorama Beach Club::Guincho": {
       "nome": "Panorama Beach Club",
-      "tipo": "Beach Club / Restaurante",
+      "tipo": "Beach Club & Bar",
       "zona": "Guincho",
       "morada": "—",
       "email_lead": "panoramaguincho@villacolletion.pt",
@@ -4668,7 +4668,7 @@
     },
     "nuno::Pigalle Smash Bistro::Cascais": {
       "nome": "Pigalle Smash Bistro",
-      "tipo": "Bistro americano",
+      "tipo": "Restaurante Casual",
       "zona": "Cascais",
       "morada": "—",
       "email_lead": "TheFork",
@@ -4688,7 +4688,7 @@
     },
     "nuno::Porto Santa Maria::Guincho": {
       "nome": "Porto Santa Maria",
-      "tipo": "Restaurante peixe/marisco premium",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Guincho",
       "morada": "—",
       "email_lead": "reservas@portosantamaria.com · 214 879 450",
@@ -4708,7 +4708,7 @@
     },
     "nuno::Restaurante Nortada::Praia Grande, Sintra": {
       "nome": "Restaurante Nortada",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Praia Grande, Sintra",
       "morada": "—",
       "email_lead": "geral@restaurantenortada.com",
@@ -4744,7 +4744,7 @@
     },
     "nuno::Santini Cascais::Baía de Cascais": {
       "nome": "Santini Cascais",
-      "tipo": "Gelataria premium",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Baía de Cascais",
       "morada": "—",
       "email_lead": "cascais@santini.pt",
@@ -4770,7 +4770,7 @@
     },
     "nuno::Spot by Fortaleza do Guincho::Guincho": {
       "nome": "Spot by Fortaleza do Guincho",
-      "tipo": "Restaurante (Michelin)",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Guincho",
       "morada": "—",
       "email_lead": "restaurante@guinchotel.pt",
@@ -4811,7 +4811,7 @@
     },
     "nuno::Visconde da Luz::Cascais Centro": {
       "nome": "Visconde da Luz",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Cascais Centro",
       "morada": "—",
       "email_lead": "geral@viscondedaluz.pt",
@@ -4837,7 +4837,7 @@
     },
     "nuno::Opíparo::Azenhas do Mar": {
       "nome": "Opíparo",
-      "tipo": "Restaurante cozinha portuguesa reinventada",
+      "tipo": "Restaurante Premium",
       "zona": "Azenhas do Mar",
       "morada": "—",
       "email_lead": "Google Maps",
@@ -4857,7 +4857,7 @@
     },
     "nuno::Hamburgueria do Maçãs::Azenhas do Mar": {
       "nome": "Hamburgueria do Maçãs",
-      "tipo": "Restaurante informal",
+      "tipo": "Restaurante Casual",
       "zona": "Azenhas do Mar",
       "morada": "—",
       "email_lead": "Google Maps",
@@ -4877,7 +4877,7 @@
     },
     "oscar::Marisqueira de Ribamar::Ribamar": {
       "nome": "Marisqueira de Ribamar",
-      "tipo": "Marisqueira (desde 1972)",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "marisqueiraribamar.com",
@@ -4897,7 +4897,7 @@
     },
     "oscar::Cervejaria O Pescador::Ribamar": {
       "nome": "Cervejaria O Pescador",
-      "tipo": "Cervejaria/Marisqueira",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "opescadorribamar@hotmail.com",
@@ -4928,7 +4928,7 @@
     },
     "oscar::Casa Rodrigues::Ribamar": {
       "nome": "Casa Rodrigues",
-      "tipo": "Restaurante familiar",
+      "tipo": "Restaurante Casual",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "casarodriguesribamar@gmail.com",
@@ -4954,7 +4954,7 @@
     },
     "oscar::Do Mar À Mesa::Ribamar": {
       "nome": "Do Mar À Mesa",
-      "tipo": "Restaurante peixe/marisco",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Ribamar",
       "morada": "—",
       "email_lead": "domaramesa.geral@gmail.com",
@@ -4985,7 +4985,7 @@
     },
     "oscar::Restaurante do Parque::Peniche": {
       "nome": "Restaurante do Parque",
-      "tipo": "Restaurante tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "restaurantedoparque.peniche@gmail.com",
@@ -5011,7 +5011,7 @@
     },
     "oscar::Sushi Fish::Peniche": {
       "nome": "Sushi Fish",
-      "tipo": "Restaurante moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "geral@sushifish.pt",
@@ -5031,7 +5031,7 @@
     },
     "oscar::Taberna do Ganhão::Peniche": {
       "nome": "Taberna do Ganhão",
-      "tipo": "Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "geral@tabernadoganhao.pt",
@@ -5051,7 +5051,7 @@
     },
     "joao::Sauvage Gourmet::Almada": {
       "nome": "Sauvage Gourmet",
-      "tipo": "Brunch / Gourmet (★ 4.8)",
+      "tipo": "Café & Brunch",
       "zona": "Almada",
       "morada": "—",
       "email_lead": "geral@sauvage-gourmet.pt",
@@ -5077,7 +5077,7 @@
     },
     "joao::De Raiz no Museu (Chef Luís Calei)::Almada": {
       "nome": "De Raiz no Museu (Chef Luís Calei)",
-      "tipo": "Fine dining / cozinha autoral",
+      "tipo": "Restaurante Premium",
       "zona": "Almada",
       "morada": "—",
       "email_lead": "geral@de-raiz.pt",
@@ -5103,7 +5103,7 @@
     },
     "joao::Soul Sushi – Japanese Fusion::Almada": {
       "nome": "Soul Sushi – Japanese Fusion",
-      "tipo": "Restaurante fusão (★ 9.8 TheFork)",
+      "tipo": "Restaurante Premium",
       "zona": "Almada",
       "morada": "—",
       "email_lead": "soulsushibar@gmail.com",
@@ -5134,7 +5134,7 @@
     },
     "joao::Contrabando Mexican Food::Almada": {
       "nome": "Contrabando Mexican Food",
-      "tipo": "Restaurante temático",
+      "tipo": "Restaurante Tradicional",
       "zona": "Almada",
       "morada": "—",
       "email_lead": "geral.contrabando@gmail.com",
@@ -5154,7 +5154,7 @@
     },
     "joao::Pastelaria Condestável::Almada": {
       "nome": "Pastelaria Condestável",
-      "tipo": "Pastelaria",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Almada",
       "morada": "—",
       "email_lead": "pastcondestavel@gmail.com",
@@ -5185,7 +5185,7 @@
     },
     "oscar::Tasca do Joel::Peniche": {
       "nome": "Tasca do Joel",
-      "tipo": "Restaurante referência",
+      "tipo": "Restaurante Premium",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "reservas@tascadojoel.pt; reservas.tascadojoel@gmail.com",
@@ -5205,7 +5205,7 @@
     },
     "oscar::Tribeca Restaurante-Brasserie::Peniche": {
       "nome": "Tribeca Restaurante-Brasserie",
-      "tipo": "Brasserie",
+      "tipo": "Restaurante Casual",
       "zona": "Peniche",
       "morada": "—",
       "email_lead": "​tribeca-peniche@hotmail.com; tribeca@tribeca-restaurante.com",
@@ -5231,7 +5231,7 @@
     },
     "nuno::Cervejaria Boa Esperança::Lisboa": {
       "nome": "Cervejaria Boa Esperança",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Avenida Gomes Pereira 3 A Loja",
       "email_lead": "boaesperanca3a@gmail.com",
@@ -5251,7 +5251,7 @@
     },
     "nuno::Browers Beato::Lisboa": {
       "nome": "Browers Beato",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Tv. Grilo 1",
       "email_lead": "beato@thebrowerscompany.com",
@@ -5287,7 +5287,7 @@
     },
     "nuno::Dote - Cervejaria Moderna::Lisboa": {
       "nome": "Dote - Cervejaria Moderna",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Alvalade, Av. Republica, Parque Nações, Barata Salgueiro, Odivelas",
       "email_lead": "dote@dote.pt",
@@ -5307,7 +5307,7 @@
     },
     "nuno::Edmundo::Lisboa": {
       "nome": "Edmundo",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Avenida Gomes Pereira, 1 - Estrada de Benfica",
       "email_lead": "restaurante.edmundo@gmail.com",
@@ -5327,7 +5327,7 @@
     },
     "nuno::Farol::Lisboa": {
       "nome": "Farol",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Saldanha",
       "email_lead": "tcardoso1990@gmail.com",
@@ -5347,7 +5347,7 @@
     },
     "nuno::Gambrinus::Lisboa": {
       "nome": "Gambrinus",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Rua das Portas de Santo Antão, nº 23",
       "email_lead": "info@gambrinuslisboa.com",
@@ -5373,7 +5373,7 @@
     },
     "nuno::Cervejaria Liberdade::Lisboa": {
       "nome": "Cervejaria Liberdade",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Rua Castilho, 14",
       "email_lead": "info@avliberdade.com; cervejaria.avenidaliberdade@tivoli-hotels.com",
@@ -5393,7 +5393,7 @@
     },
     "nuno::Pinóquio::Lisboa": {
       "nome": "Pinóquio",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Praça dos Restauradores 79 80",
       "email_lead": "geral@restaurantepinoquio.pt",
@@ -5424,7 +5424,7 @@
     },
     "nuno::Portugália::Lisboa": {
       "nome": "Portugália",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Almirante Reis",
       "email_lead": "pareis@portugalia.pt",
@@ -5455,7 +5455,7 @@
     },
     "nuno::Cervejaria Ramiro::Lisboa": {
       "nome": "Cervejaria Ramiro",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Av. Alm. Reis 1 H",
       "email_lead": "ramiro@cervejariaramiro.pt",
@@ -5486,7 +5486,7 @@
     },
     "nuno::Cervejaria Sem Vergonha::Lisboa": {
       "nome": "Cervejaria Sem Vergonha",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Tv. de Santa Quitéria 38 D",
       "email_lead": "cervejariasemvergonha@gmail.com",
@@ -5506,7 +5506,7 @@
     },
     "nuno::Cervejaria Trindade::Lisboa": {
       "nome": "Cervejaria Trindade",
-      "tipo": "Cervejaria",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa",
       "morada": "Rua Nova da Trindade, nº 20 C",
       "email_lead": "ct.chiado@cervejariatrindade.pt",
@@ -5679,7 +5679,7 @@
     },
     "rui_distribuidores::Giroalimentar::Centro Litoral": {
       "nome": "Giroalimentar",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Centro Litoral",
       "morada": "Zona Industrial, Figueira da Foz",
       "email_lead": "comercial@giroalimentar.pt",
@@ -5710,7 +5710,7 @@
     },
     "rui_distribuidores::Distrinor Alimentar::Norte": {
       "nome": "Distrinor Alimentar",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Norte",
       "morada": "Zona Industrial de Braga",
       "email_lead": "comercial@distrinor.pt",
@@ -5730,7 +5730,7 @@
     },
     "rui_distribuidores::Norte Frio Distribuição::Douro": {
       "nome": "Norte Frio Distribuição",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Douro",
       "morada": "Zona Industrial, Vila Real",
       "email_lead": "comercial@nortefrio.pt",
@@ -5761,7 +5761,7 @@
     },
     "rui_distribuidores::Frioguarda::Interior Norte": {
       "nome": "Frioguarda",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Interior Norte",
       "morada": "Zona Industrial, Guarda",
       "email_lead": "geral@frioguarda.pt",
@@ -5792,7 +5792,7 @@
     },
     "rui_distribuidores::Frigoríficos do Algarve::Algarve": {
       "nome": "Frigoríficos do Algarve",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Algarve",
       "morada": "Zona Industrial, Loulé",
       "email_lead": "geral@frigorificos-algarve.pt",
@@ -6214,7 +6214,7 @@
     },
     "rui_distribuidores::Irmãos Antunes Distribuição::Alentejo": {
       "nome": "Irmãos Antunes Distribuição",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Alentejo",
       "morada": "Zona Industrial, Évora",
       "email_lead": "geral@irmaosantunes.pt",
@@ -6250,7 +6250,7 @@
     },
     "rui_distribuidores::Frioeste::Interior Norte": {
       "nome": "Frioeste",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Interior Norte",
       "morada": "R. Industrial, Viseu",
       "email_lead": "comercial@frioeste.pt",
@@ -6276,7 +6276,7 @@
     },
     "rui_distribuidores::Caloricedos::Interior": {
       "nome": "Caloricedos",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Interior",
       "morada": "Zona Industrial, Castelo Branco",
       "email_lead": "geral@caloricedos.pt",
@@ -6312,7 +6312,7 @@
     },
     "rui_distribuidores::Setasul Distribuição::Sul": {
       "nome": "Setasul Distribuição",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Sul",
       "morada": "Zona Industrial, Setúbal",
       "email_lead": "comercial@setasul.pt",
@@ -6338,7 +6338,7 @@
     },
     "rui_distribuidores::Transmontana Alimentar::Nordeste": {
       "nome": "Transmontana Alimentar",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Nordeste",
       "morada": "Zona Industrial, Bragança",
       "email_lead": "geral@transmontanaalimentar.pt",
@@ -6364,7 +6364,7 @@
     },
     "rui_distribuidores::Frioraia::Ribatejo": {
       "nome": "Frioraia",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Ribatejo",
       "morada": "Zona Industrial, Santarém",
       "email_lead": "comercial@frioraia.pt",
@@ -6400,7 +6400,7 @@
     },
     "rui_distribuidores::Atlântico Frio::Norte": {
       "nome": "Atlântico Frio",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Norte",
       "morada": "Zona Industrial, Viana do Castelo",
       "email_lead": "geral@atlanticofrio.pt",
@@ -6426,7 +6426,7 @@
     },
     "rui_distribuidores::Friponente::Alentejo": {
       "nome": "Friponente",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Alentejo",
       "morada": "Zona Industrial, Portalegre",
       "email_lead": "geral@friponente.pt",
@@ -6452,7 +6452,7 @@
     },
     "rui_distribuidores::Mediterrânico Alimentar::Algarve": {
       "nome": "Mediterrânico Alimentar",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Algarve",
       "morada": "Zona Industrial, Tavira",
       "email_lead": "geral@mediterranico-alimentar.pt",
@@ -6483,7 +6483,7 @@
     },
     "rui_distribuidores::Expofrio::Centro Norte": {
       "nome": "Expofrio",
-      "tipo": "Distribuidor Congelados",
+      "tipo": "Distribuidor",
       "zona": "Centro Norte",
       "morada": "Zona Industrial, Aveiro",
       "email_lead": "comercial@expofrio.pt",
@@ -6514,7 +6514,7 @@
     },
     "ana_internacional::Varina Ltd::Reino Unido": {
       "nome": "Varina Ltd",
-      "tipo": "Importador Congelados PT",
+      "tipo": "Distribuidor",
       "zona": "Wooburn Green",
       "cidade": "Wooburn Green",
       "pais": "Reino Unido",
@@ -6539,7 +6539,7 @@
     },
     "ana_internacional::Viserra UK::Reino Unido": {
       "nome": "Viserra UK",
-      "tipo": "Importador/Distribuidor PT",
+      "tipo": "Distribuidor",
       "zona": "Londres",
       "cidade": "Londres",
       "pais": "Reino Unido",
@@ -6564,7 +6564,7 @@
     },
     "ana_internacional::Casa de Portugal London::Reino Unido": {
       "nome": "Casa de Portugal London",
-      "tipo": "Mercearia Saudade",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Londres",
       "cidade": "Londres",
       "pais": "Reino Unido",
@@ -6589,7 +6589,7 @@
     },
     "ana_internacional::Iberian Foods UK::Reino Unido": {
       "nome": "Iberian Foods UK",
-      "tipo": "Distribuidor Ibérico HORECA",
+      "tipo": "Distribuidor",
       "zona": "Birmingham",
       "cidade": "Birmingham",
       "pais": "Reino Unido",
@@ -6614,7 +6614,7 @@
     },
     "ana_internacional::Portugal Foods Direct::Reino Unido": {
       "nome": "Portugal Foods Direct",
-      "tipo": "E-commerce Saudade UK",
+      "tipo": "E-commerce Saudade",
       "zona": "Manchester",
       "cidade": "Manchester",
       "pais": "Reino Unido",
@@ -6639,7 +6639,7 @@
     },
     "ana_internacional::TS Spain (Tindale)::Espanha": {
       "nome": "TS Spain (Tindale)",
-      "tipo": "Distribuidor HORECA Ibérico",
+      "tipo": "Distribuidor",
       "zona": "Madrid",
       "cidade": "Madrid",
       "pais": "Espanha",
@@ -6664,7 +6664,7 @@
     },
     "ana_internacional::Casa de Portugal Barcelona::Espanha": {
       "nome": "Casa de Portugal Barcelona",
-      "tipo": "Mercearia/Gastronomia PT",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Barcelona",
       "cidade": "Barcelona",
       "pais": "Espanha",
@@ -6698,7 +6698,7 @@
     },
     "ana_internacional::Sabor Lusitano::Espanha": {
       "nome": "Sabor Lusitano",
-      "tipo": "Importador Retalho Saudade",
+      "tipo": "Distribuidor",
       "zona": "Madrid",
       "cidade": "Madrid",
       "pais": "Espanha",
@@ -6732,7 +6732,7 @@
     },
     "ana_internacional::Ibercongelados Sur::Espanha": {
       "nome": "Ibercongelados Sur",
-      "tipo": "Distribuidor Congelados HORECA",
+      "tipo": "Distribuidor",
       "zona": "Sevilha",
       "cidade": "Sevilha",
       "pais": "Espanha",
@@ -6757,7 +6757,7 @@
     },
     "ana_internacional::Euskadi Portugal Foods::Espanha": {
       "nome": "Euskadi Portugal Foods",
-      "tipo": "Distribuidor PT País Basco",
+      "tipo": "Distribuidor",
       "zona": "Lisboa (Bilbao)",
       "cidade": "Lisboa (Bilbao)",
       "pais": "Espanha",
@@ -6782,7 +6782,7 @@
     },
     "ana_internacional::Quinta Portuguesa::França": {
       "nome": "Quinta Portuguesa",
-      "tipo": "Importador/Distribuidor PT Gourmet",
+      "tipo": "Distribuidor",
       "zona": "Paris",
       "cidade": "Paris",
       "pais": "França",
@@ -6807,7 +6807,7 @@
     },
     "ana_internacional::Transmontana France::França": {
       "nome": "Transmontana France",
-      "tipo": "Importador/Distribuidor PT",
+      "tipo": "Distribuidor",
       "zona": "Paris",
       "cidade": "Paris",
       "pais": "França",
@@ -6832,7 +6832,7 @@
     },
     "ana_internacional::Matar Saudades::França": {
       "nome": "Matar Saudades",
-      "tipo": "E-commerce Saudade Europa",
+      "tipo": "E-commerce Saudade",
       "zona": "Paris",
       "cidade": "Paris",
       "pais": "França",
@@ -6857,7 +6857,7 @@
     },
     "ana_internacional::Agriberia::França": {
       "nome": "Agriberia",
-      "tipo": "Distribuidor Ibérico França",
+      "tipo": "Distribuidor",
       "zona": "Lyon",
       "cidade": "Lyon",
       "pais": "França",
@@ -6882,7 +6882,7 @@
     },
     "ana_internacional::Portugal Gourmet France::França": {
       "nome": "Portugal Gourmet France",
-      "tipo": "Importador Gourmet PT",
+      "tipo": "Distribuidor",
       "zona": "Bordeaux",
       "cidade": "Bordeaux",
       "pais": "França",
@@ -6907,7 +6907,7 @@
     },
     "ana_internacional::Engel Foreign Food BV::Holanda": {
       "nome": "Engel Foreign Food BV",
-      "tipo": "Distribuidor HORECA Étnico",
+      "tipo": "Distribuidor",
       "zona": "Uithoorn",
       "cidade": "Uithoorn",
       "pais": "Holanda",
@@ -6932,7 +6932,7 @@
     },
     "ana_internacional::NLfood BV::Holanda": {
       "nome": "NLfood BV",
-      "tipo": "Exportador/Distribuidor Alimentar",
+      "tipo": "Distribuidor",
       "zona": "Uithoorn",
       "cidade": "Uithoorn",
       "pais": "Holanda",
@@ -6957,7 +6957,7 @@
     },
     "ana_internacional::Lusitana Holland::Holanda": {
       "nome": "Lusitana Holland",
-      "tipo": "Mercearia Portuguesa NL",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Amsterdam",
       "cidade": "Amsterdam",
       "pais": "Holanda",
@@ -6982,7 +6982,7 @@
     },
     "ana_internacional::Iberia Foods NL::Holanda": {
       "nome": "Iberia Foods NL",
-      "tipo": "Distribuidor Ibérico NL",
+      "tipo": "Distribuidor",
       "zona": "Rotterdam",
       "cidade": "Rotterdam",
       "pais": "Holanda",
@@ -7007,7 +7007,7 @@
     },
     "ana_internacional::Portugal Deli GmbH::Alemanha": {
       "nome": "Portugal Deli GmbH",
-      "tipo": "Mercearia/Distribuidor PT",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Frankfurt",
       "cidade": "Frankfurt",
       "pais": "Alemanha",
@@ -7041,7 +7041,7 @@
     },
     "ana_internacional::Casa Lisboa Hamburg::Alemanha": {
       "nome": "Casa Lisboa Hamburg",
-      "tipo": "Restaurante/Distribuidor",
+      "tipo": "Restaurante Casual",
       "zona": "Hamburgo",
       "cidade": "Hamburgo",
       "pais": "Alemanha",
@@ -7075,7 +7075,7 @@
     },
     "ana_internacional::IberFood Deutschland::Alemanha": {
       "nome": "IberFood Deutschland",
-      "tipo": "Importador Ibérico HORECA",
+      "tipo": "Distribuidor",
       "zona": "Düsseldorf",
       "cidade": "Düsseldorf",
       "pais": "Alemanha",
@@ -7100,7 +7100,7 @@
     },
     "ana_internacional::Sabor de Portugal DE::Alemanha": {
       "nome": "Sabor de Portugal DE",
-      "tipo": "Mercearia Saudade Online",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Colónia",
       "cidade": "Colónia",
       "pais": "Alemanha",
@@ -7125,7 +7125,7 @@
     },
     "ana_internacional::Covin AG::Suíça": {
       "nome": "Covin AG",
-      "tipo": "Importador/Distribuidor PT+ES",
+      "tipo": "Distribuidor",
       "zona": "Zurique",
       "cidade": "Zurique",
       "pais": "Suíça",
@@ -7150,7 +7150,7 @@
     },
     "ana_internacional::A2P Food Distribution::Suíça": {
       "nome": "A2P Food Distribution",
-      "tipo": "Distribuidor Produtos PT Suíça",
+      "tipo": "Distribuidor",
       "zona": "Genève",
       "cidade": "Genève",
       "pais": "Suíça",
@@ -7175,7 +7175,7 @@
     },
     "ana_internacional::Sousa Vins::Suíça": {
       "nome": "Sousa Vins",
-      "tipo": "Importador Histórico PT Suíça",
+      "tipo": "Distribuidor",
       "zona": "Neuchâtel",
       "cidade": "Neuchâtel",
       "pais": "Suíça",
@@ -7200,7 +7200,7 @@
     },
     "ana_internacional::Swiss Iberian Foods::Suíça": {
       "nome": "Swiss Iberian Foods",
-      "tipo": "Distribuidor HORECA Ibérico CH",
+      "tipo": "Distribuidor",
       "zona": "Zurique",
       "cidade": "Zurique",
       "pais": "Suíça",
@@ -7225,7 +7225,7 @@
     },
     "ana_internacional::Bexeb Sarl::Luxemburgo": {
       "nome": "Bexeb Sarl",
-      "tipo": "Distribuidor Produtos PT",
+      "tipo": "Distribuidor",
       "zona": "Luxemburgo",
       "cidade": "Luxemburgo",
       "pais": "Luxemburgo",
@@ -7250,7 +7250,7 @@
     },
     "ana_internacional::Saveurs du Portugal LU::Luxemburgo": {
       "nome": "Saveurs du Portugal LU",
-      "tipo": "Promotor/Distribuidor PT",
+      "tipo": "Distribuidor",
       "zona": "Luxemburgo",
       "cidade": "Luxemburgo",
       "pais": "Luxemburgo",
@@ -7275,7 +7275,7 @@
     },
     "ana_internacional::Casa Lusitana Luxembourg::Luxemburgo": {
       "nome": "Casa Lusitana Luxembourg",
-      "tipo": "Mercearia Saudade",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Luxemburgo",
       "cidade": "Luxemburgo",
       "pais": "Luxemburgo",
@@ -7300,7 +7300,7 @@
     },
     "ana_internacional::Casa de Portugal SP::Brasil": {
       "nome": "Casa de Portugal SP",
-      "tipo": "Gastronomia/Distribuidor PT",
+      "tipo": "Distribuidor",
       "zona": "São Paulo",
       "cidade": "São Paulo",
       "pais": "Brasil",
@@ -7325,7 +7325,7 @@
     },
     "ana_internacional::Portugal Sabores::Brasil": {
       "nome": "Portugal Sabores",
-      "tipo": "E-commerce Saudade Brasil",
+      "tipo": "E-commerce Saudade",
       "zona": "São Paulo",
       "cidade": "São Paulo",
       "pais": "Brasil",
@@ -7350,7 +7350,7 @@
     },
     "ana_internacional::Doce Lisboa RJ::Brasil": {
       "nome": "Doce Lisboa RJ",
-      "tipo": "Pastelaria/Distribuidor PT",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Rio de Janeiro",
       "cidade": "Rio de Janeiro",
       "pais": "Brasil",
@@ -7375,7 +7375,7 @@
     },
     "ana_internacional::Importadora Lusitana::Brasil": {
       "nome": "Importadora Lusitana",
-      "tipo": "Importador/Distribuidor PT BR",
+      "tipo": "Distribuidor",
       "zona": "São Paulo",
       "cidade": "São Paulo",
       "pais": "Brasil",
@@ -7400,7 +7400,7 @@
     },
     "ana_internacional::Taste of Portugal Toronto::Canadá": {
       "nome": "Taste of Portugal Toronto",
-      "tipo": "Mercearia/Distribuidor PT",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Toronto",
       "cidade": "Toronto",
       "pais": "Canadá",
@@ -7425,7 +7425,7 @@
     },
     "ana_internacional::Portugal & Cia Montreal::Canadá": {
       "nome": "Portugal & Cia Montreal",
-      "tipo": "Importador/Mercearia PT",
+      "tipo": "Distribuidor",
       "zona": "Montreal",
       "cidade": "Montreal",
       "pais": "Canadá",
@@ -7450,7 +7450,7 @@
     },
     "ana_internacional::Casa Lisboa Vancouver::Canadá": {
       "nome": "Casa Lisboa Vancouver",
-      "tipo": "Restaurante/Distribuidor",
+      "tipo": "Restaurante Casual",
       "zona": "Vancouver",
       "cidade": "Vancouver",
       "pais": "Canadá",
@@ -7475,7 +7475,7 @@
     },
     "ana_internacional::Lusitana Foods Canada::Canadá": {
       "nome": "Lusitana Foods Canada",
-      "tipo": "Importador Congelados PT CA",
+      "tipo": "Distribuidor",
       "zona": "Toronto",
       "cidade": "Toronto",
       "pais": "Canadá",
@@ -7500,7 +7500,7 @@
     },
     "ana_internacional::Portugal Food Japan::Japão": {
       "nome": "Portugal Food Japan",
-      "tipo": "Importador Especialidades PT",
+      "tipo": "Distribuidor",
       "zona": "Tóquio",
       "cidade": "Tóquio",
       "pais": "Japão",
@@ -7525,7 +7525,7 @@
     },
     "ana_internacional::Lusitana Japan::Japão": {
       "nome": "Lusitana Japan",
-      "tipo": "Importador/Distribuidor PT JP",
+      "tipo": "Distribuidor",
       "zona": "Osaka",
       "cidade": "Osaka",
       "pais": "Japão",
@@ -7550,7 +7550,7 @@
     },
     "ana_internacional::Maison de Portugal Tokyo::Japão": {
       "nome": "Maison de Portugal Tokyo",
-      "tipo": "Mercearia Gourmet Europeia",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Tóquio",
       "cidade": "Tóquio",
       "pais": "Japão",
@@ -7575,7 +7575,7 @@
     },
     "ana_internacional::PorteVinho BV::Bélgica": {
       "nome": "PorteVinho BV",
-      "tipo": "Importador/Distribuidor PT HORECA",
+      "tipo": "Distribuidor",
       "zona": "Tremelo",
       "cidade": "Tremelo",
       "pais": "Bélgica",
@@ -7600,7 +7600,7 @@
     },
     "ana_internacional::Casa de Portugal Bruxelas::Bélgica": {
       "nome": "Casa de Portugal Bruxelas",
-      "tipo": "Mercearia/Gastronomia PT",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Bruxelas",
       "cidade": "Bruxelas",
       "pais": "Bélgica",
@@ -7625,7 +7625,7 @@
     },
     "ana_internacional::Iberia Belgium Foods::Bélgica": {
       "nome": "Iberia Belgium Foods",
-      "tipo": "Distribuidor Ibérico BE",
+      "tipo": "Distribuidor",
       "zona": "Antuérpia",
       "cidade": "Antuérpia",
       "pais": "Bélgica",
@@ -7650,7 +7650,7 @@
     },
     "ana_internacional::Saveur du Portugal BE::Bélgica": {
       "nome": "Saveur du Portugal BE",
-      "tipo": "Mercearia Saudade Wallonia",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Liège",
       "cidade": "Liège",
       "pais": "Bélgica",
@@ -7675,7 +7675,7 @@
     },
     "ana_internacional::Lusitana Belgium::Bélgica": {
       "nome": "Lusitana Belgium",
-      "tipo": "Importador/Distribuidor PT BE",
+      "tipo": "Distribuidor",
       "zona": "Gent",
       "cidade": "Gent",
       "pais": "Bélgica",
@@ -7700,7 +7700,7 @@
     },
     "ana_internacional::Portugal in Italy::Itália": {
       "nome": "Portugal in Italy",
-      "tipo": "Importador/Distribuidor PT IT",
+      "tipo": "Distribuidor",
       "zona": "Milão",
       "cidade": "Milão",
       "pais": "Itália",
@@ -7725,7 +7725,7 @@
     },
     "ana_internacional::Casa Portugal Roma::Itália": {
       "nome": "Casa Portugal Roma",
-      "tipo": "Mercearia Saudade IT",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Roma",
       "cidade": "Roma",
       "pais": "Itália",
@@ -7750,7 +7750,7 @@
     },
     "ana_internacional::Iberian Foods Italy::Itália": {
       "nome": "Iberian Foods Italy",
-      "tipo": "Distribuidor Ibérico IT",
+      "tipo": "Distribuidor",
       "zona": "Nápoles",
       "cidade": "Nápoles",
       "pais": "Itália",
@@ -7784,7 +7784,7 @@
     },
     "ana_internacional::Lusitania Gourmet IT::Itália": {
       "nome": "Lusitania Gourmet IT",
-      "tipo": "Mercearia Gourmet PT",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Florença",
       "cidade": "Florença",
       "pais": "Itália",
@@ -7809,7 +7809,7 @@
     },
     "ana_internacional::Portuguese Pantry AU::Austrália": {
       "nome": "Portuguese Pantry AU",
-      "tipo": "Mercearia/Distribuidor PT",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Melbourne",
       "cidade": "Melbourne",
       "pais": "Austrália",
@@ -7834,7 +7834,7 @@
     },
     "ana_internacional::Lusitana Australia::Austrália": {
       "nome": "Lusitana Australia",
-      "tipo": "Importador/Distribuidor PT AU",
+      "tipo": "Distribuidor",
       "zona": "Sydney",
       "cidade": "Sydney",
       "pais": "Austrália",
@@ -7859,7 +7859,7 @@
     },
     "ana_internacional::Casa Portugal Perth::Austrália": {
       "nome": "Casa Portugal Perth",
-      "tipo": "Mercearia Saudade WA",
+      "tipo": "Garrafeira & Gourmet",
       "zona": "Perth",
       "cidade": "Perth",
       "pais": "Austrália",
@@ -7884,7 +7884,7 @@
     },
     "ana_internacional::Iberian Foods AU::Austrália": {
       "nome": "Iberian Foods AU",
-      "tipo": "Distribuidor Ibérico AU",
+      "tipo": "Distribuidor",
       "zona": "Brisbane",
       "cidade": "Brisbane",
       "pais": "Austrália",
@@ -7909,7 +7909,7 @@
     },
     "ana_internacional::Lusafrica Distribuição::Angola": {
       "nome": "Lusafrica Distribuição",
-      "tipo": "Distribuidor PT Angola",
+      "tipo": "Distribuidor",
       "zona": "Luanda",
       "cidade": "Luanda",
       "pais": "Angola",
@@ -7934,7 +7934,7 @@
     },
     "ana_internacional::Portugal em Angola::Angola": {
       "nome": "Portugal em Angola",
-      "tipo": "Importador Retalho PT AO",
+      "tipo": "Distribuidor",
       "zona": "Luanda",
       "cidade": "Luanda",
       "pais": "Angola",
@@ -7959,7 +7959,7 @@
     },
     "ana_internacional::Angonabeiro (Delta)::Angola": {
       "nome": "Angonabeiro (Delta)",
-      "tipo": "Distribuidora PT (Grupo Delta)",
+      "tipo": "Distribuidor",
       "zona": "Luanda",
       "cidade": "Luanda",
       "pais": "Angola",
@@ -7984,7 +7984,7 @@
     },
     "ana_internacional::El Corte Inglés Alimentación::Espanha": {
       "nome": "El Corte Inglés Alimentación",
-      "tipo": "Grande Distribuição ES",
+      "tipo": "Distribuidor",
       "zona": "Madrid",
       "cidade": "Madrid",
       "pais": "Espanha",
@@ -8009,7 +8009,7 @@
     },
     "ana_internacional::Mercadona Proveedores::Espanha": {
       "nome": "Mercadona Proveedores",
-      "tipo": "Grande Distribuição ES",
+      "tipo": "Distribuidor",
       "zona": "Zaragoza",
       "cidade": "Zaragoza",
       "pais": "Espanha",
@@ -8034,7 +8034,7 @@
     },
     "ana_internacional::Carrefour España Compras::Espanha": {
       "nome": "Carrefour España Compras",
-      "tipo": "Grande Distribuição ES",
+      "tipo": "Distribuidor",
       "zona": "Barcelona",
       "cidade": "Barcelona",
       "pais": "Espanha",
@@ -8059,7 +8059,7 @@
     },
     "ana_internacional::Carrefour France Achats::França": {
       "nome": "Carrefour France Achats",
-      "tipo": "Grande Distribuição FR",
+      "tipo": "Distribuidor",
       "zona": "Boulogne-Billancourt",
       "cidade": "Boulogne-Billancourt",
       "pais": "França",
@@ -8084,7 +8084,7 @@
     },
     "ana_internacional::E.Leclerc Achats::França": {
       "nome": "E.Leclerc Achats",
-      "tipo": "Grande Distribuição FR",
+      "tipo": "Distribuidor",
       "zona": "Ivry-sur-Seine",
       "cidade": "Ivry-sur-Seine",
       "pais": "França",
@@ -8109,7 +8109,7 @@
     },
     "ana_internacional::Monoprix Référencement::França": {
       "nome": "Monoprix Référencement",
-      "tipo": "Grande Distribuição FR",
+      "tipo": "Distribuidor",
       "zona": "Paris",
       "cidade": "Paris",
       "pais": "França",
@@ -8134,7 +8134,7 @@
     },
     "ana_internacional::Waitrose Buying Team::Reino Unido": {
       "nome": "Waitrose Buying Team",
-      "tipo": "Grande Distribuição UK",
+      "tipo": "Distribuidor",
       "zona": "Londres",
       "cidade": "Londres",
       "pais": "Reino Unido",
@@ -8159,7 +8159,7 @@
     },
     "ana_internacional::Asda Supplier Relations::Reino Unido": {
       "nome": "Asda Supplier Relations",
-      "tipo": "Grande Distribuição UK",
+      "tipo": "Distribuidor",
       "zona": "Leeds",
       "cidade": "Leeds",
       "pais": "Reino Unido",
@@ -8184,7 +8184,7 @@
     },
     "ana_internacional::Selfridges Food Hall::Reino Unido": {
       "nome": "Selfridges Food Hall",
-      "tipo": "Retalho Gourmet Premium UK",
+      "tipo": "Distribuidor",
       "zona": "Londres",
       "cidade": "Londres",
       "pais": "Reino Unido",
@@ -8209,7 +8209,7 @@
     },
     "ana_internacional::REWE Einkauf GmbH::Alemanha": {
       "nome": "REWE Einkauf GmbH",
-      "tipo": "Grande Distribuição DE",
+      "tipo": "Distribuidor",
       "zona": "Braunschweig",
       "cidade": "Braunschweig",
       "pais": "Alemanha",
@@ -8234,7 +8234,7 @@
     },
     "ana_internacional::Kaufland Einkauf::Alemanha": {
       "nome": "Kaufland Einkauf",
-      "tipo": "Grande Distribuição DE",
+      "tipo": "Distribuidor",
       "zona": "Heilbronn",
       "cidade": "Heilbronn",
       "pais": "Alemanha",
@@ -8259,7 +8259,7 @@
     },
     "ana_internacional::Albert Heijn Inkoop::Holanda": {
       "nome": "Albert Heijn Inkoop",
-      "tipo": "Grande Distribuição NL",
+      "tipo": "Distribuidor",
       "zona": "Zaandam",
       "cidade": "Zaandam",
       "pais": "Holanda",
@@ -8284,7 +8284,7 @@
     },
     "ana_internacional::Jumbo Inkooporganisatie::Holanda": {
       "nome": "Jumbo Inkooporganisatie",
-      "tipo": "Grande Distribuição NL",
+      "tipo": "Distribuidor",
       "zona": "Rotterdam",
       "cidade": "Rotterdam",
       "pais": "Holanda",
@@ -8309,7 +8309,7 @@
     },
     "ana_internacional::Delhaize Achats::Bélgica": {
       "nome": "Delhaize Achats",
-      "tipo": "Grande Distribuição BE",
+      "tipo": "Distribuidor",
       "zona": "Evere",
       "cidade": "Evere",
       "pais": "Bélgica",
@@ -8334,7 +8334,7 @@
     },
     "ana_internacional::Colruyt Aankoop::Bélgica": {
       "nome": "Colruyt Aankoop",
-      "tipo": "Grande Distribuição BE",
+      "tipo": "Distribuidor",
       "zona": "Leuven",
       "cidade": "Leuven",
       "pais": "Bélgica",
@@ -8359,7 +8359,7 @@
     },
     "ana_internacional::Migros Einkauf::Suíça": {
       "nome": "Migros Einkauf",
-      "tipo": "Grande Distribuição CH",
+      "tipo": "Distribuidor",
       "zona": "Berna",
       "cidade": "Berna",
       "pais": "Suíça",
@@ -8384,7 +8384,7 @@
     },
     "ana_internacional::Coop Einkauf Suisse::Suíça": {
       "nome": "Coop Einkauf Suisse",
-      "tipo": "Grande Distribuição CH",
+      "tipo": "Distribuidor",
       "zona": "Zurique",
       "cidade": "Zurique",
       "pais": "Suíça",
@@ -8409,7 +8409,7 @@
     },
     "ana_internacional::Auchan Luxembourg Achats::Luxemburgo": {
       "nome": "Auchan Luxembourg Achats",
-      "tipo": "Grande Distribuição LU",
+      "tipo": "Distribuidor",
       "zona": "Kirchberg",
       "cidade": "Kirchberg",
       "pais": "Luxemburgo",
@@ -8434,7 +8434,7 @@
     },
     "ana_internacional::Pão de Açúcar Fornecedores::Brasil": {
       "nome": "Pão de Açúcar Fornecedores",
-      "tipo": "Grande Distribuição BR",
+      "tipo": "Distribuidor",
       "zona": "São Paulo",
       "cidade": "São Paulo",
       "pais": "Brasil",
@@ -8459,7 +8459,7 @@
     },
     "ana_internacional::Carrefour Brasil Compras::Brasil": {
       "nome": "Carrefour Brasil Compras",
-      "tipo": "Grande Distribuição BR",
+      "tipo": "Distribuidor",
       "zona": "São Paulo",
       "cidade": "São Paulo",
       "pais": "Brasil",
@@ -8484,7 +8484,7 @@
     },
     "ana_internacional::Costco Canada Buying::Canadá": {
       "nome": "Costco Canada Buying",
-      "tipo": "Grande Distribuição CA",
+      "tipo": "Distribuidor",
       "zona": "Toronto",
       "cidade": "Toronto",
       "pais": "Canadá",
@@ -8509,7 +8509,7 @@
     },
     "ana_internacional::Loblaws Companies Buying::Canadá": {
       "nome": "Loblaws Companies Buying",
-      "tipo": "Grande Distribuição CA",
+      "tipo": "Distribuidor",
       "zona": "Toronto",
       "cidade": "Toronto",
       "pais": "Canadá",
@@ -8534,7 +8534,7 @@
     },
     "ana_internacional::Woolworths Supplier Hub::Austrália": {
       "nome": "Woolworths Supplier Hub",
-      "tipo": "Grande Distribuição AU",
+      "tipo": "Distribuidor",
       "zona": "Homebush",
       "cidade": "Homebush",
       "pais": "Austrália",
@@ -8559,7 +8559,7 @@
     },
     "ana_internacional::Coles Supplier Team::Austrália": {
       "nome": "Coles Supplier Team",
-      "tipo": "Grande Distribuição AU",
+      "tipo": "Distribuidor",
       "zona": "Melbourne",
       "cidade": "Melbourne",
       "pais": "Austrália",
@@ -8584,7 +8584,7 @@
     },
     "ana_internacional::Ito-Yokado Procurement::Japão": {
       "nome": "Ito-Yokado Procurement",
-      "tipo": "Grande Distribuição JP",
+      "tipo": "Distribuidor",
       "zona": "Tóquio",
       "cidade": "Tóquio",
       "pais": "Japão",
@@ -8609,7 +8609,7 @@
     },
     "ana_internacional::Aeon Retail Import::Japão": {
       "nome": "Aeon Retail Import",
-      "tipo": "Grande Distribuição JP",
+      "tipo": "Distribuidor",
       "zona": "Osaka",
       "cidade": "Osaka",
       "pais": "Japão",
@@ -8634,7 +8634,7 @@
     },
     "rui_distribuidores::Gertal::Lisboa": {
       "nome": "Gertal",
-      "tipo": "Restauração Colectiva",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Av. Infante D. Henrique, Lisboa",
       "email_lead": "geral@gertal.pt",
@@ -8654,7 +8654,7 @@
     },
     "rui_distribuidores::Eurest Portugal::Lisboa": {
       "nome": "Eurest Portugal",
-      "tipo": "Restauração Colectiva",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Taguspark, Porto Salvo, Oeiras",
       "email_lead": "eurest@eurest.pt",
@@ -8674,7 +8674,7 @@
     },
     "rui_distribuidores::Uniself::Lisboa": {
       "nome": "Uniself",
-      "tipo": "Restauração Colectiva",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Rua Actor Vale 8, Lisboa",
       "email_lead": "comercial@uniself.pt",
@@ -8694,7 +8694,7 @@
     },
     "rui_distribuidores::ITAU::Lisboa": {
       "nome": "ITAU",
-      "tipo": "Restauração Colectiva",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Av. Dom João II, Lisboa",
       "email_lead": "geral@itau.pt",
@@ -8714,7 +8714,7 @@
     },
     "rui_distribuidores::Sodexo Portugal::Lisboa": {
       "nome": "Sodexo Portugal",
-      "tipo": "Restauração Colectiva",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Av. da República, Lisboa",
       "email_lead": "portugal@sodexo.com",
@@ -8734,7 +8734,7 @@
     },
     "rui_distribuidores::Trivalor::Lisboa": {
       "nome": "Trivalor",
-      "tipo": "Restauração Colectiva / Facility",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Rua Gomes de Carvalho, Lisboa",
       "email_lead": "geral@trivalor.pt",
@@ -8794,7 +8794,7 @@
     },
     "rui_catering::Grupo FF (Fábrica da Nata)::Lisboa": {
       "nome": "Grupo FF (Fábrica da Nata)",
-      "tipo": "Grupo Restauração / Pastelaria",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa",
       "morada": "Lisboa",
       "email_lead": "geral@grupoff.pt",
@@ -8814,7 +8814,7 @@
     },
     "rui_catering::Grupo José Avillez::Lisboa": {
       "nome": "Grupo José Avillez",
-      "tipo": "Grupo Restauração Premium",
+      "tipo": "Grupo Restauração",
       "zona": "Lisboa",
       "morada": "Rua Nova da Trindade, Lisboa",
       "email_lead": "reservas@grupojoseavillez.pt",
@@ -8854,7 +8854,7 @@
     },
     "rui_catering::Grupo Plateform::Lisboa": {
       "nome": "Grupo Plateform",
-      "tipo": "Grupo Restauração / Catering",
+      "tipo": "Catering & Eventos",
       "zona": "Lisboa",
       "morada": "Av. 24 de Julho, Lisboa",
       "email_lead": "geral@plateform.pt",
@@ -8894,7 +8894,7 @@
     },
     "rui_catering::Grupo Dote / Jeronymo::Lisboa": {
       "nome": "Grupo Dote / Jeronymo",
-      "tipo": "Grupo Cafetaria / Pastelaria",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa",
       "morada": "Lisboa",
       "email_lead": "geral@dote.pt",
@@ -8914,7 +8914,7 @@
     },
     "rui_catering::Grupo Ribs / Hard Rock Lisboa::Lisboa": {
       "nome": "Grupo Ribs / Hard Rock Lisboa",
-      "tipo": "Grupo Restauração / Entretenimento",
+      "tipo": "Catering & Eventos",
       "zona": "Lisboa",
       "morada": "Av. Liberdade, Lisboa",
       "email_lead": "purchasing@hrcportugal.com",
@@ -8934,7 +8934,7 @@
     },
     "rui_catering::Lusanova / Areas Portugal::Lisboa": {
       "nome": "Lusanova / Areas Portugal",
-      "tipo": "Restauração em Aeroportos",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa",
       "morada": "Aeroporto de Lisboa",
       "email_lead": "procurement.pt@areas.com",
@@ -8974,7 +8974,7 @@
     },
     "rui_distribuidores::Vila Galé Hotels (Compras)::Lisboa": {
       "nome": "Vila Galé Hotels (Compras)",
-      "tipo": "Cadeia Hoteleira Nacional",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Lisboa",
       "morada": "Rua Rodrigues Faria, Lisboa",
       "email_lead": "purchasing@vilagale.com",
@@ -8994,7 +8994,7 @@
     },
     "rui_distribuidores::Pestana Hotel Group::Lisboa": {
       "nome": "Pestana Hotel Group",
-      "tipo": "Cadeia Hoteleira Nacional",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Lisboa",
       "morada": "Rua Jau 54, Lisboa",
       "email_lead": "purchasing@pestana.com",
@@ -9014,7 +9014,7 @@
     },
     "rui_distribuidores::Grupo Tivoli (Minor Hotels)::Lisboa": {
       "nome": "Grupo Tivoli (Minor Hotels)",
-      "tipo": "Cadeia Hoteleira",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Lisboa",
       "morada": "Av. da Liberdade, Lisboa",
       "email_lead": "procurement.portugal@minorhotels.com",
@@ -9034,7 +9034,7 @@
     },
     "rui_distribuidores::NAU Hotels & Resorts::Lisboa": {
       "nome": "NAU Hotels & Resorts",
-      "tipo": "Cadeia Hoteleira Nacional",
+      "tipo": "Restaurante Michelin / Hotel",
       "zona": "Lisboa",
       "morada": "Rua Castilho, Lisboa",
       "email_lead": "compras@nauhotels.com",
@@ -9080,7 +9080,7 @@
     },
     "nuno::Taberna da Rua do Açúcar::Lisboa (Marvila)": {
       "nome": "Taberna da Rua do Açúcar",
-      "tipo": "Tasca Moderna",
+      "tipo": "Tasca & Fado",
       "zona": "Lisboa (Marvila)",
       "morada": "Rua do Açúcar 83A, 1950-006 Lisboa",
       "email_lead": "reservas@tabernacasadilnot.com",
@@ -9106,7 +9106,7 @@
     },
     "nuno::A Cevicheria::Lisboa (Príncipe Real)": {
       "nome": "A Cevicheria",
-      "tipo": "Restaurante Moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Lisboa (Príncipe Real)",
       "morada": "Rua Dom Pedro V 129, 1250-096 Lisboa",
       "email_lead": "info@acevicheria.pt",
@@ -9132,7 +9132,7 @@
     },
     "joao::Café Âncora d'Ouro::Setúbal": {
       "nome": "Café Âncora d'Ouro",
-      "tipo": "Café Tradicional",
+      "tipo": "Café & Brunch",
       "zona": "Setúbal",
       "morada": "Praça de Bocage 35, 2900-301 Setúbal",
       "email_lead": "ancoraouro@gmail.com",
@@ -9163,7 +9163,7 @@
     },
     "joao::Solar dos Presuntos::Lisboa (Rossio)": {
       "nome": "Solar dos Presuntos",
-      "tipo": "Restaurante Tradicional Premium",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa (Rossio)",
       "morada": "Rua das Portas de Santo Antão 150, 1150-269 Lisboa",
       "email_lead": "geral@solardospresuntos.com",
@@ -9194,7 +9194,7 @@
     },
     "joao::Tasca do Pombal::Barreiro": {
       "nome": "Tasca do Pombal",
-      "tipo": "Tasca Tradicional",
+      "tipo": "Tasca & Fado",
       "zona": "Barreiro",
       "morada": "Rua Marquês de Pombal 8, 2830-323 Barreiro",
       "email_lead": "tascapombal@gmail.com",
@@ -9220,7 +9220,7 @@
     },
     "joao::Café Versailles::Lisboa (Saldanha)": {
       "nome": "Café Versailles",
-      "tipo": "Pastelaria / Café Clássico",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Lisboa (Saldanha)",
       "morada": "Avenida da República 15A, 1050-185 Lisboa",
       "email_lead": "cafeversailles@gmail.com",
@@ -9246,7 +9246,7 @@
     },
     "joao::Bettina & Niccolò Corallo::Lisboa (Avenidas Novas)": {
       "nome": "Bettina & Niccolò Corallo",
-      "tipo": "Loja de Chocolate / Café",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Avenidas Novas)",
       "morada": "Rua do Tomás Ribeiro 63, 1050-228 Lisboa",
       "email_lead": "info@corallo.pt",
@@ -9272,7 +9272,7 @@
     },
     "joao::Cantinho do Avillez::Lisboa (Chiado)": {
       "nome": "Cantinho do Avillez",
-      "tipo": "Restaurante Contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Lisboa (Chiado)",
       "morada": "Rua dos Duques de Bragança 7, 1200-162 Lisboa",
       "email_lead": "cantinho@joseavillez.pt",
@@ -9298,7 +9298,7 @@
     },
     "joao::Cervejaria Bairro Alto::Lisboa (Bairro Alto)": {
       "nome": "Cervejaria Bairro Alto",
-      "tipo": "Cervejaria Tradicional",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa (Bairro Alto)",
       "morada": "Rua do Norte 86, 1200-281 Lisboa",
       "email_lead": "cervejariabairo@gmail.com",
@@ -9324,7 +9324,7 @@
     },
     "joao::Tasca da Margem::Seixal (Corroios)": {
       "nome": "Tasca da Margem",
-      "tipo": "Tasca Tradicional",
+      "tipo": "Tasca & Fado",
       "zona": "Seixal (Corroios)",
       "morada": "Rua da Bela Vista 44, 2840-390 Corroios",
       "email_lead": "tascadamargem@gmail.com",
@@ -9350,7 +9350,7 @@
     },
     "joao::Casa da Baía::Azeitão": {
       "nome": "Casa da Baía",
-      "tipo": "Restaurante Panorâmico",
+      "tipo": "Restaurante Tradicional",
       "zona": "Azeitão",
       "morada": "Estrada Nacional 252, 2925-506 Azeitão",
       "email_lead": "casadabaia@gmail.com",
@@ -9376,7 +9376,7 @@
     },
     "joao::Cervejaria Liberdade::Lisboa (Avenida da Liberdade)": {
       "nome": "Cervejaria Liberdade",
-      "tipo": "Cervejaria / Marisco",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Lisboa (Avenida da Liberdade)",
       "morada": "Avenida da Liberdade 185, 1269-053 Lisboa",
       "email_lead": "info@cervejarialiberdade.pt",
@@ -9459,7 +9459,7 @@
     },
     "oscar::Café Santiago::Porto": {
       "nome": "Café Santiago",
-      "tipo": "Cervejaria / Restaurante",
+      "tipo": "Restaurante Casual",
       "zona": "Porto",
       "morada": "Rua de Passos Manuel 226, 4000-382 Porto",
       "email_lead": "cafesantiago@cafesantiago.pt",
@@ -9485,7 +9485,7 @@
     },
     "oscar::Ze Manel dos Ossos::Coimbra": {
       "nome": "Ze Manel dos Ossos",
-      "tipo": "Tasca Tradicional",
+      "tipo": "Tasca & Fado",
       "zona": "Coimbra",
       "morada": "Beco do Forno 12, 3000-078 Coimbra",
       "email_lead": "zemaneldososos@gmail.com",
@@ -9511,7 +9511,7 @@
     },
     "oscar::Tasca do Sete::Coimbra": {
       "nome": "Tasca do Sete",
-      "tipo": "Tasca / Petiscos",
+      "tipo": "Restaurante Casual",
       "zona": "Coimbra",
       "morada": "Rua do Sete 7, 3000-390 Coimbra",
       "email_lead": "tascadosete@gmail.com",
@@ -9537,7 +9537,7 @@
     },
     "oscar::Café Majestic::Porto (Santa Catarina)": {
       "nome": "Café Majestic",
-      "tipo": "Café Histórico",
+      "tipo": "Café & Brunch",
       "zona": "Porto (Santa Catarina)",
       "morada": "Rua de Santa Catarina 112, 4000-442 Porto",
       "email_lead": "cafemajestic@cafemajestic.com",
@@ -9563,7 +9563,7 @@
     },
     "oscar::Zenith Brunch & Cocktails::Porto": {
       "nome": "Zenith Brunch & Cocktails",
-      "tipo": "Brunch Bar",
+      "tipo": "Café & Brunch",
       "zona": "Porto",
       "morada": "Rua do Almada 390, 4050-038 Porto",
       "email_lead": "porto@zenithbrunch.com",
@@ -9589,7 +9589,7 @@
     },
     "oscar::Taberna da Esquina (Coimbra)::Coimbra": {
       "nome": "Taberna da Esquina (Coimbra)",
-      "tipo": "Taberna Contemporânea",
+      "tipo": "Restaurante Tradicional",
       "zona": "Coimbra",
       "morada": "Rua das Azeiteiras 65, 3000-050 Coimbra",
       "email_lead": "tabernadadaesquina@gmail.com",
@@ -9615,7 +9615,7 @@
     },
     "nuno::O Corvo::Lisboa (Campolide)": {
       "nome": "O Corvo",
-      "tipo": "Tasca Moderna",
+      "tipo": "Tasca & Fado",
       "zona": "Lisboa (Campolide)",
       "morada": "Rua João Ortigão Ramos 6B, 1600-394 Lisboa",
       "email_lead": "restaurante.ocorvo@gmail.com",
@@ -9641,7 +9641,7 @@
     },
     "nuno::A Taberna da Rua das Flores::Lisboa (Chiado)": {
       "nome": "A Taberna da Rua das Flores",
-      "tipo": "Tasca Tradicional",
+      "tipo": "Tasca & Fado",
       "zona": "Lisboa (Chiado)",
       "morada": "Rua das Flores 103, 1200-193 Lisboa",
       "email_lead": "ataberndaruadasflores@gmail.com",
@@ -9667,7 +9667,7 @@
     },
     "nuno::Dois Palitos::Lisboa (Xabregas)": {
       "nome": "Dois Palitos",
-      "tipo": "Restaurante Português Moderno",
+      "tipo": "Restaurante Premium",
       "zona": "Lisboa (Xabregas)",
       "morada": "Rua do Grilo 45, 1900-706 Lisboa",
       "email_lead": "doispalitos@gmail.com",
@@ -9698,7 +9698,7 @@
     },
     "nuno::Restaurante 1300 Taberna::Lisboa (Alcântara)": {
       "nome": "Restaurante 1300 Taberna",
-      "tipo": "Tasca Moderna",
+      "tipo": "Tasca & Fado",
       "zona": "Lisboa (Alcântara)",
       "morada": "Rua de Alcântara 1300, 1300-023 Lisboa",
       "email_lead": "reservas@1300taberna.com",
@@ -9724,7 +9724,7 @@
     },
     "nuno::ZeroZero::Lisboa (Rato)": {
       "nome": "ZeroZero",
-      "tipo": "Pizzaria Gourmet",
+      "tipo": "Restaurante Casual",
       "zona": "Lisboa (Rato)",
       "morada": "Rua da Escola Politécnica 32, 1250-099 Lisboa",
       "email_lead": "reservas@zerozero.pt",
@@ -9750,7 +9750,7 @@
     },
     "nuno::Pharmácia::Lisboa (Bairro Alto)": {
       "nome": "Pharmácia",
-      "tipo": "Restaurante Temático",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa (Bairro Alto)",
       "morada": "Rua Marechal Saldanha 1, 1249-069 Lisboa",
       "email_lead": "pharmacy@museudafarmacia.pt",
@@ -9781,7 +9781,7 @@
     },
     "joao::Pharmácia::Lisboa (Santa Catarina)": {
       "nome": "Pharmácia",
-      "tipo": "Restaurante Temático",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa (Santa Catarina)",
       "morada": "Rua Marechal Saldanha 1, 1200-396 Lisboa",
       "email_lead": "pharmacia@pharmacia.pt",
@@ -9807,7 +9807,7 @@
     },
     "joao::O Corvo::Lisboa (Chiado)": {
       "nome": "O Corvo",
-      "tipo": "Taberna Contemporânea",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa (Chiado)",
       "morada": "Calçada do Duque 5, 1200-159 Lisboa",
       "email_lead": "ocorvo@taberna.pt",
@@ -9890,7 +9890,7 @@
     },
     "joao::Restaurante 100 Maneiras::Lisboa (Bairro Alto)": {
       "nome": "Restaurante 100 Maneiras",
-      "tipo": "Restaurante Autor",
+      "tipo": "Restaurante Premium",
       "zona": "Lisboa (Bairro Alto)",
       "morada": "Largo da Academia Nacional de Belas Artes 1, 1200-005 Lisboa",
       "email_lead": "reservas@100maneiras.com",
@@ -9916,7 +9916,7 @@
     },
     "joao::Casa do Pão de Ló de Alfeizerão::Caldas da Rainha": {
       "nome": "Casa do Pão de Ló de Alfeizerão",
-      "tipo": "Pastelaria Regional",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Caldas da Rainha",
       "morada": "Rua 25 de Abril 12, 2460-503 Alfeizerão",
       "email_lead": "paolodeloalfeizerao@gmail.com",
@@ -9947,7 +9947,7 @@
     },
     "joao::Sal Grosso::Lisboa (Cais do Sodré)": {
       "nome": "Sal Grosso",
-      "tipo": "Tasca Contemporânea",
+      "tipo": "Tasca & Fado",
       "zona": "Lisboa (Cais do Sodré)",
       "morada": "Rua da Moeda 1, 1200-307 Lisboa",
       "email_lead": "salgrosso@gmail.com",
@@ -9973,7 +9973,7 @@
     },
     "joao::Café Buenos Aires::Lisboa (Bica)": {
       "nome": "Café Buenos Aires",
-      "tipo": "Café Histórico",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Bica)",
       "morada": "Calçada do Combro 57, 1200-113 Lisboa",
       "email_lead": "cafebuenosaires@gmail.com",
@@ -10087,7 +10087,7 @@
     },
     "oscar::Pastelaria Briosa::Coimbra": {
       "nome": "Pastelaria Briosa",
-      "tipo": "Pastelaria Histórica",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Coimbra",
       "morada": "Rua Padre António Vieira 7, 3000-339 Coimbra",
       "email_lead": "briosa@pastelariabriosa.pt",
@@ -10113,7 +10113,7 @@
     },
     "nuno::Café Nicola::Lisboa (Rossio)": {
       "nome": "Café Nicola",
-      "tipo": "Café Histórico",
+      "tipo": "Café & Brunch",
       "zona": "Lisboa (Rossio)",
       "morada": "Praça Dom Pedro IV 24, 1100-200 Lisboa",
       "email_lead": "cafeni@cafeni.pt",
@@ -10139,7 +10139,7 @@
     },
     "nuno::Mesa de Frades::Lisboa (Alfama)": {
       "nome": "Mesa de Frades",
-      "tipo": "Casa de Fado Premium",
+      "tipo": "Tasca & Fado",
       "zona": "Lisboa (Alfama)",
       "morada": "Rua dos Remédios 139A, 1100-461 Lisboa",
       "email_lead": "mesadefrades@gmail.com",
@@ -10165,7 +10165,7 @@
     },
     "nuno::Bairro do Avillez::Lisboa (Chiado)": {
       "nome": "Bairro do Avillez",
-      "tipo": "Restaurante & Taberna",
+      "tipo": "Restaurante Tradicional",
       "zona": "Lisboa (Chiado)",
       "morada": "Rua Nova da Trindade 18, 1200-303 Lisboa",
       "email_lead": "geral@bairrodoavillez.pt",
@@ -10191,7 +10191,7 @@
     },
     "nuno::Taberna do Largo::Lisboa (Lapa)": {
       "nome": "Taberna do Largo",
-      "tipo": "Tasca Contemporânea",
+      "tipo": "Tasca & Fado",
       "zona": "Lisboa (Lapa)",
       "morada": "Rua de Santana à Lapa 1, 1200-432 Lisboa",
       "email_lead": "tabernadolargo@gmail.com",
@@ -10217,7 +10217,7 @@
     },
     "nuno::Tasca do Chico::Lisboa (Bairro Alto)": {
       "nome": "Tasca do Chico",
-      "tipo": "Fado & Restaurante",
+      "tipo": "Tasca & Fado",
       "zona": "Lisboa (Bairro Alto)",
       "morada": "Rua do Diário de Notícias 39, 1200-143 Lisboa",
       "email_lead": "tascadochico@gmail.com",
@@ -10243,7 +10243,7 @@
     },
     "nuno::Restaurante Aqui Há Peixe::Lisboa (Príncipe Real)": {
       "nome": "Restaurante Aqui Há Peixe",
-      "tipo": "Restaurante de Peixe",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Lisboa (Príncipe Real)",
       "morada": "Rua Trindade Coelho 15, 1200-470 Lisboa",
       "email_lead": "aquihapeixe@gmail.com",
@@ -10269,7 +10269,7 @@
     },
     "nuno::Palácio Chiado::Lisboa (Chiado)": {
       "nome": "Palácio Chiado",
-      "tipo": "Restaurante & Eventos",
+      "tipo": "Catering & Eventos",
       "zona": "Lisboa (Chiado)",
       "morada": "Rua do Alecrim 70, 1200-018 Lisboa",
       "email_lead": "eventos@palaciochiado.pt",
@@ -10321,7 +10321,7 @@
     },
     "joao::Restaurante Azul do Mar::Trafaria": {
       "nome": "Restaurante Azul do Mar",
-      "tipo": "Restaurante de Peixe",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Trafaria",
       "morada": "Rua da Praia 56, 2825-484 Trafaria",
       "email_lead": "azuldomar@gmail.com",
@@ -10347,7 +10347,7 @@
     },
     "joao::Sea Me::Lisboa (Chiado)": {
       "nome": "Sea Me",
-      "tipo": "Restaurante de Peixe Moderno",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Lisboa (Chiado)",
       "morada": "Rua do Loreto 21, 1200-240 Lisboa",
       "email_lead": "info@seame.pt",
@@ -10373,7 +10373,7 @@
     },
     "joao::A Floresta::Setúbal": {
       "nome": "A Floresta",
-      "tipo": "Pastelaria Artesanal",
+      "tipo": "Pastelaria & Padaria",
       "zona": "Setúbal",
       "morada": "Rua Alexandre Herculano 12, 2900-153 Setúbal",
       "email_lead": "pastafloresta@gmail.com",
@@ -10399,7 +10399,7 @@
     },
     "oscar::O Trovador::Coimbra": {
       "nome": "O Trovador",
-      "tipo": "Restaurante / Fado",
+      "tipo": "Tasca & Fado",
       "zona": "Coimbra",
       "morada": "Largo da Sé Velha 15, 3000-383 Coimbra",
       "email_lead": "otrovador@gmail.com",
@@ -10425,7 +10425,7 @@
     },
     "oscar::Sr. Peixe::Matosinhos": {
       "nome": "Sr. Peixe",
-      "tipo": "Restaurante de Peixe",
+      "tipo": "Restaurante Peixe & Marisco",
       "zona": "Matosinhos",
       "morada": "Rua de Augusto Gomes 83, 4450-070 Matosinhos",
       "email_lead": "srpeixe@gmail.com",
@@ -10451,7 +10451,7 @@
     },
     "oscar::Café Guarany::Porto (Aliados)": {
       "nome": "Café Guarany",
-      "tipo": "Café / Restaurante Histórico",
+      "tipo": "Café & Brunch",
       "zona": "Porto (Aliados)",
       "morada": "Avenida dos Aliados 85-89, 4000-067 Porto",
       "email_lead": "cafeguarany@cafeguarany.com",
@@ -10477,7 +10477,7 @@
     },
     "oscar::A Toca do Senhor Vinho::Aveiro": {
       "nome": "A Toca do Senhor Vinho",
-      "tipo": "Adega / Taberna",
+      "tipo": "Restaurante Tradicional",
       "zona": "Aveiro",
       "morada": "Rua de Ferreira de Castro 12, 3800-125 Aveiro",
       "email_lead": "toca.senhirvinho@gmail.com",
@@ -10503,7 +10503,7 @@
     },
     "oscar::Café Santa Cruz::Coimbra": {
       "nome": "Café Santa Cruz",
-      "tipo": "Café Histórico",
+      "tipo": "Café & Brunch",
       "zona": "Coimbra",
       "morada": "Praça 8 de Maio 1, 3000-300 Coimbra",
       "email_lead": "cafesantacruz@gmail.com",
@@ -10529,7 +10529,7 @@
     },
     "oscar::Restaurante O Mercado (Aveiro)::Aveiro": {
       "nome": "Restaurante O Mercado (Aveiro)",
-      "tipo": "Restaurante Contemporâneo",
+      "tipo": "Restaurante Premium",
       "zona": "Aveiro",
       "morada": "Rua de Coimbra 19, 3800-078 Aveiro",
       "email_lead": "restauranteomercado@gmail.com",
@@ -10555,7 +10555,7 @@
     },
     "oscar::Pedro Lemos::Porto (Foz)": {
       "nome": "Pedro Lemos",
-      "tipo": "Restaurante Fine Dining",
+      "tipo": "Restaurante Premium",
       "zona": "Porto (Foz)",
       "morada": "Rua do Padre Luís Cabral 974, 4150-459 Porto",
       "email_lead": "restaurante@pedrolemos.net",
@@ -10607,7 +10607,7 @@
     },
     "oscar::Taberna dos Frades::Porto (Ribeira)": {
       "nome": "Taberna dos Frades",
-      "tipo": "Taberna / Restaurante Tradicional",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto (Ribeira)",
       "morada": "Rua de Belomonte 89, 4050-093 Porto",
       "email_lead": "tabernadosfrades@gmail.com",
@@ -10633,7 +10633,7 @@
     },
     "oscar::Adega Velha::Porto": {
       "nome": "Adega Velha",
-      "tipo": "Adega / Restaurante",
+      "tipo": "Restaurante Tradicional",
       "zona": "Porto",
       "morada": "Rua de São João 67, 4050-530 Porto",
       "email_lead": "adegavelha.porto@gmail.com",
