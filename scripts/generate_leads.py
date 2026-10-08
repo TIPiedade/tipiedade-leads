@@ -1394,8 +1394,8 @@ def brevo_send(to_email, to_name, subject, html_content, text_content=None, atta
     """Envia email via Brevo HTTP API. Retorna True se OK."""
     api_key = os.environ.get("BREVO_API_KEY","")
     if not api_key:
-        print("[AVISO] BREVO_API_KEY não configurada — email não enviado.")
-        return False
+        print("[ERRO CRÍTICO] BREVO_API_KEY não configurada — nenhum email será enviado.", flush=True)
+        raise SystemExit(1)
 
     payload = {
         "sender": {"name": "Pão de Ló Ti'Piedade", "email": EMAIL_FROM},
@@ -1430,7 +1430,10 @@ def brevo_send(to_email, to_name, subject, html_content, text_content=None, atta
         with urllib.request.urlopen(req) as r:
             return r.status in (200, 201)
     except urllib.error.HTTPError as e:
-        print(f"[Brevo] Erro {e.code}: {e.read().decode()[:300]}")
+        body = e.read().decode()[:400]
+        print(f"[Brevo] Erro HTTP {e.code}: {body}", flush=True)
+        if e.code == 401:
+            raise SystemExit(1)  # chave inválida — falha imediata
         return False
 
 
@@ -1597,8 +1600,13 @@ Ti'Piedade — Sistema de Prospeção
                                corpo_dist, ficheiro)
         print(f"{'✓' if ok else '✗'} Distribuidores → Rui")
 
-        print(f"\n📧 Total nurturing enviado: {enviados_leads} emails às leads | {sem_email} sem email")
+        print(f"\n📧 Total nurturing enviado: {enviados_leads} emails às leads | {sem_email} sem email", flush=True)
         escrever_historico(historico, sha)
+
+        # Falhar explicitamente se havia leads com email mas nenhum foi enviado
+        if sem_email > 0 and enviados_leads == 0:
+            print(f"[ERRO] {sem_email} leads com email disponível mas nenhum envio concluído.", flush=True)
+            raise SystemExit(1)
 
 # ════════════════════════════════════════════════════════════════
 
