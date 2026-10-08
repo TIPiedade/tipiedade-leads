@@ -203,6 +203,25 @@ header {
   background: var(--br); font-size: 13px; color: var(--txt); cursor: pointer;
   flex: 1; min-width: 120px; min-height: 40px;
 }
+.tipo-dropdown { position: relative; flex: none; }
+.tipo-btn {
+  padding: 9px 12px; border: 1px solid var(--borda); border-radius: 8px;
+  background: var(--br); font-size: 12px; color: var(--txt); cursor: pointer;
+  min-height: 40px; white-space: nowrap;
+}
+.tipo-btn.ativo { border-color: var(--cast); background: #fdf6ec; color: var(--cast); font-weight: 600; }
+.tipo-panel {
+  display: none; position: absolute; top: calc(100% + 4px); left: 0; z-index: 200;
+  background: var(--br); border: 1px solid var(--borda); border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12); padding: 8px 4px; min-width: 220px; max-height: 300px; overflow-y: auto;
+}
+.tipo-panel.open { display: block; }
+.tipo-panel label {
+  display: flex; align-items: center; gap: 8px; padding: 7px 12px; cursor: pointer;
+  font-size: 12px; color: var(--txt); border-radius: 6px; white-space: nowrap;
+}
+.tipo-panel label:hover { background: var(--hover, #f5efe6); }
+.tipo-panel input[type=checkbox] { accent-color: var(--cast); width: 14px; height: 14px; flex: none; }
 .search-input {
   padding: 9px 12px; border: 1px solid var(--borda); border-radius: 8px;
   background: var(--br); font-size: 13px; color: var(--txt);
@@ -1132,9 +1151,10 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
         <select class="filter-select" id="filt-zona-nuno" onchange="renderVista('nuno')" style="width:auto;font-size:12px">
           <option value="">Todas as zonas</option>
         </select>
-        <select class="filter-select" id="filt-tipo-nuno" onchange="renderVista('nuno')" style="width:auto;font-size:12px">
-          <option value="">Todos os tipos</option>
-        </select>
+        <div class="tipo-dropdown" id="tipo-dd-nuno">
+          <button class="tipo-btn" onclick="toggleTipoDropdown('nuno',event)" id="tipo-btn-nuno">Todos os tipos ▾</button>
+          <div class="tipo-panel" id="tipo-panel-nuno"></div>
+        </div>
       </div>
       <div id="resumo-nuno" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-nuno"></tbody></table></div>
@@ -1155,9 +1175,10 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
         <select class="filter-select" id="filt-zona-joao" onchange="renderVista('joao')" style="width:auto;font-size:12px">
           <option value="">Todas as zonas</option>
         </select>
-        <select class="filter-select" id="filt-tipo-joao" onchange="renderVista('joao')" style="width:auto;font-size:12px">
-          <option value="">Todos os tipos</option>
-        </select>
+        <div class="tipo-dropdown" id="tipo-dd-joao">
+          <button class="tipo-btn" onclick="toggleTipoDropdown('joao',event)" id="tipo-btn-joao">Todos os tipos ▾</button>
+          <div class="tipo-panel" id="tipo-panel-joao"></div>
+        </div>
       </div>
       <div id="resumo-joao" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-joao"></tbody></table></div>
@@ -1178,9 +1199,10 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
         <select class="filter-select" id="filt-zona-oscar" onchange="renderVista('oscar')" style="width:auto;font-size:12px">
           <option value="">Todas as zonas</option>
         </select>
-        <select class="filter-select" id="filt-tipo-oscar" onchange="renderVista('oscar')" style="width:auto;font-size:12px">
-          <option value="">Todos os tipos</option>
-        </select>
+        <div class="tipo-dropdown" id="tipo-dd-oscar">
+          <button class="tipo-btn" onclick="toggleTipoDropdown('oscar',event)" id="tipo-btn-oscar">Todos os tipos ▾</button>
+          <div class="tipo-panel" id="tipo-panel-oscar"></div>
+        </div>
       </div>
       <div id="resumo-oscar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-oscar"></tbody></table></div>
@@ -2823,13 +2845,39 @@ function popularZonaSelect(vista, allLeads) {
   sel.innerHTML = `<option value="">Todas as zonas</option>` + zonas.map(z=>`<option value="${z}"${z===cur?` selected`:""}>${z}</option>`).join("");
 }
 
-function popularTipoSelect(vista, allLeads) {
-  const sel = document.getElementById(`filt-tipo-${vista}`);
-  if (!sel) return;
-  const cur = sel.value;
-  const tipos = [...new Set(allLeads.map(([k,v])=>v.tipologia_cliente||"").filter(Boolean))].sort();
-  sel.innerHTML = `<option value="">Todos os tipos</option>` + tipos.map(t=>`<option value="${t}"${t===cur?` selected`:""}>${t}</option>`).join("");
+function getTiposSelecionados(vista) {
+  const panel = document.getElementById(`tipo-panel-${vista}`);
+  if (!panel) return [];
+  return [...panel.querySelectorAll('input[type=checkbox]:checked')].map(c=>c.value);
 }
+
+function popularTipoSelect(vista, allLeads) {
+  const panel = document.getElementById(`tipo-panel-${vista}`);
+  const btn   = document.getElementById(`tipo-btn-${vista}`);
+  if (!panel) return;
+  const cur = getTiposSelecionados(vista);
+  const tipos = [...new Set(allLeads.map(([k,v])=>v.tipologia_cliente||"").filter(Boolean))].sort();
+  panel.innerHTML = tipos.map(t=>`<label><input type="checkbox" value="${t}"${cur.includes(t)?' checked':''}  onchange="renderVista('${vista}')">${t}</label>`).join("");
+  // Actualizar label do botão
+  if (btn) {
+    const sel = getTiposSelecionados(vista);
+    btn.textContent = sel.length === 0 ? "Todos os tipos ▾" : sel.length === 1 ? sel[0]+" ▾" : `${sel.length} tipos ▾`;
+    btn.classList.toggle("ativo", sel.length > 0);
+  }
+}
+
+function toggleTipoDropdown(vista, e) {
+  e.stopPropagation();
+  const panel = document.getElementById(`tipo-panel-${vista}`);
+  if (!panel) return;
+  const isOpen = panel.classList.contains("open");
+  // Fechar todos
+  document.querySelectorAll(".tipo-panel").forEach(p=>p.classList.remove("open"));
+  if (!isOpen) panel.classList.add("open");
+}
+
+// Fechar dropdown ao clicar fora
+document.addEventListener("click", ()=>document.querySelectorAll(".tipo-panel").forEach(p=>p.classList.remove("open")));
 
 function renderVista(vista) {
   if (vista === "ana") { renderVistaAna(); return; }
@@ -2837,7 +2885,7 @@ function renderVista(vista) {
   const canalRui  = document.getElementById("filt-canal-rui")?.value||"";
   const estadoFilt= document.getElementById(`filt-estado-${vista}`)?.value||"";
   const zonaFilt  = document.getElementById(`filt-zona-${vista}`)?.value||"";
-  const tipoFilt  = document.getElementById(`filt-tipo-${vista}`)?.value||"";
+  const tipoFilt  = getTiposSelecionados(vista);
   const tbody     = document.getElementById(`tbody-${vista}`);
   if (!tbody) return;
 
@@ -2870,7 +2918,7 @@ function renderVista(vista) {
     (!search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search)) &&
     (!estadoFilt || (v.estado||"Em aberto") === estadoFilt) &&
     (!zonaFilt || (v.zona||"") === zonaFilt) &&
-    (!tipoFilt || (v.tipologia_cliente||"") === tipoFilt)
+    (!tipoFilt.length || tipoFilt.includes(v.tipologia_cliente||""))
   );
 
   // ── Resumo rápido por estado (para vistas de comercial) ────
