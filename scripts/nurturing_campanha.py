@@ -9,7 +9,8 @@ CRM (scripts/email_crm.py).
 Variáveis de ambiente:
   CAMPANHA       nome da campanha (obrigatório)
   EMAIL_NUM      número do email da sequência (1–4, por omissão 1)
-  ENVIAR         "sim" envia; qualquer outro valor só lista (ensaio)
+  ENVIAR         "sim" envia às leads; "teste" envia um único exemplo só para EMAIL_RUI
+                 (sem registar nada); qualquer outro valor só lista (ensaio)
   BREVO_API_KEY, GITHUB_TOKEN, GITHUB_REPOSITORY, EMAIL_RUI — como no generate_leads.py
 """
 import os, sys, time
@@ -20,7 +21,9 @@ import email_crm
 
 CAMPANHA  = os.environ.get("CAMPANHA", "").strip()
 EMAIL_NUM = int(os.environ.get("EMAIL_NUM", "1") or 1)
-ENVIAR    = os.environ.get("ENVIAR", "nao").strip().lower() == "sim"
+MODO_ENVIO = os.environ.get("ENVIAR", "nao").strip().lower()
+ENVIAR    = MODO_ENVIO == "sim"
+TESTE     = MODO_ENVIO == "teste"
 
 
 def emails_validos(campo):
@@ -52,13 +55,23 @@ def main():
     historico, _ = g.ler_historico()
     sel = selecionar(historico)
     grupo_assunto = g.ASSUNTOS["catering"].get(EMAIL_NUM, "")
-    print(f"▶ Campanha {CAMPANHA} — Email {EMAIL_NUM} — {len(sel)} destinatários — {'ENVIO' if ENVIAR else 'ENSAIO (nada é enviado)'}", flush=True)
+    print(f"▶ Campanha {CAMPANHA} — Email {EMAIL_NUM} — {len(sel)} destinatários — {'ENVIO' if ENVIAR else ('TESTE (só para ' + g.EMAIL_RUI + ')' if TESTE else 'ENSAIO (nada é enviado)')}", flush=True)
     for k, v in sel:
         print(f"  {v.get('comercial',''):6} | {v['nome']} → {v['email_lead']}", flush=True)
     # Mesmo no ensaio, gerar o email para confirmar que a base do CRM está em ordem
     for grupo in sorted({g.tipologia_grupo(v.get("tipo", "") + " " + v.get("tipologia_cliente", "")) for _, v in sel}):
         email_crm.html_email(grupo, EMAIL_NUM)
         print(f"  ✓ email {EMAIL_NUM} ({grupo}) gerado com a base do CRM", flush=True)
+    if TESTE and sel:
+        k, v = sel[0]
+        grupo = g.tipologia_grupo(v.get("tipo", "") + " " + v.get("tipologia_cliente", ""))
+        assunto = g.ASSUNTOS.get(grupo, g.ASSUNTOS["restaurante"]).get(EMAIL_NUM, "")
+        html = email_crm.html_email(grupo, EMAIL_NUM)
+        ok = g.brevo_send(g.EMAIL_RUI, "Teste campanha", f"[TESTE] {assunto} | Ti'Piedade", html, email_crm.texto_email(html))
+        print(f"  {'✓' if ok else '✗'} teste enviado para {g.EMAIL_RUI} (nada registado no CRM)", flush=True)
+        if not ok:
+            raise SystemExit(1)
+        return
     if not ENVIAR or not sel:
         return
 

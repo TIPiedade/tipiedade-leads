@@ -12,7 +12,7 @@ on:
         required: true
         default: '1'
       enviar:
-        description: 'Escreve "sim" para enviar. Outro valor só lista os destinatários.'
+        description: '"sim" envia às leads; "teste" envia um exemplo só para sales@; outro valor só lista.'
         required: true
         default: 'nao'
 
