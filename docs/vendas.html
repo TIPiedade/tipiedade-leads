@@ -2871,14 +2871,15 @@ function renderInactiveClientsSection(agg, rows){
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(url);},5000);
   }
   window.partilharFicheiro = async function(blob, nome){
-    var txt='Análise Administração · Ti’Piedade — '+nome.replace(/_/g,' ').replace('.html','')+'\nAbre o ficheiro em anexo no browser (no iPhone: Partilhar → Guardar em Ficheiros → abrir no Safari).';
+    var txt=’Análise Administração · Ti’Piedade — ‘+nome.replace(/_/g,’ ‘).replace(‘.html’,’’)+’\nAbre o ficheiro em anexo no browser (no iPhone: Partilhar → Guardar em Ficheiros → abrir no Safari).’;
+    var isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
     try{
-      var f=new File([blob], nome, {type:'text/html'});
-      if(navigator.canShare && navigator.canShare({files:[f]})){
-        await navigator.share({files:[f], title:'Análise Administração', text:txt});
+      var f=new File([blob], nome, {type:’text/html’});
+      if(isMobile && navigator.canShare && navigator.canShare({files:[f]})){
+        await navigator.share({files:[f], title:’Análise Administração’, text:txt});
         return;
       }
-    }catch(e){ if(e && e.name==='AbortError') return; }
+    }catch(e){ if(e && e.name===’AbortError’) return; }
     descarregar(blob, nome);
     painel('<b style="font-size:15px">Ficheiro guardado</b>'
       +'<p style="margin:8px 0 0;color:#6b625c">O <b>'+nome+'</b> foi para a pasta de transferências. O WhatsApp não deixa anexar ficheiros a partir de uma página, por isso tens de o anexar na conversa.</p>'
