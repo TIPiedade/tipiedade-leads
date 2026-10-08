@@ -1084,6 +1084,7 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
         </div>
       </div>
       <div id="dash-por-comercial"></div>
+      <div id="dash-nurturing-funil" style="margin-top:8px"></div>
       <div id="dash-pool-alerta" style="margin-top:8px"></div>
       <div id="dash-ultimo-envio" style="margin-top:8px"></div>
     </div>
@@ -2975,6 +2976,44 @@ function renderDashboard() {
     </div>`;
   }).join("");
   document.getElementById("dash-por-comercial").innerHTML=`<div style="background:var(--br);border:1px solid var(--borda);border-radius:14px;padding:16px 20px"><h4 style="font-family:'Playfair Display',serif;font-size:14px;color:var(--cast);margin-bottom:12px">Por comercial</h4><div style="display:flex;flex-wrap:wrap">${html}</div></div>`;
+
+  // ── Funil de nurturing por etapa ───────────────────────────
+  const funilDiv = document.getElementById("dash-nurturing-funil");
+  if (funilDiv) {
+    const nurLeads = ls.filter(([k,v])=>(v.emails_enviados||[]).length>0 && v.estado!=="Cliente" && v.estado!=="Desistiu" && v.estado!=="N/A");
+    const n0 = ls.filter(([k,v])=>(v.emails_enviados||[]).length===0 && v.estado!=="Cliente" && v.estado!=="Desistiu" && v.estado!=="N/A").length;
+    const n1 = nurLeads.filter(([k,v])=>(v.emails_enviados||[]).length===1).length;
+    const n2 = nurLeads.filter(([k,v])=>(v.emails_enviados||[]).length===2).length;
+    const n3 = nurLeads.filter(([k,v])=>(v.emails_enviados||[]).length===3).length;
+    const n4 = ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4 && v.estado!=="Cliente" && v.estado!=="Desistiu" && v.estado!=="N/A").length;
+    const totalAtivos = n1+n2+n3+n4;
+    const etapas = [
+      {label:"Email 1 enviado",n:n1,cor:"#3b82f6"},
+      {label:"Email 2 enviado",n:n2,cor:"#8b5cf6"},
+      {label:"Email 3 enviado",n:n3,cor:"#f59e0b"},
+      {label:"Email 4 enviado",n:n4,cor:"#10b981"},
+    ];
+    const bars = etapas.map(e=>{
+      const pct = totalAtivos ? Math.round(e.n/totalAtivos*100) : 0;
+      return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <div style="width:120px;font-size:11px;color:var(--txt2);text-align:right">${e.label}</div>
+        <div style="flex:1;background:var(--cinza-bg);border-radius:99px;height:14px;overflow:hidden">
+          <div style="width:${pct||0}%;background:${e.cor};height:100%;border-radius:99px;min-width:${e.n>0?'6px':'0'}"></div>
+        </div>
+        <div style="width:40px;font-size:12px;font-weight:700;color:var(--cast)">${e.n}</div>
+      </div>`;
+    }).join("");
+    funilDiv.innerHTML=`<div style="background:var(--br);border:1px solid var(--borda);border-radius:14px;padding:16px 20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <h4 style="font-family:'Playfair Display',serif;font-size:14px;color:var(--cast);margin:0">Funil de Nurturing</h4>
+        <div style="display:flex;gap:12px">
+          <span style="font-size:11px;color:var(--txt2)">🕓 <b style="color:var(--cast)">${totalAtivos}</b> ativos</span>
+          <span style="font-size:11px;color:var(--txt2)">📭 <b style="color:var(--cast)">${n0}</b> por iniciar</span>
+        </div>
+      </div>
+      ${bars}
+    </div>`;
+  }
 
   // ── Alerta pool esgotado (melhoria 7) ───────────────────────
   const poolDiv = document.getElementById("dash-pool-alerta");
