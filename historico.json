@@ -1975,6 +1975,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -2087,6 +2092,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -2356,7 +2366,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -2407,6 +2423,11 @@
           "num": 1,
           "data": "2026-09-18",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -3935,7 +3956,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -4455,6 +4482,11 @@
           "num": 1,
           "data": "2026-09-18",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -4572,7 +4604,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -4618,7 +4656,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -4755,6 +4799,11 @@
           "num": 3,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -5016,7 +5065,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -5612,6 +5667,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5638,6 +5698,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5715,6 +5780,11 @@
           "num": 1,
           "data": "2026-09-23",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5839,6 +5909,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5900,7 +5975,13 @@
       "semana_entrada": 33,
       "data_entrada": "2026-08-19",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -5976,6 +6057,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -6116,6 +6202,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -6173,7 +6264,13 @@
       "semana_entrada": 33,
       "data_entrada": "2026-08-19",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -6203,6 +6300,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -6286,6 +6388,11 @@
           "num": 2,
           "data": "2026-09-23",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -9044,6 +9151,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9574,6 +9686,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9652,6 +9769,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9730,6 +9852,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9808,6 +9935,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9912,6 +10044,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9938,6 +10075,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9957,6 +10099,552 @@
       "tipologia_cliente": "Pastelaria Histórica",
       "gancho": "Pastelaria de referência em Coimbra. Complementar a oferta com pão de ló artesanal premium.",
       "semana_entrada": 40,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Café Nicola::Lisboa (Rossio)": {
+      "nome": "Café Nicola",
+      "tipo": "Café Histórico",
+      "zona": "Lisboa (Rossio)",
+      "morada": "Praça Dom Pedro IV 24, 1100-200 Lisboa",
+      "email_lead": "cafeni@cafeni.pt",
+      "tel": "213 460 579",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Café Histórico / Turismo",
+      "gancho": "Ícone cultural de Lisboa — pão de ló artesanal com 40 anos de receita encaixa na narrativa histórica.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Mesa de Frades::Lisboa (Alfama)": {
+      "nome": "Mesa de Frades",
+      "tipo": "Casa de Fado Premium",
+      "zona": "Lisboa (Alfama)",
+      "morada": "Rua dos Remédios 139A, 1100-461 Lisboa",
+      "email_lead": "mesadefrades@gmail.com",
+      "tel": "917 029 436",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Casa de Fado Premium",
+      "gancho": "Espaço premium em antiga ermida — sobremesa artesanal convencional encaixa na experiência única.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Bairro do Avillez::Lisboa (Chiado)": {
+      "nome": "Bairro do Avillez",
+      "tipo": "Restaurante & Taberna",
+      "zona": "Lisboa (Chiado)",
+      "morada": "Rua Nova da Trindade 18, 1200-303 Lisboa",
+      "email_lead": "geral@bairrodoavillez.pt",
+      "tel": "215 830 290",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Premium",
+      "gancho": "José Avillez valoriza produto artesanal nacional — pão de ló Ti'Piedade como sobremesa âncora.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Taberna do Largo::Lisboa (Lapa)": {
+      "nome": "Taberna do Largo",
+      "tipo": "Tasca Contemporânea",
+      "zona": "Lisboa (Lapa)",
+      "morada": "Rua de Santana à Lapa 1, 1200-432 Lisboa",
+      "email_lead": "tabernadolargo@gmail.com",
+      "tel": "213 932 622",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Tasca Contemporânea",
+      "gancho": "Lapa residencial e turística — menu de qualidade com produto nacional em destaque.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Tasca do Chico::Lisboa (Bairro Alto)": {
+      "nome": "Tasca do Chico",
+      "tipo": "Fado & Restaurante",
+      "zona": "Lisboa (Bairro Alto)",
+      "morada": "Rua do Diário de Notícias 39, 1200-143 Lisboa",
+      "email_lead": "tascadochico@gmail.com",
+      "tel": "961 339 696",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante / Casa de Fado",
+      "gancho": "Experiência cultural portuguesa completa — pão de ló como sobremesa de fecho da noite de fado.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Restaurante Aqui Há Peixe::Lisboa (Príncipe Real)": {
+      "nome": "Restaurante Aqui Há Peixe",
+      "tipo": "Restaurante de Peixe",
+      "zona": "Lisboa (Príncipe Real)",
+      "morada": "Rua Trindade Coelho 15, 1200-470 Lisboa",
+      "email_lead": "aquihapeixe@gmail.com",
+      "tel": "213 432 154",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante de Peixe & Marisco",
+      "gancho": "Peixe fresco e produto nacional — sobremesa doce e leve após o marisco é o fecho ideal.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Palácio Chiado::Lisboa (Chiado)": {
+      "nome": "Palácio Chiado",
+      "tipo": "Restaurante & Eventos",
+      "zona": "Lisboa (Chiado)",
+      "morada": "Rua do Alecrim 70, 1200-018 Lisboa",
+      "email_lead": "eventos@palaciochiado.pt",
+      "tel": "213 460 491",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante & Espaço de Eventos",
+      "gancho": "Eventos corporativos e casamentos — dose individual congelada elimina desperdício em banquetes.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::Snack Bar Aquário::Barreiro": {
+      "nome": "Snack Bar Aquário",
+      "tipo": "Restaurante Tradicional",
+      "zona": "Barreiro",
+      "morada": "Avenida 25 de Abril 45, 2830-152 Barreiro",
+      "email_lead": "aquario.barreiro@gmail.com",
+      "tel": "212 076 520",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Tradicional",
+      "gancho": "Refeições rápidas e menu diário. Sobremesa congelada com zero quebra ideal para rotação alta.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::Restaurante Azul do Mar::Trafaria": {
+      "nome": "Restaurante Azul do Mar",
+      "tipo": "Restaurante de Peixe",
+      "zona": "Trafaria",
+      "morada": "Rua da Praia 56, 2825-484 Trafaria",
+      "email_lead": "azuldomar@gmail.com",
+      "tel": "212 951 230",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante de Peixe",
+      "gancho": "Peixe fresco de Trafaria. Sobremesa artesanal complementa menu de mar com valor acrescentado.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::Sea Me::Lisboa (Chiado)": {
+      "nome": "Sea Me",
+      "tipo": "Restaurante de Peixe Moderno",
+      "zona": "Lisboa (Chiado)",
+      "morada": "Rua do Loreto 21, 1200-240 Lisboa",
+      "email_lead": "info@seame.pt",
+      "tel": "213 461 564",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante de Peixe Moderno",
+      "gancho": "Peixe de qualidade. Sobremesa tradicional como contraponto ao menu de peixe sofisticado.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::A Floresta::Setúbal": {
+      "nome": "A Floresta",
+      "tipo": "Pastelaria Artesanal",
+      "zona": "Setúbal",
+      "morada": "Rua Alexandre Herculano 12, 2900-153 Setúbal",
+      "email_lead": "pastafloresta@gmail.com",
+      "tel": "265 523 140",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Pastelaria Artesanal",
+      "gancho": "Pastelaria de referência local. Pão de ló Ti'Piedade complementa oferta de pastelaria artesanal.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::O Trovador::Coimbra": {
+      "nome": "O Trovador",
+      "tipo": "Restaurante / Fado",
+      "zona": "Coimbra",
+      "morada": "Largo da Sé Velha 15, 3000-383 Coimbra",
+      "email_lead": "otrovador@gmail.com",
+      "tel": "239 825 475",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante / Fado",
+      "gancho": "Fado de Coimbra com jantar. Sobremesa portuguesa artesanal fecha experiência cultural.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Sr. Peixe::Matosinhos": {
+      "nome": "Sr. Peixe",
+      "tipo": "Restaurante de Peixe",
+      "zona": "Matosinhos",
+      "morada": "Rua de Augusto Gomes 83, 4450-070 Matosinhos",
+      "email_lead": "srpeixe@gmail.com",
+      "tel": "229 375 240",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante de Peixe",
+      "gancho": "Marisco e peixe fresco. Sobremesa artesanal portuguesa como alternativa diferenciadora.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Café Guarany::Porto (Aliados)": {
+      "nome": "Café Guarany",
+      "tipo": "Café / Restaurante Histórico",
+      "zona": "Porto (Aliados)",
+      "morada": "Avenida dos Aliados 85-89, 4000-067 Porto",
+      "email_lead": "cafeguarany@cafeguarany.com",
+      "tel": "222 010 272",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Café Histórico",
+      "gancho": "Ícone do Porto. Pão de ló artesanal Ti'Piedade como sobremesa histórica portuguesa.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::A Toca do Senhor Vinho::Aveiro": {
+      "nome": "A Toca do Senhor Vinho",
+      "tipo": "Adega / Taberna",
+      "zona": "Aveiro",
+      "morada": "Rua de Ferreira de Castro 12, 3800-125 Aveiro",
+      "email_lead": "toca.senhirvinho@gmail.com",
+      "tel": "234 424 890",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Adega Tradicional",
+      "gancho": "Vinhos a copo e petiscos. Pão de ló com vinho generoso é proposta de fecho premium.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Café Santa Cruz::Coimbra": {
+      "nome": "Café Santa Cruz",
+      "tipo": "Café Histórico",
+      "zona": "Coimbra",
+      "morada": "Praça 8 de Maio 1, 3000-300 Coimbra",
+      "email_lead": "cafesantacruz@gmail.com",
+      "tel": "239 833 617",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Café Histórico",
+      "gancho": "Café histórico no ex-convento. Pão de ló artesanal como produto histórico regional.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Restaurante O Mercado (Aveiro)::Aveiro": {
+      "nome": "Restaurante O Mercado (Aveiro)",
+      "tipo": "Restaurante Contemporâneo",
+      "zona": "Aveiro",
+      "morada": "Rua de Coimbra 19, 3800-078 Aveiro",
+      "email_lead": "restauranteomercado@gmail.com",
+      "tel": "234 383 512",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Contemporâneo",
+      "gancho": "Restaurante contemporâneo em Aveiro. Pão de ló artesanal de Alcobaça com história regional.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Pedro Lemos::Porto (Foz)": {
+      "nome": "Pedro Lemos",
+      "tipo": "Restaurante Fine Dining",
+      "zona": "Porto (Foz)",
+      "morada": "Rua do Padre Luís Cabral 974, 4150-459 Porto",
+      "email_lead": "restaurante@pedrolemos.net",
+      "tel": "220 115 986",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Fine Dining",
+      "gancho": "Único Michelin no Porto. Propor pão de ló artesanal como elemento de sobremesa autoral.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Restaurante Democrática::Coimbra": {
+      "nome": "Restaurante Democrática",
+      "tipo": "Restaurante Tradicional",
+      "zona": "Coimbra",
+      "morada": "Travessa da Rua Nova 7, 3000-329 Coimbra",
+      "email_lead": "rdemocrática@gmail.com",
+      "tel": "239 823 784",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Tradicional",
+      "gancho": "Cozinha tradicional da região de Coimbra. Pão de ló artesanal com história local.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Taberna dos Frades::Porto (Ribeira)": {
+      "nome": "Taberna dos Frades",
+      "tipo": "Taberna / Restaurante Tradicional",
+      "zona": "Porto (Ribeira)",
+      "morada": "Rua de Belomonte 89, 4050-093 Porto",
+      "email_lead": "tabernadosfrades@gmail.com",
+      "tel": "222 088 380",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Taberna Tradicional",
+      "gancho": "Espaço com história e charme. Sobremesa portuguesa artesanal para fechar refeição.",
+      "semana_entrada": 41,
+      "data_entrada": "2026-10-08",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Adega Velha::Porto": {
+      "nome": "Adega Velha",
+      "tipo": "Adega / Restaurante",
+      "zona": "Porto",
+      "morada": "Rua de São João 67, 4050-530 Porto",
+      "email_lead": "adegavelha.porto@gmail.com",
+      "tel": "222 056 781",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Adega Tradicional",
+      "gancho": "Vinhos a copo e refeição. Pão de ló com vinho do Porto é proposta premium de fecho.",
+      "semana_entrada": 41,
       "data_entrada": "2026-10-08",
       "estado": "Em aberto",
       "emails_enviados": [
