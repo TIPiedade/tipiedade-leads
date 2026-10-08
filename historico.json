@@ -10672,12 +10672,27 @@
       "gancho": "Quinta com catering próprio: pão de ló individual para mesa de doces, welcome kits e lembranças dos noivos — stock congelado, pronto a servir em qualquer volume.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Quintas com catering próprio, grande volume. Desde 50 €/convidado. Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-dos-pizoes--e76528",
       "campanha": "casamentos-2026",
-      "website": "https://quintadepizoes.pt/"
+      "website": "https://quintadepizoes.pt/",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "nuno::Quinta do Pé da Serra::Colares": {
       "nome": "Quinta do Pé da Serra",
@@ -10694,12 +10709,27 @@
       "gancho": "Quinta com catering próprio: pão de ló individual para mesa de doces, welcome kits e lembranças dos noivos — stock congelado, pronto a servir em qualquer volume.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Quinta de casamentos com catering muito bem avaliado. Contactos: Mariana e José. Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-do-pe-da-serra--e50879",
       "campanha": "casamentos-2026",
-      "website": "https://quintadopedaserra.com/"
+      "website": "https://quintadopedaserra.com/",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "nuno::Manuel Esteves Catering::Carcavelos": {
       "nome": "Manuel Esteves Catering",
@@ -10716,12 +10746,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. +30 anos, segmento alto. 84–120 €/convidado, 100+ convidados. Perfil: https://www.casamentos.pt/catering-casamentos/manuel-esteves-catering--e148127",
       "campanha": "casamentos-2026",
-      "website": "https://quintadosgafanhotos.pt/"
+      "website": "https://quintadosgafanhotos.pt/",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "nuno::DT Catering::Cascais": {
       "nome": "DT Catering",
@@ -10759,12 +10804,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus à medida com bar. Desde 40 €/convidado, 40–2000. Perfil: https://www.casamentos.pt/catering-casamentos/e-novaes-catering--e146321",
       "campanha": "casamentos-2026",
-      "website": "https://enovaescatering.com/"
+      "website": "https://enovaescatering.com/",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "nuno::Biscaia Catering & Eventos::Cascais": {
       "nome": "Biscaia Catering & Eventos",
@@ -10781,12 +10841,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Empresa familiar. Desde 30 €/convidado, 20–350. Perfil: https://www.casamentos.pt/catering-casamentos/biscaia-catering-&-eventos--e176383",
       "campanha": "casamentos-2026",
-      "website": "https://www.biscaiacateringeventos.com/"
+      "website": "https://www.biscaiacateringeventos.com/",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "nuno::Estoril House::Estoril": {
       "nome": "Estoril House",
@@ -10826,12 +10901,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering de autor para casamentos. 20–200 convidados. Perfil: https://www.casamentos.pt/catering-casamentos/papas-boas--e115352",
       "campanha": "casamentos-2026",
-      "website": "https://papasboas.pt/"
+      "website": "https://papasboas.pt/",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "nuno::Caiz – Events & Catering::Cascais": {
       "nome": "Caiz – Events & Catering",
@@ -10932,12 +11022,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering do grupo Penha Longa, premium. Perfil: https://www.casamentos.pt/catering-casamentos/sintra",
       "campanha": "casamentos-2026",
-      "website": "https://www.penhalongacatering.com/en/"
+      "website": "https://www.penhalongacatering.com/en/",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "nuno::Central Noivos::Colares": {
       "nome": "Central Noivos",
@@ -10975,12 +11080,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Grande operador nacional. Decisão centralizada. Perfil: https://www.casadomarques.pt/en",
       "campanha": "casamentos-2026",
-      "website": "https://www.casadomarques.pt/"
+      "website": "https://www.casadomarques.pt/",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "nuno::Alinne Catering Co::São Domingos de Rana": {
       "nome": "Alinne Catering Co",
@@ -11019,11 +11139,26 @@
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
       "estado": "Cliente",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering de casamentos com decoração; 4,7★ (109 opiniões). Desde 95 €/convidado, 30–1000. Perfil: https://www.casamentos.pt/catering-casamentos/tempero-de-alegria-catering--e90275",
       "campanha": "casamentos-2026",
-      "website": "https://www.temperodealegria.com"
+      "website": "https://www.temperodealegria.com",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "joao::Catering Galhetas::Setúbal": {
       "nome": "Catering Galhetas",
@@ -11171,12 +11306,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Experiências gastronómicas para casamentos. Desde 80 €/convidado, 80–300. Perfil: https://www.casamentos.pt/catering-casamentos/casa-celmar--e153953",
       "campanha": "casamentos-2026",
-      "website": "https://casacelmar.com"
+      "website": "https://casacelmar.com",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "joao::Bravo Lombardo Catering & Eventos::Setúbal": {
       "nome": "Bravo Lombardo Catering & Eventos",
@@ -11320,12 +11470,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Catering da Fundação Inatel; decisão possivelmente centralizada. Perfil: https://www.casamentos.pt/catering-casamentos/catering-inatel--e112220",
       "campanha": "casamentos-2026",
-      "website": "https://hoteis.inatel.pt/pt/Menu/Hoteis-Alojamento/Praia/Caparica/Inatel-Caparica.aspx"
+      "website": "https://hoteis.inatel.pt/pt/Menu/Hoteis-Alojamento/Praia/Caparica/Inatel-Caparica.aspx",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "joao::Gabby'stro::Seixal": {
       "nome": "Gabby'stro",
@@ -11384,12 +11549,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. 20 anos, do menu à decoração. Desde 120 €/convidado, 100–3000. Perfil: https://www.casamentos.pt/catering-casamentos/so-catering--e125819",
       "campanha": "casamentos-2026",
-      "website": "https://socatering.pt"
+      "website": "https://socatering.pt",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Duplos Gemini Catering::Matosinhos": {
       "nome": "Duplos Gemini Catering",
@@ -11406,12 +11586,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus à medida, equipa de banquetes. Desde 65 €/convidado, até 1200. Perfil: https://www.casamentos.pt/catering-casamentos/duplos-gemini-catering--e76740",
       "campanha": "casamentos-2026",
-      "website": "https://www.duplosgemini.com"
+      "website": "https://www.duplosgemini.com",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Gémeos Catering::Matosinhos": {
       "nome": "Gémeos Catering",
@@ -11471,12 +11666,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Banquetes para grandes casamentos. Desde 65 €/convidado, 80–3000. Perfil: https://www.casamentos.pt/catering-casamentos/francisco-vieira--e76215",
       "campanha": "casamentos-2026",
-      "website": "https://franciscovieiracatering.com"
+      "website": "https://franciscovieiracatering.com",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Premier Service::Vila Nova de Gaia": {
       "nome": "Premier Service",
@@ -11493,12 +11703,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering ligado ao Palacete Camarinha. Desde 75 €/convidado, 10–5000. Perfil: https://www.casamentos.pt/catering-casamentos/premier-service--e112446",
       "campanha": "casamentos-2026",
-      "website": "https://premierservice.pt"
+      "website": "https://premierservice.pt",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Tailor Meal – Catering & Food::Porto": {
       "nome": "Tailor Meal – Catering & Food",
@@ -11515,12 +11740,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering completo e personalizado. Desde 40 €/convidado, 50–600. Perfil: https://www.casamentos.pt/catering-casamentos/tailor-meal-catering-&-food--e156641",
       "campanha": "casamentos-2026",
-      "website": "https://www.tailormeal.pt"
+      "website": "https://www.tailormeal.pt",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Jubilénio Catering::Vila Nova de Gaia": {
       "nome": "Jubilénio Catering",
@@ -11579,12 +11819,27 @@
       "gancho": "Quinta com catering próprio: pão de ló individual para mesa de doces, welcome kits e lembranças dos noivos — stock congelado, pronto a servir em qualquer volume.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Chef Vasco Soares; doces e sobremesas. Desde 60 €/convidado, 30–120. Perfil: https://www.casamentos.pt/catering-casamentos/quintas-&-catering--e50985",
       "campanha": "casamentos-2026",
-      "website": "https://www.quintasecatering.com"
+      "website": "https://www.quintasecatering.com",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::José Antunes Catering e Eventos::Amares": {
       "nome": "José Antunes Catering e Eventos",
@@ -11623,12 +11878,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Focado em casamentos, todo o Norte. Desde 65 €/convidado, 30–600. Perfil: https://www.casamentos.pt/catering-casamentos/casa-gil-eventos--e107443",
       "campanha": "casamentos-2026",
-      "website": "https://cateringcasagil.com"
+      "website": "https://cateringcasagil.com",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Inícios & Costumes::Braga": {
       "nome": "Inícios & Costumes",
@@ -11688,12 +11958,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Menus de casamento. Desde 60 €/convidado, 50–150. Perfil: https://www.casamentos.pt/catering-casamentos/maria-silva-catering-eventos--e163447",
       "campanha": "casamentos-2026",
-      "website": "https://mariasilvacatering.com"
+      "website": "https://mariasilvacatering.com",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Prestígio Catering::Braga": {
       "nome": "Prestígio Catering",
@@ -11753,12 +12038,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Segmento alto. Desde 120 €/convidado, 60–300. Perfil: https://www.casamentos.pt/catering-casamentos/sending-love--e166393",
       "campanha": "casamentos-2026",
-      "website": "https://sendinglove.pt"
+      "website": "https://sendinglove.pt",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Pedrinhas Catering::Guimarães": {
       "nome": "Pedrinhas Catering",
@@ -11775,12 +12075,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Espaço próprio e grande capacidade. Desde 65 €/convidado, 50–1000. Perfil: https://www.casamentos.pt/catering-casamentos/pedrinhas-catering--e107397",
       "campanha": "casamentos-2026",
-      "website": "https://restaurantepedrinhas.com"
+      "website": "https://restaurantepedrinhas.com",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Penha Eventos::Guimarães": {
       "nome": "Penha Eventos",
@@ -11862,12 +12177,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. +30 anos, cozinha tradicional. Desde 75 €/convidado, 60–500. Perfil: https://www.casamentos.pt/catering-casamentos/catering-do-nacional--e122145",
       "campanha": "casamentos-2026",
-      "website": "https://www.restaurantenacional.pt"
+      "website": "https://www.restaurantenacional.pt",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Iguarias Sábias::Cantanhede": {
       "nome": "Iguarias Sábias",
@@ -11884,12 +12214,27 @@
       "gancho": "Casamentos: pão de ló em dose individual congelada para a mesa de doces e a sobremesa do copo-d'água — porção certa, sem desperdício, receita tradicional com 3 gerações.",
       "semana_entrada": 41,
       "data_entrada": "2026-10-08",
-      "estado": "Em aberto",
-      "emails_enviados": [],
+      "estado": "Contactado",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-08",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Grande capacidade. Desde 60 €/convidado, 100–10000. Perfil: https://www.casamentos.pt/catering-casamentos/iguarias-sabias--e107094",
       "campanha": "casamentos-2026",
-      "website": "https://www.iguariascatering.pt"
+      "website": "https://www.iguariascatering.pt",
+      "actividade": [
+        {
+          "tipo": "email",
+          "label": "Email 1 de nurturing enviado",
+          "nota": "Campanha casamentos-2026",
+          "data": "2026-10-08",
+          "hora": "16:52"
+        }
+      ]
     },
     "oscar::Memórias & Detalhes::Coimbra": {
       "nome": "Memórias & Detalhes",
