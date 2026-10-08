@@ -10662,8 +10662,8 @@
       "tipo": "Catering & Eventos",
       "zona": "Colares",
       "morada": "Colares",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@vitorcerqueira.pt",
+      "tel": "219 151 572 / 965 134 949",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10675,15 +10675,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Quintas com catering próprio, grande volume. Desde 50 €/convidado. Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-dos-pizoes--e76528"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Quintas com catering próprio, grande volume. Desde 50 €/convidado. Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-dos-pizoes--e76528",
+      "campanha": "casamentos-2026",
+      "website": "https://quintadepizoes.pt/"
     },
     "nuno::Quinta do Pé da Serra::Colares": {
       "nome": "Quinta do Pé da Serra",
       "tipo": "Catering & Eventos",
       "zona": "Colares",
       "morada": "Colares",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "info@quintadopedaserra.com",
+      "tel": "+351 969 950 914 / +351 217 978 436",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10695,15 +10697,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Quinta de casamentos com catering muito bem avaliado. Contactos: Mariana e José. Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-do-pe-da-serra--e50879"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Quinta de casamentos com catering muito bem avaliado. Contactos: Mariana e José. Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-do-pe-da-serra--e50879",
+      "campanha": "casamentos-2026",
+      "website": "https://quintadopedaserra.com/"
     },
     "nuno::Manuel Esteves Catering::Carcavelos": {
       "nome": "Manuel Esteves Catering",
       "tipo": "Catering & Eventos",
       "zona": "Carcavelos",
       "morada": "Quinta dos Gafanhotos, Carcavelos",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "eventos@quintadosgafanhotos.pt",
+      "tel": "21 405 45 20 / 91 94 33 485",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10715,7 +10719,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. +30 anos, segmento alto. 84–120 €/convidado, 100+ convidados. Perfil: https://www.casamentos.pt/catering-casamentos/manuel-esteves-catering--e148127"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. +30 anos, segmento alto. 84–120 €/convidado, 100+ convidados. Perfil: https://www.casamentos.pt/catering-casamentos/manuel-esteves-catering--e148127",
+      "campanha": "casamentos-2026",
+      "website": "https://quintadosgafanhotos.pt/"
     },
     "nuno::DT Catering::Cascais": {
       "nome": "DT Catering",
@@ -10723,7 +10729,7 @@
       "zona": "Cascais",
       "morada": "Rua das Mimosas, 171, Cascais",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "919 798 376",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10735,15 +10741,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Desde 1997, especialistas em finger-food. 60–120 €/convidado, 50–400. Perfil: https://www.casamentos.pt/catering-casamentos/dt-catering--e76108"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Desde 1997, especialistas em finger-food. 60–120 €/convidado, 50–400. Perfil: https://www.casamentos.pt/catering-casamentos/dt-catering--e76108",
+      "campanha": "casamentos-2026"
     },
     "nuno::Novaes Catering::Cascais": {
       "nome": "Novaes Catering",
       "tipo": "Catering & Eventos",
       "zona": "Cascais",
       "morada": "Rua Dom Bosco, 15, Cascais",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@enovaescatering.com",
+      "tel": "+351 211 567 064 / +351 936 336 990",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10755,15 +10762,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus à medida com bar. Desde 40 €/convidado, 40–2000. Perfil: https://www.casamentos.pt/catering-casamentos/e-novaes-catering--e146321"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus à medida com bar. Desde 40 €/convidado, 40–2000. Perfil: https://www.casamentos.pt/catering-casamentos/e-novaes-catering--e146321",
+      "campanha": "casamentos-2026",
+      "website": "https://enovaescatering.com/"
     },
     "nuno::Biscaia Catering & Eventos::Cascais": {
       "nome": "Biscaia Catering & Eventos",
       "tipo": "Catering & Eventos",
       "zona": "Cascais",
       "morada": "Cascais",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "Biscaia_catering_eventos@hotmail.com",
+      "tel": "917 302 549",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10775,15 +10784,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Empresa familiar. Desde 30 €/convidado, 20–350. Perfil: https://www.casamentos.pt/catering-casamentos/biscaia-catering-&-eventos--e176383"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Empresa familiar. Desde 30 €/convidado, 20–350. Perfil: https://www.casamentos.pt/catering-casamentos/biscaia-catering-&-eventos--e176383",
+      "campanha": "casamentos-2026",
+      "website": "https://www.biscaiacateringeventos.com/"
     },
     "nuno::Estoril House::Estoril": {
       "nome": "Estoril House",
       "tipo": "Catering & Eventos",
       "zona": "Estoril",
       "morada": "Estoril",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "events@estorilhouse.com",
+      "tel": "+351 939 603 840",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10795,15 +10806,18 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Cozinha tradicional portuguesa. Desde 65 €/convidado. Perfil: https://www.casamentos.pt/catering-casamentos/cascais/estoril"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Cozinha tradicional portuguesa. Desde 65 €/convidado. Perfil: https://www.casamentos.pt/catering-casamentos/cascais/estoril | Excluída do nurturing: email por confirmar.",
+      "campanha": "casamentos-2026",
+      "website": "https://estorilhouse.com",
+      "nurturing_excluir": true
     },
     "nuno::Papas Boas::Cascais": {
       "nome": "Papas Boas",
       "tipo": "Catering & Eventos",
       "zona": "Cascais",
       "morada": "N. Sra. do Rosário, 24, Cascais",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@papasboas.pt",
+      "tel": "911 186 324",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10815,7 +10829,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering de autor para casamentos. 20–200 convidados. Perfil: https://www.casamentos.pt/catering-casamentos/papas-boas--e115352"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering de autor para casamentos. 20–200 convidados. Perfil: https://www.casamentos.pt/catering-casamentos/papas-boas--e115352",
+      "campanha": "casamentos-2026",
+      "website": "https://papasboas.pt/"
     },
     "nuno::Caiz – Events & Catering::Cascais": {
       "nome": "Caiz – Events & Catering",
@@ -10835,7 +10851,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Micro-weddings e sweet tables. 35–80 €/convidado, até 80. Perfil: https://www.casamentos.pt/catering-casamentos/caiz-events-&-catering--e178497"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Micro-weddings e sweet tables. 35–80 €/convidado, até 80. Perfil: https://www.casamentos.pt/catering-casamentos/caiz-events-&-catering--e178497",
+      "campanha": "casamentos-2026"
     },
     "nuno::Quinta da Pedra Firme::Colares": {
       "nome": "Quinta da Pedra Firme",
@@ -10855,7 +10872,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Casamentos de luxo. Catering parceiro (Casa da Comida). Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-da-pedra-firme--e175429"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Casamentos de luxo. Catering parceiro (Casa da Comida). Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-da-pedra-firme--e175429",
+      "campanha": "casamentos-2026"
     },
     "nuno::Quinta do Camejo::Janas / Azenhas do Mar": {
       "nome": "Quinta do Camejo",
@@ -10863,7 +10881,7 @@
       "zona": "Janas / Azenhas do Mar",
       "morada": "Janas / Azenhas do Mar",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "966 167 445",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10875,7 +10893,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering próprio (Chef Lurdes de Almeida). Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-do-camejo--e51111"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering próprio (Chef Lurdes de Almeida). Perfil: https://www.casamentos.pt/quintas-para-casamentos/quinta-do-camejo--e51111",
+      "campanha": "casamentos-2026"
     },
     "nuno::Quinta dos Besteiros::Sintra": {
       "nome": "Quinta dos Besteiros",
@@ -10895,15 +10914,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering próprio confecionado no local. Perfil: https://www.casamentos.pt/quintas-para-casamentos/besteiros--e121574"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering próprio confecionado no local. Perfil: https://www.casamentos.pt/quintas-para-casamentos/besteiros--e121574",
+      "campanha": "casamentos-2026"
     },
     "nuno::Penha Longa Catering::Sintra": {
       "nome": "Penha Longa Catering",
       "tipo": "Catering & Eventos",
       "zona": "Sintra",
       "morada": "Linhó, Sintra",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "rc.lisrz.catering@ritzcarlton.com",
+      "tel": "+351 219 249 058",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10915,7 +10935,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering do grupo Penha Longa, premium. Perfil: https://www.casamentos.pt/catering-casamentos/sintra"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering do grupo Penha Longa, premium. Perfil: https://www.casamentos.pt/catering-casamentos/sintra",
+      "campanha": "casamentos-2026",
+      "website": "https://www.penhalongacatering.com/en/"
     },
     "nuno::Central Noivos::Colares": {
       "nome": "Central Noivos",
@@ -10935,15 +10957,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Wedding planner — recomenda fornecedores aos noivos. Perfil: https://www.casamentos.pt/organizadores-de-casamentos/central-noivos--e106311"
+      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Wedding planner — recomenda fornecedores aos noivos. Perfil: https://www.casamentos.pt/organizadores-de-casamentos/central-noivos--e106311",
+      "campanha": "casamentos-2026"
     },
     "nuno::Casa do Marquês::Cascais / Lisboa": {
       "nome": "Casa do Marquês",
       "tipo": "Catering & Eventos",
       "zona": "Cascais / Lisboa",
       "morada": "Cascais / Lisboa",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "casadomarques@casadomarques.pt",
+      "tel": "+351 217 512 380",
       "comercial": "Nuno",
       "canal_id": "nuno",
       "canal": "horeca",
@@ -10955,7 +10978,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Grande operador nacional. Decisão centralizada. Perfil: https://www.casadomarques.pt/en"
+      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Grande operador nacional. Decisão centralizada. Perfil: https://www.casadomarques.pt/en",
+      "campanha": "casamentos-2026",
+      "website": "https://www.casadomarques.pt/"
     },
     "nuno::Alinne Catering Co::São Domingos de Rana": {
       "nome": "Alinne Catering Co",
@@ -10975,15 +11000,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Catering para casamentos. Perfil: https://www.casamentos.pt/catering-casamentos/cascais"
+      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Catering para casamentos. Perfil: https://www.casamentos.pt/catering-casamentos/cascais",
+      "campanha": "casamentos-2026"
     },
     "joao::Tempero de Alegria – Catering::Almada": {
       "nome": "Tempero de Alegria – Catering",
       "tipo": "Catering & Eventos",
       "zona": "Almada",
       "morada": "Almada",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@temperodealegria.com",
+      "tel": "919 999 572",
       "comercial": "João",
       "canal_id": "joao",
       "canal": "horeca",
@@ -10995,15 +11021,17 @@
       "estado": "Cliente",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering de casamentos com decoração; 4,7★ (109 opiniões). Desde 95 €/convidado, 30–1000. Perfil: https://www.casamentos.pt/catering-casamentos/tempero-de-alegria-catering--e90275"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering de casamentos com decoração; 4,7★ (109 opiniões). Desde 95 €/convidado, 30–1000. Perfil: https://www.casamentos.pt/catering-casamentos/tempero-de-alegria-catering--e90275",
+      "campanha": "casamentos-2026",
+      "website": "https://www.temperodealegria.com"
     },
     "joao::Catering Galhetas::Setúbal": {
       "nome": "Catering Galhetas",
       "tipo": "Catering & Eventos",
       "zona": "Setúbal",
       "morada": "Setúbal",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "vgalhetas@gmail.com",
+      "tel": "+351 926 014 501",
       "comercial": "João",
       "canal_id": "joao",
       "canal": "horeca",
@@ -11015,7 +11043,10 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Cozinha portuguesa moderna. Desde 65 €/convidado, 50–1200. Perfil: https://www.casamentos.pt/catering-casamentos/catering-galhetas--e150426"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Cozinha portuguesa moderna. Desde 65 €/convidado, 50–1200. Perfil: https://www.casamentos.pt/catering-casamentos/catering-galhetas--e150426 | Excluída do nurturing: fora da zona (Évora).",
+      "campanha": "casamentos-2026",
+      "website": "https://www.galhetas.com",
+      "nurturing_excluir": true
     },
     "joao::Horas Felizes Catering::Setúbal": {
       "nome": "Horas Felizes Catering",
@@ -11035,15 +11066,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. +25 anos em casamentos e eventos. Desde 75 €/convidado, 80–300. Perfil: https://www.casamentos.pt/catering-casamentos/horas-felizes-catering--e112308"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. +25 anos em casamentos e eventos. Desde 75 €/convidado, 80–300. Perfil: https://www.casamentos.pt/catering-casamentos/horas-felizes-catering--e112308",
+      "campanha": "casamentos-2026",
+      "website": "http://horasfelizes.pt"
     },
     "joao::Casca d'Ovo::Setúbal": {
       "nome": "Casca d'Ovo",
       "tipo": "Catering & Eventos",
       "zona": "Setúbal",
       "morada": "Setúbal",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "cascadovo@cascadovo.com",
+      "tel": "+351 263 597 656",
       "comercial": "João",
       "canal_id": "joao",
       "canal": "horeca",
@@ -11055,7 +11088,10 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus criativos e personalizados. Desde 60 €/convidado, 50–1000. Perfil: https://www.casamentos.pt/catering-casamentos/casca-dovo--e105634"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus criativos e personalizados. Desde 60 €/convidado, 50–1000. Perfil: https://www.casamentos.pt/catering-casamentos/casca-dovo--e105634 | Excluída do nurturing: fora da zona (Muge, Santarém).",
+      "campanha": "casamentos-2026",
+      "website": "https://www.cascadovo.com",
+      "nurturing_excluir": true
     },
     "joao::Catering Brilhante::Setúbal": {
       "nome": "Catering Brilhante",
@@ -11075,7 +11111,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Equipa experiente, grande capacidade. Desde 55 €/convidado, 40–2000. Perfil: https://www.casamentos.pt/catering-casamentos/catering-brilhante--e155393"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Equipa experiente, grande capacidade. Desde 55 €/convidado, 40–2000. Perfil: https://www.casamentos.pt/catering-casamentos/catering-brilhante--e155393",
+      "campanha": "casamentos-2026"
     },
     "joao::Sal Catering::Setúbal": {
       "nome": "Sal Catering",
@@ -11095,7 +11132,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Serviço completo, grande capacidade. Desde 30 €/convidado, 20–2000. Perfil: https://www.casamentos.pt/catering-casamentos/sal-catering--e141665"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Serviço completo, grande capacidade. Desde 30 €/convidado, 20–2000. Perfil: https://www.casamentos.pt/catering-casamentos/sal-catering--e141665",
+      "campanha": "casamentos-2026"
     },
     "joao::Evento Gourmet::Almada": {
       "nome": "Evento Gourmet",
@@ -11103,7 +11141,7 @@
       "zona": "Almada",
       "morada": "Monte de Caparica, Almada",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "967 414 356",
       "comercial": "João",
       "canal_id": "joao",
       "canal": "horeca",
@@ -11115,15 +11153,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Banquetes numa casa do séc. XVIII; 4,9★. Desde 65 €/convidado, 50–250. Perfil: https://www.casamentos.pt/catering-casamentos/evento-gourmet--e82422"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Banquetes numa casa do séc. XVIII; 4,9★. Desde 65 €/convidado, 50–250. Perfil: https://www.casamentos.pt/catering-casamentos/evento-gourmet--e82422",
+      "campanha": "casamentos-2026"
     },
     "joao::Casa Celmar::Sesimbra": {
       "nome": "Casa Celmar",
       "tipo": "Catering & Eventos",
       "zona": "Sesimbra",
       "morada": "Aldeia do Meco, Sesimbra",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "hello@casacelmar.com",
+      "tel": "+351 91 213 59 16",
       "comercial": "João",
       "canal_id": "joao",
       "canal": "horeca",
@@ -11135,7 +11174,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Experiências gastronómicas para casamentos. Desde 80 €/convidado, 80–300. Perfil: https://www.casamentos.pt/catering-casamentos/casa-celmar--e153953"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Experiências gastronómicas para casamentos. Desde 80 €/convidado, 80–300. Perfil: https://www.casamentos.pt/catering-casamentos/casa-celmar--e153953",
+      "campanha": "casamentos-2026",
+      "website": "https://casacelmar.com"
     },
     "joao::Bravo Lombardo Catering & Eventos::Setúbal": {
       "nome": "Bravo Lombardo Catering & Eventos",
@@ -11155,7 +11196,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Casamentos, batizados e empresas. Desde 45 €/convidado, 20–200. Perfil: https://www.casamentos.pt/catering-casamentos/bravo-lombardo-catering-&-eventos--e179491"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Casamentos, batizados e empresas. Desde 45 €/convidado, 20–200. Perfil: https://www.casamentos.pt/catering-casamentos/bravo-lombardo-catering-&-eventos--e179491",
+      "campanha": "casamentos-2026"
     },
     "joao::Tias Catering (Truques & Aplausos)::Setúbal": {
       "nome": "Tias Catering (Truques & Aplausos)",
@@ -11175,7 +11217,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Equipa experiente; opera agora como Truques & Aplausos. Desde 28 €/convidado, 20–200. Perfil: https://www.casamentos.pt/catering-casamentos/tias-catering--e48790"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Equipa experiente; opera agora como Truques & Aplausos. Desde 28 €/convidado, 20–200. Perfil: https://www.casamentos.pt/catering-casamentos/tias-catering--e48790",
+      "campanha": "casamentos-2026"
     },
     "joao::Aromas Perfeitos::Sesimbra": {
       "nome": "Aromas Perfeitos",
@@ -11195,7 +11238,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering completo, estilo requintado. Perfil: https://www.casamentos.pt/catering-casamentos/aromas-perfeitos--e122053"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering completo, estilo requintado. Perfil: https://www.casamentos.pt/catering-casamentos/aromas-perfeitos--e122053",
+      "campanha": "casamentos-2026"
     },
     "joao::Nuno Luz Eventos & Catering::Palmela": {
       "nome": "Nuno Luz Eventos & Catering",
@@ -11215,7 +11259,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Casamentos, batizados, almoços e empresas. Perfil: https://www.casamentos.pt/catering-casamentos/nuno-luz-eventos-&-catering--e134703"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Casamentos, batizados, almoços e empresas. Perfil: https://www.casamentos.pt/catering-casamentos/nuno-luz-eventos-&-catering--e134703",
+      "campanha": "casamentos-2026",
+      "website": "https://www.instagram.com/nunoluz_eventos_e_catering/"
     },
     "joao::STM Catering::Palmela": {
       "nome": "STM Catering",
@@ -11235,7 +11281,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. +10 anos na restauração, foco em inovação. Perfil: https://www.casamentos.pt/catering-casamentos/stm-catering--e107621"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. +10 anos na restauração, foco em inovação. Perfil: https://www.casamentos.pt/catering-casamentos/stm-catering--e107621",
+      "campanha": "casamentos-2026"
     },
     "joao::Sul Festas::Barreiro": {
       "nome": "Sul Festas",
@@ -11255,15 +11302,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Banquetes de casamento. Perfil: https://www.casamentos.pt/catering-casamentos/sul-festas--e113446"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Banquetes de casamento. Perfil: https://www.casamentos.pt/catering-casamentos/sul-festas--e113446",
+      "campanha": "casamentos-2026"
     },
     "joao::Catering Inatel::Almada": {
       "nome": "Catering Inatel",
       "tipo": "Catering & Eventos",
       "zona": "Almada",
       "morada": "São João da Caparica, Almada",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "inatel.caparica@inatel.pt",
+      "tel": "211 155 490",
       "comercial": "João",
       "canal_id": "joao",
       "canal": "horeca",
@@ -11275,7 +11323,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Catering da Fundação Inatel; decisão possivelmente centralizada. Perfil: https://www.casamentos.pt/catering-casamentos/catering-inatel--e112220"
+      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Catering da Fundação Inatel; decisão possivelmente centralizada. Perfil: https://www.casamentos.pt/catering-casamentos/catering-inatel--e112220",
+      "campanha": "casamentos-2026",
+      "website": "https://hoteis.inatel.pt/pt/Menu/Hoteis-Alojamento/Praia/Caparica/Inatel-Caparica.aspx"
     },
     "joao::Gabby'stro::Seixal": {
       "nome": "Gabby'stro",
@@ -11295,7 +11345,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Finger food, tábuas, buffets frios. Desde 38 €/convidado, 20–100. Perfil: https://www.casamentos.pt/catering-casamentos/gabbystro--e171191"
+      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Finger food, tábuas, buffets frios. Desde 38 €/convidado, 20–100. Perfil: https://www.casamentos.pt/catering-casamentos/gabbystro--e171191",
+      "campanha": "casamentos-2026"
     },
     "joao::Tiago Catering::Setúbal": {
       "nome": "Tiago Catering",
@@ -11315,15 +11366,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Catering para eventos, 1–2000 convidados. Perfil: https://www.casamentos.pt/catering-casamentos/tiago-catering--e46790"
+      "notas": "Campanha casamentos (prioridade C) — objetivo: visitar até 15/11/2026. Catering para eventos, 1–2000 convidados. Perfil: https://www.casamentos.pt/catering-casamentos/tiago-catering--e46790",
+      "campanha": "casamentos-2026"
     },
     "oscar::Só Catering::Matosinhos": {
       "nome": "Só Catering",
       "tipo": "Catering & Eventos",
       "zona": "Matosinhos",
       "morada": "Leça da Palmeira, Matosinhos",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@socatering.pt",
+      "tel": "+351 917 435 305",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11335,15 +11387,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. 20 anos, do menu à decoração. Desde 120 €/convidado, 100–3000. Perfil: https://www.casamentos.pt/catering-casamentos/so-catering--e125819"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. 20 anos, do menu à decoração. Desde 120 €/convidado, 100–3000. Perfil: https://www.casamentos.pt/catering-casamentos/so-catering--e125819",
+      "campanha": "casamentos-2026",
+      "website": "https://socatering.pt"
     },
     "oscar::Duplos Gemini Catering::Matosinhos": {
       "nome": "Duplos Gemini Catering",
       "tipo": "Catering & Eventos",
       "zona": "Matosinhos",
       "morada": "Matosinhos",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "info@duplosgemini.com",
+      "tel": "+351 967 644 994",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11355,7 +11409,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus à medida, equipa de banquetes. Desde 65 €/convidado, até 1200. Perfil: https://www.casamentos.pt/catering-casamentos/duplos-gemini-catering--e76740"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus à medida, equipa de banquetes. Desde 65 €/convidado, até 1200. Perfil: https://www.casamentos.pt/catering-casamentos/duplos-gemini-catering--e76740",
+      "campanha": "casamentos-2026",
+      "website": "https://www.duplosgemini.com"
     },
     "oscar::Gémeos Catering::Matosinhos": {
       "nome": "Gémeos Catering",
@@ -11363,7 +11419,7 @@
       "zona": "Matosinhos",
       "morada": "Leça da Palmeira, Matosinhos",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "+351 967 644 921",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11375,7 +11431,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. No mercado desde 1990. Desde 50 €/convidado, 50–250. Perfil: https://www.casamentos.pt/catering-casamentos/gemeos-catering--e95746"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. No mercado desde 1990. Desde 50 €/convidado, 50–250. Perfil: https://www.casamentos.pt/catering-casamentos/gemeos-catering--e95746",
+      "campanha": "casamentos-2026"
     },
     "oscar::Seabras Eventos::Porto": {
       "nome": "Seabras Eventos",
@@ -11383,7 +11440,7 @@
       "zona": "Porto",
       "morada": "Porto",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "225 020 391",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11395,14 +11452,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering e eventos com jardins. Desde 85 €/convidado, 60–500. Perfil: https://www.casamentos.pt/catering-casamentos/seabras-eventos--e50970"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering e eventos com jardins. Desde 85 €/convidado, 60–500. Perfil: https://www.casamentos.pt/catering-casamentos/seabras-eventos--e50970",
+      "campanha": "casamentos-2026",
+      "website": "https://www.seabras-eventos.com"
     },
     "oscar::Francisco Vieira::Vila Nova de Gaia": {
       "nome": "Francisco Vieira",
       "tipo": "Catering & Eventos",
       "zona": "Vila Nova de Gaia",
       "morada": "Vila Nova de Gaia",
-      "email_lead": "—",
+      "email_lead": "franciscovieiracatering@gmail.com",
       "tel": "—",
       "comercial": "Óscar",
       "canal_id": "oscar",
@@ -11415,15 +11474,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Banquetes para grandes casamentos. Desde 65 €/convidado, 80–3000. Perfil: https://www.casamentos.pt/catering-casamentos/francisco-vieira--e76215"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Banquetes para grandes casamentos. Desde 65 €/convidado, 80–3000. Perfil: https://www.casamentos.pt/catering-casamentos/francisco-vieira--e76215",
+      "campanha": "casamentos-2026",
+      "website": "https://franciscovieiracatering.com"
     },
     "oscar::Premier Service::Vila Nova de Gaia": {
       "nome": "Premier Service",
       "tipo": "Catering & Eventos",
       "zona": "Vila Nova de Gaia",
       "morada": "Vila Nova de Gaia",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "palacetecamarinha@premierservice.pt",
+      "tel": "220 995 931",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11435,15 +11496,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering ligado ao Palacete Camarinha. Desde 75 €/convidado, 10–5000. Perfil: https://www.casamentos.pt/catering-casamentos/premier-service--e112446"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering ligado ao Palacete Camarinha. Desde 75 €/convidado, 10–5000. Perfil: https://www.casamentos.pt/catering-casamentos/premier-service--e112446",
+      "campanha": "casamentos-2026",
+      "website": "https://premierservice.pt"
     },
     "oscar::Tailor Meal – Catering & Food::Porto": {
       "nome": "Tailor Meal – Catering & Food",
       "tipo": "Catering & Eventos",
       "zona": "Porto",
       "morada": "Porto (também Braga)",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@tailormeal.pt",
+      "tel": "+351 912 083 918",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11455,7 +11518,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering completo e personalizado. Desde 40 €/convidado, 50–600. Perfil: https://www.casamentos.pt/catering-casamentos/tailor-meal-catering-&-food--e156641"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering completo e personalizado. Desde 40 €/convidado, 50–600. Perfil: https://www.casamentos.pt/catering-casamentos/tailor-meal-catering-&-food--e156641",
+      "campanha": "casamentos-2026",
+      "website": "https://www.tailormeal.pt"
     },
     "oscar::Jubilénio Catering::Vila Nova de Gaia": {
       "nome": "Jubilénio Catering",
@@ -11475,7 +11540,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Cocktail + apoio em decoração e logística. Desde 45 €/convidado, 30–500. Perfil: https://www.casamentos.pt/catering-casamentos/jubilenio-catering--e106366"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Cocktail + apoio em decoração e logística. Desde 45 €/convidado, 30–500. Perfil: https://www.casamentos.pt/catering-casamentos/jubilenio-catering--e106366",
+      "campanha": "casamentos-2026"
     },
     "oscar::Maria Cruz Eventos – Catering::Maia": {
       "nome": "Maria Cruz Eventos – Catering",
@@ -11483,7 +11549,7 @@
       "zona": "Maia",
       "morada": "Maia",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "+351 962 856 439",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11495,15 +11561,16 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Serviço completo desde 2016. Desde 35 €/convidado, 10–1000. Perfil: https://www.casamentos.pt/catering-casamentos/maria-cruz-eventos-catering--e162157"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Serviço completo desde 2016. Desde 35 €/convidado, 10–1000. Perfil: https://www.casamentos.pt/catering-casamentos/maria-cruz-eventos-catering--e162157",
+      "campanha": "casamentos-2026"
     },
     "oscar::Quintas & Catering::Matosinhos": {
       "nome": "Quintas & Catering",
       "tipo": "Catering & Eventos",
       "zona": "Matosinhos",
       "morada": "Leça do Balio, Matosinhos",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@quintasecatering.com",
+      "tel": "+351 912 890 328",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11515,7 +11582,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Chef Vasco Soares; doces e sobremesas. Desde 60 €/convidado, 30–120. Perfil: https://www.casamentos.pt/catering-casamentos/quintas-&-catering--e50985"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Chef Vasco Soares; doces e sobremesas. Desde 60 €/convidado, 30–120. Perfil: https://www.casamentos.pt/catering-casamentos/quintas-&-catering--e50985",
+      "campanha": "casamentos-2026",
+      "website": "https://www.quintasecatering.com"
     },
     "oscar::José Antunes Catering e Eventos::Amares": {
       "nome": "José Antunes Catering e Eventos",
@@ -11535,15 +11604,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Quinta minhota perto de Braga. Desde 65 €/convidado, 30–1000. Perfil: https://www.casamentos.pt/catering-casamentos/jose-antunes-catering-e-eventos--e78512"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Quinta minhota perto de Braga. Desde 65 €/convidado, 30–1000. Perfil: https://www.casamentos.pt/catering-casamentos/jose-antunes-catering-e-eventos--e78512",
+      "campanha": "casamentos-2026",
+      "website": "https://joseantunescatering.com"
     },
     "oscar::Casa Gil Eventos::Braga": {
       "nome": "Casa Gil Eventos",
       "tipo": "Catering & Eventos",
       "zona": "Braga",
       "morada": "Cabreiros, Braga",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "casagil@cateringcasagil.com",
+      "tel": "+351 917 078 595",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11555,7 +11626,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Focado em casamentos, todo o Norte. Desde 65 €/convidado, 30–600. Perfil: https://www.casamentos.pt/catering-casamentos/casa-gil-eventos--e107443"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Focado em casamentos, todo o Norte. Desde 65 €/convidado, 30–600. Perfil: https://www.casamentos.pt/catering-casamentos/casa-gil-eventos--e107443",
+      "campanha": "casamentos-2026",
+      "website": "https://cateringcasagil.com"
     },
     "oscar::Inícios & Costumes::Braga": {
       "nome": "Inícios & Costumes",
@@ -11575,7 +11648,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Equipa experiente em casamentos. Desde 100 €/convidado, 30–1000. Perfil: https://www.casamentos.pt/catering-casamentos/inicios-&-costumes--e153163"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Equipa experiente em casamentos. Desde 100 €/convidado, 30–1000. Perfil: https://www.casamentos.pt/catering-casamentos/inicios-&-costumes--e153163",
+      "campanha": "casamentos-2026"
     },
     "oscar::Divinal Catering::Braga": {
       "nome": "Divinal Catering",
@@ -11583,7 +11657,7 @@
       "zona": "Braga",
       "morada": "Braga",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "+351 919 698 505",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11595,15 +11669,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. 4,9★ com 140 opiniões de casais. Perfil: https://www.casamentos.pt/catering-casamentos/divinal-catering--e106445"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. 4,9★ com 140 opiniões de casais. Perfil: https://www.casamentos.pt/catering-casamentos/divinal-catering--e106445",
+      "campanha": "casamentos-2026",
+      "website": "http://www.divinalcatering.com"
     },
     "oscar::Maria Silva Catering Eventos::Braga": {
       "nome": "Maria Silva Catering Eventos",
       "tipo": "Catering & Eventos",
       "zona": "Braga",
       "morada": "Braga",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "mscateringeventos@gmail.com",
+      "tel": "+351 913 588 183",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11615,7 +11691,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Menus de casamento. Desde 60 €/convidado, 50–150. Perfil: https://www.casamentos.pt/catering-casamentos/maria-silva-catering-eventos--e163447"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Menus de casamento. Desde 60 €/convidado, 50–150. Perfil: https://www.casamentos.pt/catering-casamentos/maria-silva-catering-eventos--e163447",
+      "campanha": "casamentos-2026",
+      "website": "https://mariasilvacatering.com"
     },
     "oscar::Prestígio Catering::Braga": {
       "nome": "Prestígio Catering",
@@ -11635,7 +11713,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Casamentos e batizados. Desde 60 €/convidado, 30–400. Perfil: https://www.casamentos.pt/catering-casamentos/prestigio-catering--e177983"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Casamentos e batizados. Desde 60 €/convidado, 30–400. Perfil: https://www.casamentos.pt/catering-casamentos/prestigio-catering--e177983",
+      "campanha": "casamentos-2026"
     },
     "oscar::Flor de Trigo Catering::Braga": {
       "nome": "Flor de Trigo Catering",
@@ -11643,7 +11722,7 @@
       "zona": "Braga",
       "morada": "Braga",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "935 345 872",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11655,15 +11734,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering completo. Desde 30 €/convidado, 15–300. Perfil: https://www.casamentos.pt/catering-casamentos/flor-de-trigo-catering--e151309"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering completo. Desde 30 €/convidado, 15–300. Perfil: https://www.casamentos.pt/catering-casamentos/flor-de-trigo-catering--e151309",
+      "campanha": "casamentos-2026",
+      "website": "https://www.facebook.com/cateringflordetrigo"
     },
     "oscar::Sending Love::Braga": {
       "nome": "Sending Love",
       "tipo": "Catering & Eventos",
       "zona": "Braga",
       "morada": "Braga",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@sendinglove.pt",
+      "tel": "+351 963 036 828",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11675,15 +11756,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Segmento alto. Desde 120 €/convidado, 60–300. Perfil: https://www.casamentos.pt/catering-casamentos/sending-love--e166393"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Segmento alto. Desde 120 €/convidado, 60–300. Perfil: https://www.casamentos.pt/catering-casamentos/sending-love--e166393",
+      "campanha": "casamentos-2026",
+      "website": "https://sendinglove.pt"
     },
     "oscar::Pedrinhas Catering::Guimarães": {
       "nome": "Pedrinhas Catering",
       "tipo": "Catering & Eventos",
       "zona": "Guimarães",
       "morada": "Nespereira, Guimarães",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@restaurantepedrinhas.com",
+      "tel": "+351 253 587 800",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11695,7 +11778,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Espaço próprio e grande capacidade. Desde 65 €/convidado, 50–1000. Perfil: https://www.casamentos.pt/catering-casamentos/pedrinhas-catering--e107397"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Espaço próprio e grande capacidade. Desde 65 €/convidado, 50–1000. Perfil: https://www.casamentos.pt/catering-casamentos/pedrinhas-catering--e107397",
+      "campanha": "casamentos-2026",
+      "website": "https://restaurantepedrinhas.com"
     },
     "oscar::Penha Eventos::Guimarães": {
       "nome": "Penha Eventos",
@@ -11703,7 +11788,7 @@
       "zona": "Guimarães",
       "morada": "Guimarães (também Porto)",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "+351 913 861 771",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11715,7 +11800,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus adaptados ao cliente. Desde 70 €/convidado, 50–500. Perfil: https://www.casamentos.pt/catering-casamentos/penha-eventos--e138479"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Menus adaptados ao cliente. Desde 70 €/convidado, 50–500. Perfil: https://www.casamentos.pt/catering-casamentos/penha-eventos--e138479",
+      "campanha": "casamentos-2026"
     },
     "oscar::Casal do Mosteiro::Guimarães": {
       "nome": "Casal do Mosteiro",
@@ -11723,7 +11809,7 @@
       "zona": "Guimarães",
       "morada": "Serzedelo, Guimarães",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "253 535 314",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11735,7 +11821,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering ao domicílio, menus à medida. Desde 55 €/convidado, 25–500. Perfil: https://www.casamentos.pt/catering-casamentos/casal-do-mosteiro--e142573"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering ao domicílio, menus à medida. Desde 55 €/convidado, 25–500. Perfil: https://www.casamentos.pt/catering-casamentos/casal-do-mosteiro--e142573",
+      "campanha": "casamentos-2026",
+      "website": "http://www.casaldomosteiro.pt"
     },
     "oscar::VHP Events::Guimarães": {
       "nome": "VHP Events",
@@ -11755,15 +11843,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering, decoração e animação. Desde 30 €/convidado, 30–300. Perfil: https://www.casamentos.pt/catering-casamentos/vhp-events--e158521"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering, decoração e animação. Desde 30 €/convidado, 30–300. Perfil: https://www.casamentos.pt/catering-casamentos/vhp-events--e158521",
+      "campanha": "casamentos-2026",
+      "website": "https://www.facebook.com/vhpevents2020/"
     },
     "oscar::Catering do Nacional::Coimbra": {
       "nome": "Catering do Nacional",
       "tipo": "Catering & Eventos",
       "zona": "Coimbra",
       "morada": "Coimbra",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "info@restaurantenacional.pt",
+      "tel": "+351 239 829 420",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11775,15 +11865,17 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. +30 anos, cozinha tradicional. Desde 75 €/convidado, 60–500. Perfil: https://www.casamentos.pt/catering-casamentos/catering-do-nacional--e122145"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. +30 anos, cozinha tradicional. Desde 75 €/convidado, 60–500. Perfil: https://www.casamentos.pt/catering-casamentos/catering-do-nacional--e122145",
+      "campanha": "casamentos-2026",
+      "website": "https://www.restaurantenacional.pt"
     },
     "oscar::Iguarias Sábias::Cantanhede": {
       "nome": "Iguarias Sábias",
       "tipo": "Catering & Eventos",
       "zona": "Cantanhede",
       "morada": "Cantanhede",
-      "email_lead": "—",
-      "tel": "—",
+      "email_lead": "geral@iguariascatering.pt",
+      "tel": "231 205 200",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11795,7 +11887,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Grande capacidade. Desde 60 €/convidado, 100–10000. Perfil: https://www.casamentos.pt/catering-casamentos/iguarias-sabias--e107094"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Grande capacidade. Desde 60 €/convidado, 100–10000. Perfil: https://www.casamentos.pt/catering-casamentos/iguarias-sabias--e107094",
+      "campanha": "casamentos-2026",
+      "website": "https://www.iguariascatering.pt"
     },
     "oscar::Memórias & Detalhes::Coimbra": {
       "nome": "Memórias & Detalhes",
@@ -11803,7 +11897,7 @@
       "zona": "Coimbra",
       "morada": "Cernache, Coimbra",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "+351 962 668 641",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11815,7 +11909,8 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering requintado. Desde 45 €/convidado, 75–400. Perfil: https://www.casamentos.pt/catering-casamentos/memorias-&-detalhes--e120316"
+      "notas": "Campanha casamentos (prioridade A) — objetivo: visitar até 15/11/2026. Catering requintado. Desde 45 €/convidado, 75–400. Perfil: https://www.casamentos.pt/catering-casamentos/memorias-&-detalhes--e120316",
+      "campanha": "casamentos-2026"
     },
     "oscar::D. João Catering::Coimbra": {
       "nome": "D. João Catering",
@@ -11823,7 +11918,7 @@
       "zona": "Coimbra",
       "morada": "Coimbra",
       "email_lead": "—",
-      "tel": "—",
+      "tel": "964 745 189",
       "comercial": "Óscar",
       "canal_id": "oscar",
       "canal": "horeca",
@@ -11835,7 +11930,9 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering elegante e personalizado. Desde 40 €/convidado, 50–400. Perfil: https://www.casamentos.pt/catering-casamentos/d-joao-catering--e98595"
+      "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering elegante e personalizado. Desde 40 €/convidado, 50–400. Perfil: https://www.casamentos.pt/catering-casamentos/d-joao-catering--e98595",
+      "campanha": "casamentos-2026",
+      "website": "https://www.djoao-catering.com"
     }
   },
   "ultima_atualizacao": "2026-10-08",
