@@ -1058,9 +1058,9 @@ def corpo_email(num, grupo, nome_lead, zona, nome_comercial, tel_comercial=""):
 
     assinatura = f"""Com os melhores cumprimentos,
 Rui Bernardes
-Responsável HORECA · Pão de Ló Ti'Piedade
+Departamento Comercial · Pão de Ló Ti'Piedade
 {tel_comercial}
-comercial@tipiedade.com | www.tipiedade.com"""
+sales@tipiedade.com | www.tipiedade.com"""
 
     corpos = {
         "restaurante": {
@@ -1619,7 +1619,7 @@ def corpo_html(email_num, grupo, nome_lead, zona, nome_comercial, texto_plain):
         <tr>
           <td>
             <p style="margin:0;font-size:12px;color:rgba(255,255,255,.7)">
-              <strong style="color:#C49A3C">Rui Bernardes</strong> · Responsável HORECA Ti'Piedade
+              <strong style="color:#C49A3C">Rui Bernardes</strong> · Departamento Comercial Ti'Piedade
             </p>
             <p style="margin:4px 0 0;font-size:11px;color:rgba(255,255,255,.45)">
               sales@tipiedade.com &nbsp;|&nbsp; www.tipiedade.com
