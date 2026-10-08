@@ -1132,6 +1132,9 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
         <select class="filter-select" id="filt-zona-nuno" onchange="renderVista('nuno')" style="width:auto;font-size:12px">
           <option value="">Todas as zonas</option>
         </select>
+        <select class="filter-select" id="filt-tipo-nuno" onchange="renderVista('nuno')" style="width:auto;font-size:12px">
+          <option value="">Todos os tipos</option>
+        </select>
       </div>
       <div id="resumo-nuno" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-nuno"></tbody></table></div>
@@ -1152,6 +1155,9 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
         <select class="filter-select" id="filt-zona-joao" onchange="renderVista('joao')" style="width:auto;font-size:12px">
           <option value="">Todas as zonas</option>
         </select>
+        <select class="filter-select" id="filt-tipo-joao" onchange="renderVista('joao')" style="width:auto;font-size:12px">
+          <option value="">Todos os tipos</option>
+        </select>
       </div>
       <div id="resumo-joao" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prio</th></tr></thead><tbody id="tbody-joao"></tbody></table></div>
@@ -1171,6 +1177,9 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
         </select>
         <select class="filter-select" id="filt-zona-oscar" onchange="renderVista('oscar')" style="width:auto;font-size:12px">
           <option value="">Todas as zonas</option>
+        </select>
+        <select class="filter-select" id="filt-tipo-oscar" onchange="renderVista('oscar')" style="width:auto;font-size:12px">
+          <option value="">Todos os tipos</option>
         </select>
       </div>
       <div id="resumo-oscar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"></div>
@@ -2814,12 +2823,21 @@ function popularZonaSelect(vista, allLeads) {
   sel.innerHTML = `<option value="">Todas as zonas</option>` + zonas.map(z=>`<option value="${z}"${z===cur?` selected`:""}>${z}</option>`).join("");
 }
 
+function popularTipoSelect(vista, allLeads) {
+  const sel = document.getElementById(`filt-tipo-${vista}`);
+  if (!sel) return;
+  const cur = sel.value;
+  const tipos = [...new Set(allLeads.map(([k,v])=>v.tipologia_cliente||"").filter(Boolean))].sort();
+  sel.innerHTML = `<option value="">Todos os tipos</option>` + tipos.map(t=>`<option value="${t}"${t===cur?` selected`:""}>${t}</option>`).join("");
+}
+
 function renderVista(vista) {
   if (vista === "ana") { renderVistaAna(); return; }
   const search    = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
   const canalRui  = document.getElementById("filt-canal-rui")?.value||"";
   const estadoFilt= document.getElementById(`filt-estado-${vista}`)?.value||"";
   const zonaFilt  = document.getElementById(`filt-zona-${vista}`)?.value||"";
+  const tipoFilt  = document.getElementById(`filt-tipo-${vista}`)?.value||"";
   const tbody     = document.getElementById(`tbody-${vista}`);
   if (!tbody) return;
 
@@ -2839,16 +2857,20 @@ function renderVista(vista) {
   const fn = filtroBase[vista];
   if (!fn) return;
 
-  // Popular dropdown de zona com as zonas desta vista
+  // Popular dropdowns de zona e tipo com os valores desta vista
   const leadsBase = leads().filter(([k,v]) => fn([k,v]));
-  if (["nuno","joao","oscar"].includes(vista)) popularZonaSelect(vista, leadsBase);
+  if (["nuno","joao","oscar"].includes(vista)) {
+    popularZonaSelect(vista, leadsBase);
+    popularTipoSelect(vista, leadsBase);
+  }
 
   // Aplicar filtros: base + pesquisa + estado + zona (para comerciais)
   const rows = leads().filter(([k,v]) =>
     fn([k,v]) &&
     (!search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search)) &&
     (!estadoFilt || (v.estado||"Em aberto") === estadoFilt) &&
-    (!zonaFilt || (v.zona||"") === zonaFilt)
+    (!zonaFilt || (v.zona||"") === zonaFilt) &&
+    (!tipoFilt || (v.tipologia_cliente||"") === tipoFilt)
   );
 
   // ── Resumo rápido por estado (para vistas de comercial) ────
