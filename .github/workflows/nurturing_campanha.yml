@@ -1,0 +1,40 @@
+name: Nurturing Campanha (envio manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      campanha:
+        description: 'Campanha (campo "campanha" das leads no historico.json)'
+        required: true
+        default: 'casamentos-2026'
+      email_num:
+        description: 'Email da sequência (1 a 4)'
+        required: true
+        default: '1'
+      enviar:
+        description: 'Escreve "sim" para enviar. Outro valor só lista os destinatários.'
+        required: true
+        default: 'nao'
+
+permissions:
+  contents: write
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install openpyxl requests
+      - name: Nurturing da campanha
+        env:
+          CAMPANHA:          ${{ github.event.inputs.campanha }}
+          EMAIL_NUM:         ${{ github.event.inputs.email_num }}
+          ENVIAR:            ${{ github.event.inputs.enviar }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          BREVO_API_KEY:     ${{ secrets.BREVO_API_KEY }}
+          EMAIL_RUI:         ${{ secrets.EMAIL_RUI }}
+        run: python scripts/nurturing_campanha.py
