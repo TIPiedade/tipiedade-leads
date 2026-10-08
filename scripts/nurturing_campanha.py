@@ -3,24 +3,24 @@ Envio avulso de nurturing a leads de uma campanha registada no historico.json.
 
 O envio semanal (generate_leads.py, quarta-feira) só trata as leads que o próprio
 sistema gera. Este script envia o email N da sequência às leads do CRM marcadas
-com um campo "campanha" (ex.: "casamentos-2026"), usando os mesmos templates.
+com um campo "campanha" (ex.: "casamentos-2026"), com a base de email aprovada no
+CRM (scripts/email_crm.py).
 
 Variáveis de ambiente:
   CAMPANHA       nome da campanha (obrigatório)
   EMAIL_NUM      número do email da sequência (1–4, por omissão 1)
   ENVIAR         "sim" envia; qualquer outro valor só lista (ensaio)
-  ASSINANTE      nome usado na apresentação do email (por omissão "Rui Bernardes")
   BREVO_API_KEY, GITHUB_TOKEN, GITHUB_REPOSITORY, EMAIL_RUI — como no generate_leads.py
 """
 import os, sys, time
 
 sys.path.insert(0, os.path.dirname(__file__))
 import generate_leads as g
+import email_crm
 
 CAMPANHA  = os.environ.get("CAMPANHA", "").strip()
 EMAIL_NUM = int(os.environ.get("EMAIL_NUM", "1") or 1)
 ENVIAR    = os.environ.get("ENVIAR", "nao").strip().lower() == "sim"
-ASSINANTE = os.environ.get("ASSINANTE", "Rui Bernardes").strip() or "Rui Bernardes"
 
 
 def emails_validos(campo):
@@ -55,6 +55,10 @@ def main():
     print(f"▶ Campanha {CAMPANHA} — Email {EMAIL_NUM} — {len(sel)} destinatários — {'ENVIO' if ENVIAR else 'ENSAIO (nada é enviado)'}", flush=True)
     for k, v in sel:
         print(f"  {v.get('comercial',''):6} | {v['nome']} → {v['email_lead']}", flush=True)
+    # Mesmo no ensaio, gerar o email para confirmar que a base do CRM está em ordem
+    for grupo in sorted({g.tipologia_grupo(v.get("tipo", "") + " " + v.get("tipologia_cliente", "")) for _, v in sel}):
+        email_crm.html_email(grupo, EMAIL_NUM)
+        print(f"  ✓ email {EMAIL_NUM} ({grupo}) gerado com a base do CRM", flush=True)
     if not ENVIAR or not sel:
         return
 
@@ -62,8 +66,9 @@ def main():
     for k, v in sel:
         grupo = g.tipologia_grupo(v.get("tipo", "") + " " + v.get("tipologia_cliente", ""))
         assunto = g.ASSUNTOS.get(grupo, g.ASSUNTOS["restaurante"]).get(EMAIL_NUM, "")
-        texto = g.corpo_email(EMAIL_NUM, grupo, v["nome"], v.get("zona", ""), ASSINANTE)
-        html = g.corpo_html(EMAIL_NUM, grupo, v["nome"], v.get("zona", ""), ASSINANTE, texto)
+        # Base aprovada no CRM (mesma da pré-visualização), adaptada aos programas de email
+        html = email_crm.html_email(grupo, EMAIL_NUM)
+        texto = email_crm.texto_email(html)
         ok = False
         for dest in emails_validos(v["email_lead"]):
             if g.brevo_send(dest, v["nome"], f"{assunto} | Ti'Piedade", html, texto):
