@@ -2837,6 +2837,61 @@ function renderTabela(tbodyId, filtroFn, cols="normal") {
   tbody.innerHTML = rows.map(([k,v])=>trLead(k,v,cols)).join("");
 }
 
+// Mapa de normalização de tipologias (aplicado no browser para dados antigos)
+const MAPA_TIPO_NORM = {
+  "Restaurante regional":"Restaurante Tradicional","Restaurante tradicional":"Restaurante Tradicional",
+  "Restaurante turístico":"Restaurante Tradicional","Restaurante/bar":"Restaurante Tradicional",
+  "Restaurante/hotel":"Restaurante Tradicional","Tasca Contemporânea":"Restaurante Tradicional",
+  "Tasca Moderna":"Restaurante Tradicional","Tasca Moderna / Ribeirinha":"Restaurante Tradicional",
+  "Tasca Tradicional":"Restaurante Tradicional","Restaurante (Médio/Alto Padrão)":"Restaurante Tradicional",
+  "Restaurante (Médio/Alto Padrão / Vista Rio)":"Restaurante Tradicional",
+  "Restaurante Bairro":"Restaurante Tradicional","Restaurante Casual":"Restaurante Tradicional",
+  "Restaurante de bairro":"Restaurante Tradicional","Restaurante de Cozinha Portuguesa":"Restaurante Tradicional",
+  "Restaurante de peixe":"Restaurante Tradicional","Restaurante petiscos":"Restaurante Tradicional",
+  "Restaurante Português":"Restaurante Tradicional","Restaurante Tradicional":"Restaurante Tradicional",
+  "Petiscos":"Restaurante Tradicional","Tascas":"Restaurante Tradicional",
+  "Cervejaria":"Restaurante Tradicional","Tábua":"Restaurante Tradicional",
+  "Restaurante (Fine Dining)":"Fine Dining","Fine Dining":"Fine Dining",
+  "Restaurante Fine Dining":"Fine Dining","Restaurante Gourmet":"Fine Dining",
+  "Restaurante Alta Cozinha":"Fine Dining","Alta Cozinha":"Fine Dining",
+  "Restaurante Internacional":"Fine Dining","Restaurante Contemporâneo":"Fine Dining",
+  "Restaurante moderno":"Fine Dining","Restaurante de Cozinha Criativa":"Fine Dining",
+  "Restaurante Fusion":"Fine Dining","Restaurante Cozinha Fusion":"Fine Dining",
+  "Restaurante & Espaço de Eventos":"Catering & Eventos","Restaurante eventos":"Catering & Eventos",
+  "Catering":"Catering & Eventos","Catering & Eventos":"Catering & Eventos",
+  "Espaço de Eventos":"Catering & Eventos","Venue":"Catering & Eventos",
+  "Salão de Eventos":"Catering & Eventos","Wedding Venue":"Catering & Eventos",
+  "Espaço para casamentos":"Catering & Eventos","Espaço de casamentos":"Catering & Eventos",
+  "Hotel":"Hotel","Hotel Boutique":"Hotel","Hotel Rural":"Hotel",
+  "Hotel de Charme":"Hotel","Hotel urbano":"Hotel","Alojamento":"Hotel",
+  "Pousada":"Hotel","Hostel":"Hotel","Resort":"Hotel",
+  "Café":"Café / Pastelaria","Café / Pastelaria":"Café / Pastelaria",
+  "Café-Bar":"Café / Pastelaria","Cafetaria":"Café / Pastelaria",
+  "Pastelaria":"Café / Pastelaria","Padaria/Pastelaria":"Café / Pastelaria",
+  "Pastelaria/Café":"Café / Pastelaria","Café/Pastelaria":"Café / Pastelaria",
+  "Padaria":"Café / Pastelaria","Confeitaria":"Café / Pastelaria",
+  "Bar":"Bar / Pub","Pub":"Bar / Pub","Bar / Pub":"Bar / Pub",
+  "Wine Bar":"Bar / Pub","Cocktail Bar":"Bar / Pub","Bar de Vinhos":"Bar / Pub",
+  "Snack Bar":"Bar / Pub","Marisqueira":"Marisqueira / Peixaria",
+  "Marisqueira / Peixaria":"Marisqueira / Peixaria","Peixaria":"Marisqueira / Peixaria",
+  "Peixaria/Marisqueira":"Marisqueira / Peixaria","Restaurante de Marisco":"Marisqueira / Peixaria",
+  "Churrascaria":"Churrascaria / Grelhados","Grelhador":"Churrascaria / Grelhados",
+  "Churrascaria / Grelhados":"Churrascaria / Grelhados",
+  "Restaurante de Carne":"Churrascaria / Grelhados",
+  "Cantina":"Cantina / Refeitório","Refeitório":"Cantina / Refeitório",
+  "Cantina / Refeitório":"Cantina / Refeitório","Cantina Universitária":"Cantina / Refeitório",
+  "Restaurante Self-Service":"Cantina / Refeitório","Self-service":"Cantina / Refeitório",
+  "Club/Discoteca":"Club / Discoteca","Discoteca":"Club / Discoteca",
+  "Club":"Club / Discoteca","Club / Discoteca":"Club / Discoteca",
+  "Cozinha de Autor":"Cozinha de Autor","Restaurante de Autor":"Cozinha de Autor",
+  "Take-Away":"Take-Away / Fast-Casual","Fast-Casual":"Take-Away / Fast-Casual",
+  "Take-Away / Fast-Casual":"Take-Away / Fast-Casual","Fast Food":"Take-Away / Fast-Casual",
+  "Pizzaria":"Take-Away / Fast-Casual","Hamburgeria":"Take-Away / Fast-Casual",
+  "Wedding planner (prescritor)":"Prescritor","Prescritor":"Prescritor",
+  "Wedding Planner":"Prescritor","Decorador":"Prescritor","Organizador de eventos":"Prescritor",
+};
+function normTipo(t) { return MAPA_TIPO_NORM[t] || t; }
+
 function popularZonaSelect(vista, allLeads) {
   const sel = document.getElementById(`filt-zona-${vista}`);
   if (!sel) return;
@@ -2856,7 +2911,7 @@ function popularTipoSelect(vista, allLeads) {
   const btn   = document.getElementById(`tipo-btn-${vista}`);
   if (!panel) return;
   const cur = getTiposSelecionados(vista);
-  const tipos = [...new Set(allLeads.map(([k,v])=>v.tipologia_cliente||"").filter(Boolean))].sort();
+  const tipos = [...new Set(allLeads.map(([k,v])=>normTipo(v.tipologia_cliente||"")).filter(Boolean))].sort();
   panel.innerHTML = tipos.map(t=>`<label><input type="checkbox" value="${t}"${cur.includes(t)?' checked':''}  onchange="renderVista('${vista}')">${t}</label>`).join("");
   // Actualizar label do botão
   if (btn) {
@@ -2918,7 +2973,7 @@ function renderVista(vista) {
     (!search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search)) &&
     (!estadoFilt || (v.estado||"Em aberto") === estadoFilt) &&
     (!zonaFilt || (v.zona||"") === zonaFilt) &&
-    (!tipoFilt.length || tipoFilt.includes(v.tipologia_cliente||""))
+    (!tipoFilt.length || tipoFilt.includes(normTipo(v.tipologia_cliente||"")))
   );
 
   // ── Resumo rápido por estado (para vistas de comercial) ────
