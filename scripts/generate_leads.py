@@ -1532,7 +1532,7 @@ def brevo_send(to_email, to_name, subject, html_content, text_content=None, atta
     payload = {
         "sender": {"name": "Pão de Ló Ti'Piedade", "email": EMAIL_FROM},
         "to": [{"email": to_email, "name": to_name}],
-        "bcc": [{"email": EMAIL_CC}, {"email": EMAIL_BCC2}],
+        "bcc": [{"email": EMAIL_CC}],
         "subject": subject,
         "htmlContent": html_content,
     }
