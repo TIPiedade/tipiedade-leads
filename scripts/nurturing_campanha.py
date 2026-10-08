@@ -39,7 +39,7 @@ def selecionar(historico):
     for k, v in historico["leads"].items():
         if v.get("campanha") != CAMPANHA or v.get("nurturing_excluir"):
             continue
-        if v.get("estado") == "Desistiu" or ja_enviado(v, EMAIL_NUM):
+        if v.get("estado") in ("Desistiu", "Cliente") or ja_enviado(v, EMAIL_NUM):
             continue
         if EMAIL_NUM > 1 and not ja_enviado(v, EMAIL_NUM - 1):
             continue
