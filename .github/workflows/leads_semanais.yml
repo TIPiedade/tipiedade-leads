@@ -10,6 +10,13 @@ on:
         description: 'coordenador ou comerciais'
         required: false
         default: 'comerciais'
+      semana_override:
+        description: 'Semana ISO a processar (ex: 39). Deixa vazio para semana atual.'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
 
 jobs:
   # ── SEGUNDA: resumo semanal para o coordenador ──────────────────────────
@@ -105,6 +112,7 @@ jobs:
       - name: Correr script (comerciais)
         env:
           MODO: ${{ github.event.inputs.modo || 'comerciais' }}
+          SEMANA_OVERRIDE: ${{ github.event.inputs.semana_override || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}

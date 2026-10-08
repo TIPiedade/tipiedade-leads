@@ -611,6 +611,9 @@ TIPOS_HORECA = ["Restaurante","Pastelaria","Hotel","Mercearia Gourmet","Café","
 # ════════════════════════════════════════════════════════════════
 
 def semana_num():
+    override = os.environ.get("SEMANA_OVERRIDE", "")
+    if override.strip().isdigit():
+        return int(override.strip())
     return datetime.date.today().isocalendar()[1]
 
 def semana_datas():
@@ -691,7 +694,11 @@ def escrever_historico(historico, sha):
     data = {"message":f"histórico: {hoje()}","content":content_b64}
     if sha: data["sha"] = sha
     result = github_api("PUT", f"contents/{HIST_FILE}", data)
-    print(f"{'✓' if result else '✗'} Histórico {'guardado' if result else 'ERRO ao guardar'}")
+    if result:
+        print(f"✓ Histórico guardado", flush=True)
+    else:
+        print(f"✗ ERRO CRÍTICO: Histórico não guardado — verifica permissões do GITHUB_TOKEN", flush=True)
+        raise SystemExit(1)
 
 def registar_envios(historico, canal_id, leads, email_num, comercial_nome):
     d = hoje()
