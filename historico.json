@@ -1888,7 +1888,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -2097,6 +2103,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -2215,7 +2226,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -2265,6 +2282,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -2428,6 +2450,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -2566,6 +2593,11 @@
           "num": 3,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -2878,7 +2910,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -2944,7 +2982,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3077,7 +3121,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3117,7 +3167,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3173,7 +3229,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3393,7 +3455,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3489,6 +3557,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -3561,7 +3634,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3753,7 +3832,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3819,6 +3904,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -4114,6 +4204,11 @@
           "num": 3,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -4165,6 +4260,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -4206,7 +4306,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -4313,6 +4419,11 @@
           "num": 3,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -4416,6 +4527,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -4635,6 +4751,11 @@
           "num": 1,
           "data": "2026-09-18",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5157,7 +5278,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -5529,7 +5656,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -5599,6 +5732,11 @@
           "num": 2,
           "data": "2026-09-23",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -5651,7 +5789,13 @@
       "semana_entrada": 33,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -5733,7 +5877,13 @@
       "semana_entrada": 33,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -5794,6 +5944,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -5820,6 +5975,11 @@
           "num": 1,
           "data": "2026-09-18",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5923,6 +6083,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -5964,7 +6129,13 @@
       "semana_entrada": 33,
       "data_entrada": "2026-08-19",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -6020,6 +6191,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -6366,6 +6542,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -6454,6 +6635,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9248,6 +9434,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9300,6 +9491,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9378,6 +9574,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9591,6 +9792,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9726,6 +9932,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9866,6 +10077,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -10027,6 +10243,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -10089,6 +10310,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -10583,6 +10809,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -10635,6 +10866,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -12287,9 +12523,243 @@
       "notas": "Campanha casamentos (prioridade B) — objetivo: visitar até 15/11/2026. Catering elegante e personalizado. Desde 40 €/convidado, 50–400. Perfil: https://www.casamentos.pt/catering-casamentos/d-joao-catering--e98595",
       "campanha": "casamentos-2026",
       "website": "https://www.djoao-catering.com"
+    },
+    "nuno::Café Mexicana::Lisboa (Roma-Areeiro)": {
+      "nome": "Café Mexicana",
+      "tipo": "Pastelaria Clássica",
+      "zona": "Lisboa (Roma-Areeiro)",
+      "morada": "Avenida de Roma 79A, 1700-345 Lisboa",
+      "email_lead": "cafemexicana@cafemexicana.pt",
+      "tel": "217 965 256",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Pastelaria Clássica",
+      "gancho": "Pastelaria de referência de Lisboa há décadas — pão de ló artesanal diferencia a oferta.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Comida de Santo::Lisboa (Rato)": {
+      "nome": "Comida de Santo",
+      "tipo": "Restaurante Brasileiro",
+      "zona": "Lisboa (Rato)",
+      "morada": "Calçada Engenheiro Miguel Pais 39, 1200-352 Lisboa",
+      "email_lead": "info@comidadesanto.com",
+      "tel": "213 963 339",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Internacional",
+      "gancho": "Público brasileiro valoriza bolo de textura fofa — pão de ló é muito próximo do bolo formigueiro.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::Tasca do Zé Bettencourt::Barreiro": {
+      "nome": "Tasca do Zé Bettencourt",
+      "tipo": "Tasca Tradicional",
+      "zona": "Barreiro",
+      "morada": "Rua das Flores 10, 2830-302 Barreiro",
+      "email_lead": "tascazebettencourt@gmail.com",
+      "tel": "212 078 430",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Tasca & Fado",
+      "gancho": "Tasca clássica do Barreiro. Clientela local fidelizada aprecia produto nacional autêntico.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::Tasca do Chico::Lisboa (Bairro Alto)": {
+      "nome": "Tasca do Chico",
+      "tipo": "Casa de Fado / Tasca",
+      "zona": "Lisboa (Bairro Alto)",
+      "morada": "Rua do Diário de Notícias 39, 1200-145 Lisboa",
+      "email_lead": "tascadochico@gmail.com",
+      "tel": "213 424 759",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Casa de Fado / Tasca",
+      "gancho": "Fado e gastronomia tradicional. Público internacional exige sobremesa portuguesa autêntica.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::Taberna da Rua das Flores::Lisboa (Chiado)": {
+      "nome": "Taberna da Rua das Flores",
+      "tipo": "Taberna Tradicional",
+      "zona": "Lisboa (Chiado)",
+      "morada": "Rua das Flores 103, 1200-195 Lisboa",
+      "email_lead": "tabernaderua@gmail.com",
+      "tel": "213 479 418",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Taberna Tradicional",
+      "gancho": "Petiscos e vinhos com clientela fiel. Sobremesa artesanal para fechar a conta.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::Flores do Bairro::Lisboa (Chiado)": {
+      "nome": "Flores do Bairro",
+      "tipo": "Restaurante",
+      "zona": "Lisboa (Chiado)",
+      "morada": "Rua das Flores 64, 1200-194 Lisboa",
+      "email_lead": "floresdobairro@gmail.com",
+      "tel": "213 420 190",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Casual",
+      "gancho": "Zona histórica premium. Sobremesa artesanal enriquece experiência gastronómica local.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Cervejaria Restaurante Jerónimos::Lisboa (Belém)": {
+      "nome": "Cervejaria Restaurante Jerónimos",
+      "tipo": "Cervejaria / Restaurante",
+      "zona": "Lisboa (Belém)",
+      "morada": "Rua de Belém 84, 1300-085 Lisboa",
+      "email_lead": "jeronimos@cervejariaj.pt",
+      "tel": "213 637 423",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Cervejaria Turística",
+      "gancho": "Zona Belém com turistas. Sobremesa artesanal portuguesa como experiência autentica.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Salpoente::Aveiro": {
+      "nome": "Salpoente",
+      "tipo": "Restaurante Fine Dining",
+      "zona": "Aveiro",
+      "morada": "Canal de São Roque 83, 3800-256 Aveiro",
+      "email_lead": "salpoente@salpoente.com",
+      "tel": "234 382 674",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Premium",
+      "gancho": "Fine dining junto à Ria de Aveiro. Sobremesa artesanal como mignardise premium.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Casa de Pasto::Porto": {
+      "nome": "Casa de Pasto",
+      "tipo": "Restaurante Tradicional",
+      "zona": "Porto",
+      "morada": "Rua de Cândido dos Reis 89, 4050-152 Porto",
+      "email_lead": "casadepasto.porto@gmail.com",
+      "tel": "222 006 543",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Tradicional",
+      "gancho": "Cozinha portuguesa tradicional. Pão de ló artesanal como sobremesa âncora da carta.",
+      "semana_entrada": 42,
+      "data_entrada": "2026-10-14",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-14",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
     }
   },
-  "ultima_atualizacao": "2026-10-08",
+  "ultima_atualizacao": "2026-10-14",
   "versao": "2.0",
   "templates_texto": {
     "restaurante": {
