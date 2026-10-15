@@ -1922,9 +1922,11 @@ function resumoEquipaDoc(){
     ${(()=>{const m=a.objetivos.map(o=>({o,e:avaliar(o,a)})).filter(x=>x.e.motivo); return m.length?`<div class="note" style="margin-top:6px"><b>Motivos de incumprimento:</b> ${m.map(x=>`${x.o.com} · ${esc(x.o.nome)}: ${esc(x.e.motivo)}`).join(' · ')}</div>`:'';})()}</div>`:''}
   ${H.length>1?`<div class="sec"><div class="sech">Cumprimento nas últimas semanas</div><div class="tw"><table><thead><tr><th>Semana</th>${COMS.map(c=>`<th class="r">${c}</th>`).join('')}</tr></thead><tbody>${H.map(x=>`<tr><td>Sem. ${isoWeek(x.data)} · ${semRange(x.data)}</td>${COMS.map(c=>{const y=x.resultado[c]; return `<td class="r">${y&&y.n?Math.round(y.taxa*100)+'%':'—'}</td>`;}).join('')}</tr>`).join('')}</tbody></table></div></div>`:''}
   <div class="sec"><div class="sech">Objetivos desta semana<small>${r?r.objetivos.length:0} no total</small></div></div>${COMS.map(c=>{const obs=r?r.objetivos.filter(o=>o.com===c):[]; return `<div class="sec" style="margin-top:8px"><div class="lh">${c} <span class="mu" style="font-weight:500">· ${obs.length} objetivos</span></div>${obs.length?`<div class="tw"><table><tbody>${obs.map(o=>`<tr><td style="width:22px"><span class="box"></span></td><td style="width:92px">${ptag(o.tipo)}</td><td><b>${esc(o.nome)}</b></td><td>${esc(factLine(o))}</td><td>${esc(o.acao||'')}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Sem objetivos definidos.</div>'}</div>`;}).join('')}`;
-  h += `<div class="pb">${parteTit(6,'Valores vencidos')}</div>${COMS.map(c=>{ const V=REL().com[c].venc; const ch=[]; for(let i=0;i<V.g.length;i+=28) ch.push(V.g.slice(i,i+28)); if(!ch.length) ch.push([]);
-    return `<div class="sec"><div class="sech">${c}<small>${eur(V.tot)} · ${V.n} documentos · ${V.nCli} clientes · ${eur0(V.b[2][0])} há +180 dias</small></div></div>`+ch.map((g,ci)=>`<div class="sec" style="margin-top:6px"><div class="tw"><table><thead><tr><th>Cliente${ci?' (continuação)':''}</th><th class="r">Documentos</th><th class="r">Maior atraso</th><th class="r">Em aberto</th></tr></thead><tbody>${g.map(x=>`<tr><td>${esc(x[0])} <span class="mu">${esc(x[1])}</span></td><td class="r">${x[2]}</td><td class="r"><span class="pill ${x[4]>REL_PARAMS.v2?'neg':x[4]>REL_PARAMS.v1?'neu':'pos'}" style="margin:0">${x[4]} dias</span></td><td class="r"><b>${eur(x[3])}</b></td></tr>`).join('')}</tbody></table></div></div>`).join(''); }).join('')}
-  <div class="sec"><div class="tw"><table><tbody><tr class="tot"><td>Total vencido da equipa</td><td class="r">${COMS.reduce((s,c)=>s+REL().com[c].venc.n,0)} documentos</td><td class="r">${eur(vt)}</td></tr></tbody></table></div></div>`;
+  h += `<div class="pb">${parteTit(6,'Valores vencidos')}</div>
+  <div class="sec"><div class="tw"><table><thead><tr><th>Comercial</th><th class="r">Total vencido</th><th class="r">Até 15 d</th><th class="r">15–180 d</th><th class="r">+180 dias</th><th class="r">Documentos</th><th class="r">Clientes</th></tr></thead><tbody>
+  ${COMS.map(c=>{ const V=REL().com[c].venc; return `<tr><td><b>${c}</b></td><td class="r"><b>${eur0(V.tot)}</b></td><td class="r">${eur0(V.b[0][0])}</td><td class="r">${eur0(V.b[1][0])}</td><td class="r ${V.b[2][0]>0?'dn':''}">${eur0(V.b[2][0])}</td><td class="r">${V.n}</td><td class="r">${V.nCli}</td></tr>`; }).join('')}
+  <tr class="tot"><td>Equipa</td><td class="r">${eur(vt)}</td><td class="r">${eur0(COMS.reduce((s,c)=>s+REL().com[c].venc.b[0][0],0))}</td><td class="r">${eur0(COMS.reduce((s,c)=>s+REL().com[c].venc.b[1][0],0))}</td><td class="r ${v180>0?'dn':''}">${eur0(v180)}</td><td class="r">${COMS.reduce((s,c)=>s+REL().com[c].venc.n,0)}</td><td></td></tr>
+  </tbody></table></div></div>`;
   return h+`</div>`;
 }
 /* seletor da semana em análise */
@@ -2081,12 +2083,7 @@ function paginaVendas(com){
   const defs=[['semana','Semana'],['mes','Mês'],['quad','Quadrim.'],['ano','Ano']];
   const L=semanasAtuais().filter(x=>x<=semanaAnalise().seg); const lab=L.map(x=>'S'+isoWeek(x));
   const tk=L.map(x=>{const y=wk(com,x); return y.cl?y.v/y.cl:null;}), tkLy=L.map(x=>{const y=wk(com,addD(x,-364)); return y.cl?y.v/y.cl:null;});
-  return `${pdfKpiTabela(com,'H','Horeca','#c9702e')}${pdfKpiTabela(com,'J','Pingo Doce','#5f8358')}${pdfKpiTabela(com,'T','Total','#493631')}
-  <div class="sec"><div class="three">
-    <div class="panel" style="padding:9px"><div class="ptitle">Horeca e Pingo Doce<span>por período</span></div>${gbarSvg(defs.map(([k,l])=>({label:l, a:relK(com,'H',k).v, b:relK(com,'J',k).v})))}<div class="legend"><span><i style="background:#c9702e"></i>Horeca</span><span><i style="background:#5f8358"></i>Pingo Doce</span></div></div>
-    <div class="panel" style="padding:9px"><div class="ptitle">Faturação Horeca/semana<span>vs ano anterior</span></div>${L.length?lineSvg([{vals:L.map(x=>wk(com,addD(x,-364)).v),color:'#c4afa0',dash:true,w:1.6},{vals:L.map(x=>wk(com,x).v),color:'#493631',dots:true,area:true}],lab,v=>Math.round(v/100)/10+'k'):''}</div>
-    <div class="panel" style="padding:9px"><div class="ptitle">Média por cliente Horeca<span>vs ano anterior</span></div>${L.length?lineSvg([{vals:tkLy,color:'#c4afa0',dash:true,w:1.6},{vals:tk,color:'#c9702e',dots:true,area:true}],lab,v=>Math.round(v)+'€'):''}</div>
-  </div></div>`;
+  return `${pdfKpiTabela(com,'H','Horeca','#c9702e')}${pdfKpiTabela(com,'J','Pingo Doce','#5f8358')}${pdfKpiTabela(com,'T','Total','#493631')}`;
 }
 /* ---------- pág. 3: análise Pingo Doce ---------- */
 function paginaPingoDoce(com){
@@ -2175,10 +2172,32 @@ function pdfObjetivosComercial(com){
     rev = `<div class="sec"><div class="sech">Objetivos da semana passada <small>reunião de ${fmtDY(a.data)}</small></div>
     ${ao.length?`<p style="margin:0 0 6px"><b>${x.cump} de ${x.n}</b> cumpridos${x.parc?' · '+x.parc+' parcial':''} · <b>${eur0(x.rec)}</b> recebidos · <b>${x.reat}</b> reativados/recuperados · taxa <b>${x.taxa==null?'—':Math.round(x.taxa*100)+'%'}</b></p>
     <div class="tw"><table><thead><tr><th>Tipo</th><th>Cliente</th><th>Resultado</th><th>Motivo / evidência</th></tr></thead><tbody>${ao.map(o=>{const e=avaliar(o,a); return `<tr><td>${ptag(o.tipo)}</td><td>${esc(o.nome)}</td><td>${estTxt(e.estado)}</td><td>${esc(e.motivo||e.ev||'')}</td></tr>`;}).join('')}</tbody></table></div>`:'<div class="empty">Sem objetivos nessa semana.</div>'}</div>`; }
-  const comp = `<div class="sec"><div class="sech">Objetivos desta semana <small>${obs.length} de ${MAX_OBJ}</small></div>
+  // leads identificadas para visitar (tipo==='lead' nos objetivos desta semana)
+  const leads = obs.filter(o=>o.tipo==='lead');
+  let leadsHtml = '';
+  if(leads.length){
+    // tenta obter zona/rota: primeiro procura no cliente (ent match), senão sem zona
+    const cliMap = S.dados ? Object.fromEntries(S.dados.clientes.map(C).filter(c=>c.com===com||com==='Equipa').map(c=>[c.ent,c])) : {};
+    const getZona = o => {
+      if(o.ent && cliMap[o.ent]){ const cl=cliMap[o.ent]; return cl.zona||''; }
+      // check LOJAS_PD by ent
+      const found = Object.entries(LOJAS_PD).find(([,v])=>v[0]===(o.ent||'') || false);
+      return found ? found[1][1] : '';
+    };
+    // agrupar por zona
+    const porZona = {};
+    leads.forEach(o=>{ const z=getZona(o)||'Sem rota'; (porZona[z]=porZona[z]||[]).push(o); });
+    const zonaKeys = Object.keys(porZona).sort((a,b)=>a==='Sem rota'?1:b==='Sem rota'?-1:a.localeCompare(b));
+    leadsHtml = `<div class="sec" style="margin-top:8px"><div class="sech">Leads identificadas para visitar <small>${leads.length}</small></div>
+    <div class="tw"><table><thead><tr><th>Lead / potencial cliente</th><th>Rota</th><th>Ação planeada</th></tr></thead><tbody>
+    ${zonaKeys.flatMap(z=>porZona[z].map(o=>`<tr><td><b>${esc(o.nome)}</b>${o.ent?` <span class="mu">${esc(o.ent)}</span>`:''}</td><td>${esc(z==='Sem rota'?'—':z)}</td><td>${esc(o.acao||'')}</td></tr>`)).join('')}
+    </tbody></table></div></div>`;
+  }
+  const obsNaoLead = obs.filter(o=>o.tipo!=='lead');
+  const comp = `<div class="sec" style="margin-top:8px"><div class="sech">Objetivos desta semana <small>${obs.length} de ${MAX_OBJ}</small></div>
     ${obs.length?`<div class="tw"><table><thead><tr><th></th><th>Tipo</th><th>Cliente</th><th>Situação</th><th>Ação combinada</th></tr></thead><tbody>${obs.map(o=>`<tr><td><span class="box"></span></td><td>${ptag(o.tipo)}</td><td><b>${esc(o.nome)}</b>${o.ent?` <span class="mu">${esc(o.ent)}</span>`:''}</td><td>${esc(factLine(o))}</td><td>${esc(o.acao||'')}</td></tr>`).join('')}</tbody></table></div>`
       :`<div class="empty">A definir na reunião.</div>${Array.from({length:8}).map(()=>'<div class="lines"></div>').join('')}`}</div>`;
-  return rev+comp;
+  return rev+leadsHtml+comp;
 }
 function resumoComercialDoc(com){
   if(!REL()) return `<div id="pdfdoc">${docHeadSimples(com, S.reuniao?S.reuniao.data:iso(new Date()))}<div class="al warn"><i>!</i><span>Carrega o Dados.xlsx outra vez para gerar a análise completa.</span></div></div>`;
@@ -2347,7 +2366,28 @@ function paginaPingoDoce(com){
   const ordenar = arr => arr.sort((a,b)=>(b.v12-a.v12) || a.loja.localeCompare(b.loja));
   const blocos = com==='Equipa'
     ? [{t:'Lojas com maior taxa de devolução', rows:lista.filter(x=>taxa(x)!=null).sort((a,b)=>taxa(b)-taxa(a)).slice(0,25)}]
-    : zonas.map(z=>({t:z, rows:ordenar(lista.filter(x=>x.zona===z))})).concat(fora.length?[{t:'Outras lojas com entregas (fora da lista)', rows:ordenar(fora)}]:[]);
+    : zonas.map(z=>({t:z, rows:ordenar(lista.filter(x=>x.zona===z))}));
+  // alertas de devoluções (individual apenas)
+  const alertas = com!=='Equipa' ? (() => {
+    const comDev = lista.filter(x=>x.dw>0&&x.vW>0);
+    const taxaMed = comDev.length ? comDev.reduce((s,x)=>s+taxa(x),0)/comDev.length : 0;
+    const alertList = lista.filter(x=>{ const t=taxa(x); return t!=null && t>REL_PARAMS.devLim; }).sort((a,b)=>taxa(b)-taxa(a));
+    // desvio: taxa loja vs taxa media do comercial
+    const desv = x => { const t=taxa(x); return taxaMed>0 ? (t-taxaMed)/taxaMed : null; };
+    // variação taxa: (dv6/v6) vs (dvp/vp)
+    const taxaAnt = x => x.vp>0 ? x.dvp/x.vp : null;
+    const varTaxa = x => { const ta=taxaAnt(x); const tc=x.v6>0?x.dv6/x.v6:null; return (ta!=null&&tc!=null&&ta>0) ? (tc-ta)/ta : null; };
+    if(!alertList.length) return '';
+    return `<div class="sec cl" style="margin-top:6px"><div class="sech" style="color:var(--danger,#c0392b)">⚠ Lojas com taxa de devolução acima de ${Math.round(REL_PARAMS.devLim*100)}% <small>${alertList.length} loja${alertList.length!==1?'s':''}</small></div>
+    <div class="tw"><table><thead><tr><th>Loja</th><th class="r">Taxa atual</th><th class="r">Desvio à média</th><th class="r">Tendência 6m</th><th class="r">Devoluções</th><th class="r">Vendas</th></tr></thead><tbody>
+    ${alertList.map(x=>{ const d=desv(x); const vt=varTaxa(x); return `<tr>
+      <td><b>${esc(x.loja)}</b> <span class="mu">${x.zona}</span></td>
+      <td class="r"><span class="pill neg" style="margin:0">${(taxa(x)*100).toFixed(1)}%</span></td>
+      <td class="r ${d!=null&&d>0.5?'dn':''}">${d!=null?`${d>=0?'+':''}${Math.round(d*100)}%`:'—'}</td>
+      <td class="r">${vt!=null?`<span class="${vt>0.1?'dn':vt<-0.1?'up':''}">${vt>=0?'▲':'▼'}${Math.abs(Math.round(vt*100))}%</span>`:'<span class="mu">—</span>'}</td>
+      <td class="r">${eur0(x.dw)}</td><td class="r">${eur0(x.vW)}</td></tr>`; }).join('')}
+    </tbody></table></div></div>`;
+  })() : '';
   const head=`<tr><th>Loja</th>${com==='Equipa'?'<th>Comercial</th>':''}<th class="r">Entregas</th><th class="r">Vendas 12 m</th><th class="r">Média/entrega</th><th class="r">Últ. 6 m vs ant.</th><th class="r">Devoluções</th><th class="r">Taxa</th><th class="r">Última entrega</th><th class="r">Abertas</th></tr>`;
   const jan = D.janela ? `${fmtDY(D.janela[0])} a ${fmtDY(D.janela[1])}` : '';
   return `<div class="cl"><div class="dash5" style="margin-top:0">
@@ -2365,6 +2405,7 @@ function paginaPingoDoce(com){
       <tr><td>Taxa</td>${M.map(x=>{ if(semDev.includes(x.m)) return '<td class="r"><span class="mu">—</span></td>'; const t=x.e[0]?x.e[3]/x.e[0]:0; return `<td class="r ${t>REL_PARAMS.devLim?'dn':''}">${(t*100).toFixed(1)}%</td>`; }).join('')}<td class="r"><b>${(taxa12*100).toFixed(1)}%</b></td></tr>
     </tbody></table></div></div></div>
   <div class="sec cl"><div class="sech">${com==='Equipa'?'Lojas Pingo Doce':'As tuas lojas Pingo Doce'}<small>${lista.length} lojas · vendas, devoluções e taxa por loja</small></div></div>
+  ${alertas}
   ${blocos.map(b=>`<div class="sec cl" style="margin-top:6px"><div class="lh">${esc(b.t)} <span class="mu" style="font-weight:500">· ${b.rows.length} lojas</span></div><div class="tw"><table><thead>${head}</thead><tbody>${b.rows.map(linha).join('')}</tbody></table></div></div>`).join('')}
   <div class="note cl">${temVendas?`Loja de cada venda identificada pela aba PD_entregas (${D.cobertura!=null?Math.round(D.cobertura*100)+'% do valor faturado nos últimos 12 meses':'—'}). Taxa por loja = devoluções ÷ vendas no mesmo período (${jan}), porque as devoluções só estão registadas até ${fmtDY(atual)}.`:'Sem a aba PD_entregas não é possível saber a loja de cada venda.'}${foraDev.length?` Devoluções de lojas fora da lista: ${foraDev.length} lojas.`:''}</div>`;
 }
