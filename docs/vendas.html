@@ -1383,10 +1383,11 @@ async function __start(){
       }
       const agg = window.__lastAgg;
       const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
-      const msg = resumo + "\n\n👇 Ver dashboard interativo:\n" + link;
-      // Tentar abrir o WhatsApp; mostrar painel com link de fallback também
-      window.open("https://wa.me/?text="+encodeURIComponent(msg), "_blank", "noopener");
-      // Mostrar painel com link para copiar (útil em desktop ou se WA não abrir)
+      // Abrir WhatsApp só com o resumo em texto (wa.me tem limite de ~2000 chars)
+      // O link do dashboard é partilhado separadamente pelo painel abaixo
+      const txtWA = resumo + "\n\n👇 Dashboard interativo (link em baixo)";
+      window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+      // Mostrar painel com o link para copiar e colar na conversa do WA
       mostrarPainelLink(link);
     } finally {
       btn.disabled = false; btn.textContent = "WhatsApp";
@@ -1511,20 +1512,15 @@ function mostrarPainelLink(link){
       +"padding:22px 24px;font:14px Inter,system-ui,sans-serif;line-height:1.5";
     document.body.appendChild(d);
   }
-  const encoded = encodeURIComponent(link);
-  d.innerHTML = '<b style="font-size:15px">Link do dashboard gerado</b>'
-    +'<p style="margin:10px 0 6px;color:#6b625c">Copia e envia pelo WhatsApp. Quem receber vê o dashboard completo, sem precisar de login.</p>'
+  d.innerHTML = '<b style="font-size:15px">2. Cola o link na conversa do WhatsApp</b>'
+    +'<p style="margin:10px 0 6px;color:#6b625c">O WhatsApp já abriu com o resumo. Agora copia este link e cola na mesma conversa — quem receber vê o dashboard completo no browser, sem login.</p>'
     +'<div style="display:flex;gap:8px;margin-top:10px">'
     +'<input id="waLinkInput" readonly value="'+link.replace(/"/g,'&quot;')+'" style="flex:1;border:1px solid #ebe4db;border-radius:10px;padding:9px 12px;font-size:13px;color:#1d1714;background:#faf6ef;overflow:hidden;text-overflow:ellipsis">'
-    +'<button onclick="var i=document.getElementById(\'waLinkInput\');i.select();navigator.clipboard&&navigator.clipboard.writeText(i.value);this.textContent=\'✓ Copiado\'" '
+    +'<button onclick="var i=document.getElementById(\'waLinkInput\');i.select();navigator.clipboard&&navigator.clipboard.writeText(i.value);this.textContent=\'✓ Copiado!\';this.style.background=\'#e8f5e9\'" '
     +'style="border:1px solid #ebe4db;background:#fff;border-radius:10px;padding:9px 14px;font-weight:600;cursor:pointer;white-space:nowrap">Copiar link</button>'
     +'</div>'
-    +'<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">'
-    +'<a href="https://wa.me/?text='+encoded+'" target="_blank" rel="noopener" '
-    +'style="background:#25a244;color:#fff;border-radius:10px;padding:9px 14px;font-weight:700;text-decoration:none">Abrir WhatsApp</a>'
     +'<button onclick="document.getElementById(\'waLinkPanel\').remove()" '
-    +'style="border:1px solid #ebe4db;background:#fff;border-radius:10px;padding:9px 14px;font-weight:600;cursor:pointer">Fechar</button>'
-    +'</div>';
+    +'style="margin-top:14px;border:1px solid #ebe4db;background:#fff;border-radius:10px;padding:9px 14px;font-weight:600;cursor:pointer">Fechar</button>';
 }
 
 function openShareModal(){
