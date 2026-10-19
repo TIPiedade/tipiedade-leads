@@ -1617,10 +1617,45 @@ function resumoEquipaDoc(){
 function msgTexto(quem){
   const r=S.reuniao; const ref = r ? r.data : iso(new Date()); const sem=`semana ${isoWeek(ref)} (${semRange(ref)})`;
   if(quem==='Equipa'){
-    let t=`Resumo da equipa comercial · ${sem}\n\n`;
-    COMS.forEach(c=>{ const k=S.dados.semanas?kpiSemanal(c):null; const m=REL()?relK(c,'T','mes').v:null; const n=r?r.objetivos.filter(o=>o.com===c).length:0;
-      t+=`${c}: ${m!=null?'mês comercial '+eur0(m)+' · ':''}${k?Math.round(k.cur.cl)+' clientes/sem. · média '+eur0(k.cur.tk)+' · ':''}${n} compromissos\n`; });
-    return t+`\nO resumo completo segue em PDF.`;
+    // Semana
+    const semTot = REL() ? COMS.reduce((s,c)=>s+relK(c,'T','semana').v,0) : null;
+    const semLyTot = REL() ? COMS.reduce((s,c)=>s+(relK(c,'T','semana').ly||0),0) : null;
+    const semVar = semTot!=null&&semLyTot>0 ? Math.round((semTot/semLyTot-1)*100) : null;
+    // Mês
+    const mesTot = REL() ? COMS.reduce((s,c)=>s+relK(c,'T','mes').v,0) : null;
+    const mesLyTot = REL() ? COMS.reduce((s,c)=>s+(relK(c,'T','mes').ly||0),0) : null;
+    const mesVar = mesTot!=null&&mesLyTot>0 ? Math.round((mesTot/mesLyTot-1)*100) : null;
+    // Ano
+    const anoTot = REL() ? COMS.reduce((s,c)=>s+relK(c,'T','ano').v,0) : null;
+    const anoLyTot = REL() ? COMS.reduce((s,c)=>s+(relK(c,'T','ano').ly||0),0) : null;
+    const anoVar = anoTot!=null&&anoLyTot>0 ? Math.round((anoTot/anoLyTot-1)*100) : null;
+    const varStr = v => { if(v==null) return ''; return v>=0?' (+'+v+'%)':' (-'+Math.abs(v)+'%)'; };
+    const kTot = S.dados.semanas ? COMS.reduce((s,c)=>{const k=kpiSemanal(c);return s+(k?k.cur.cl:0);},0) : null;
+    const kLyTot = S.dados.semanas ? COMS.reduce((s,c)=>{const k=kpiSemanal(c);return s+(k?k.ly.cl:0);},0) : null;
+    const clVar = kTot!=null&&kLyTot>0 ? Math.round((kTot/kLyTot-1)*100) : null;
+    // Compromissos + cumprimento anterior
+    const totalComp = r ? r.objetivos.length : 0;
+    let cumpStr = '';
+    if(S.anterior){ const tot=COMS.reduce((s,c)=>{const x=resumoRevisao(S.anterior,c);return {n:s.n+x.n,c:s.c+x.cump};},{n:0,c:0}); if(tot.n) cumpStr=`✅ Semana passada: ${tot.c}/${tot.n} compromissos cumpridos (${Math.round(tot.c/tot.n*100)}%)\n`; }
+    // Destaques por comercial
+    let destaques='';
+    COMS.forEach(c=>{
+      const ks=S.dados.semanas?kpiSemanal(c):null;
+      const ms=REL()?relK(c,'T','mes'):null;
+      const nc=r?r.objetivos.filter(o=>o.com===c).length:0;
+      const msVar=ms&&ms.ly>0?Math.round((ms.v/ms.ly-1)*100):null;
+      destaques+=`  • ${c}: mês ${ms?eur0(ms.v):'—'}${msVar!=null?(msVar>=0?' (+'+msVar+'%)':' (-'+Math.abs(msVar)+'%)')  :''} · ${ks?Math.round(ks.cur.cl)+' clts/sem.':'—'} · ${nc} obj.
+`;
+    });
+    let t=`📊 Equipa Comercial Ti'Piedade · ${sem}\n\n`;
+    if(semTot!=null) t+=`📅 SEMANA\nFaturação: ${eur0(semTot)}${varStr(semVar)}\nClientes faturados: ${kTot!=null?Math.round(kTot)+''+varStr(clVar):' —'}\n\n`;
+    if(mesTot!=null) t+=`🗓 MÊS COMERCIAL\nAcumulado: ${eur0(mesTot)}${varStr(mesVar)}\n\n`;
+    if(anoTot!=null) t+=`📆 ANO\nAcumulado: ${eur0(anoTot)}${varStr(anoVar)}\n\n`;
+    t+=`👥 POR COMERCIAL\n`+destaques+`\n`;
+    if(cumpStr) t+=cumpStr;
+    t+=`🎯 Compromissos esta semana: ${totalComp}\n`;
+    t+=`\nResumo completo em PDF.`;
+    return t;
   }
   const k=S.dados.semanas?kpiSemanal(quem):null; const obs=r?r.objetivos.filter(o=>o.com===quem):[];
   let t=`Olá ${quem}, segue o resumo da ${sem}.\n\n`;
