@@ -524,6 +524,7 @@ body.force-mobile .topbar-controls .btn{ font-size:12px; padding:7px 12px; }
     </div>
     <div class="topbar-controls" id="topbarControls" style="display:none;">
       <span class="period-pill" id="periodPill">—</span>
+      <button class="btn btn-ghost" id="btnWA" title="Enviar resumo por WhatsApp">WhatsApp</button>
       <button class="btn btn-ghost" id="btnShare" title="Gera um ficheiro HTML partilhável com os dados já incluídos">Partilhar</button>
       <button class="btn btn-ghost" id="btnExportPdf">Exportar PDF</button>
       <button class="btn btn-ghost" id="btnReload">Carregar novo ficheiro</button>
@@ -1364,6 +1365,14 @@ async function __start(){
     });
   }
 
+  const btnWA = document.getElementById("btnWA");
+  if(btnWA) btnWA.addEventListener("click", ()=>{
+    const agg = window.__lastAgg;
+    if(!agg){ alert("Carrega um ficheiro de dados primeiro."); return; }
+    const txt = msgAdminWA(agg);
+    window.open("https://wa.me/?text="+encodeURIComponent(txt), "_blank", "noopener");
+  });
+
   const btnShare = document.getElementById("btnShare");
   if(btnShare) btnShare.addEventListener("click", ()=>{
     if(!RAW_ROWS.length){ alert("Carrega um ficheiro de dados primeiro."); return; }
@@ -1826,6 +1835,49 @@ function attachPeriodSelectorEvents(){
   });
 }
 
+
+// ---------------------------------------------------------------------------
+// MENSAGEM WHATSAPP — ANÁLISE ADMINISTRAÇÃO
+// ---------------------------------------------------------------------------
+function msgAdminWA(agg){
+  const varMes  = pct(agg.totalMes,  agg.totalMesHom);
+  const varAcum = pct(agg.totalAcum, agg.totalAcumHom);
+  const sinal   = v => v == null ? '' : (v >= 0 ? ' (+'+fmtPct(v)+')' : ' ('+fmtPct(v)+')');
+
+  let t = "📊 Análise Administração · Ti'Piedade\n";
+  t += agg.mesNome + " " + agg.anoN + " vs. " + (agg.anoN-1) + "\n\n";
+
+  t += "📅 MÊS\n";
+  t += "Vendas: " + fmtEUR(agg.totalMes) + sinal(varMes) + "\n\n";
+
+  t += "📆 ANO ACUMULADO\n";
+  t += "Vendas: " + fmtEUR(agg.totalAcum) + sinal(varAcum) + "\n\n";
+
+  // Canais do mês com variação homóloga
+  const canais = Object.values(agg.byChannel||{})
+    .filter(x=>x.mes>0)
+    .sort((a,b)=>b.mes-a.mes);
+  if(canais.length){
+    t += "📦 POR CANAL\n";
+    canais.forEach(x=>{
+      const cv = pct(x.mes, x.mesHom);
+      t += "  • " + x.canal + ": " + fmtEUR(x.mes) + (x.mesHom>0?sinal(cv):"") + "\n";
+    });
+    t += "\n";
+  }
+
+  // Insights em texto simples (sem HTML)
+  const insights = generateInsights(agg);
+  if(insights.length){
+    t += "💡 PONTOS DE ATENÇÃO\n";
+    insights.forEach(i=>{
+      const plain = i.text.replace(/<b>/g,"").replace(/<\/b>/g,"").replace(/<[^>]+>/g,"");
+      t += "  " + (i.type==="pos"?"▲":i.type==="neg"?"▼":"›") + " " + plain + "\n";
+    });
+  }
+
+  return t.trim();
+}
 
 // ---------------------------------------------------------------------------
 // HERO KPIs
