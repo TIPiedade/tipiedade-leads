@@ -506,6 +506,8 @@ async function verificarLembreteDados(u){
   var meta=null; try{ var r=await fetch(WORKER_URL+"/kv/vendas-meta",{headers:{Authorization:"Bearer "+sessao()},cache:"no-store"}); if(r.ok) meta=await r.json(); }catch(e){ return; }
   var hoje=new Date(); var inicioMes=new Date(hoje.getFullYear(),hoje.getMonth(),1);
   var ultima = meta&&meta.em ? new Date(meta.em) : null;
+  /* verificar também o timestamp local (caso o servidor ainda não reflita o upload mais recente) */
+  try{ var localEm=localStorage.getItem('vendas_publicado_em'); if(localEm){ var localD=new Date(localEm); if(!ultima||localD>ultima) ultima=localD; } }catch(ex){}
   if(ultima && ultima>=inicioMes) return;
   var prazo=new Date(hoje.getFullYear(),hoje.getMonth(),DIA_LIMITE_DADOS);
   var atraso = hoje.getDate()>DIA_LIMITE_DADOS;

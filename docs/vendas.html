@@ -3055,12 +3055,22 @@ function renderInactiveClientsSection(agg, rows){
   async function publicar(){
     var t=sess(); if(!t){ aviso('Sessão expirada — os dados não foram partilhados.',true); return; }
     aviso('A partilhar os dados com a equipa…');
-    try{ var body=JSON.stringify({b64:payloadB64(), ficheiro:LAST_FILE_NAME, em:new Date().toISOString(), por:localStorage.getItem('crm_user')||''});
+    try{
+      var b64=payloadB64();
+      var sizeKB=Math.round(b64.length/1024);
+      var meta={em:new Date().toISOString(), por:localStorage.getItem('crm_user')||'', ficheiro:LAST_FILE_NAME};
+      var body=JSON.stringify({b64:b64, ficheiro:LAST_FILE_NAME, em:meta.em, por:meta.por});
       var r=await fetch(W+'/kv/vendas',{method:'PUT',headers:{Authorization:'Bearer '+t,'Content-Type':'application/json'},body:body});
-      if(!r.ok) throw new Error('HTTP '+r.status);
-      await fetch(W+'/kv/vendas-meta',{method:'PUT',headers:{Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({em:new Date().toISOString(), por:localStorage.getItem('crm_user')||'', ficheiro:LAST_FILE_NAME})});
-      aviso('Dados atualizados e partilhados · '+LAST_FILE_NAME);
-    }catch(e){ console.error(e); aviso('Não foi possível partilhar os dados ('+(e.message||e)+').',true); }
+      if(!r.ok){
+        var errTxt=''; try{ var ej=await r.json(); errTxt=ej.erro||ej.error||ej.message||''; }catch(x){ try{ errTxt=await r.text(); }catch(y){} }
+        throw new Error('HTTP '+r.status+(errTxt?' — '+errTxt.slice(0,120):''));
+      }
+      var r2=await fetch(W+'/kv/vendas-meta',{method:'PUT',headers:{Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(meta)});
+      if(!r2.ok){ console.warn('vendas-meta não guardado:', r2.status); }
+      aviso('✓ Dados partilhados com a equipa · '+LAST_FILE_NAME+' ('+sizeKB+' KB)');
+      /* guardar timestamp localmente para o banner do CRM não aparecer */
+      try{ localStorage.setItem('vendas_publicado_em', meta.em); }catch(x){}
+    }catch(e){ console.error(e); aviso('Erro ao partilhar: '+(e.message||e)+'. Tenta novamente ou contacta o Rui.',true); }
   }
   /* ---- partilhar o HTML pronto a consultar (WhatsApp, e-mail, etc.) ---- */
   function painel(html){
