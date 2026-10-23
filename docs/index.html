@@ -1134,6 +1134,14 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
           <option value="catering">Catering</option>
           <option value="distribuidores">Distribuidores</option>
         </select>
+        <select class="filter-select" onchange="filtrarTabela()" id="filt-nurturing-todos" style="width:auto;font-size:12px">
+          <option value="">Todos os passos</option>
+          <option value="0">Passo 0</option>
+          <option value="1">Passo 1</option>
+          <option value="2">Passo 2</option>
+          <option value="3">Passo 3</option>
+          <option value="4">✅ Passo 4</option>
+        </select>
       </div>
       <div class="table-wrap"><div class="lead-cards"></div><table id="tbl-todos"><thead><tr>
         <th>Lead</th><th>Canal</th><th>Comercial</th><th>Zona</th>
@@ -1256,6 +1264,14 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
           <option value="rui_distribuidores">Distribuidores</option>
           <option value="rui_grupos">🏢 Grupos Nacionais</option>
           <option value="manual_rui">Adicionadas manualmente</option>
+        </select>
+        <select class="filter-select" onchange="renderVista('rui')" id="filt-nurturing-rui" style="width:auto;font-size:12px">
+          <option value="">Todos os passos</option>
+          <option value="0">Passo 0 (sem contacto)</option>
+          <option value="1">Passo 1</option>
+          <option value="2">Passo 2</option>
+          <option value="3">Passo 3</option>
+          <option value="4">✅ Passo 4 (prontos)</option>
         </select>
         <button class="btn-primary" onclick="abrirNovaLead()" style="padding:7px 14px;font-size:12px">+ Nova lead</button>
       </div>
@@ -2990,11 +3006,12 @@ document.addEventListener("click", ()=>document.querySelectorAll(".tipo-panel").
 
 function renderVista(vista) {
   if (vista === "ana") { renderVistaAna(); return; }
-  const search    = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
-  const canalRui  = document.getElementById("filt-canal-rui")?.value||"";
-  const estadoFilt= document.getElementById(`filt-estado-${vista}`)?.value||"";
-  const zonaFilt  = document.getElementById(`filt-zona-${vista}`)?.value||"";
-  const tipoFilt  = getTiposSelecionados(vista);
+  const search       = (document.getElementById(`search-${vista}`)?.value||"").toLowerCase();
+  const canalRui     = document.getElementById("filt-canal-rui")?.value||"";
+  const estadoFilt   = document.getElementById(`filt-estado-${vista}`)?.value||"";
+  const zonaFilt     = document.getElementById(`filt-zona-${vista}`)?.value||"";
+  const tipoFilt     = getTiposSelecionados(vista);
+  const nurturingFilt= document.getElementById(`filt-nurturing-${vista}`)?.value||"";
   const tbody     = document.getElementById(`tbody-${vista}`);
   if (!tbody) return;
 
@@ -3027,7 +3044,8 @@ function renderVista(vista) {
     (!search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search)) &&
     (!estadoFilt || (v.estado||"Em aberto") === estadoFilt) &&
     (!zonaFilt || (v.zona||"") === zonaFilt) &&
-    (!tipoFilt.length || tipoFilt.includes(normTipo(v.tipologia_cliente||"")))
+    (!tipoFilt.length || tipoFilt.includes(normTipo(v.tipologia_cliente||""))) &&
+    (!nurturingFilt || (v.emails_enviados||[]).length === parseInt(nurturingFilt))
   );
 
   // ── Resumo rápido por estado (para vistas de comercial) ────
@@ -3075,14 +3093,16 @@ function toggleFiltroEstado(vista, estado) {
 }
 
 function filtrarTabela() {
-  const search = document.getElementById("search-todos")?.value?.toLowerCase()||"";
-  const estado = document.getElementById("filt-estado-todos")?.value||"";
-  const canal  = document.getElementById("filt-canal-todos")?.value||"";
+  const search    = document.getElementById("search-todos")?.value?.toLowerCase()||"";
+  const estado    = document.getElementById("filt-estado-todos")?.value||"";
+  const canal     = document.getElementById("filt-canal-todos")?.value||"";
+  const nurturing = document.getElementById("filt-nurturing-todos")?.value||"";
   const rows = leads().filter(([k,v]) => {
     const s = !search || (v.nome||"").toLowerCase().includes(search) || (v.zona||"").toLowerCase().includes(search);
     const e = !estado || v.estado===estado;
     const c = !canal  || (v.canal_id||"").includes(canal);
-    return s&&e&&c;
+    const n = !nurturing || (v.emails_enviados||[]).length === parseInt(nurturing);
+    return s&&e&&c&&n;
   });
   const tbody = document.getElementById("tbody-todos");
   if (!tbody) return;
