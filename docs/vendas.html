@@ -3348,6 +3348,21 @@ function renderInactiveClientsSection(agg, rows){
     if(pass){ var np=pass.cloneNode(true); pass.parentNode.replaceChild(np,pass); np.addEventListener('keydown',function(e){if(e.key==='Enter')tentarLogin();}); np.focus(); }
   }
 
+  /* ---- utilitário: mostrar erro visível no ecrã (debug iOS) ---- */
+  function mostrarErroVisivel(titulo, msg){
+    var d=document.createElement('div');
+    d.style.cssText='position:fixed;inset:0;z-index:99999;background:#fff;padding:24px 16px;overflow:auto;font-family:Inter,system-ui,sans-serif';
+    d.innerHTML='<div style="max-width:480px;margin:0 auto">'
+      +'<div style="background:#fdf2f2;border:2px solid #e74c3c;border-radius:12px;padding:20px">'
+      +'<h2 style="margin:0 0 12px;font-size:16px;color:#c0392b">⚠️ '+titulo+'</h2>'
+      +'<pre style="white-space:pre-wrap;word-break:break-all;font-size:12px;color:#333;background:#f8f8f8;padding:12px;border-radius:8px;max-height:60vh;overflow:auto">'+msg+'</pre>'
+      +'</div>'
+      +'<button onclick="this.parentNode.parentNode.remove()" style="margin-top:16px;width:100%;padding:12px;background:#2b2118;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer">Fechar</button>'
+      +'<button onclick="location.reload()" style="margin-top:8px;width:100%;padding:12px;background:#4a90d9;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer">Recarregar página</button>'
+      +'</div>';
+    document.body.appendChild(d);
+  }
+
   var _restaurar=tryRestoreSession;
   tryRestoreSession=async function(){
     /* Opção B: no portal, o uploadView nunca é o ponto de entrada —
@@ -3370,22 +3385,51 @@ function renderInactiveClientsSection(agg, rows){
         });
         t=sess();
       }
-      /* se tem dados locais, deixa o _restaurar() mostrar o dashboard normalmente
-         (o utilizador pode sincronizar ao clicar em algo — não bloqueamos a vista) */
+      /* se tem dados locais, deixa o _restaurar() mostrar o dashboard normalmente */
     }
 
-    if(t && !window.__sharedPayloadB64){ var b=await carregar(); if(b) window.__sharedPayloadB64=b; }
-    var r=await _restaurar();
-
-    /* Fallback: se o _restaurar() não mostrou o dashboard mas há dados no KV,
-       tentar uma segunda vez (agora que __sharedPayload foi populado na 1ª chamada) */
-    var dv=document.getElementById('dashboardView');
-    if((!dv||dv.style.display==='none') && window.__sharedPayloadB64){
-      await _restaurar();
+    if(t && !window.__sharedPayloadB64){
+      try{ var b=await carregar(); if(b) window.__sharedPayloadB64=b; }
+      catch(eCarregar){ mostrarErroVisivel('Erro ao carregar dados do servidor', String(eCarregar)); return; }
     }
-    /* no portal os dados vêm do servidor, mas o botão Partilhar continua a fazer sentido */
-    var sb=document.getElementById('btnShare'); if(sb){ sb.style.display=''; sb.textContent='Partilhar ficheiro'; }
-    return r;
+
+    try{
+      var r=await _restaurar();
+
+      /* Fallback: se o _restaurar() não mostrou o dashboard mas há dados no KV,
+         tentar renderizar directamente sem chamar _restaurar() de novo */
+      var dv=document.getElementById('dashboardView');
+      if((!dv||dv.style.display==='none') && window.__sharedPayloadB64){
+        /* tentar segunda vez */
+        await _restaurar();
+        dv=document.getElementById('dashboardView');
+        /* se ainda em branco após 2ª tentativa, mostrar diagnóstico */
+        if(!dv||dv.style.display==='none'){
+          var diagInfo='__sharedPayloadB64 len='+String(window.__sharedPayloadB64||'').length
+            +'\n__sharedPayload='+(window.__sharedPayload?'OK ('+((window.__sharedPayload.rows||[]).length)+' rows)':'null')
+            +'\nRAW_ROWS='+RAW_ROWS.length
+            +'\nIS_SHARED_MODE='+IS_SHARED_MODE
+            +'\nCURRENT_PERIOD='+JSON.stringify(CURRENT_PERIOD);
+          mostrarErroVisivel('Dashboard não renderizou (diagnóstico)', diagInfo);
+        }
+      }
+
+      /* no portal os dados vêm do servidor, mas o botão Partilhar continua a fazer sentido */
+      var sb=document.getElementById('btnShare'); if(sb){ sb.style.display=''; sb.textContent='Partilhar ficheiro'; }
+      return r;
+    }catch(eRestaurar){
+      /* capturar qualquer erro de renderização e mostrar no ecrã */
+      var info=String(eRestaurar);
+      if(eRestaurar && eRestaurar.stack) info+='\n\nStack:\n'+eRestaurar.stack;
+      info+='\n\n--- Estado ---'
+        +'\n__sharedPayloadB64 len='+String(window.__sharedPayloadB64||'').length
+        +'\n__sharedPayload='+(window.__sharedPayload?'OK ('+((window.__sharedPayload.rows||[]).length)+' rows)':'null')
+        +'\nRAW_ROWS.length='+RAW_ROWS.length
+        +'\nIS_SHARED_MODE='+IS_SHARED_MODE
+        +'\nCURRENT_PERIOD='+JSON.stringify(CURRENT_PERIOD)
+        +'\nLAST_FILE_NAME='+LAST_FILE_NAME;
+      mostrarErroVisivel('Erro ao mostrar o dashboard', info);
+    }
   };
   var _handle=handleFile;
   handleFile=async function(f){ await _handle(f); if(RAW_ROWS && RAW_ROWS.length && document.getElementById('dashboardView').style.display!=='none') await publicar(); };
