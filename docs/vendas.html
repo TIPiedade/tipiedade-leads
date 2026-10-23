@@ -664,6 +664,40 @@ body.force-mobile .topbar-controls .btn{ font-size:12px; padding:6px 12px; }
     </div>
   </div>
 
+  <!-- Ecrã de login (mostrado quando não há sessão — especialmente no mobile) -->
+  <div id="loginView" style="display:none;min-height:70vh;align-items:center;justify-content:center;padding:24px 16px;">
+    <div style="background:var(--bg-card);border-radius:20px;padding:40px 32px;max-width:380px;width:100%;box-shadow:var(--shadow-card);font-family:Inter,system-ui,sans-serif">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+        <img src="https://tipiedade.github.io/tipiedade-leads/assets/logo.svg" style="height:42px" onerror="this.style.display='none'">
+        <div>
+          <div style="font-weight:700;font-size:16px;color:var(--ink)">CRM Ti'Piedade</div>
+          <div style="font-size:12px;color:var(--ink-faint);letter-spacing:.06em;text-transform:uppercase;margin-top:2px">Análise Administração</div>
+        </div>
+      </div>
+      <div id="loginViewErr" style="display:none;background:var(--red-pale);border:1px solid var(--red);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--red);margin-bottom:16px"></div>
+      <label style="font-size:11px;font-weight:700;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase">Utilizador</label>
+      <select id="loginViewUser" style="width:100%;margin:6px 0 16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg-card-soft);font-size:14px;color:var(--ink);outline:none;cursor:pointer">
+        <option value="">Selecciona o teu nome…</option>
+        <option value="rui">Rui Bernardes</option>
+        <option value="ana">Ana Filipa</option>
+        <option value="carlos">Carlos Henriques</option>
+        <option value="beatriz">Beatriz</option>
+        <option value="ines">Inês</option>
+        <option value="milene">Milene</option>
+        <option value="nuno">Nuno</option>
+        <option value="joao">João</option>
+        <option value="oscar">Óscar</option>
+      </select>
+      <label style="font-size:11px;font-weight:700;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase">Senha</label>
+      <input type="password" id="loginViewPass" placeholder="••••••••" autocomplete="current-password"
+        style="width:100%;margin:6px 0 20px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;outline:none;color:var(--ink);background:var(--bg-card-soft);box-sizing:border-box">
+      <button id="loginViewBtn" style="width:100%;padding:13px;background:var(--slate);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s">Entrar</button>
+      <div style="margin-top:14px;text-align:center">
+        <a href="https://tipiedade.github.io/tipiedade-leads/" style="font-size:12.5px;color:var(--ink-faint);text-decoration:none">← Abrir portal completo</a>
+      </div>
+    </div>
+  </div>
+
   <div id="uploadView">
     <div class="upload-zone" id="dropZone">
       <div class="upload-icon">↑</div>
@@ -3277,13 +3311,54 @@ function renderInactiveClientsSection(agg, rows){
     document.getElementById('portalLoginPass').addEventListener('keydown', function(e){ if(e.key==='Enter') tentarLogin(); });
   }
 
+  /* ---- login via ecrã dedicado (Opção B — mobile-first) ---- */
+  function mostrarLoginView(cb){
+    var uv=document.getElementById('uploadView');
+    var lv=document.getElementById('loginView');
+    if(uv) uv.style.display='none';
+    if(lv) lv.style.cssText='display:flex;min-height:70vh;align-items:center;justify-content:center;padding:24px 16px';
+    function $lv(id){ return document.getElementById(id); }
+    function esconder(){ var l=$lv('loginView'); if(l) l.style.display='none'; }
+    function setErr(msg){ var e=$lv('loginViewErr'); if(!e) return; if(msg){e.textContent=msg; e.style.display='';}else{e.style.display='none';} }
+    function setBtnState(loading){
+      var b=$lv('loginViewBtn');
+      if(!b) return;
+      b.textContent=loading?'A entrar…':'Entrar';
+      b.disabled=loading;
+    }
+    async function tentarLogin(){
+      var u=($lv('loginViewUser')||{}).value||'';
+      var p=($lv('loginViewPass')||{}).value||'';
+      if(!u){ setErr('Selecciona o teu nome.'); return; }
+      if(!p){ setErr('Introduz a senha.'); return; }
+      setBtnState(true); setErr(null);
+      try{
+        var r=await fetch(W+'/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user:u,pass:p})});
+        var j=await r.json();
+        if(!r.ok){ setErr(j.erro||'Senha incorrecta.'); setBtnState(false); return; }
+        try{ localStorage.setItem('crm_sess',j.token); localStorage.setItem('crm_exp',j.exp); localStorage.setItem('crm_user',j.user); localStorage.setItem('crm_admin',j.admin?'1':''); }catch(x){}
+        esconder();
+        cb(j.token);
+      }catch(e){ setErr('Erro de ligação. Tenta novamente.'); setBtnState(false); }
+    }
+    /* usar addEventListener com flag de one-time para evitar duplicação */
+    var btn=$lv('loginViewBtn');
+    if(btn){ var nb=btn.cloneNode(true); btn.parentNode.replaceChild(nb,btn); nb.addEventListener('click',tentarLogin); }
+    var pass=$lv('loginViewPass');
+    if(pass){ var np=pass.cloneNode(true); pass.parentNode.replaceChild(np,pass); np.addEventListener('keydown',function(e){if(e.key==='Enter')tentarLogin();}); np.focus(); }
+  }
+
   var _restaurar=tryRestoreSession;
   tryRestoreSession=async function(){
+    /* Opção B: no portal, o uploadView nunca é o ponto de entrada —
+       escondemo-lo logo no início; o dashboard ou o ecrã de login tomam o lugar */
+    var uv=document.getElementById('uploadView');
+    if(uv) uv.style.display='none';
     var t=sess();
     if(!t){
-      /* sem sessão — mostra login inline antes de carregar dados */
+      /* sem sessão — mostra ecrã de login dedicado (não overlay) */
       await new Promise(function(resolve){
-        mostrarLoginInline(function(token){ resolve(); });
+        mostrarLoginView(function(token){ resolve(); });
       });
       t=sess();
     }
