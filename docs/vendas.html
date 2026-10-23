@@ -3065,8 +3065,6 @@ function renderInactiveClientsSection(agg, rows){
         var errTxt=''; try{ var ej=await r.json(); errTxt=ej.erro||ej.error||ej.message||''; }catch(x){ try{ errTxt=await r.text(); }catch(y){} }
         throw new Error('HTTP '+r.status+(errTxt?' — '+errTxt.slice(0,120):''));
       }
-      var r2=await fetch(W+'/kv/vendas-meta',{method:'PUT',headers:{Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify(meta)});
-      if(!r2.ok){ console.warn('vendas-meta não guardado:', r2.status); }
       aviso('✓ Dados partilhados com a equipa · '+LAST_FILE_NAME+' ('+sizeKB+' KB)');
       /* guardar timestamp localmente para o banner do CRM não aparecer */
       try{ localStorage.setItem('vendas_publicado_em', meta.em); }catch(x){}

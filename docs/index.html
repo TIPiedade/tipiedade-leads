@@ -503,7 +503,8 @@ async function verificarLembreteDados(u){
   var old=document.getElementById("tp-lembrete"); if(old) old.remove();
   var bd=document.getElementById("badge-lembrete"); if(bd) bd.style.display="none";
   if(u!=="rui" || typeof sessao!=="function" || !sessao()) return;
-  var meta=null; try{ var r=await fetch(WORKER_URL+"/kv/vendas-meta",{headers:{Authorization:"Bearer "+sessao()},cache:"no-store"}); if(r.ok) meta=await r.json(); }catch(e){ return; }
+  /* lê /kv/vendas (que tem sempre em+ficheiro no payload) — /kv/vendas-meta foi removido */
+  var meta=null; try{ var r=await fetch(WORKER_URL+"/kv/vendas",{headers:{Authorization:"Bearer "+sessao()},cache:"no-store"}); if(r.ok) meta=await r.json(); }catch(e){ return; }
   var hoje=new Date(); var inicioMes=new Date(hoje.getFullYear(),hoje.getMonth(),1);
   var ultima = meta&&meta.em ? new Date(meta.em) : null;
   /* verificar também o timestamp local (caso o servidor ainda não reflita o upload mais recente) */
