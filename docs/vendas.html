@@ -3354,16 +3354,35 @@ function renderInactiveClientsSection(agg, rows){
        escondemo-lo logo no início; o dashboard ou o ecrã de login tomam o lugar */
     var uv=document.getElementById('uploadView');
     if(uv) uv.style.display='none';
+
     var t=sess();
     if(!t){
-      /* sem sessão — mostra ecrã de login dedicado (não overlay) */
-      await new Promise(function(resolve){
-        mostrarLoginView(function(token){ resolve(); });
-      });
-      t=sess();
+      /* Verificar se há dados locais no IndexedDB antes de forçar login —
+         em browsers que bloqueiam localStorage (ex: Safari iOS private/cross-site),
+         podemos ter dados mas não sessão */
+      var temDadosLocais=false;
+      try{ var localRows=await dbGet('rawRows'); temDadosLocais=!!(localRows&&localRows.length); }catch(x){}
+
+      if(!temDadosLocais){
+        /* sem sessão e sem dados locais — mostra ecrã de login dedicado */
+        await new Promise(function(resolve){
+          mostrarLoginView(function(token){ resolve(); });
+        });
+        t=sess();
+      }
+      /* se tem dados locais, deixa o _restaurar() mostrar o dashboard normalmente
+         (o utilizador pode sincronizar ao clicar em algo — não bloqueamos a vista) */
     }
-    if(!window.__sharedPayloadB64){ var b=await carregar(); if(b) window.__sharedPayloadB64=b; }
+
+    if(t && !window.__sharedPayloadB64){ var b=await carregar(); if(b) window.__sharedPayloadB64=b; }
     var r=await _restaurar();
+
+    /* Fallback: se o _restaurar() não mostrou o dashboard mas há dados no KV,
+       tentar uma segunda vez (agora que __sharedPayload foi populado na 1ª chamada) */
+    var dv=document.getElementById('dashboardView');
+    if((!dv||dv.style.display==='none') && window.__sharedPayloadB64){
+      await _restaurar();
+    }
     /* no portal os dados vêm do servidor, mas o botão Partilhar continua a fazer sentido */
     var sb=document.getElementById('btnShare'); if(sb){ sb.style.display=''; sb.textContent='Partilhar ficheiro'; }
     return r;
