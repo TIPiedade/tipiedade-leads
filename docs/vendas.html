@@ -1121,8 +1121,8 @@ function aggregate(rows, anoN, mesN){
     anoN, anoN1, mesN, mesNome: MESES_PT_LONGO[mesN-1],
     totalMes, totalMesHom, totalAcum, totalAcumHom,
     byChannel, reps, lines,
-    dataMinYear: rows.length ? Math.min(...rows.map(r=>r.ano)) : anoN,
-    dataMaxYear: rows.length ? Math.max(...rows.map(r=>r.ano)) : anoN,
+    dataMinYear: rows.length ? rows.reduce((m,r)=>r.ano<m?r.ano:m, rows[0].ano) : anoN,
+    dataMaxYear: rows.length ? rows.reduce((m,r)=>r.ano>m?r.ano:m, rows[0].ano) : anoN,
   };
 }
 
@@ -1307,9 +1307,9 @@ function fmtCompact(v){
 // ---------------------------------------------------------------------------
 function detectLatestPeriod(rows){
   if(!rows.length) return { ano: new Date().getFullYear(), mes: 1 };
-  const maxAno = Math.max(...rows.map(r=>r.ano));
+  const maxAno = rows.reduce((m,r)=>r.ano>m?r.ano:m, rows[0].ano);
   const mesesNoAno = rows.filter(r=>r.ano===maxAno).map(r=>r.mes);
-  const maxMes = mesesNoAno.length ? Math.max(...mesesNoAno) : 1;
+  const maxMes = mesesNoAno.length ? mesesNoAno.reduce((m,v)=>v>m?v:m, mesesNoAno[0]) : 1;
   return { ano:maxAno, mes:maxMes };
 }
 // ============================================================================
