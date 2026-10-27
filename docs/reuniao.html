@@ -2258,7 +2258,8 @@ async function enviarComAnexos(quem, canal){
   if(!S.dados){ toast('Carrega primeiro o Dados.xlsx.'); return; }
   const sa=semanaAnalise(); const ref=sa?sa.seg:iso(new Date()); const nome=quem==='Equipa'?'Equipa':quem.replace('Ó','O');
   // Tentar partilha nativa (mobile — anexa o PDF automaticamente)
-  if(navigator.canShare){
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if(isMobile && navigator.canShare){
     let files=[];
     try{ files.push(new File([await gerarPDFBlob(quem)], `${nome}_Semana${isoWeek(ref)}.pdf`, {type:'application/pdf'})); }catch(e){}
     if(files.length && navigator.canShare({files})){
