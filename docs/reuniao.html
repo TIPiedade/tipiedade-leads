@@ -1673,7 +1673,7 @@ function abrirLink(url, q, canal){
   let w=null; try{ w = window.open(url,'_blank'); if(w) w.opener=null; }catch(e){}
   const box=$('#envioBox'); if(!box) return;
   box.classList.remove('hidden');
-  box.innerHTML = `<div class="warnbar" style="margin:0 0 10px">${canal==='wa'?'<b>WhatsApp:</b>':'<b>E-mail:</b>'} ${w?'abriu numa nova janela. ':'se não abriu, usa o botão abaixo. '}Anexa o PDF de ${q} (descarrega-o no botão "PDF") antes de enviar.</div>
+  box.innerHTML = `<div class="warnbar" style="margin:0 0 10px">${canal==='wa'?'<b>WhatsApp:</b>':'<b>E-mail:</b>'} ${w?'abriu numa nova janela.':'se não abriu, usa o botão abaixo.'} Para enviar o PDF, usa o botão "PDF" acima.</div>
   <p style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px"><a class="btn btn-sm btn-primary" href="${esc(url)}" target="_blank" rel="noopener">${canal==='wa'?'Abrir WhatsApp':'Abrir e-mail'}</a><button class="btn btn-sm" data-act="copyMsg">Copiar mensagem</button></p>
   <textarea class="wa" readonly>${esc(msgTexto(q))}</textarea>`;
 }
@@ -2257,22 +2257,19 @@ async function gerarPDFBlob(quem){
 async function enviarComAnexos(quem, canal){
   if(!S.dados){ toast('Carrega primeiro o Dados.xlsx.'); return; }
   const sa=semanaAnalise(); const ref=sa?sa.seg:iso(new Date()); const nome=quem==='Equipa'?'Equipa':quem.replace('Ó','O');
-  toast('A preparar os anexos…', 10000);
-  let files=[];
-  try{
-    files.push(new File([await gerarPDFBlob(quem)], `${nome}_Semana${isoWeek(ref)}.pdf`, {type:'application/pdf'}));
-  }catch(e){ console.error(e); toast('Não foi possível gerar o PDF.'); return; }
-  // 1.ª opção: partilha do sistema, que anexa os ficheiros no e-mail ou no WhatsApp
-  try{
-    if(navigator.canShare && navigator.canShare({files})){
-      await navigator.share({files, title:`Resumo comercial · ${quem}`, text:msgTexto(quem)});
-      toast('Enviado.'); return;
+  // Tentar partilha nativa (mobile — anexa o PDF automaticamente)
+  if(navigator.canShare){
+    let files=[];
+    try{ files.push(new File([await gerarPDFBlob(quem)], `${nome}_Semana${isoWeek(ref)}.pdf`, {type:'application/pdf'})); }catch(e){}
+    if(files.length && navigator.canShare({files})){
+      try{
+        await navigator.share({files, title:`Resumo comercial · ${quem}`, text:msgTexto(quem)});
+        toast('Enviado.'); return;
+      }catch(e){ if(e && e.name==='AbortError') return; console.warn('share falhou', e); }
     }
-  }catch(e){ if(e && e.name==='AbortError') return; console.warn('share falhou', e); }
-  // alternativa: descarregar os anexos e abrir a mensagem já escrita
-  for(const f of files){ try{ await S.dl.save({filename:f.name, data:f}); }catch(e){ if(e&&e.code==='declined') return; } }
+  }
+  // Fallback (desktop): abrir WhatsApp/email diretamente, sem download automático
   abrirLink(canal==='mail'?linkEmail(quem):linkWhatsApp(quem), quem, canal);
-  toast('Anexos guardados. Anexa-os à mensagem que abriu.', 6000);
 }
 
 /* ======== v5: lojas Pingo Doce por comercial + objetivos no CRM ======== */
