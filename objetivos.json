@@ -1,9 +1,9 @@
 {
-  "ref": "2026-10-19",
-  "semana": 43,
-  "range": "19 a 25 out",
-  "reuniao": "19/10/2026",
-  "publicado": "2026-10-19T13:25:47.399Z",
+  "ref": "2026-10-27",
+  "semana": 44,
+  "range": "26 out a 1 nov",
+  "reuniao": "27/10/2026",
+  "publicado": "2026-10-27T15:13:21.459Z",
   "comerciais": {
     "nuno": [
       {
@@ -44,42 +44,6 @@
       },
       {
         "n": 5,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "VALE & MARÇAL,SA- LJ BACALHOEIROS",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 6,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "BELEM 2 A 8 | OBSERVATORIO DE SABORES,LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 7,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "MINI-MERCADO FRESKUS",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 8,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "SAO NICOLAU | ROL DOS SABORES . COM.REST.LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 9,
         "tipo": "Reativação",
         "t": "reativacao",
         "nome": "PAO NOSSO CADA DIA- PADARIA PASTELARIA LDA",
@@ -88,7 +52,25 @@
         "nota": ""
       },
       {
-        "n": 10,
+        "n": 6,
+        "tipo": "Cobrança",
+        "t": "cobranca",
+        "nome": "LUÍSA PINTO-PAST CHARC, UNIP,LDA |CANTINHO LUISA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 7,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "Foodstory Portugal, S.A |QUINTA DE MONSANTO|",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 8,
         "tipo": "+1 referência",
         "t": "mix",
         "nome": "CAISDIS - SOC DISTRIBUICAO S.A",
@@ -97,19 +79,37 @@
         "nota": ""
       },
       {
-        "n": 11,
-        "tipo": "+1 referência",
-        "t": "mix",
+        "n": 9,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "A HORTA DE TELHEIRAS",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 10,
+        "tipo": "Recuperar",
+        "t": "recuperar",
         "nome": "REST. ZE DOS CORNOS | JOAO DOMINGOS FERREIRA, LD",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
+        "n": 11,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "ELENCO UNICO,LDA | PASTELARIA FERRARI |",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
         "n": 12,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "ALTA SPOT UNIPESSOAL,LDA",
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "Ponto Rio Lda | Restaurante Ponto Rio",
         "acao": "",
         "ok": false,
         "nota": ""
@@ -154,60 +154,15 @@
       },
       {
         "n": 5,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "MEIA NAU CEDOFEITA | MOREIRA E GARCEZ, LDA",
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "GATO A JANELA- UNIPESSOAL, LDA",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
         "n": 6,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "CARLOS D C RODRIGUES ACTIV.HOT.| NAVAL ASSENTA |",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 7,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "Ribareis-Actividades Hoteleiras Lda",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 8,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "João Filipe Carmo da Silva",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 9,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "SUPERTUBO|RUI ALEXANDRE LEITAO RAMOS,LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 10,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "QUIOSQUE LASANTI | ELIZABETH LEITE",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 11,
         "tipo": "Reativação",
         "t": "reativacao",
         "nome": "RADICAL DOC UNIPESSOAL,LDA",
@@ -216,10 +171,55 @@
         "nota": ""
       },
       {
-        "n": 12,
+        "n": 7,
         "tipo": "Reativação",
         "t": "reativacao",
-        "nome": "GATO A JANELA- UNIPESSOAL, LDA",
+        "nome": "SABOR IMPREVISIVEL, UNIPESSOAL.LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 8,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "SOLAR DOS AMIGOS - M LUISA H.NUNES",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 9,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "COOPERATIVA AGRICOLA FRUTICULTORES CADAVAL, CRL",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 10,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "DORI | ARTE DO TEMPERO,UNIPESSOAL,LDA|",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 11,
+        "tipo": "+1 referência",
+        "t": "mix",
+        "nome": "PRESTIGIUM | ANTONIO P. ALMEIDA UNIP.LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 12,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "Interpeniche Supermercados, Lda ",
         "acao": "",
         "ok": false,
         "nota": ""
@@ -255,15 +255,6 @@
       },
       {
         "n": 4,
-        "tipo": "+1 referência",
-        "t": "mix",
-        "nome": "VALE & MARÇAL, SA | AV. ROMA |",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 5,
         "tipo": "Cobrança",
         "t": "cobranca",
         "nome": "GLADIOLO SOLENE, LDA",
@@ -272,7 +263,7 @@
         "nota": ""
       },
       {
-        "n": 6,
+        "n": 5,
         "tipo": "Cobrança",
         "t": "cobranca",
         "nome": "CANASTRA A GRELHA, Lda",
@@ -281,34 +272,7 @@
         "nota": ""
       },
       {
-        "n": 7,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "BLOOMING COURAGE, LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 8,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "Quinta Valenciana",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 9,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "CERIMONIA LDA | CASA DA AMIEIRA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 10,
+        "n": 6,
         "tipo": "Reativação",
         "t": "reativacao",
         "nome": "AMANHECER | TITANIA ALMEIDA REGO UNIP,LDA",
@@ -317,19 +281,55 @@
         "nota": ""
       },
       {
-        "n": 11,
+        "n": 7,
         "tipo": "Reativação",
         "t": "reativacao",
-        "nome": "PAST. FULGOR- SANTOS E FREIRE UNIPESSOAL,LDA",
+        "nome": "JOÃO PINTO MARCELO- PAST RIVOLI",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 8,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "CAFE SOBRAMESA, LDA ",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 9,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "BLOOMING COURAGE, LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 10,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "RTJ, LDA.",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 11,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "Cafe Mini Semog",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
         "n": 12,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "JOÃO PINTO MARCELO- PAST RIVOLI",
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "SOL RAINHA,LDA|PELICANO|",
         "acao": "",
         "ok": false,
         "nota": ""
