@@ -1506,6 +1506,31 @@ async function __start(){
   // Modo partilhado: só precisamos de descomprimir os dados e renderizar
   if(window.__sharedPayloadB64){
     await tryRestoreSession();
+    // No modo portal os dados já estão em RAW_ROWS — registar btnWA na mesma
+    const btnWAp = document.getElementById("btnWA");
+    if(btnWAp) btnWAp.addEventListener("click", async ()=>{
+      if(!RAW_ROWS.length){ alert("Carrega um ficheiro de dados primeiro."); return; }
+      const btn = btnWAp;
+      btn.disabled = true; btn.textContent = "A gerar…";
+      try {
+        const link = gerarLinkDashboard();
+        if(!link){
+          const agg = window.__lastAgg;
+          if(agg){
+            const txt = msgAdminWA(agg);
+            window.open("https://wa.me/?text="+encodeURIComponent(txt), "_blank", "noopener");
+          } else { alert("Não foi possível gerar o link."); }
+          return;
+        }
+        const agg = window.__lastAgg;
+        const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
+        const txtWA = resumo + "\n\n👇 Dashboard interativo (link em baixo)";
+        window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+        mostrarPainelLink(link);
+      } finally {
+        btn.disabled = false; btn.textContent = "WhatsApp";
+      }
+    });
     return;
   }
 

@@ -3364,9 +3364,12 @@ function guardarNovaLead() {
 // OBJETIVOS DA SEMANA (publicados a partir da app da reunião)
 // ════════════════════════════════════════════════════════════════
 const OBJ_FILE = "objetivos.json";
+const OBJ_HIST_FILE = "objetivos-hist.json";
 const API_OBJ = `${WORKER_URL}/contents/${OBJ_FILE}`;
+const API_OBJ_HIST = `${WORKER_URL}/contents/${OBJ_HIST_FILE}`;
 const OBJ_NOMES = { nuno:"Nuno", joao:"João", oscar:"Óscar" };
 let OBJ = null, OBJ_SHA = null, OBJ_BASE = {}, OBJ_TAB = "nuno", OBJ_PUBLICAR = false, OBJ_CARREGADO = false;
+let OBJ_HIST = [], OBJ_HIST_SHA = null, OBJ_SEMANA_SEL = null; // histórico das últimas semanas
 
 async function lerObjetivosRemoto() {
   const headers = { "Accept": "application/vnd.github+json" };
@@ -3380,9 +3383,24 @@ async function lerObjetivosRemoto() {
   return { dados: JSON.parse(new TextDecoder("utf-8").decode(bytes)), sha: d.sha };
 }
 function objMarcarBase() { OBJ_BASE = {}; if (!OBJ) return; Object.keys(OBJ.comerciais||{}).forEach(u => (OBJ.comerciais[u]||[]).forEach(it => { OBJ_BASE[u+"#"+it.n] = JSON.stringify([!!it.ok, it.nota||""]); })); }
+async function lerHistoricoRemoto() {
+  try {
+    const headers = { "Accept": "application/vnd.github+json" };
+    const token = sessao(); if (token) headers["Authorization"] = "Bearer " + token;
+    const r = await fetch(API_OBJ_HIST + "?ref=main&t=" + Date.now(), { headers, cache: "no-store" });
+    if (r.status === 404) return { dados: [], sha: null };
+    if (!r.ok) return { dados: [], sha: null };
+    const d = await r.json();
+    const bin = atob(String(d.content || "").replace(/\n/g, "")); const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return { dados: JSON.parse(new TextDecoder("utf-8").decode(bytes)), sha: d.sha };
+  } catch(e) { return { dados: [], sha: null }; }
+}
 async function carregarObjetivos() {
   try { const { dados, sha } = await lerObjetivosRemoto(); OBJ = dados; OBJ_SHA = sha; objMarcarBase(); }
   catch (e) { console.warn("Objetivos:", e); }
+  // Carregar histórico (sem bloquear)
+  lerHistoricoRemoto().then(({ dados, sha }) => { OBJ_HIST = Array.isArray(dados) ? dados : []; OBJ_HIST_SHA = sha; }).catch(()=>{});
   OBJ_CARREGADO = true; atualizarBadgeObj(); renderObjetivos();
 }
 function atualizarBadgeObj() {
@@ -3392,8 +3410,10 @@ function atualizarBadgeObj() {
   b.textContent = lista.filter(x => !x.ok).length;
 }
 function objTexto(u) {
-  const L = (OBJ && OBJ.comerciais && OBJ.comerciais[u]) || [];
-  let t = `Ponto de situação · ${OBJ_NOMES[u]} · semana ${OBJ.semana} (${OBJ.range}) · ref ${OBJ.ref}\n\n`;
+  // Usar semana selecionada (histórico) ou semana atual
+  const src = OBJ_SEMANA_SEL !== null ? (OBJ_HIST[OBJ_SEMANA_SEL] || OBJ) : OBJ;
+  const L = (src && src.comerciais && src.comerciais[u]) || [];
+  let t = `Ponto de situação · ${OBJ_NOMES[u]} · semana ${src ? src.semana : "?"} (${src ? src.range : ""}) · ref ${src ? src.ref : ""}\n\n`;
   L.forEach(it => { t += `${it.ok ? "✅" : "⬜"} ${it.n}. ${it.tipo} · ${it.nome}${it.nota ? " — " + it.nota : ""}\n`; });
   return t;
 }
@@ -3405,24 +3425,36 @@ function renderObjetivos() {
   const ehRui = ehAdmin(u);
   let h = `<div class="toolbar"><span class="toolbar-title">🎯 Objetivos da semana</span>${ehRui ? `<button class="btn-obj" onclick="OBJ_PUBLICAR=!OBJ_PUBLICAR;renderObjetivos()">Publicar objetivos da reunião</button>` : ""}</div>`;
   if (ehRui && OBJ_PUBLICAR) h += `<div class="obj-card"><b>Publicar objetivos da reunião</b><p class="obj-sub">Na app da reunião, carrega em "Publicar objetivos no CRM", copia o código e cola-o aqui. Substitui os objetivos da semana anterior.</p><textarea id="obj-codigo" class="obj-nota" style="min-height:90px;font-family:monospace" placeholder="TPOBJ1:…"></textarea><div style="margin-top:8px;display:flex;gap:8px;justify-content:flex-end"><button class="btn-obj sec" onclick="OBJ_PUBLICAR=false;renderObjetivos()">Cancelar</button><button class="btn-obj" onclick="publicarObjetivos()">Guardar e publicar</button></div></div>`;
-  if (!OBJ || !OBJ.comerciais) { root.innerHTML = h + `<div class="obj-vazio">Ainda não há objetivos publicados.</div>`; return; }
-  h += `<div class="obj-head">Semana ${OBJ.semana} · ${objEsc(OBJ.range)}<span>reunião de ${objEsc(OBJ.reuniao)}</span></div>`;
+  // Seletor de semana (admin): semana atual + histórico
+  if (ehRui && (OBJ_HIST.length > 0 || OBJ)) {
+    const semAtual = OBJ ? OBJ.semana : null;
+    h += `<div class="obj-semanas" style="display:flex;gap:6px;flex-wrap:wrap;padding:10px 14px;background:var(--fundo2,#f5ede0);border-bottom:1px solid var(--borda,#e7dbcd)">`;
+    h += `<span style="font-size:12px;color:var(--cinz,#888);align-self:center;margin-right:4px">Semana:</span>`;
+    if (semAtual) h += `<button class="obj-tab ${OBJ_SEMANA_SEL===null?"on":""}" onclick="OBJ_SEMANA_SEL=null;renderObjetivos()">S${semAtual} (atual)</button>`;
+    OBJ_HIST.forEach((entry, idx) => { h += `<button class="obj-tab ${OBJ_SEMANA_SEL===idx?"on":""}" onclick="OBJ_SEMANA_SEL=${idx};renderObjetivos()">S${entry.semana}</button>`; });
+    h += `</div>`;
+  }
+  // Determinar a fonte de dados (atual ou histórico)
+  const objSrc = OBJ_SEMANA_SEL !== null ? (OBJ_HIST[OBJ_SEMANA_SEL] || OBJ) : OBJ;
+  if (!objSrc || !objSrc.comerciais) { root.innerHTML = h + `<div class="obj-vazio">Ainda não há objetivos publicados.</div>`; return; }
+  h += `<div class="obj-head">Semana ${objSrc.semana} · ${objEsc(objSrc.range)}<span>reunião de ${objEsc(objSrc.reuniao)}</span>${OBJ_SEMANA_SEL!==null?`<span style="margin-left:8px;font-size:11px;background:var(--laranja,#e05a1a);color:#fff;padding:2px 7px;border-radius:20px">semana anterior</span>`:""}</div>`;
+  const ehHist = OBJ_SEMANA_SEL !== null; // a ver semana histórica (só leitura)
   let users;
   if (ehRui) {
     users = [OBJ_TAB];
-    h += `<div class="obj-tabs">${Object.keys(OBJ_NOMES).map(k => { const L = OBJ.comerciais[k] || []; return `<button class="obj-tab ${OBJ_TAB===k?"on":""}" onclick="OBJ_TAB='${k}';renderObjetivos()">${OBJ_NOMES[k]} <span>${L.filter(x=>x.ok).length}/${L.length}</span></button>`; }).join("")}
+    h += `<div class="obj-tabs">${Object.keys(OBJ_NOMES).map(k => { const L = objSrc.comerciais[k] || []; return `<button class="obj-tab ${OBJ_TAB===k?"on":""}" onclick="OBJ_TAB='${k}';renderObjetivos()">${OBJ_NOMES[k]} <span>${L.filter(x=>x.ok).length}/${L.length}</span></button>`; }).join("")}
       <button class="btn-obj sec" style="margin-left:auto" onclick="copiarPontoSituacao('todos')">Copiar ponto de situação (todos)</button></div>`;
   } else if (OBJ_NOMES[u]) users = [u];
   else { root.innerHTML = h + `<div class="obj-vazio">Os objetivos da semana são dos comerciais Nuno, João e Óscar.</div>`; return; }
   users.forEach(k => {
-    const L = OBJ.comerciais[k] || []; const feitos = L.filter(x => x.ok).length;
+    const L = objSrc.comerciais[k] || []; const feitos = L.filter(x => x.ok).length;
     h += `<div class="obj-card"><div class="obj-prog"><b>${OBJ_NOMES[k]} · ${feitos} de ${L.length} tratados</b><div class="obj-bar"><i style="width:${L.length ? feitos / L.length * 100 : 0}%"></i></div></div>
-      ${L.length ? L.map(it => `<div class="obj-it ${it.ok ? "ok" : ""}"><input type="checkbox" ${it.ok ? "checked" : ""} onchange="marcarObjetivo('${k}',${it.n},this.checked)" aria-label="Tratado">
+      ${L.length ? L.map(it => `<div class="obj-it ${it.ok ? "ok" : ""}"><input type="checkbox" ${it.ok ? "checked" : ""} ${ehHist ? "disabled" : `onchange="marcarObjetivo('${k}',${it.n},this.checked)"`} aria-label="Tratado">
         <div style="flex:1"><div class="obj-nm"><span class="obj-tg t-${objEsc(it.t)}">${objEsc(it.tipo)}</span>${objEsc(it.nome)}</div>${it.acao ? `<div class="obj-ac">${objEsc(it.acao)}</div>` : ""}
-        <textarea class="obj-nota" placeholder="Nota (opcional): o que ficou combinado, porque não deu…" oninput="notaObjetivo('${k}',${it.n},this.value)">${objEsc(it.nota || "")}</textarea>${it.em ? `<div class="obj-em">atualizado ${new Date(it.em).toLocaleString("pt-PT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</div>` : ""}</div></div>`).join("") : `<div class="obj-vazio">Sem objetivos esta semana.</div>`}
+        ${ehHist ? (it.nota ? `<div class="obj-ac" style="color:var(--cinz,#888)">${objEsc(it.nota)}</div>` : "") : `<textarea class="obj-nota" placeholder="Nota (opcional): o que ficou combinado, porque não deu…" oninput="notaObjetivo('${k}',${it.n},this.value)">${objEsc(it.nota || "")}</textarea>`}${it.em ? `<div class="obj-em">atualizado ${new Date(it.em).toLocaleString("pt-PT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</div>` : ""}</div></div>`).join("") : `<div class="obj-vazio">Sem objetivos esta semana.</div>`}
       <div style="display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid var(--borda,#e7dbcd)"><button class="btn-obj sec" onclick="copiarPontoSituacao('${k}')">Copiar ponto de situação</button>${ehRui ? "" : `<a class="btn-obj" href="https://wa.me/?text=${encodeURIComponent(objTexto(k))}" target="_blank" rel="noopener">Enviar ao Rui por WhatsApp</a>`}</div></div>`;
   });
-  h += `<p class="obj-sub" style="margin-top:10px">As marcações ficam gravadas automaticamente${ehRui ? ". Na app da reunião, em \"Rever semana anterior\", usa \"Colar resposta\" com o ponto de situação copiado daqui." : "."}</p>`;
+  h += `<p class="obj-sub" style="margin-top:10px">${ehHist ? "Vista só de leitura — semana anterior." : `As marcações ficam gravadas automaticamente${ehRui ? ". Na app da reunião, em \"Rever semana anterior\", usa \"Colar resposta\" com o ponto de situação copiado daqui." : "."}`}</p>`;
   root.innerHTML = h;
 }
 let _objTimer = null;
@@ -3470,7 +3502,28 @@ async function publicarObjetivos() {
   let sha = null; try { sha = (await lerObjetivosRemoto()).sha; } catch (e) {}
   const body = { message: `Objetivos: semana ${novo.semana} publicada`, content: btoa(unescape(encodeURIComponent(JSON.stringify(novo, null, 2)))) }; if (sha) body.sha = sha;
   const r = await fetch(API_OBJ, { method: "PUT", headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" }, body: JSON.stringify(body) });
-  if (r.ok) { const d = await r.json(); OBJ = novo; OBJ_SHA = d.content.sha; objMarcarBase(); OBJ_PUBLICAR = false; renderObjetivos(); atualizarBadgeObj(); toast("Objetivos da semana " + novo.semana + " publicados ✓", "ok"); }
+  if (r.ok) {
+    const d = await r.json();
+    // Guardar semana anterior no histórico (apenas se for semana diferente)
+    if (OBJ && OBJ.semana && OBJ.semana !== novo.semana) {
+      try {
+        // Recarregar histórico para ter o SHA mais recente
+        const histAtual = await lerHistoricoRemoto();
+        const histArr = Array.isArray(histAtual.dados) ? histAtual.dados : [];
+        // Remover entrada duplicada se existir, manter as últimas 8 semanas
+        const semAnt = OBJ.semana;
+        const filtrado = histArr.filter(x => x.semana !== semAnt);
+        filtrado.unshift(JSON.parse(JSON.stringify(OBJ))); // cópia profunda
+        const hist8 = filtrado.slice(0, 8);
+        const histContent = btoa(unescape(encodeURIComponent(JSON.stringify(hist8, null, 2))));
+        const histBody = { message: `Histórico: adicionar semana ${semAnt}`, content: histContent };
+        if (histAtual.sha) histBody.sha = histAtual.sha;
+        const rh = await fetch(API_OBJ_HIST, { method: "PUT", headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" }, body: JSON.stringify(histBody) });
+        if (rh.ok) { const dh = await rh.json(); OBJ_HIST = hist8; OBJ_HIST_SHA = dh.content.sha; }
+      } catch(eh) { console.warn("Histórico: erro ao guardar semana anterior", eh); }
+    }
+    OBJ = novo; OBJ_SHA = d.content.sha; OBJ_SEMANA_SEL = null; objMarcarBase(); OBJ_PUBLICAR = false; renderObjetivos(); atualizarBadgeObj(); toast("Objetivos da semana " + novo.semana + " publicados ✓", "ok");
+  }
   else if (r.status === 401 || r.status === 403) { terminarSessao(); toast("Sessão expirada — entra outra vez", "err"); pedirLogin(); }
   else toast("Erro ao publicar — tenta outra vez", "err");
 }
