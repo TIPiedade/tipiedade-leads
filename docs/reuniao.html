@@ -1615,7 +1615,7 @@ function resumoEquipaDoc(){
 }
 /* ---------- enviar: WhatsApp, e-mail, PDF, imprimir ---------- */
 function msgTexto(quem){
-  const r=S.reuniao; const ref = r ? r.data : iso(new Date()); const sem=`semana ${isoWeek(ref)} (${semRange(ref)})`;
+  const r=S.reuniao; const sa=semanaAnalise(); const ref=sa?sa.seg:(r?r.data:iso(new Date())); const sem=`semana ${isoWeek(ref)} (${semRange(ref)})`;
   if(quem==='Equipa'){
     // Semana
     const semTot = REL() ? COMS.reduce((s,c)=>s+relK(c,'T','semana').v,0) : null;
@@ -1668,7 +1668,7 @@ function msgTexto(quem){
 }
 function contacto(q){ return (S.contactos&&S.contactos[q])||{}; }
 function linkWhatsApp(q){ const tel=String(contacto(q).tel||'').replace(/\D/g,''); const num = tel ? (tel.length===9?'351'+tel:tel) : ''; return `https://wa.me/${num}?text=${encodeURIComponent(msgTexto(q))}`; }
-function linkEmail(q){ const ref=S.reuniao?S.reuniao.data:iso(new Date()); const sub=`Resumo comercial · ${q==='Equipa'?'Equipa':q} · semana ${isoWeek(ref)}`; return `mailto:${encodeURIComponent(contacto(q).email||'')}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(msgTexto(q))}`; }
+function linkEmail(q){ const sa=semanaAnalise(); const ref=sa?sa.seg:(S.reuniao?S.reuniao.data:iso(new Date())); const sub=`Resumo comercial · ${q==='Equipa'?'Equipa':q} · semana ${isoWeek(ref)}`; return `mailto:${encodeURIComponent(contacto(q).email||'')}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(msgTexto(q))}`; }
 function abrirLink(url, q, canal){
   let w=null; try{ w = window.open(url,'_blank'); if(w) w.opener=null; }catch(e){}
   const box=$('#envioBox'); if(!box) return;
