@@ -2165,7 +2165,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -2195,6 +2201,11 @@
           "num": 2,
           "data": "2026-10-21",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -2226,6 +2237,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -2308,6 +2324,11 @@
           "num": 3,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -2870,7 +2891,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -2947,6 +2974,11 @@
           "num": 1,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -2994,7 +3026,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3101,6 +3139,11 @@
           "num": 3,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -3132,6 +3175,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -3318,6 +3366,11 @@
           "num": 1,
           "data": "2026-09-18",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -3339,7 +3392,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -3420,6 +3479,11 @@
           "num": 1,
           "data": "2026-09-18",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -3492,6 +3556,11 @@
           "num": 1,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -3702,6 +3771,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -3821,7 +3895,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -4186,6 +4266,11 @@
           "num": 1,
           "data": "2026-09-18",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -4314,6 +4399,11 @@
           "num": 3,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -4335,7 +4425,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -4406,6 +4502,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -4586,6 +4687,11 @@
           "num": 3,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -4693,6 +4799,11 @@
           "num": 3,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -4714,7 +4825,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -4754,7 +4871,13 @@
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -4810,6 +4933,11 @@
           "num": 2,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -4938,6 +5066,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5005,6 +5138,11 @@
           "num": 1,
           "data": "2026-09-23",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5122,6 +5260,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -5317,6 +5460,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -5482,6 +5630,11 @@
           "num": 3,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -5790,6 +5943,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -5871,6 +6029,11 @@
           "num": 2,
           "data": "2026-09-23",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -5985,6 +6148,11 @@
           "num": 1,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -6057,6 +6225,11 @@
           "num": 3,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -6233,7 +6406,13 @@
       "semana_entrada": 33,
       "data_entrada": "2026-08-19",
       "estado": "Em aberto",
-      "emails_enviados": [],
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
       "visitas": [],
       "notas": ""
     },
@@ -6433,6 +6612,11 @@
           "num": 1,
           "data": "2026-09-23",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -6485,6 +6669,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -6583,6 +6772,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -6748,6 +6942,11 @@
           "num": 1,
           "data": "2026-09-23",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9417,6 +9616,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -9593,6 +9797,11 @@
           "num": 3,
           "data": "2026-10-21",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -9743,6 +9952,11 @@
           "num": 2,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -9774,6 +9988,11 @@
           "num": 2,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 2"
+        },
+        {
+          "num": 3,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 3"
         }
       ],
       "visitas": [],
@@ -10039,6 +10258,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -10127,6 +10351,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -10251,6 +10480,11 @@
           "num": 3,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 3"
+        },
+        {
+          "num": 4,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 4"
         }
       ],
       "visitas": [],
@@ -10603,6 +10837,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -10691,6 +10930,11 @@
           "num": 1,
           "data": "2026-10-08",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -12769,6 +13013,11 @@
           "num": 1,
           "data": "2026-10-14",
           "assunto": "Nurturing Email 1"
+        },
+        {
+          "num": 2,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 2"
         }
       ],
       "visitas": [],
@@ -13194,9 +13443,139 @@
       ],
       "visitas": [],
       "notas": ""
+    },
+    "nuno::Feitoria::Lisboa (Belém)": {
+      "nome": "Feitoria",
+      "tipo": "Restaurante Fine Dining",
+      "zona": "Lisboa (Belém)",
+      "morada": "Altis Belém Hotel, Doca do Bom Sucesso, 1400-038 Lisboa",
+      "email_lead": "feitoria@altishotels.com",
+      "tel": "210 400 208",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Fine Dining / Hotel 5 estrelas",
+      "gancho": "Uma estrela Michelin — produto artesanal com receita secular encaixa na proposta de alta gastronomia.",
+      "semana_entrada": 44,
+      "data_entrada": "2026-10-28",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "nuno::Rio Maravilha::Lisboa (LX Factory)": {
+      "nome": "Rio Maravilha",
+      "tipo": "Restaurante & Rooftop",
+      "zona": "Lisboa (LX Factory)",
+      "morada": "Rua de Alcântara (LX Factory), Lisboa",
+      "email_lead": "info@riomaravilha.pt",
+      "tel": "213 932 930",
+      "comercial": "Nuno",
+      "canal_id": "nuno",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante / Rooftop Bar",
+      "gancho": "LX Factory — público jovem e criativo, turistas. Sobremesa artesanal como produto de storytelling.",
+      "semana_entrada": 44,
+      "data_entrada": "2026-10-28",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "joao::Tascardoso::Lisboa (Cais do Sodré)": {
+      "nome": "Tascardoso",
+      "tipo": "Tasca Moderna",
+      "zona": "Lisboa (Cais do Sodré)",
+      "morada": "Rua de São Paulo 226, 1200-427 Lisboa",
+      "email_lead": "tascardoso@gmail.com",
+      "tel": "213 421 831",
+      "comercial": "João",
+      "canal_id": "joao",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Tasca & Fado",
+      "gancho": "Clientela local fiel. Sobremesa portuguesa artesanal para fechar refeição com qualidade.",
+      "semana_entrada": 44,
+      "data_entrada": "2026-10-28",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Restaurante Arcadas (Coimbra)::Coimbra": {
+      "nome": "Restaurante Arcadas (Coimbra)",
+      "tipo": "Restaurante Fine Dining",
+      "zona": "Coimbra",
+      "morada": "Rua da Sota 1, 3000-395 Coimbra",
+      "email_lead": "arcadas@quintadaslagrimas.pt",
+      "tel": "239 802 380",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Restaurante Premium",
+      "gancho": "Hotel 5 estrelas em Coimbra. Sobremesa artesanal premium para clientela exigente.",
+      "semana_entrada": 44,
+      "data_entrada": "2026-10-28",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
+    },
+    "oscar::Flor dos Congregados::Porto": {
+      "nome": "Flor dos Congregados",
+      "tipo": "Tasca Tradicional",
+      "zona": "Porto",
+      "morada": "Travessa dos Congregados 11, 4000-096 Porto",
+      "email_lead": "flordoscongregados@gmail.com",
+      "tel": "222 002 822",
+      "comercial": "Óscar",
+      "canal_id": "oscar",
+      "canal": "HORECA",
+      "prioridade": "Alta",
+      "tipologia_cliente": "Tasca & Fado",
+      "gancho": "Tasca clássica com grande tradição. Sobremesa portuguesa artesanal de fecho natural.",
+      "semana_entrada": 44,
+      "data_entrada": "2026-10-28",
+      "estado": "Em aberto",
+      "emails_enviados": [
+        {
+          "num": 1,
+          "data": "2026-10-28",
+          "assunto": "Nurturing Email 1"
+        }
+      ],
+      "visitas": [],
+      "notas": ""
     }
   },
-  "ultima_atualizacao": "2026-10-21",
+  "ultima_atualizacao": "2026-10-28",
   "versao": "2.0",
   "templates_texto": {
     "restaurante": {
