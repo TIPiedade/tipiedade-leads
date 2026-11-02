@@ -1519,17 +1519,17 @@ async function __start(){
         const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
         if(linkCurto){
           const txtWA = resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto;
-          window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank", "noopener");
           return;
         }
         // Fallback: link hash (pode ser longo demais para Android)
         const link = gerarLinkDashboard();
         if(link){
           const txtWA = resumo + "\n\n👇 Dashboard interativo (copia o link abaixo)";
-          window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank", "noopener");
           mostrarPainelLink(link);
         } else if(agg){
-          window.open("https://wa.me/?text="+encodeURIComponent(resumo), "_blank", "noopener");
+          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(resumo), "_blank", "noopener");
         } else { alert("Não foi possível gerar o link."); }
       } finally {
         btn.disabled = false; btn.textContent = "WhatsApp";
@@ -1573,17 +1573,17 @@ async function __start(){
       const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
       if(linkCurto){
         const txtWA = resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto;
-        window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank", "noopener");
         return;
       }
       // Fallback: link hash (pode ser longo demais para Android)
       const link = gerarLinkDashboard();
       if(link){
         const txtWA = resumo + "\n\n👇 Dashboard interativo (copia o link abaixo)";
-        window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank", "noopener");
         mostrarPainelLink(link);
       } else if(agg){
-        window.open("https://wa.me/?text="+encodeURIComponent(resumo), "_blank", "noopener");
+        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(resumo), "_blank", "noopener");
       } else { alert("Não foi possível gerar o link."); }
     } finally {
       btn.disabled = false; btn.textContent = "WhatsApp";
