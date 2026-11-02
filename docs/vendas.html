@@ -1526,20 +1526,17 @@ async function __start(){
         const linkCurto = await gerarLinkCurto();
         const agg = window.__lastAgg;
         const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
-        if(linkCurto){
-          const txtWA = resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto;
-          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "waWeb");
-          return;
-        }
-        // Fallback: link hash (pode ser longo demais para Android)
-        const link = gerarLinkDashboard();
-        if(link){
-          const txtWA = resumo + "\n\n👇 Dashboard interativo (copia o link abaixo)";
-          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "waWeb");
-          mostrarPainelLink(link);
-        } else if(agg){
-          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(resumo), "waWeb");
-        } else { alert("Não foi possível gerar o link."); }
+        const txtWA = linkCurto
+          ? resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto
+          : resumo;
+        // Copiar para clipboard + abrir WhatsApp Web (cross-origin: nova aba inevitável)
+        try { await navigator.clipboard.writeText(txtWA); } catch(e){}
+        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank");
+        // Toast a informar que o texto já está na clipboard
+        const t=document.createElement("div");
+        t.textContent="✅ Texto copiado! Cola no WhatsApp com Ctrl+V se necessário.";
+        Object.assign(t.style,{position:"fixed",bottom:"24px",left:"50%",transform:"translateX(-50%)",background:"#2B2118",color:"#fff",padding:"10px 20px",borderRadius:"10px",fontSize:"14px",zIndex:9999,boxShadow:"0 4px 16px rgba(0,0,0,.3)"});
+        document.body.appendChild(t); setTimeout(()=>t.remove(),4000);
       } finally {
         btn.disabled = false; btn.textContent = "WhatsApp";
       }
@@ -1580,20 +1577,17 @@ async function __start(){
       const linkCurto = await gerarLinkCurto();
       const agg = window.__lastAgg;
       const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
-      if(linkCurto){
-        const txtWA = resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto;
-        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "waWeb");
-        return;
-      }
-      // Fallback: link hash (pode ser longo demais para Android)
-      const link = gerarLinkDashboard();
-      if(link){
-        const txtWA = resumo + "\n\n👇 Dashboard interativo (copia o link abaixo)";
-        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "waWeb");
-        mostrarPainelLink(link);
-      } else if(agg){
-        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(resumo), "waWeb");
-      } else { alert("Não foi possível gerar o link."); }
+      const txtWA = linkCurto
+        ? resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto
+        : resumo;
+      // Copiar para clipboard + abrir WhatsApp Web (cross-origin: nova aba inevitável)
+      try { await navigator.clipboard.writeText(txtWA); } catch(e){}
+      window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank");
+      // Toast a informar que o texto já está na clipboard
+      const t=document.createElement("div");
+      t.textContent="✅ Texto copiado! Cola no WhatsApp com Ctrl+V se necessário.";
+      Object.assign(t.style,{position:"fixed",bottom:"24px",left:"50%",transform:"translateX(-50%)",background:"#2B2118",color:"#fff",padding:"10px 20px",borderRadius:"10px",fontSize:"14px",zIndex:9999,boxShadow:"0 4px 16px rgba(0,0,0,.3)"});
+      document.body.appendChild(t); setTimeout(()=>t.remove(),4000);
     } finally {
       btn.disabled = false; btn.textContent = "WhatsApp";
     }
