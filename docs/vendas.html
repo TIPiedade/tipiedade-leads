@@ -1513,20 +1513,24 @@ async function __start(){
       const btn = btnWAp;
       btn.disabled = true; btn.textContent = "A gerar…";
       try {
-        const link = gerarLinkDashboard();
-        if(!link){
-          const agg = window.__lastAgg;
-          if(agg){
-            const txt = msgAdminWA(agg);
-            window.open("https://wa.me/?text="+encodeURIComponent(txt), "_blank", "noopener");
-          } else { alert("Não foi possível gerar o link."); }
-          return;
-        }
+        // Tentar link curto via worker (solução definitiva — URL curto que abre no browser)
+        const linkCurto = await gerarLinkCurto();
         const agg = window.__lastAgg;
         const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
-        const txtWA = resumo + "\n\n👇 Dashboard interativo (link em baixo)";
-        window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
-        mostrarPainelLink(link);
+        if(linkCurto){
+          const txtWA = resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto;
+          window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+          return;
+        }
+        // Fallback: link hash (pode ser longo demais para Android)
+        const link = gerarLinkDashboard();
+        if(link){
+          const txtWA = resumo + "\n\n👇 Dashboard interativo (copia o link abaixo)";
+          window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+          mostrarPainelLink(link);
+        } else if(agg){
+          window.open("https://wa.me/?text="+encodeURIComponent(resumo), "_blank", "noopener");
+        } else { alert("Não foi possível gerar o link."); }
       } finally {
         btn.disabled = false; btn.textContent = "WhatsApp";
       }
@@ -1563,24 +1567,24 @@ async function __start(){
     const btn = btnWA;
     btn.disabled = true; btn.textContent = "A gerar…";
     try {
-      const link = gerarLinkDashboard();
-      if(!link){
-        // Fallback: apenas texto sem link (dados demasiado grandes)
-        const agg = window.__lastAgg;
-        if(agg){
-          const txt = msgAdminWA(agg);
-          window.open("https://wa.me/?text="+encodeURIComponent(txt), "_blank", "noopener");
-        } else { alert("Não foi possível gerar o link."); }
-        return;
-      }
+      // Tentar link curto via worker (solução definitiva — URL curto que abre no browser)
+      const linkCurto = await gerarLinkCurto();
       const agg = window.__lastAgg;
       const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
-      // Abrir WhatsApp só com o resumo em texto (wa.me tem limite de ~2000 chars)
-      // O link do dashboard é partilhado separadamente pelo painel abaixo
-      const txtWA = resumo + "\n\n👇 Dashboard interativo (link em baixo)";
-      window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
-      // Mostrar painel com o link para copiar e colar na conversa do WA
-      mostrarPainelLink(link);
+      if(linkCurto){
+        const txtWA = resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto;
+        window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+        return;
+      }
+      // Fallback: link hash (pode ser longo demais para Android)
+      const link = gerarLinkDashboard();
+      if(link){
+        const txtWA = resumo + "\n\n👇 Dashboard interativo (copia o link abaixo)";
+        window.open("https://wa.me/?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+        mostrarPainelLink(link);
+      } else if(agg){
+        window.open("https://wa.me/?text="+encodeURIComponent(resumo), "_blank", "noopener");
+      } else { alert("Não foi possível gerar o link."); }
     } finally {
       btn.disabled = false; btn.textContent = "WhatsApp";
     }
@@ -1622,7 +1626,35 @@ async function __start(){
 }
 
 // ---------------------------------------------------------------------------
-// GERAR LINK DE DASHBOARD PARTILHÁVEL (hash URL)
+// GERAR LINK CURTO VIA WORKER (solução definitiva WhatsApp)
+// Guarda os dados no KV com um token de 8 chars e devolve vendas.html?v=TOKEN
+// Requer sessão de admin. Devolve null em caso de erro.
+// ---------------------------------------------------------------------------
+async function gerarLinkCurto(){
+  try {
+    var t; try{ var _s=localStorage.getItem('crm_sess'), _e=+(localStorage.getItem('crm_exp')||0); t=(_s&&_e>Date.now())?_s:null; }catch(x){ t=null; }
+    if(!t){ console.warn("gerarLinkCurto: sem sessão"); return null; }
+    var W2="https://tipiedade-crm.nameless-unit-fa2c.workers.dev";
+    // Gerar o payload completo (todos os anos, não só os 2 mais recentes)
+    const dict={}, idx={};
+    function intern2(k,v){ v=(v==null)?'':v; if(!dict[k]){dict[k]={};idx[k]=0;} if(!(v in dict[k])) dict[k][v]=idx[k]++; return dict[k][v]; }
+    const compactRows=RAW_ROWS.map(r=>[r.ano,r.mes,intern2('e',r.entidade),intern2('de',r.descEntidade),intern2('a',r.artigo),intern2('da',r.descArtigo),intern2('s',r.serie),intern2('t',r.tipoDoc),r.valor,r.qtd]);
+    const dicts2={};
+    for(const k of Object.keys(dict)){ const arr=new Array(idx[k]); for(const [v,i] of Object.entries(dict[k])) arr[i]=v; dicts2[k]=arr; }
+    ['e','de','a','da','s','t'].forEach(k=>{ if(!dicts2[k]) dicts2[k]=[]; });
+    const payload={v:2,dicts:dicts2,rows:compactRows,period:CURRENT_PERIOD,custoFixo:CUSTO_FIXO,custoArtigo:CUSTO_ARTIGO,fileName:LAST_FILE_NAME,exportedAt:new Date().toISOString()};
+    const gz=pako.gzip(JSON.stringify(payload));
+    let bin=''; for(let i=0;i<gz.length;i+=8192) bin+=String.fromCharCode.apply(null,gz.subarray(i,i+8192));
+    const b64=btoa(bin);
+    const r=await fetch(W2+'/share',{method:'POST',headers:{Authorization:'Bearer '+t,'Content-Type':'application/json'},body:JSON.stringify({payload:b64})});
+    if(!r.ok){ const ej=await r.json().catch(()=>({})); console.warn("gerarLinkCurto erro",r.status, ej); return null; }
+    const j=await r.json();
+    return j.url || null;
+  } catch(e){ console.error("gerarLinkCurto:",e); return null; }
+}
+
+// ---------------------------------------------------------------------------
+// GERAR LINK DE DASHBOARD PARTILHÁVEL (hash URL) — mantido como fallback
 // Devolve uma URL com #d=<b64> ou null se demasiado grande para WhatsApp
 // ---------------------------------------------------------------------------
 function gerarLinkDashboard(){
@@ -3373,6 +3405,27 @@ function renderInactiveClientsSection(agg, rows){
     if(pass){ var np=pass.cloneNode(true); pass.parentNode.replaceChild(np,pass); np.addEventListener('keydown',function(e){if(e.key==='Enter')tentarLogin();}); np.focus(); }
   }
 
+  /* ---- modo de partilha pública (?v=TOKEN) — sem login, sem dados locais ---- */
+  var _vToken=(new URLSearchParams(window.location.search)).get('v');
+  if(_vToken && /^[A-Za-z0-9_\-]{6,12}$/.test(_vToken)){
+    (async function(){
+      var uv=document.getElementById('uploadView'); if(uv) uv.style.display='none';
+      aviso('A carregar dashboard…');
+      try{
+        var r=await fetch(W+'/share/'+encodeURIComponent(_vToken),{cache:'no-store'});
+        if(!r.ok){ aviso('Link expirado ou inválido. Pede um novo link ao administrador.',true); return; }
+        var b64=await r.text();
+        // limpar texto extra (o worker devolve JSON string — se vier entre aspas, extrair)
+        b64=b64.trim(); if(b64.startsWith('"')) try{ b64=JSON.parse(b64); }catch(x){}
+        window.__sharedPayloadB64=b64;
+        await tryRestoreSession();
+      }catch(e){ aviso('Erro ao carregar o dashboard. Verifica a ligação.',true); }
+    })();
+    /* parar o fluxo normal — o await acima chama tryRestoreSession quando os dados chegam */
+    var _restaurar=tryRestoreSession;
+    tryRestoreSession=async function(){ return await _restaurar(); };
+  } else {
+
   var _restaurar=tryRestoreSession;
   tryRestoreSession=async function(){
     /* Opção B: no portal, o uploadView nunca é o ponto de entrada —
@@ -3414,6 +3467,8 @@ function renderInactiveClientsSection(agg, rows){
   };
   var _handle=handleFile;
   handleFile=async function(f){ await _handle(f); if(RAW_ROWS && RAW_ROWS.length && document.getElementById('dashboardView').style.display!=='none') await publicar(); };
+
+  } /* fim do else (!_vToken) */
 })();
 </script>
 </body>
