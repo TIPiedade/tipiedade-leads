@@ -1310,6 +1310,15 @@ function detectLatestPeriod(rows){
   const maxAno = rows.reduce((m,r)=>r.ano>m?r.ano:m, rows[0].ano);
   const mesesNoAno = rows.filter(r=>r.ano===maxAno).map(r=>r.mes);
   const maxMes = mesesNoAno.length ? mesesNoAno.reduce((m,v)=>v>m?v:m, mesesNoAno[0]) : 1;
+  // Se o mês com mais dados recentes é o mês atual (ainda em curso), recua para o anterior
+  const hoje = new Date();
+  const mesAtual = hoje.getMonth() + 1; // 1-12
+  const anoAtual = hoje.getFullYear();
+  if(maxAno === anoAtual && maxMes === mesAtual){
+    // Usar o mês anterior como período de análise (último mês fechado)
+    if(mesAtual === 1) return { ano: anoAtual - 1, mes: 12 };
+    return { ano: anoAtual, mes: mesAtual - 1 };
+  }
   return { ano:maxAno, mes:maxMes };
 }
 // ============================================================================
@@ -1519,17 +1528,17 @@ async function __start(){
         const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
         if(linkCurto){
           const txtWA = resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto;
-          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "waWeb");
           return;
         }
         // Fallback: link hash (pode ser longo demais para Android)
         const link = gerarLinkDashboard();
         if(link){
           const txtWA = resumo + "\n\n👇 Dashboard interativo (copia o link abaixo)";
-          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "waWeb");
           mostrarPainelLink(link);
         } else if(agg){
-          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(resumo), "_blank", "noopener");
+          window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(resumo), "waWeb");
         } else { alert("Não foi possível gerar o link."); }
       } finally {
         btn.disabled = false; btn.textContent = "WhatsApp";
@@ -1573,17 +1582,17 @@ async function __start(){
       const resumo = agg ? msgAdminWA(agg) : "📊 Análise Administração · Ti'Piedade";
       if(linkCurto){
         const txtWA = resumo + "\n\n📊 Dashboard interativo:\n" + linkCurto;
-        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "waWeb");
         return;
       }
       // Fallback: link hash (pode ser longo demais para Android)
       const link = gerarLinkDashboard();
       if(link){
         const txtWA = resumo + "\n\n👇 Dashboard interativo (copia o link abaixo)";
-        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "_blank", "noopener");
+        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(txtWA), "waWeb");
         mostrarPainelLink(link);
       } else if(agg){
-        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(resumo), "_blank", "noopener");
+        window.open("https://web.whatsapp.com/send?text="+encodeURIComponent(resumo), "waWeb");
       } else { alert("Não foi possível gerar o link."); }
     } finally {
       btn.disabled = false; btn.textContent = "WhatsApp";
