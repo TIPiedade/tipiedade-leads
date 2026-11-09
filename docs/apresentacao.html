@@ -97,7 +97,7 @@ body {
   color: var(--branco);
   align-items: center;
   text-align: center;
-  padding: 48px;
+  padding: 0;
 }
 .capa-video {
   position: absolute; inset: 0;
@@ -380,6 +380,45 @@ body {
   transition: transform 0.5s ease;
 }
 .gama-artigo:hover img { transform: scale(1.04); }
+.gama-artigo { cursor: pointer; }
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,4,2,0.92);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  backdrop-filter: blur(6px);
+}
+.lightbox.aberto { display: flex; }
+.lightbox img {
+  max-width: min(90vw, 500px);
+  max-height: 80dvh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+.lightbox-titulo {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+.lightbox-fechar {
+  position: absolute;
+  top: 20px; right: 24px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0.6;
+  line-height: 1;
+}
 .gama-artigo-overlay {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -719,22 +758,23 @@ body {
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding: clamp(16px, 3vw, 40px) clamp(18px, 4vw, 56px);
+  padding: clamp(14px, 2.5vw, 32px) clamp(18px, 4vw, 56px);
   overflow: hidden;
 }
 .form-cabecalho {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
 }
 .form-etiq {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--laranja);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .form-titulo {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   font-weight: 700;
   color: var(--cast);
   line-height: 1.2;
@@ -745,7 +785,8 @@ body {
   gap: 10px;
   flex: 1;
   min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .form-grupo {
   display: flex;
@@ -766,8 +807,8 @@ body {
   background: var(--branco);
   border: 1.5px solid rgba(74,36,23,0.12);
   border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 0.84rem;
+  padding: 6px 10px;
+  font-size: 0.82rem;
   font-family: 'Inter', sans-serif;
   color: var(--texto);
   transition: border-color 0.2s;
@@ -795,12 +836,13 @@ body {
 }
 .form-select-wrap select { width: 100%; }
 .form-rodape {
-  margin-top: 12px;
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 .form-logo {
   height: 30px;
@@ -971,7 +1013,7 @@ body {
       <div class="num-label">referências<br>de produto</div>
     </div>
   </div>
-  <p class="nums-desc fade-in d4">Produção artesanal em Painho, Alcobaça. Entrega direta por autovenda ou produto congelado — sem ruptura de stock.</p>
+  <p class="nums-desc fade-in d4">Produção artesanal em Painho, Cadaval. Entrega direta por autovenda ou produto congelado — sem ruptura de stock.</p>
 </section>
 
 <!-- ══════════════════════════════════
@@ -1034,7 +1076,7 @@ body {
   </div>
   <!-- Painel: Original -->
   <div class="gama-painel ativo" id="gama-original">
-    <div class="gama-artigo fade-in d1">
+    <div class="gama-artigo fade-in d1" onclick="abrirLightbox('ficheiros/original-500g.jpg','Pão de Ló Inteiro Original 500g')">
       <img src="ficheiros/original-500g.jpg" alt="Original 500g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Original</div>
@@ -1042,16 +1084,16 @@ body {
         <div class="gama-artigo-peso">500g</div>
       </div>
     </div>
-    <div class="gama-artigo fade-in d2">
-      <img src="ficheiros/empr-01.jpg" alt="Original 2×85g" loading="lazy">
+    <div class="gama-artigo fade-in d2" onclick="abrirLightbox('ficheiros/original-2x85.jpg','Doses Individuais Original 2×85g')">
+      <img src="ficheiros/original-2x85.jpg" alt="Original 2×85g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Original</div>
         <div class="gama-artigo-nome">Doses Individuais</div>
         <div class="gama-artigo-peso">2 × 85g</div>
       </div>
     </div>
-    <div class="gama-artigo fade-in d3">
-      <img src="ficheiros/empr-02.jpg" alt="Original 8×85g" loading="lazy">
+    <div class="gama-artigo fade-in d3" onclick="abrirLightbox('ficheiros/original-8x85-topo.jpg','Pack HORECA Original 8×85g')">
+      <img src="ficheiros/original-8x85-topo.jpg" alt="Original 8×85g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Original</div>
         <div class="gama-artigo-nome">Pack HORECA</div>
@@ -1061,7 +1103,7 @@ body {
   </div>
   <!-- Painel: Chocolate -->
   <div class="gama-painel" id="gama-chocolate">
-    <div class="gama-artigo">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/chocolate-400g.jpg','Pão de Ló Inteiro Chocolate 400g')">
       <img src="ficheiros/chocolate-400g.jpg" alt="Chocolate 400g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Chocolate</div>
@@ -1069,16 +1111,16 @@ body {
         <div class="gama-artigo-peso">400g</div>
       </div>
     </div>
-    <div class="gama-artigo">
-      <img src="ficheiros/empr-03.jpg" alt="Chocolate 2×85g" loading="lazy">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/chocolate-2x85.jpg','Doses Individuais Chocolate 2×85g')">
+      <img src="ficheiros/chocolate-2x85.jpg" alt="Chocolate 2×85g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Chocolate</div>
         <div class="gama-artigo-nome">Doses Individuais</div>
         <div class="gama-artigo-peso">2 × 85g</div>
       </div>
     </div>
-    <div class="gama-artigo">
-      <img src="ficheiros/empr-04.jpg" alt="Chocolate 8×85g" loading="lazy">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/chocolate-8x85-topo.jpg','Pack HORECA Chocolate 8×85g')">
+      <img src="ficheiros/chocolate-8x85-topo.jpg" alt="Chocolate 8×85g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Chocolate</div>
         <div class="gama-artigo-nome">Pack HORECA</div>
@@ -1088,7 +1130,7 @@ body {
   </div>
   <!-- Painel: Canela -->
   <div class="gama-painel" id="gama-canela">
-    <div class="gama-artigo">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/canela-500g.jpg','Pão de Ló Inteiro Canela 500g')">
       <img src="ficheiros/canela-500g.jpg" alt="Canela 500g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Canela</div>
@@ -1096,16 +1138,16 @@ body {
         <div class="gama-artigo-peso">500g</div>
       </div>
     </div>
-    <div class="gama-artigo">
-      <img src="ficheiros/empr-05.jpg" alt="Canela 2×85g" loading="lazy">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/canela-2x85.jpg','Doses Individuais Canela 2×85g')">
+      <img src="ficheiros/canela-2x85.jpg" alt="Canela 2×85g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Canela</div>
         <div class="gama-artigo-nome">Doses Individuais</div>
         <div class="gama-artigo-peso">2 × 85g</div>
       </div>
     </div>
-    <div class="gama-artigo">
-      <img src="ficheiros/empr-06.jpg" alt="Canela 8×85g" loading="lazy">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/canela-8x85-topo.jpg','Pack HORECA Canela 8×85g')">
+      <img src="ficheiros/canela-8x85-topo.jpg" alt="Canela 8×85g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Canela</div>
         <div class="gama-artigo-nome">Pack HORECA</div>
@@ -1115,7 +1157,7 @@ body {
   </div>
   <!-- Painel: Café -->
   <div class="gama-painel" id="gama-cafe">
-    <div class="gama-artigo">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/cafe-500g.jpg','Pão de Ló Inteiro Café 500g')">
       <img src="ficheiros/cafe-500g.jpg" alt="Café 500g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Café</div>
@@ -1123,16 +1165,16 @@ body {
         <div class="gama-artigo-peso">500g</div>
       </div>
     </div>
-    <div class="gama-artigo">
-      <img src="ficheiros/empr-07.jpg" alt="Café 2×85g" loading="lazy">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/cafe-2x85.jpg','Doses Individuais Café 2×85g')">
+      <img src="ficheiros/cafe-2x85.jpg" alt="Café 2×85g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Café</div>
         <div class="gama-artigo-nome">Doses Individuais</div>
         <div class="gama-artigo-peso">2 × 85g</div>
       </div>
     </div>
-    <div class="gama-artigo">
-      <img src="ficheiros/empr-01.jpg" alt="Café 8×85g" loading="lazy">
+    <div class="gama-artigo" onclick="abrirLightbox('ficheiros/cafe-8x85-topo.jpg','Pack HORECA Café 8×85g')">
+      <img src="ficheiros/cafe-8x85-topo.jpg" alt="Café 8×85g" loading="lazy">
       <div class="gama-artigo-overlay">
         <div class="gama-artigo-ref">Café</div>
         <div class="gama-artigo-nome">Pack HORECA</div>
@@ -1331,6 +1373,13 @@ body {
 
 </div><!-- /wrapper -->
 
+<!-- Lightbox de produto -->
+<div class="lightbox" id="lightbox" onclick="fecharLightbox()">
+  <button class="lightbox-fechar" onclick="fecharLightbox()">×</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-titulo" id="lightboxTitulo"></div>
+</div>
+
 <!-- Overlay de sucesso -->
 <div class="form-sucesso" id="formSucesso">
   <div class="sucesso-icone">🎉</div>
@@ -1387,6 +1436,15 @@ dots.forEach((d, i) => d.addEventListener('click', () => irPara(i)));
 // Wheel — bloqueia tudo para controlar nós mesmos
 let wheelAcc = 0, wheelTimer;
 window.addEventListener('wheel', e => {
+  // No form: se o form-corpo ainda tem scroll, deixar scroll nativo
+  if (atual === TOTAL - 1) {
+    const corpo = document.querySelector('.form-corpo');
+    if (corpo) {
+      const atTopo = corpo.scrollTop <= 2;
+      const atFundo = corpo.scrollTop + corpo.clientHeight >= corpo.scrollHeight - 2;
+      if (!((e.deltaY < 0 && atTopo) || (e.deltaY > 0 && atFundo))) return;
+    }
+  }
   e.preventDefault();
   if (bloqueado) return;
   wheelAcc += e.deltaY;
@@ -1418,9 +1476,19 @@ window.addEventListener('touchend', e => {
   // Num input/select não navega
   const tag = e.target.tagName;
   if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
-  // Threshold maior no form para não interferir com interação
-  const threshold = (atual === TOTAL - 1) ? 70 : 45;
-  if (Math.abs(dy) > threshold) irPara(atual + (dy > 0 ? 1 : -1));
+  // No form: se o form-corpo tem scroll interno, só navega nos limites
+  if (atual === TOTAL - 1) {
+    const corpo = document.querySelector('.form-corpo');
+    if (corpo) {
+      const atTopo = corpo.scrollTop <= 2;
+      const atFundo = corpo.scrollTop + corpo.clientHeight >= corpo.scrollHeight - 2;
+      if (dy < 0 && !atTopo) return; // swipe para cima mas ainda tem conteúdo acima
+      if (dy > 0 && !atFundo) return; // swipe para baixo mas ainda tem conteúdo abaixo
+    }
+    if (Math.abs(dy) > 70) irPara(atual + (dy > 0 ? 1 : -1));
+    return;
+  }
+  if (Math.abs(dy) > 45) irPara(atual + (dy > 0 ? 1 : -1));
 }, { passive: true });
 
 // Teclado
@@ -1428,6 +1496,22 @@ window.addEventListener('keydown', e => {
   if (bloqueado || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
   if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); irPara(atual + 1); }
   if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); irPara(atual - 1); }
+});
+
+// ══════════════════════════════════
+// LIGHTBOX GAMAS
+// ══════════════════════════════════
+function abrirLightbox(src, titulo) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxTitulo').textContent = titulo;
+  lb.classList.add('aberto');
+}
+function fecharLightbox() {
+  document.getElementById('lightbox').classList.remove('aberto');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') fecharLightbox();
 });
 
 // ══════════════════════════════════
