@@ -109,7 +109,7 @@ body {
 }
 .capa-scrim {
   position: absolute; inset: 0;
-  background: rgba(74,36,23,0.52);
+  background: rgba(74,36,23,0.28);
   z-index: 0;
   pointer-events: none;
 }
@@ -358,25 +358,25 @@ body {
   display: none;
   gap: 12px;
   flex: 1;
+  min-height: 0;
 }
 .gama-painel.ativo {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
 }
 .gama-artigo {
   border-radius: 12px;
   overflow: hidden;
   position: relative;
   min-height: 0;
-  flex: 1;
 }
 .gama-artigo img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   display: block;
-  min-height: 160px;
-  max-height: clamp(180px, 28dvh, 300px);
   transition: transform 0.5s ease;
 }
 .gama-artigo:hover img { transform: scale(1.04); }
@@ -387,15 +387,15 @@ body {
   padding: 20px 14px 14px;
 }
 .gama-artigo-ref {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   opacity: 0.6;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 .gama-artigo-nome {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  font-size: clamp(0.85rem, 1.5vw, 1.05rem);
   font-weight: 600;
 }
 .gama-artigo-peso {
@@ -709,15 +709,18 @@ body {
 ══════════════════════════════════ */
 #p7 {
   background: var(--creme);
-  overflow-y: auto;
-  display: block;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 0;
 }
 .form-wrap {
-  min-height: 100dvh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding: clamp(20px, 3.5vw, 48px) clamp(20px, 4vw, 56px);
+  padding: clamp(16px, 3vw, 40px) clamp(18px, 4vw, 56px);
+  overflow: hidden;
 }
 .form-cabecalho {
   margin-bottom: 16px;
@@ -741,6 +744,8 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 .form-grupo {
   display: flex;
@@ -966,7 +971,7 @@ body {
       <div class="num-label">referências<br>de produto</div>
     </div>
   </div>
-  <p class="nums-desc fade-in d4">Produção artesanal em Alcobaça. Entrega direta por autovenda ou centralizada com produto congelado — sem ruptura de stock.</p>
+  <p class="nums-desc fade-in d4">Produção artesanal em Painho, Alcobaça. Entrega direta por autovenda ou produto congelado — sem ruptura de stock.</p>
 </section>
 
 <!-- ══════════════════════════════════
@@ -1379,19 +1384,9 @@ revelarPagina(0);
 // Dots
 dots.forEach((d, i) => d.addEventListener('click', () => irPara(i)));
 
-// Wheel
+// Wheel — bloqueia tudo para controlar nós mesmos
 let wheelAcc = 0, wheelTimer;
 window.addEventListener('wheel', e => {
-  // No form: se o form tem scroll interno e não está no limite, deixar scroll nativo
-  if (atual === TOTAL - 1) {
-    const p7 = document.getElementById('p7');
-    const atLimite = (e.deltaY > 0 && p7.scrollTop + p7.clientHeight >= p7.scrollHeight - 2)
-                  || (e.deltaY < 0 && p7.scrollTop <= 0);
-    if (!atLimite) return; // deixar scroll nativo
-    e.preventDefault();
-    if (!bloqueado && e.deltaY < 0) irPara(atual - 1);
-    return;
-  }
   e.preventDefault();
   if (bloqueado) return;
   wheelAcc += e.deltaY;
@@ -1402,28 +1397,30 @@ window.addEventListener('wheel', e => {
   }, 50);
 }, { passive: false });
 
-// Touch — permite navegar de qualquer página, inclusive carousel e form
-let tyStart = 0, txStart = 0;
+// Touch — permite navegar de qualquer página
+let tyStart = 0, txStart = 0, tyMoved = false;
 window.addEventListener('touchstart', e => {
   tyStart = e.touches[0].clientY;
   txStart = e.touches[0].clientX;
+  tyMoved = false;
+}, { passive: true });
+
+window.addEventListener('touchmove', e => {
+  tyMoved = true;
 }, { passive: true });
 
 window.addEventListener('touchend', e => {
-  if (bloqueado) return;
+  if (bloqueado || !tyMoved) return;
   const dy = tyStart - e.changedTouches[0].clientY;
   const dx = txStart - e.changedTouches[0].clientX;
   // Ignorar swipes predominantemente horizontais
-  if (Math.abs(dx) > Math.abs(dy) * 1.5) return;
-  // No form (p7): só navega se o swipe for grande (≥80px) e não vier de um input/select
-  if (atual === TOTAL - 1) {
-    const tag = e.target.tagName;
-    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
-    if (Math.abs(dy) > 80) irPara(atual + (dy > 0 ? 1 : -1));
-    return;
-  }
-  // No carousel (p6): swipe vertical navega páginas (horizontal fica com o carousel)
-  if (Math.abs(dy) > 45) irPara(atual + (dy > 0 ? 1 : -1));
+  if (Math.abs(dx) > Math.abs(dy)) return;
+  // Num input/select não navega
+  const tag = e.target.tagName;
+  if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+  // Threshold maior no form para não interferir com interação
+  const threshold = (atual === TOTAL - 1) ? 70 : 45;
+  if (Math.abs(dy) > threshold) irPara(atual + (dy > 0 ? 1 : -1));
 }, { passive: true });
 
 // Teclado
