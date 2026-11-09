@@ -21,10 +21,10 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html {
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
+  html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
   }
 
   body {
@@ -34,11 +34,18 @@
     line-height: 1.6;
   }
 
+  /* ── CONTENTOR PRINCIPAL ── */
+  #secoes-wrapper {
+    position: fixed;
+    inset: 0;
+    will-change: transform;
+    transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
   /* ── SECÇÕES ── */
   .secao {
     height: 100dvh;
     min-height: -webkit-fill-available;
-    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -107,22 +114,16 @@
     height: 100%;
     object-fit: cover;
     object-position: center 30%;
-    opacity: 0.28;
+    opacity: 0.18;
     z-index: 0;
     pointer-events: none;
   }
 
-  /* Scrim extra para escurecer o vídeo e cobrir texto embutido */
-  .capa-video-bg + .capa-scrim,
+  /* Scrim denso — cobre texto embutido no vídeo, deixa só textura de movimento */
   .capa-scrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(74,36,23,0.55) 0%,
-      rgba(74,36,23,0.30) 50%,
-      rgba(74,36,23,0.60) 100%
-    );
+    background: rgba(74,36,23,0.72);
     z-index: 0;
     pointer-events: none;
   }
@@ -456,7 +457,6 @@
   .gama-secao {
     height: 100dvh;
     min-height: -webkit-fill-available;
-    scroll-snap-align: start;
     display: grid;
     grid-template-columns: 1fr 1fr;
     overflow: hidden;
@@ -1257,6 +1257,8 @@
   <button class="nav-ponto" data-secao="11" title="Contacto"></button>
 </nav>
 
+<div id="secoes-wrapper">
+
 <!-- ═══════════════════════════════════
      01 · CAPA
 ═══════════════════════════════════ -->
@@ -1762,35 +1764,117 @@
   </p>
 </section>
 
+</div><!-- /secoes-wrapper -->
+
 <script>
-  // ── IntersectionObserver para revelar elementos ──
+  // ── Navegação por páginas com transição controlada ──
+  const wrapper    = document.getElementById('secoes-wrapper');
+  const secoes     = document.querySelectorAll('[data-secao]');
+  const pontos     = document.querySelectorAll('.nav-ponto');
+  const progresso  = document.getElementById('progresso');
+  const totalSecoes = secoes.length;
+
+  let secaoAtual  = 0;
+  let transitando = false;
+
+  function irParaSecao(idx, animado) {
+    idx = Math.max(0, Math.min(totalSecoes - 1, idx));
+    if (idx === secaoAtual && animado) return;
+    secaoAtual = idx;
+
+    if (!animado) {
+      wrapper.style.transition = 'none';
+    } else {
+      wrapper.style.transition = 'transform 0.65s cubic-bezier(0.76, 0, 0.24, 1)';
+    }
+
+    wrapper.style.transform = 'translateY(-' + (secaoAtual * 100) + 'dvh)';
+
+    // Atualizar UI
+    pontos.forEach((p, i) => p.classList.toggle('ativo', i === secaoAtual));
+    const pct = Math.round((secaoAtual / (totalSecoes - 1)) * 100);
+    progresso.style.width = pct + '%';
+
+    // Revelar elementos na secção atual
+    const secaoEl = secoes[secaoAtual];
+    secaoEl?.querySelectorAll('.reveal').forEach(el => el.classList.add('visivel'));
+
+    if (animado) {
+      transitando = true;
+      setTimeout(() => { transitando = false; }, 700);
+    }
+  }
+
+  // Revelar elementos já visíveis na capa
+  secoes[0]?.querySelectorAll('.reveal').forEach(el => el.classList.add('visivel'));
+
+  // Pontos de navegação
+  pontos.forEach((ponto, i) => {
+    ponto.addEventListener('click', () => irParaSecao(i, true));
+  });
+
+  // Scroll do rato / trackpad
+  let acumuladoWheel = 0;
+  let timerWheel = null;
+  window.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (transitando) return;
+    acumuladoWheel += e.deltaY;
+    clearTimeout(timerWheel);
+    timerWheel = setTimeout(() => {
+      if (Math.abs(acumuladoWheel) > 30) {
+        irParaSecao(secaoAtual + (acumuladoWheel > 0 ? 1 : -1), true);
+      }
+      acumuladoWheel = 0;
+    }, 50);
+  }, { passive: false });
+
+  // Touch / swipe mobile
+  let touchStartY = 0;
+  let touchStartX = 0;
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  window.addEventListener('touchend', (e) => {
+    if (transitando) return;
+    // Ignorar se o toque foi no carrossel de empratamentos
+    const target = e.target;
+    if (target.closest('#empratamentos')) return;
+
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    // Só navegar se o swipe for mais vertical do que horizontal
+    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) {
+      irParaSecao(secaoAtual + (dy > 0 ? 1 : -1), true);
+    }
+  }, { passive: true });
+
+  // Teclado
+  window.addEventListener('keydown', (e) => {
+    if (transitando) return;
+    // Ignorar quando carrossel está ativo
+    const emprSecao = document.getElementById('empratamentos');
+    const emprRect = emprSecao ? emprSecao.getBoundingClientRect() : null;
+    const emprAtivo = emprRect && emprRect.top === 0;
+
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      irParaSecao(secaoAtual + 1, true);
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      irParaSecao(secaoAtual - 1, true);
+    }
+  });
+
+  // ── IntersectionObserver para revelar elementos (compatibilidade) ──
   const reveals = document.querySelectorAll('.reveal');
+  // Já tratado por irParaSecao; observer apenas como fallback
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visivel'); });
   }, { threshold: 0.15 });
   reveals.forEach(el => revealObs.observe(el));
-
-  // ── Navegação lateral e barra de progresso ──
-  const secoes = document.querySelectorAll('[data-secao]');
-  const pontos = document.querySelectorAll('.nav-ponto');
-  const progresso = document.getElementById('progresso');
-
-  const obsSecao = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const idx = parseInt(e.target.dataset.secao);
-        pontos.forEach((p, i) => p.classList.toggle('ativo', i === idx));
-        const pct = Math.round((idx / (secoes.length - 1)) * 100);
-        progresso.style.width = pct + '%';
-      }
-    });
-  }, { threshold: 0.4 });
-
-  secoes.forEach(s => obsSecao.observe(s));
-
-  pontos.forEach((ponto, i) => {
-    ponto.addEventListener('click', () => secoes[i]?.scrollIntoView({ behavior: 'smooth' }));
-  });
 
   // ── Carrossel de Empratamentos ──
   (function() {
