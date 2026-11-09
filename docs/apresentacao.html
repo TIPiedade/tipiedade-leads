@@ -1345,6 +1345,35 @@ window.addEventListener('keydown', e => {
       localStorage.setItem('tp_clientes_offline', JSON.stringify(fila));
     }
 
+    // Abrir WhatsApp com dados formatados
+    const condPagLabel = {
+      pronto: 'Pronto Pagamento',
+      '15': '15 dias', '30': '30 dias', '60': '60 dias',
+      debito: 'Débito Direto'
+    }[dados.condPag] || dados.condPag;
+
+    const comercialLabel = {
+      joao: 'João Diogo (Zona Centro)',
+      nuno: 'Nuno Tavares (Zona Norte)',
+      oscar: 'Óscar Maria (Zona Sul)'
+    }[dados.comercial] || dados.comercial;
+
+    const msg = `🍰 *Novo Cliente Ti'Piedade*\n\n`
+      + `📋 *Nome Fiscal:* ${dados.nomeFiscal}\n`
+      + `🏪 *Nome Comercial:* ${dados.nomeComercial}\n`
+      + `🔢 *NIF:* ${dados.nif}\n`
+      + `📍 *Morada:* ${dados.morada}, ${dados.codPostal} ${dados.localidade}\n`
+      + `📱 *Telemóvel:* ${dados.telemovel}\n`
+      + (dados.email ? `📧 *Email:* ${dados.email}\n` : '')
+      + `💳 *Cond. Pagamento:* ${condPagLabel}\n`
+      + `👤 *Comercial:* ${comercialLabel}\n`
+      + `\n_Registado em ${new Date().toLocaleDateString('pt-PT')} às ${new Date().toLocaleTimeString('pt-PT', {hour:'2-digit',minute:'2-digit'})}_`;
+
+    // Número da Ti'Piedade para receber o alerta (configurar aqui)
+    const numeroTiPiedade = '351962000000'; // ← substituir pelo número real
+    const waUrl = `https://wa.me/${numeroTiPiedade}?text=${encodeURIComponent(msg)}`;
+    setTimeout(() => window.open(waUrl, '_blank'), 400);
+
     sucesso.classList.add('visivel');
     btn.disabled = false;
     btn.innerHTML = '<span class="ico">✓</span> Guardar cliente';
