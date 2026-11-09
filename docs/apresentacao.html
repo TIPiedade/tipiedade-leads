@@ -776,22 +776,25 @@
   .empr-slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center center;
     display: block;
+    background: var(--cast);
   }
 
-  /* Overlay escuro suave sobre cada foto */
+  /* Overlay de gradiente no topo e fundo — sobre o fundo cast */
   .empr-slide::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(74,36,23,0.55) 0%,
-      rgba(74,36,23,0.15) 40%,
-      rgba(74,36,23,0.15) 65%,
-      rgba(74,36,23,0.70) 100%
+      rgba(74,36,23,0.70) 0%,
+      rgba(74,36,23,0.0) 25%,
+      rgba(74,36,23,0.0) 70%,
+      rgba(74,36,23,0.75) 100%
     );
+    pointer-events: none;
   }
 
   /* Texto topo — em overlay sobre a foto */
