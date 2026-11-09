@@ -36,7 +36,8 @@
 
   /* ── SECÇÕES ── */
   .secao {
-    min-height: 100vh;
+    height: 100dvh;
+    min-height: -webkit-fill-available;
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
@@ -729,7 +730,7 @@
     background: var(--cast);
     color: var(--branco);
     justify-content: center;
-    padding: 60px 0;
+    padding: 40px 0;
   }
 
   #empratamentos .secao-etiqueta { color: var(--ouro); padding: 0 48px; }
@@ -1066,40 +1067,128 @@
     border-color: var(--cast);
   }
 
-  /* ── RESPONSIVE ── */
+  /* ── RESPONSIVE TABLET ── */
   @media (max-width: 900px) {
     .dois-col,
     .logistica-grid,
-    .congelado-destaque { grid-template-columns: 1fr; gap: 40px; }
+    .congelado-destaque { grid-template-columns: 1fr; gap: 24px; }
 
     .razoes-grid { grid-template-columns: 1fr 1fr; }
-
     .gama-secao { grid-template-columns: 1fr; }
-    .gama-fotos { height: 320px; }
-    .gama-info { padding: 40px 28px; }
+    .gama-fotos { height: 280px; }
+    .gama-info { padding: 32px 24px; }
     .gama-invertida .gama-info { order: 1; }
     .gama-invertida .gama-fotos { order: 2; }
-
     .nav-pontos { display: none; }
     .pilares { grid-template-columns: 1fr; }
     .contacto-cards { flex-direction: column; align-items: center; }
-    .validade-bloco { flex-direction: column; gap: 12px; }
+    .validade-bloco { flex-direction: column; gap: 10px; }
     .log-cards { grid-template-columns: 1fr 1fr; }
-    .comerciais-grid { grid-template-columns: 1fr; gap: 14px; }
-    .comercial-card { flex-direction: row; align-items: center; text-align: left; gap: 16px; }
-    .comercial-avatar { margin: 0; }
   }
 
+  /* ── RESPONSIVE MOBILE — caber tudo no ecrã sem scroll ── */
   @media (max-width: 600px) {
-    .secao { padding: 48px 20px; }
-    .razoes-grid { grid-template-columns: 1fr; }
-    .capa-titulo { font-size: 2.2rem; }
-    .tamanhos-tags { gap: 6px; }
-    .tamanho-tag { font-size: 0.75rem; padding: 5px 10px; }
-    .log-cards { grid-template-columns: 1fr 1fr; }
-    .gama-fotos { height: 260px; }
-    .tabela-descong { font-size: 0.82rem; }
-    .tabela-descong th, .tabela-descong td { padding: 10px 12px; }
+    /* Secção: padding mínimo, conteúdo centralizado */
+    .secao {
+      padding: 20px 20px;
+      justify-content: center;
+      gap: 0;
+    }
+
+    /* Tipografia global compacta */
+    .secao-etiqueta { font-size: 0.65rem; margin-bottom: 4px; }
+    .secao-titulo { font-size: clamp(1.3rem, 5vw, 1.8rem); margin-bottom: 8px; line-height: 1.2; }
+
+    /* ── CAPA ── */
+    .capa-logo { height: 48px; margin-bottom: 10px; }
+    .capa-titulo { font-size: clamp(1.8rem, 8vw, 2.4rem); margin-bottom: 8px; }
+    .capa-linha-ouro { margin: 10px 0; }
+    .capa-subtitulo { font-size: 0.8rem; }
+    .capa-slogan { font-size: 0.75rem; margin-top: 4px; }
+    .capa-scroll { margin-top: 16px; font-size: 0.7rem; }
+
+    /* ── QUEM SOMOS / PILARES ── */
+    .pilares { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .pilar { padding: 12px; }
+    .pilar-icone { font-size: 1.4rem; }
+    .pilar-titulo { font-size: 0.8rem; }
+    .pilar-desc { font-size: 0.72rem; }
+
+    /* ── RAZÕES HORECA ── */
+    .razoes-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .razao-card { padding: 14px 10px; }
+    .razao-numero { font-size: 0.65rem; }
+    .razao-titulo { font-size: 0.85rem; }
+    .razao-desc { font-size: 0.72rem; line-height: 1.4; }
+
+    /* ── CONGELADO ── */
+    .congelado-destaque { gap: 12px; }
+    .congelado-nr { font-size: 2.4rem; }
+    .congelado-nr-label { font-size: 0.72rem; }
+    .validade-bloco { flex-direction: row; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .validade-item { padding: 10px 14px; }
+    .validade-num { font-size: 1.4rem; }
+    .validade-label { font-size: 0.65rem; }
+
+    /* ── GAMAS ── */
+    .gama-secao { grid-template-columns: 1fr; }
+    .gama-fotos { height: 200px; }
+    .gama-info { padding: 20px 20px; }
+    .gama-nome { font-size: 1.5rem; }
+    .gama-desc { font-size: 0.82rem; margin-bottom: 12px; }
+    .gama-foto-mini { height: 60px; }
+    .gama-tamanho-label { font-size: 0.72rem; }
+    .gama-tamanho-unidade { font-size: 1rem; }
+    .gama-tamanho-g { font-size: 0.65rem; }
+    .tamanhos-tags { gap: 4px; margin-top: 8px; }
+    .tamanho-tag { font-size: 0.7rem; padding: 4px 8px; }
+
+    /* ── DESCONGELAMENTO ── */
+    .tabela-descong { font-size: 0.72rem; }
+    .tabela-descong th, .tabela-descong td { padding: 7px 8px; }
+    .descong-nota { font-size: 0.72rem; padding: 10px 14px; }
+
+    /* ── LOGÍSTICA ── */
+    .logistica-grid { grid-template-columns: 1fr; gap: 12px; }
+    .log-horeca-info { gap: 8px; margin-top: 12px; }
+    .log-horeca-item { padding: 10px 12px; gap: 10px; }
+    .log-horeca-icone { font-size: 1.3rem; }
+    .log-horeca-texto strong { font-size: 0.85rem; }
+    .log-horeca-texto span { font-size: 0.72rem; }
+    .log-cards { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .log-card { padding: 12px 6px; }
+    .log-card-unidade { font-size: 1.2rem; }
+    .log-card-desc { font-size: 0.65rem; line-height: 1.3; }
+
+    /* ── EMPRATAMENTOS / CARROSSEL ── */
+    #empratamentos { padding: 16px 0; }
+    #empratamentos .secao-etiqueta,
+    #empratamentos .secao-titulo,
+    .empr-intro { padding-left: 20px; padding-right: 20px; }
+    .empr-intro { font-size: 0.8rem; margin-bottom: 12px; }
+    .empr-slide { height: 52vw; }
+    .empr-ctrl { padding: 10px 20px 0; gap: 12px; }
+    .empr-btn { width: 36px; height: 36px; font-size: 1rem; }
+    .empr-ponto { width: 16px; }
+    .empr-ponto.ativo { width: 28px; }
+    .empr-contador { font-size: 0.72rem; }
+
+    /* ── CONTACTO ── */
+    .contacto-logo { height: 48px; margin-bottom: 10px; }
+    .contacto-titulo { font-size: 1.5rem; margin-bottom: 4px; }
+    .contacto-sub { font-size: 0.85rem; margin-bottom: 16px; }
+    .comerciais-grid { gap: 10px; margin-bottom: 14px; }
+    .comerciais-grid .comercial-card { flex: 0 1 100%; flex-direction: row; align-items: center; text-align: left; gap: 12px; padding: 14px 16px; }
+    .comercial-avatar { width: 44px; height: 44px; font-size: 1rem; margin: 0; flex-shrink: 0; }
+    .comercial-nome { font-size: 0.95rem; }
+    .comercial-zona { font-size: 0.72rem; }
+    .comercial-tel { font-size: 0.8rem; padding: 5px 10px; }
+    .contacto-cards { flex-direction: row; gap: 10px; flex-wrap: nowrap; }
+    .contacto-card { padding: 12px 16px; min-width: 0; flex: 1; }
+    .contacto-card-icone { font-size: 1.1rem; }
+    .contacto-card-label { font-size: 0.6rem; }
+    .contacto-card-valor { font-size: 0.75rem; }
+    .contacto-site { margin-top: 10px; font-size: 0.8rem; }
   }
 </style>
 </head>
