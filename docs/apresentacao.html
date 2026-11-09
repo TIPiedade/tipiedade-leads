@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pão de Ló Ti'Piedade — Apresentação</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cast:    #4a2417;
+  --cast2:   #3D1C07;
+  --ouro:    #C49A3C;
+  --ouro-cl: #E8C97A;
+  --laranja: #D4682A;
+  --creme:   #FDF6EF;
+  --txt:     #2C1A0A;
+  --txt2:    #6B5744;
+  --borda:   #E8D5B8;
+  --br:      #FFFFFF;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cast2);
+  color: var(--br);
+  overscroll-behavior: none;
+}
+
+/* ── SECÇÕES FULLSCREEN ── */
+section {
+  min-height: 100svh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── HERO ── */
+#hero {
+  background: var(--cast2);
+  align-items: center;
+  text-align: center;
+  padding: 48px 24px;
+  gap: 0;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(212,104,42,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% -10%, rgba(196,154,60,.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-marca {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(11px, 2.2vw, 14px);
+  font-weight: 400;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--ouro);
+  opacity: 0;
+  animation: fadeUp .7s .2s forwards;
+}
+
+.hero-nome {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 11vw, 110px);
+  font-weight: 700;
+  line-height: .9;
+  color: var(--br);
+  margin: 20px 0 24px;
+  opacity: 0;
+  animation: fadeUp .8s .45s forwards;
+}
+.hero-nome em {
+  color: var(--ouro);
+  font-style: italic;
+}
+
+.hero-linha {
+  width: 48px;
+  height: 2px;
+  background: var(--ouro);
+  margin: 0 auto 24px;
+  opacity: 0;
+  animation: scaleX .6s .8s forwards;
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+.hero-tagline {
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 300;
+  color: rgba(255,255,255,.7);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto 48px;
+  opacity: 0;
+  animation: fadeUp .7s 1s forwards;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s 1.6s forwards;
+}
+.hero-scroll span {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+.scroll-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ouro);
+  animation: bounce 1.6s 2s infinite;
+}
+
+/* ── FOTOGRAFIA HERO (mosaico) ── */
+.hero-fotos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 160px 160px;
+  gap: 3px;
+  width: min(680px, 95vw);
+  margin: 0 auto 40px;
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn .9s .6s forwards;
+  box-shadow: 0 32px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(196,154,60,.2);
+}
+.hero-fotos .foto {
+  background: var(--cast);
+  position: relative;
+  overflow: hidden;
+}
+.hero-fotos .foto:first-child {
+  grid-row: 1 / 3;
+  grid-column: 1 / 2;
+}
+.hero-fotos .foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s ease;
+}
+.hero-fotos .foto:hover img { transform: scale(1.06); }
+
+/* placeholder elegante quando não há foto */
+.foto-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(145deg, rgba(92,45,14,.6), rgba(61,28,7,.9));
+}
+.foto-placeholder svg { opacity: .3; }
+.foto-placeholder span {
+  font-size: 10px;
+  color: rgba(255,255,255,.25);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+/* ── GALERIA ── */
+#galeria {
+  background: var(--creme);
+  color: var(--txt);
+  padding: 64px 24px;
+  align-items: center;
+  gap: 48px;
+}
+
+.sec-label {
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ouro);
+  font-weight: 500;
+}
+.sec-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--cast);
+}
+.sec-titulo em {
+  font-style: italic;
+  color: var(--laranja);
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.galeria-card {
+  background: var(--br);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(74,36,23,.08);
+  border: 1px solid var(--borda);
+  transition: transform .25s ease, box-shadow .25s ease;
+  cursor: pointer;
+}
+.galeria-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(74,36,23,.16);
+}
+.galeria-foto {
+  aspect-ratio: 4/3;
+  background: var(--cast);
+  overflow: hidden;
+  position: relative;
+}
+.galeria-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.galeria-card:hover .galeria-foto img { transform: scale(1.05); }
+.galeria-info {
+  padding: 14px 16px;
+}
+.galeria-nome {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cast);
+  margin-bottom: 4px;
+}
+.galeria-desc {
+  font-size: 12px;
+  color: var(--txt2);
+  line-height: 1.5;
+}
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+}
+.lightbox.ativo { display: flex; }
+.lightbox img {
+  max-width: min(90vw, 800px);
+  max-height: 70svh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.6);
+}
+.lightbox-info {
+  text-align: center;
+}
+.lightbox-nome {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--br);
+  margin-bottom: 6px;
+}
+.lightbox-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,.55);
+}
+.lightbox-fechar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,.12);
+  border: none;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s;
+}
+.lightbox-fechar:hover { background: rgba(255,255,255,.22); }
+.lightbox-nav {
+  display: flex;
+  gap: 12px;
+}
+.lightbox-btn {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s;
+}
+.lightbox-btn:hover { background: rgba(255,255,255,.2); }
+
+/* ── PILARES ── */
+#pilares {
+  background: var(--cast);
+  padding: 80px 24px;
+  align-items: center;
+  gap: 64px;
+}
+.pilares-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.pilares-header .sec-titulo { color: var(--br); }
+.pilares-header .sec-label { color: var(--ouro-cl); }
+
+.pilares-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2px;
+  max-width: 1100px;
+  width: 100%;
+}
+.pilar {
+  padding: 48px 40px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  transition: background .25s;
+  position: relative;
+  overflow: hidden;
+}
+.pilar::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--ouro);
+  transform: scaleX(0);
+  transition: transform .35s ease;
+  transform-origin: left;
+}
+.pilar:hover { background: rgba(255,255,255,.07); }
+.pilar:hover::before { transform: scaleX(1); }
+.pilar:first-child { border-radius: 12px 0 0 12px; }
+.pilar:last-child { border-radius: 0 12px 12px 0; }
+
+.pilar-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: rgba(196,154,60,.15);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.pilar-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--br);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.pilar-titulo em {
+  color: var(--ouro);
+  font-style: italic;
+}
+.pilar-corpo {
+  font-size: 14px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.75;
+}
+.pilar-corpo strong {
+  color: rgba(255,255,255,.85);
+  font-weight: 500;
+}
+
+/* ── NÚMEROS ── */
+#numeros {
+  background: var(--creme);
+  color: var(--txt);
+  padding: 80px 24px;
+  align-items: center;
+  gap: 64px;
+}
+.numeros-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.numeros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+}
+.numero-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.numero-val {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 700;
+  color: var(--cast);
+  line-height: 1;
+}
+.numero-val span {
+  color: var(--ouro);
+}
+.numero-lbl {
+  font-size: 13px;
+  color: var(--txt2);
+  line-height: 1.4;
+  max-width: 160px;
+}
+.numero-linha {
+  width: 32px;
+  height: 2px;
+  background: var(--ouro);
+  margin-bottom: 4px;
+}
+
+/* ── PRESENÇA ── */
+#presenca {
+  background: var(--cast2);
+  padding: 80px 24px;
+  align-items: center;
+  gap: 48px;
+}
+.presenca-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.presenca-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 900px;
+}
+.presenca-item {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(196,154,60,.2);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background .2s, border-color .2s;
+}
+.presenca-item:hover {
+  background: rgba(196,154,60,.1);
+  border-color: rgba(196,154,60,.5);
+}
+.presenca-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ouro);
+  flex-shrink: 0;
+}
+.presenca-quote {
+  max-width: 640px;
+  text-align: center;
+  padding: 40px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(196,154,60,.15);
+  border-radius: 16px;
+  position: relative;
+}
+.presenca-quote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 100px;
+  color: var(--ouro);
+  opacity: .2;
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  line-height: 1;
+}
+.presenca-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px, 2.5vw, 20px);
+  font-style: italic;
+  color: rgba(255,255,255,.8);
+  line-height: 1.65;
+}
+.presenca-quote cite {
+  display: block;
+  margin-top: 20px;
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ouro);
+  font-style: normal;
+}
+
+/* ── CTA ── */
+#cta {
+  background: var(--cast);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(212,104,42,.22) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 10%, rgba(196,154,60,.12) 0%, transparent 50%);
+  pointer-events: none;
+}
+.cta-label {
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ouro-cl);
+  margin-bottom: 24px;
+  position: relative;
+}
+.cta-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--br);
+  margin-bottom: 16px;
+  position: relative;
+}
+.cta-titulo em {
+  color: var(--ouro);
+  font-style: italic;
+}
+.cta-sub {
+  font-size: clamp(14px, 2vw, 17px);
+  color: rgba(255,255,255,.55);
+  margin-bottom: 48px;
+  position: relative;
+  max-width: 480px;
+}
+.cta-botoes {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+.btn-primario {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ouro);
+  color: var(--cast2);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 16px 32px;
+  border-radius: 100px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background .2s;
+  box-shadow: 0 8px 32px rgba(196,154,60,.35);
+}
+.btn-primario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(196,154,60,.5);
+  background: var(--ouro-cl);
+}
+.btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: rgba(255,255,255,.8);
+  font-weight: 500;
+  font-size: 15px;
+  padding: 16px 32px;
+  border-radius: 100px;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.2);
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.btn-secundario:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.4);
+}
+
+.cta-assinatura {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+.cta-assinatura-linha {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,.15);
+}
+.cta-assinatura-txt {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+}
+
+/* ── NAV LATERAL ── */
+.nav-lateral {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+  border: none;
+  padding: 0;
+}
+.nav-dot.ativo {
+  background: var(--ouro);
+  transform: scale(1.4);
+}
+
+/* ── BARRA SUPERIOR MINIMALISTA ── */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(61,28,7,.7) 0%, transparent 100%);
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.topbar-marca {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255,255,255,.85);
+  letter-spacing: .02em;
+  pointer-events: auto;
+}
+.topbar-marca span { color: var(--ouro); }
+.topbar-btn {
+  pointer-events: auto;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 100px;
+  color: rgba(255,255,255,.8);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 18px;
+  cursor: pointer;
+  letter-spacing: .03em;
+  transition: background .2s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.topbar-btn:hover { background: rgba(255,255,255,.18); }
+
+/* ── ANIMAÇÕES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleX {
+  from { opacity: 1; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+/* ── REVEAL ON SCROLL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visivel {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .nav-lateral { right: 10px; }
+  .topbar { padding: 14px 16px; }
+  .hero-fotos { grid-template-rows: 120px 120px; }
+  .pilar { padding: 32px 24px; }
+  .pilar:first-child, .pilar:last-child { border-radius: 0; }
+  .pilares-grid { gap: 1px; }
+  .cta-botoes { flex-direction: column; align-items: stretch; }
+  .btn-primario, .btn-secundario { justify-content: center; }
+}
+
+/* ── PRINT / FULLSCREEN ── */
+@media (display-mode: fullscreen) {
+  .topbar-btn { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- BARRA SUPERIOR -->
+<header class="topbar">
+  <div class="topbar-marca">Ti'<span>Piedade</span></div>
+  <a href="index.html" class="topbar-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    CRM
+  </a>
+</header>
+
+<!-- NAVEGAÇÃO LATERAL -->
+<nav class="nav-lateral" id="navLateral">
+  <button class="nav-dot ativo" data-sec="hero" title="Início"></button>
+  <button class="nav-dot" data-sec="galeria" title="Produtos"></button>
+  <button class="nav-dot" data-sec="pilares" title="Porquê Ti'Piedade"></button>
+  <button class="nav-dot" data-sec="numeros" title="Números"></button>
+  <button class="nav-dot" data-sec="presenca" title="Presença"></button>
+  <button class="nav-dot" data-sec="cta" title="Contacto"></button>
+</nav>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-fechar" id="lbFechar" aria-label="Fechar">✕</button>
+  <img id="lbImg" src="" alt="" />
+  <div class="lightbox-info">
+    <div class="lightbox-nome" id="lbNome"></div>
+    <div class="lightbox-desc" id="lbDesc"></div>
+  </div>
+  <div class="lightbox-nav">
+    <button class="lightbox-btn" id="lbPrev" aria-label="Anterior">‹</button>
+    <button class="lightbox-btn" id="lbNext" aria-label="Seguinte">›</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECÇÃO 1 — HERO
+══════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Mosaico de fotos de produtos -->
+  <div class="hero-fotos">
+    <div class="foto" id="hf1">
+      <div class="foto-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>Produto em destaque</span>
+      </div>
+    </div>
+    <div class="foto" id="hf2">
+      <div class="foto-placeholder">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>Foto</span>
+      </div>
+    </div>
+    <div class="foto" id="hf3">
+      <div class="foto-placeholder">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>Foto</span>
+      </div>
+    </div>
+    <div class="foto" id="hf4">
+      <div class="foto-placeholder">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>Foto</span>
+      </div>
+    </div>
+    <div class="foto" id="hf5">
+      <div class="foto-placeholder">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>Foto</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-marca">Pão de Ló Artesanal Português</div>
+  <h1 class="hero-nome">Ti'<em>Piedade</em></h1>
+  <div class="hero-linha"></div>
+  <p class="hero-tagline">
+    Tradição que conquista mesas desde há gerações.<br>
+    Produção artesanal, sabor inconfundível, parceiro de confiança HORECA.
+  </p>
+
+  <div class="hero-scroll">
+    <span>Descobrir</span>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     SECÇÃO 2 — GALERIA DE PRODUTOS
+══════════════════════════════════════════════════ -->
+<section id="galeria">
+  <div class="presenca-header reveal">
+    <div class="sec-label">O nosso catálogo</div>
+    <h2 class="sec-titulo">Feitos para <em>impressionar</em></h2>
+  </div>
+
+  <div class="galeria-grid" id="galeriaGrid">
+    <!-- Produtos preenchidos via JS; placeholders abaixo como fallback -->
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     SECÇÃO 3 — PILARES / PORQUÊ TI'PIEDADE
+══════════════════════════════════════════════════ -->
+<section id="pilares">
+  <div class="pilares-header reveal">
+    <div class="sec-label">O que nos distingue</div>
+    <h2 class="sec-titulo">Porquê <em>Ti'Piedade</em></h2>
+  </div>
+
+  <div class="pilares-grid">
+    <div class="pilar reveal reveal-delay-1">
+      <div class="pilar-num">01</div>
+      <h3 class="pilar-titulo">Produção<br><em>100% artesanal</em></h3>
+      <p class="pilar-corpo">
+        Cada pão de ló é produzido com receitas tradicionais transmitidas ao longo de gerações.
+        <strong>Sem conservantes, sem atalhos.</strong> O sabor que os seus clientes vão recordar.
+      </p>
+    </div>
+    <div class="pilar reveal reveal-delay-2">
+      <div class="pilar-num">02</div>
+      <h3 class="pilar-titulo">Entrega<br><em>fiável e pontual</em></h3>
+      <p class="pilar-corpo">
+        Logística própria nas zonas Centro e Sul. <strong>Entregas diretas</strong> nas lojas, sem intermediários que comprometam a frescura do produto. O seu stock, sempre garantido.
+      </p>
+    </div>
+    <div class="pilar reveal reveal-delay-3">
+      <div class="pilar-num">03</div>
+      <h3 class="pilar-titulo">Parceiro<br><em>de longa data</em></h3>
+      <p class="pilar-corpo">
+        Presença consolidada em <strong>Pingo Doce, restauração e hotelaria</strong> de referência.
+        Uma marca que os consumidores reconhecem e procuram nas prateleiras.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     SECÇÃO 4 — NÚMEROS
+══════════════════════════════════════════════════ -->
+<section id="numeros">
+  <div class="numeros-header reveal">
+    <div class="sec-label">Ti'Piedade em números</div>
+    <h2 class="sec-titulo">Uma marca com <em>peso</em></h2>
+  </div>
+
+  <div class="numeros-grid">
+    <div class="numero-item reveal reveal-delay-1">
+      <div class="numero-val"><span id="n1">0</span>+</div>
+      <div class="numero-linha"></div>
+      <div class="numero-lbl">anos de produção artesanal</div>
+    </div>
+    <div class="numero-item reveal reveal-delay-2">
+      <div class="numero-val"><span id="n2">0</span>+</div>
+      <div class="numero-linha"></div>
+      <div class="numero-lbl">pontos de venda ativos</div>
+    </div>
+    <div class="numero-item reveal reveal-delay-3">
+      <div class="numero-val"><span id="n3">0</span></div>
+      <div class="numero-linha"></div>
+      <div class="numero-lbl">variedades no catálogo</div>
+    </div>
+    <div class="numero-item reveal reveal-delay-4">
+      <div class="numero-val"><span id="n4">0</span>%</div>
+      <div class="numero-linha"></div>
+      <div class="numero-lbl">produção em Portugal</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     SECÇÃO 5 — PRESENÇA NO MERCADO
+══════════════════════════════════════════════════ -->
+<section id="presenca">
+  <div class="presenca-header reveal">
+    <div class="sec-label">Onde estamos</div>
+    <h2 class="sec-titulo">Presença <em>consolidada</em></h2>
+  </div>
+
+  <div class="presenca-lista reveal">
+    <div class="presenca-item"><div class="presenca-dot"></div>Pingo Doce — Zona Centro e Sul</div>
+    <div class="presenca-item"><div class="presenca-dot"></div>Pingo Doce — Zona Norte (centralizado)</div>
+    <div class="presenca-item"><div class="presenca-dot"></div>Restauração HORECA</div>
+    <div class="presenca-item"><div class="presenca-dot"></div>Hotelaria de referência</div>
+    <div class="presenca-item"><div class="presenca-dot"></div>Eventos e catering</div>
+    <div class="presenca-item"><div class="presenca-dot"></div>Ilhas — Açores e Madeira</div>
+    <div class="presenca-item"><div class="presenca-dot"></div>Navegação e cruzeiros</div>
+    <div class="presenca-item"><div class="presenca-dot"></div>Cabazes e épocas especiais</div>
+  </div>
+
+  <div class="presenca-quote reveal">
+    <p>O pão de ló da Ti'Piedade tem uma identidade muito própria — os nossos clientes pedem-no pelo nome. É um produto que se vende sozinho depois da primeira prova.</p>
+    <cite>Equipa Comercial Ti'Piedade</cite>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     SECÇÃO 6 — CTA
+══════════════════════════════════════════════════ -->
+<section id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-label reveal">Próximo passo</div>
+  <h2 class="cta-titulo reveal">Vamos trabalhar<br><em>juntos?</em></h2>
+  <p class="cta-sub reveal">Peça a sua proposta comercial ou marque uma prova de produto. Sem compromisso.</p>
+
+  <div class="cta-botoes reveal">
+    <a href="https://wa.me/351XXXXXXXXX?text=Ol%C3%A1%2C+vim+ver+a+apresenta%C3%A7%C3%A3o+do+P%C3%A3o+de+L%C3%B3+Ti%27Piedade+e+gostaria+de+saber+mais." class="btn-primario" id="btnWACTA">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.86L.057 23.571a.75.75 0 00.914.914l5.71-1.476A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.846 0-3.587-.484-5.095-1.332l-.368-.214-3.814.985.995-3.816-.229-.38A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Entrar em contacto
+    </a>
+    <a href="mailto:sales@tipiedade.com?subject=Proposta%20Comercial%20Ti%27Piedade" class="btn-secundario">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+      Enviar email
+    </a>
+  </div>
+
+  <div class="cta-assinatura reveal">
+    <div class="cta-assinatura-linha"></div>
+    <div class="cta-assinatura-txt">Pão de Ló Ti'Piedade · sales@tipiedade.com</div>
+  </div>
+</section>
+
+<script>
+// ── CATÁLOGO DE PRODUTOS ──────────────────────────────────────────────────
+// Para adicionar fotos reais: substitui src: '' por src: 'ficheiros/nome-da-foto.jpg'
+// (coloca as fotos na pasta docs/ficheiros/)
+const PRODUTOS = [
+  { nome: "Pão de Ló Tradicional",        desc: "Receita original, textura húmida, sabor inconfundível",        src: "" },
+  { nome: "Pão de Ló de Alfeizerão",       desc: "Especialidade regional de textura cremosa no interior",        src: "" },
+  { nome: "Pão de Ló de Ovar",             desc: "Versão com gema líquida, típico e muito procurado",            src: "" },
+  { nome: "Pão de Ló Individual",          desc: "Formato perfeito para cafetaria e restauração",                src: "" },
+  { nome: "Pão de Ló Formato HORECA",      desc: "Embalagem adaptada à restauração e hotelaria",                 src: "" },
+  { nome: "Edição Época",                  desc: "Produções especiais para Natal, Páscoa e eventos",             src: "" },
+];
+
+// ── NÚMEROS ANIMADOS ──────────────────────────────────────────────────────
+const NUMEROS = [
+  { id: "n1", fim: 30 },
+  { id: "n2", fim: 150 },
+  { id: "n3", fim: 12 },
+  { id: "n4", fim: 100 },
+];
+
+// ── CONSTRUIR GALERIA ─────────────────────────────────────────────────────
+const grid = document.getElementById("galeriaGrid");
+PRODUTOS.forEach((p, i) => {
+  const card = document.createElement("div");
+  card.className = "galeria-card reveal" + (i < 3 ? " reveal-delay-" + (i+1) : "");
+  card.innerHTML = `
+    <div class="galeria-foto">
+      ${p.src
+        ? `<img src="${p.src}" alt="${p.nome}" loading="lazy">`
+        : `<div class="foto-placeholder">
+             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+             <span>Foto do produto</span>
+           </div>`}
+    </div>
+    <div class="galeria-info">
+      <div class="galeria-nome">${p.nome}</div>
+      <div class="galeria-desc">${p.desc}</div>
+    </div>`;
+  card.addEventListener("click", () => abrirLightbox(i));
+  grid.appendChild(card);
+});
+
+// ── LIGHTBOX ──────────────────────────────────────────────────────────────
+let lbIdx = 0;
+const lb     = document.getElementById("lightbox");
+const lbImg  = document.getElementById("lbImg");
+const lbNome = document.getElementById("lbNome");
+const lbDesc = document.getElementById("lbDesc");
+
+function abrirLightbox(i) {
+  lbIdx = i;
+  const p = PRODUTOS[i];
+  if (!p.src) return; // sem foto: não abre lightbox
+  lbImg.src = p.src;
+  lbImg.alt = p.nome;
+  lbNome.textContent = p.nome;
+  lbDesc.textContent = p.desc;
+  lb.classList.add("ativo");
+  document.body.style.overflow = "hidden";
+}
+function fecharLightbox() {
+  lb.classList.remove("ativo");
+  document.body.style.overflow = "";
+}
+document.getElementById("lbFechar").addEventListener("click", fecharLightbox);
+lb.addEventListener("click", e => { if (e.target === lb) fecharLightbox(); });
+document.getElementById("lbPrev").addEventListener("click", () => {
+  const comFoto = PRODUTOS.map((p,i)=>p.src?i:-1).filter(i=>i>=0);
+  if(!comFoto.length) return;
+  const cur = comFoto.indexOf(lbIdx);
+  abrirLightbox(comFoto[(cur - 1 + comFoto.length) % comFoto.length]);
+});
+document.getElementById("lbNext").addEventListener("click", () => {
+  const comFoto = PRODUTOS.map((p,i)=>p.src?i:-1).filter(i=>i>=0);
+  if(!comFoto.length) return;
+  const cur = comFoto.indexOf(lbIdx);
+  abrirLightbox(comFoto[(cur + 1) % comFoto.length]);
+});
+document.addEventListener("keydown", e => {
+  if (!lb.classList.contains("ativo")) return;
+  if (e.key === "Escape")      fecharLightbox();
+  if (e.key === "ArrowLeft")   document.getElementById("lbPrev").click();
+  if (e.key === "ArrowRight")  document.getElementById("lbNext").click();
+});
+
+// ── NAVEGAÇÃO LATERAL ─────────────────────────────────────────────────────
+const seccoes = ["hero","galeria","pilares","numeros","presenca","cta"];
+const dots    = document.querySelectorAll(".nav-dot");
+
+dots.forEach(d => {
+  d.addEventListener("click", () => {
+    document.getElementById(d.dataset.sec).scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+// ── INTERSECTION OBSERVER — reveal + nav ──────────────────────────────────
+let numerosAnimados = false;
+
+function animarNumero(el, fim) {
+  let ini = 0;
+  const dur = 1800;
+  const passo = 16;
+  const inc = fim / (dur / passo);
+  const t = setInterval(() => {
+    ini = Math.min(ini + inc, fim);
+    el.textContent = Math.round(ini);
+    if (ini >= fim) clearInterval(t);
+  }, passo);
+}
+
+const obsRevel = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add("visivel");
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll(".reveal").forEach(el => obsRevel.observe(el));
+
+const obsSec = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const id = e.target.id;
+    dots.forEach(d => d.classList.toggle("ativo", d.dataset.sec === id));
+    if (id === "numeros" && !numerosAnimados) {
+      numerosAnimados = true;
+      NUMEROS.forEach(n => animarNumero(document.getElementById(n.id), n.fim));
+    }
+  });
+}, { threshold: 0.4 });
+
+seccoes.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) obsSec.observe(el);
+});
+
+// ── SWIPE ─────────────────────────────────────────────────────────────────
+let tsX = 0, tsY = 0;
+document.addEventListener("touchstart", e => {
+  tsX = e.touches[0].clientX;
+  tsY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener("touchend", e => {
+  const dx = e.changedTouches[0].clientX - tsX;
+  const dy = e.changedTouches[0].clientY - tsY;
+  if (Math.abs(dy) > Math.abs(dx) + 20) return; // scroll vertical normal
+  if (Math.abs(dx) < 40) return;
+  // swipe horizontal → mudar secção
+  const cur = seccoes.findIndex(id => {
+    const el = document.getElementById(id);
+    if (!el) return false;
+    const r = el.getBoundingClientRect();
+    return r.top <= 10 && r.bottom > window.innerHeight / 2;
+  });
+  const nxt = dx < 0
+    ? Math.min(cur + 1, seccoes.length - 1)
+    : Math.max(cur - 1, 0);
+  if (nxt !== cur) document.getElementById(seccoes[nxt]).scrollIntoView({ behavior: "smooth" });
+}, { passive: true });
+
+// ── TOPBAR: esconder ao fazer scroll para baixo ───────────────────────────
+let lastY = 0;
+const topbar = document.querySelector(".topbar");
+window.addEventListener("scroll", () => {
+  const y = window.scrollY;
+  topbar.style.opacity = y < 60 || y < lastY ? "1" : "0";
+  lastY = y;
+}, { passive: true });
+</script>
+</body>
+</html>
