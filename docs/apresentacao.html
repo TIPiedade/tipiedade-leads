@@ -728,94 +728,132 @@
   #empratamentos {
     background: var(--cast);
     color: var(--branco);
+    justify-content: center;
+    padding: 60px 0;
   }
 
-  #empratamentos .secao-etiqueta { color: var(--ouro); }
-  #empratamentos .secao-titulo { color: var(--branco); }
+  #empratamentos .secao-etiqueta { color: var(--ouro); padding: 0 48px; }
+  #empratamentos .secao-titulo { color: var(--branco); padding: 0 48px; }
 
   .empr-intro {
     font-size: 1rem;
     color: rgba(255,255,255,0.65);
     max-width: 560px;
     line-height: 1.8;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
+    padding: 0 48px;
   }
 
-  .empr-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    max-width: 1100px;
+  /* Carrossel */
+  .empr-carrossel-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
   }
 
-  .empr-slot {
-    aspect-ratio: 1;
-    background: rgba(255,255,255,0.05);
-    border: 1px dashed rgba(196,154,60,0.3);
+  .empr-carrossel {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+
+  .empr-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: calc(100vw * 0.56);
+    max-height: 72vh;
     position: relative;
     overflow: hidden;
   }
 
-  .empr-slot:hover {
-    border-color: var(--ouro);
-    background: rgba(196,154,60,0.08);
-  }
-
-  .empr-slot img {
+  .empr-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    inset: 0;
+    display: block;
   }
 
-  .empr-slot-vazio {
+  .empr-slide-legenda {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 48px 48px 28px;
+    background: linear-gradient(transparent, rgba(74,36,23,0.75));
+    color: rgba(255,255,255,0.85);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+  }
+
+  /* Controlos */
+  .empr-ctrl {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 48px 0;
+  }
+
+  .empr-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,154,60,0.5);
+    background: transparent;
+    color: var(--ouro);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    color: rgba(255,255,255,0.3);
-    text-align: center;
-    padding: 16px;
+    transition: all 0.25s;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .empr-slot-icone { font-size: 1.8rem; }
+  .empr-btn:hover, .empr-btn:active {
+    background: var(--ouro);
+    color: var(--cast);
+    border-color: var(--ouro);
+  }
 
-  .empr-slot-txt {
-    font-size: 0.75rem;
+  .empr-pontos {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .empr-ponto {
+    width: 24px;
+    height: 2px;
+    background: rgba(196,154,60,0.3);
+    border-radius: 2px;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+
+  .empr-ponto.ativo {
+    background: var(--ouro);
+    width: 40px;
+  }
+
+  .empr-contador {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
     letter-spacing: 0.08em;
-    text-transform: uppercase;
-    line-height: 1.4;
+    white-space: nowrap;
   }
 
-  .empr-instrucoes {
-    margin-top: 32px;
-    padding: 20px 24px;
-    background: rgba(196,154,60,0.1);
-    border-left: 3px solid var(--ouro);
-    max-width: 600px;
-  }
+  @media (max-width: 600px) {
+    #empratamentos .secao-etiqueta,
+    #empratamentos .secao-titulo,
+    .empr-intro,
+    .empr-ctrl { padding-left: 24px; padding-right: 24px; }
 
-  .empr-instrucoes p {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.7);
-    line-height: 1.7;
-  }
-
-  .empr-instrucoes strong {
-    color: var(--ouro);
-    display: block;
-    margin-bottom: 8px;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+    .empr-slide { height: 72vw; max-height: none; }
+    .empr-slide-legenda { padding: 32px 24px 20px; font-size: 0.88rem; }
   }
 
   /* ── CONTACTO ── */
@@ -958,11 +996,16 @@
 
   /* ── CONTACTO POR COMERCIAL ── */
   .comerciais-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
     max-width: 900px;
     margin: 0 auto 32px;
+  }
+
+  .comerciais-grid .comercial-card {
+    flex: 0 1 260px;
   }
 
   .comercial-card {
@@ -1037,7 +1080,6 @@
     .gama-invertida .gama-info { order: 1; }
     .gama-invertida .gama-fotos { order: 2; }
 
-    .empr-grid { grid-template-columns: repeat(2, 1fr); }
     .nav-pontos { display: none; }
     .pilares { grid-template-columns: 1fr; }
     .contacto-cards { flex-direction: column; align-items: center; }
@@ -1058,7 +1100,6 @@
     .gama-fotos { height: 260px; }
     .tabela-descong { font-size: 0.82rem; }
     .tabela-descong th, .tabela-descong td { padding: 10px 12px; }
-    .empr-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -1537,15 +1578,23 @@
     O Pão de Ló Ti'Piedade é uma tela em branco para a criatividade. Exemplos de como os nossos parceiros o elevam na mesa.
   </p>
 
-  <div class="empr-grid reveal reveal-delay-3">
-    <div class="empr-slot"><img src="ficheiros/empr-01.jpg" alt="Empratamento 1" loading="lazy"></div>
-    <div class="empr-slot"><img src="ficheiros/empr-02.jpg" alt="Empratamento 2" loading="lazy"></div>
-    <div class="empr-slot"><img src="ficheiros/empr-03.jpg" alt="Empratamento 3" loading="lazy"></div>
-    <div class="empr-slot"><img src="ficheiros/empr-04.jpg" alt="Empratamento 4" loading="lazy"></div>
-    <div class="empr-slot"><img src="ficheiros/empr-05.jpg" alt="Empratamento 5" loading="lazy"></div>
-    <div class="empr-slot"><img src="ficheiros/empr-06.jpg" alt="Empratamento 6" loading="lazy"></div>
-    <div class="empr-slot"><img src="ficheiros/empr-07.jpg" alt="Empratamento 7" loading="lazy"></div>
-    <div class="empr-slot empr-slot--vazio"><div class="empr-slot-vazio"><div class="empr-slot-icone">📸</div><div class="empr-slot-txt">Mais fotos<br>a caminho</div></div></div>
+  <div class="empr-carrossel-wrapper reveal reveal-delay-3">
+    <div class="empr-carrossel" id="emprCarrossel">
+      <div class="empr-slide"><img src="ficheiros/empr-01.jpg" alt="Inspiração 1" loading="lazy"></div>
+      <div class="empr-slide"><img src="ficheiros/empr-02.jpg" alt="Inspiração 2" loading="lazy"></div>
+      <div class="empr-slide"><img src="ficheiros/empr-03.jpg" alt="Inspiração 3" loading="lazy"></div>
+      <div class="empr-slide"><img src="ficheiros/empr-04.jpg" alt="Inspiração 4" loading="lazy"></div>
+      <div class="empr-slide"><img src="ficheiros/empr-05.jpg" alt="Inspiração 5" loading="lazy"></div>
+      <div class="empr-slide"><img src="ficheiros/empr-06.jpg" alt="Inspiração 6" loading="lazy"></div>
+      <div class="empr-slide"><img src="ficheiros/empr-07.jpg" alt="Inspiração 7" loading="lazy"></div>
+    </div>
+  </div>
+
+  <div class="empr-ctrl">
+    <button class="empr-btn" id="emprPrev" aria-label="Anterior">&#8592;</button>
+    <div class="empr-pontos" id="emprPontos"></div>
+    <span class="empr-contador" id="emprContador">1 / 7</span>
+    <button class="empr-btn" id="emprNext" aria-label="Seguinte">&#8594;</button>
   </div>
 </section>
 
@@ -1557,29 +1606,7 @@
   <h2 class="contacto-titulo reveal">O seu comercial<br>Ti'Piedade</h2>
   <p class="contacto-sub reveal reveal-delay-1">Genuíno Prazer — à sua mesa</p>
 
-  <div class="comerciais-grid reveal reveal-delay-2">
-    <div class="comercial-card">
-      <div class="comercial-avatar">J</div>
-      <div class="comercial-nome">João Diogo</div>
-      <div class="comercial-zona">Zona Centro</div>
-      <a href="tel:910281525" class="comercial-tel">📞 910 281 525</a>
-      <a href="https://wa.me/351910281525" target="_blank" class="comercial-tel">💬 WhatsApp</a>
-    </div>
-    <div class="comercial-card">
-      <div class="comercial-avatar">N</div>
-      <div class="comercial-nome">Nuno Tavares</div>
-      <div class="comercial-zona">Zona Norte</div>
-      <a href="tel:910281525" class="comercial-tel">📞 910 281 525</a>
-      <a href="https://wa.me/351910281525" target="_blank" class="comercial-tel">💬 WhatsApp</a>
-    </div>
-    <div class="comercial-card">
-      <div class="comercial-avatar">Ó</div>
-      <div class="comercial-nome">Óscar Maria</div>
-      <div class="comercial-zona">Zona Sul</div>
-      <a href="tel:910281525" class="comercial-tel">📞 910 281 525</a>
-      <a href="https://wa.me/351910281525" target="_blank" class="comercial-tel">💬 WhatsApp</a>
-    </div>
-  </div>
+  <div class="comerciais-grid reveal reveal-delay-2" id="comerciaisGrid"></div>
 
   <div class="contacto-cards reveal reveal-delay-3" style="margin-top:0;">
     <a href="mailto:sales@tipiedade.com" class="contacto-card">
@@ -1628,6 +1655,111 @@
   pontos.forEach((ponto, i) => {
     ponto.addEventListener('click', () => secoes[i]?.scrollIntoView({ behavior: 'smooth' }));
   });
+
+  // ── Carrossel de Empratamentos ──
+  (function() {
+    const carrossel = document.getElementById('emprCarrossel');
+    const pontosEl  = document.getElementById('emprPontos');
+    const contEl    = document.getElementById('emprContador');
+    const slides    = carrossel ? carrossel.querySelectorAll('.empr-slide') : [];
+    const total     = slides.length;
+    if (!total) return;
+
+    let atual = 0;
+
+    // Criar pontos indicadores
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'empr-ponto' + (i === 0 ? ' ativo' : '');
+      btn.setAttribute('aria-label', 'Foto ' + (i + 1));
+      btn.addEventListener('click', () => irPara(i));
+      pontosEl.appendChild(btn);
+    });
+
+    function irPara(idx) {
+      atual = (idx + total) % total;
+      carrossel.style.transform = 'translateX(-' + (atual * 100) + '%)';
+      pontosEl.querySelectorAll('.empr-ponto').forEach((p, i) =>
+        p.classList.toggle('ativo', i === atual));
+      contEl.textContent = (atual + 1) + ' / ' + total;
+    }
+
+    document.getElementById('emprPrev').addEventListener('click', () => irPara(atual - 1));
+    document.getElementById('emprNext').addEventListener('click', () => irPara(atual + 1));
+
+    // Swipe / touch
+    let startX = 0;
+    carrossel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    carrossel.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) irPara(diff > 0 ? atual + 1 : atual - 1);
+    }, { passive: true });
+
+    // Teclado quando a secção está visível
+    document.addEventListener('keydown', e => {
+      const secao = document.getElementById('empratamentos');
+      const rect  = secao ? secao.getBoundingClientRect() : null;
+      if (!rect || rect.top > window.innerHeight || rect.bottom < 0) return;
+      if (e.key === 'ArrowRight') irPara(atual + 1);
+      if (e.key === 'ArrowLeft')  irPara(atual - 1);
+    });
+  })();
+
+  // ── Contacto: mostrar apenas o comercial do link ──
+  (function() {
+    const comerciais = {
+      joao: {
+        inicial: 'J',
+        nome: 'João Diogo',
+        zona: 'Zona Centro',
+        tel: '910281525',
+        telFmt: '910 281 525'
+      },
+      nuno: {
+        inicial: 'N',
+        nome: 'Nuno Tavares',
+        zona: 'Zona Norte',
+        tel: '910281525',
+        telFmt: '910 281 525'
+      },
+      oscar: {
+        inicial: 'Ó',
+        nome: 'Óscar Maria',
+        zona: 'Zona Sul',
+        tel: '910281525',
+        telFmt: '910 281 525'
+      }
+    };
+
+    const grid = document.getElementById('comerciaisGrid');
+    if (!grid) return;
+
+    const param = new URLSearchParams(window.location.search).get('comercial') || '';
+    const chave = param.toLowerCase().replace(/[áàãâ]/g,'a').replace(/[éè]/g,'e')
+                      .replace(/[óòõô]/g,'o').replace(/[ú]/g,'u').replace(/[ç]/g,'c');
+
+    const lista = chave && comerciais[chave] ? [comerciais[chave]] : Object.values(comerciais);
+
+    lista.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'comercial-card';
+      card.innerHTML = `
+        <div class="comercial-avatar">${c.inicial}</div>
+        <div class="comercial-nome">${c.nome}</div>
+        <div class="comercial-zona">${c.zona}</div>
+        <a href="tel:${c.tel}" class="comercial-tel">📞 ${c.telFmt}</a>
+        <a href="https://wa.me/351${c.tel}" target="_blank" class="comercial-tel">💬 WhatsApp</a>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Se só 1 comercial, título muda para singular centrado
+    if (lista.length === 1) {
+      const titulo = document.querySelector('#contacto .contacto-titulo');
+      if (titulo) titulo.innerHTML = 'O seu comercial<br>Ti\'Piedade';
+      grid.style.justifyContent = 'center';
+    }
+  })();
 </script>
 </body>
 </html>
