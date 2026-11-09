@@ -93,7 +93,8 @@
     color: var(--branco);
     align-items: center;
     text-align: center;
-    min-height: 100vh;
+    height: 100dvh;
+    min-height: -webkit-fill-available;
     padding: 80px 48px;
     position: relative;
     overflow: hidden;
@@ -105,12 +106,28 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.35;
+    object-position: center 30%;
+    opacity: 0.28;
     z-index: 0;
     pointer-events: none;
   }
 
-  #capa > *:not(.capa-video-bg) {
+  /* Scrim extra para escurecer o vídeo e cobrir texto embutido */
+  .capa-video-bg + .capa-scrim,
+  .capa-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(74,36,23,0.55) 0%,
+      rgba(74,36,23,0.30) 50%,
+      rgba(74,36,23,0.60) 100%
+    );
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  #capa > *:not(.capa-video-bg):not(.capa-scrim) {
     position: relative;
     z-index: 1;
   }
@@ -437,7 +454,8 @@
 
   /* ── GAMAS ── */
   .gama-secao {
-    min-height: 100vh;
+    height: 100dvh;
+    min-height: -webkit-fill-available;
     scroll-snap-align: start;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -573,9 +591,8 @@
   .gama-foto-mini img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
-    background: #f0ede8;
     transition: transform 0.5s ease;
   }
 
@@ -725,44 +742,33 @@
     font-weight: 600;
   }
 
-  /* ── EMPRATAMENTOS ── */
+  /* ── EMPRATAMENTOS — Carrossel Fullscreen ── */
   #empratamentos {
     background: var(--cast);
     color: var(--branco);
-    justify-content: center;
-    padding: 40px 0;
-  }
-
-  #empratamentos .secao-etiqueta { color: var(--ouro); padding: 0 48px; }
-  #empratamentos .secao-titulo { color: var(--branco); padding: 0 48px; }
-
-  .empr-intro {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.65);
-    max-width: 560px;
-    line-height: 1.8;
-    margin-bottom: 40px;
-    padding: 0 48px;
-  }
-
-  /* Carrossel */
-  .empr-carrossel-wrapper {
+    padding: 0;
+    overflow: hidden;
     position: relative;
-    width: 100%;
+  }
+
+  /* Carrossel ocupa 100% da secção */
+  .empr-carrossel-wrapper {
+    position: absolute;
+    inset: 0;
     overflow: hidden;
   }
 
   .empr-carrossel {
     display: flex;
-    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    height: 100%;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
     will-change: transform;
   }
 
   .empr-slide {
     flex: 0 0 100%;
     width: 100%;
-    height: calc(100vw * 0.56);
-    max-height: 72vh;
+    height: 100%;
     position: relative;
     overflow: hidden;
   }
@@ -774,60 +780,89 @@
     display: block;
   }
 
-  .empr-slide-legenda {
+  /* Overlay escuro suave sobre cada foto */
+  .empr-slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(74,36,23,0.55) 0%,
+      rgba(74,36,23,0.15) 40%,
+      rgba(74,36,23,0.15) 65%,
+      rgba(74,36,23,0.70) 100%
+    );
+  }
+
+  /* Texto topo — em overlay sobre a foto */
+  .empr-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 40px 48px 0;
+  }
+
+  .empr-header .secao-etiqueta {
+    color: var(--ouro);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .empr-header .secao-titulo {
+    color: var(--branco);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+
+  /* Controlos no fundo — em overlay */
+  .empr-ctrl {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 48px 48px 28px;
-    background: linear-gradient(transparent, rgba(74,36,23,0.75));
-    color: rgba(255,255,255,0.85);
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1rem;
-  }
-
-  /* Controlos */
-  .empr-ctrl {
+    z-index: 10;
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding: 20px 48px 0;
+    gap: 20px;
+    padding: 32px 48px;
+    background: linear-gradient(transparent, rgba(74,36,23,0.6));
   }
 
   .empr-btn {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: 1px solid rgba(196,154,60,0.5);
-    background: transparent;
+    border: 1.5px solid rgba(196,154,60,0.7);
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(4px);
     color: var(--ouro);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.25s;
+    transition: all 0.2s;
     flex-shrink: 0;
     -webkit-tap-highlight-color: transparent;
   }
 
-  .empr-btn:hover, .empr-btn:active {
+  .empr-btn:active {
     background: var(--ouro);
     color: var(--cast);
-    border-color: var(--ouro);
   }
 
   .empr-pontos {
     display: flex;
     gap: 8px;
     flex: 1;
+    align-items: center;
   }
 
   .empr-ponto {
-    width: 24px;
     height: 2px;
-    background: rgba(196,154,60,0.3);
+    width: 20px;
+    background: rgba(255,255,255,0.3);
     border-radius: 2px;
     transition: all 0.3s;
     cursor: pointer;
@@ -837,24 +872,23 @@
 
   .empr-ponto.ativo {
     background: var(--ouro);
-    width: 40px;
+    width: 36px;
   }
 
   .empr-contador {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.1em;
     white-space: nowrap;
   }
 
+  /* Mobile: ajustes de padding */
   @media (max-width: 600px) {
-    #empratamentos .secao-etiqueta,
-    #empratamentos .secao-titulo,
-    .empr-intro,
-    .empr-ctrl { padding-left: 24px; padding-right: 24px; }
-
-    .empr-slide { height: 72vw; max-height: none; }
-    .empr-slide-legenda { padding: 32px 24px 20px; font-size: 0.88rem; }
+    .empr-header { padding: 28px 24px 0; }
+    .empr-ctrl { padding: 24px 20px; gap: 12px; }
+    .empr-btn { width: 40px; height: 40px; font-size: 1rem; }
+    .empr-ponto { width: 14px; }
+    .empr-ponto.ativo { width: 24px; }
   }
 
   /* ── CONTACTO ── */
@@ -1131,17 +1165,27 @@
     .validade-label { font-size: 0.65rem; }
 
     /* ── GAMAS ── */
-    .gama-secao { grid-template-columns: 1fr; }
-    .gama-fotos { height: 200px; }
-    .gama-info { padding: 20px 20px; }
-    .gama-nome { font-size: 1.5rem; }
-    .gama-desc { font-size: 0.82rem; margin-bottom: 12px; }
-    .gama-foto-mini { height: 60px; }
-    .gama-tamanho-label { font-size: 0.72rem; }
-    .gama-tamanho-unidade { font-size: 1rem; }
-    .gama-tamanho-g { font-size: 0.65rem; }
-    .tamanhos-tags { gap: 4px; margin-top: 8px; }
-    .tamanho-tag { font-size: 0.7rem; padding: 4px 8px; }
+    .gama-secao {
+      grid-template-columns: 1fr;
+      grid-template-rows: 42dvh 1fr;
+      height: 100dvh;
+      min-height: -webkit-fill-available;
+    }
+    .gama-invertida .gama-info { order: 2; }
+    .gama-invertida .gama-fotos { order: 1; }
+    .gama-fotos { height: 100%; }
+    .gama-fotos-grid { grid-template-rows: 65% 35%; }
+    .gama-foto-mini { height: 100%; }
+    .gama-info { padding: 16px 20px; justify-content: flex-start; gap: 6px; overflow: hidden; }
+    .gama-slogan { font-size: 0.82rem; margin-bottom: 8px; }
+    .gama-descricao { font-size: 0.78rem; line-height: 1.6; margin-bottom: 10px; max-width: none; }
+    .tamanhos-titulo { font-size: 0.65rem; margin-bottom: 6px; }
+    .tamanhos-tags { gap: 4px; margin-bottom: 10px; }
+    .tamanho-tag { font-size: 0.68rem; padding: 4px 8px; }
+    .validade-bloco { gap: 6px; }
+    .validade-item { padding: 8px 10px; }
+    .validade-item .label { font-size: 0.6rem; }
+    .validade-item .valor { font-size: 0.8rem; }
 
     /* ── DESCONGELAMENTO ── */
     .tabela-descong { font-size: 0.72rem; }
@@ -1160,18 +1204,15 @@
     .log-card-unidade { font-size: 1.2rem; }
     .log-card-desc { font-size: 0.65rem; line-height: 1.3; }
 
-    /* ── EMPRATAMENTOS / CARROSSEL ── */
-    #empratamentos { padding: 16px 0; }
-    #empratamentos .secao-etiqueta,
-    #empratamentos .secao-titulo,
-    .empr-intro { padding-left: 20px; padding-right: 20px; }
-    .empr-intro { font-size: 0.8rem; margin-bottom: 12px; }
-    .empr-slide { height: 52vw; }
-    .empr-ctrl { padding: 10px 20px 0; gap: 12px; }
-    .empr-btn { width: 36px; height: 36px; font-size: 1rem; }
-    .empr-ponto { width: 16px; }
-    .empr-ponto.ativo { width: 28px; }
-    .empr-contador { font-size: 0.72rem; }
+    /* ── EMPRATAMENTOS / CARROSSEL fullscreen ── */
+    .empr-header { padding: 24px 20px 0; }
+    .empr-header .secao-etiqueta { font-size: 0.65rem; }
+    .empr-header .secao-titulo { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+    .empr-ctrl { padding: 20px 20px; gap: 10px; }
+    .empr-btn { width: 36px; height: 36px; font-size: 0.95rem; }
+    .empr-ponto { width: 14px; }
+    .empr-ponto.ativo { width: 24px; }
+    .empr-contador { font-size: 0.7rem; }
 
     /* ── CONTACTO ── */
     .contacto-logo { height: 48px; margin-bottom: 10px; }
@@ -1220,6 +1261,7 @@
   <video class="capa-video-bg" autoplay muted loop playsinline preload="metadata">
     <source src="ficheiros/o-nosso-segredo.mp4" type="video/mp4">
   </video>
+  <div class="capa-scrim"></div>
   <img class="capa-logo" src="ficheiros/logo-tipiedade.png" alt="Ti'Piedade">
   <h1 class="capa-titulo">Pão de Ló<br>Ti'Piedade</h1>
   <div class="capa-linha-ouro"></div>
@@ -1661,13 +1703,8 @@
      11 · EMPRATAMENTOS
 ═══════════════════════════════════ -->
 <section class="secao" id="empratamentos" data-secao="10">
-  <p class="secao-etiqueta reveal">Inspiração</p>
-  <h2 class="secao-titulo reveal reveal-delay-1">O produto<br>trabalhado pelo chef</h2>
-  <p class="empr-intro reveal reveal-delay-2">
-    O Pão de Ló Ti'Piedade é uma tela em branco para a criatividade. Exemplos de como os nossos parceiros o elevam na mesa.
-  </p>
-
-  <div class="empr-carrossel-wrapper reveal reveal-delay-3">
+  <!-- Carrossel fullscreen: ocupa toda a secção -->
+  <div class="empr-carrossel-wrapper">
     <div class="empr-carrossel" id="emprCarrossel">
       <div class="empr-slide"><img src="ficheiros/empr-01.jpg" alt="Inspiração 1" loading="lazy"></div>
       <div class="empr-slide"><img src="ficheiros/empr-02.jpg" alt="Inspiração 2" loading="lazy"></div>
@@ -1679,6 +1716,13 @@
     </div>
   </div>
 
+  <!-- Texto sobreposto no topo -->
+  <div class="empr-header">
+    <p class="secao-etiqueta">Inspiração</p>
+    <h2 class="secao-titulo">O produto<br>trabalhado pelo chef</h2>
+  </div>
+
+  <!-- Controlos no fundo -->
   <div class="empr-ctrl">
     <button class="empr-btn" id="emprPrev" aria-label="Anterior">&#8592;</button>
     <div class="empr-pontos" id="emprPontos"></div>
