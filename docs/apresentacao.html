@@ -90,36 +90,52 @@ body {
 .dot.on { background: var(--ouro); transform: scale(1.5); }
 
 /* ══════════════════════════════════
-   01 · CAPA
+   01 · CAPA — galeria empratamentos
 ══════════════════════════════════ */
 #p0 {
-  background: var(--cast);
+  background: #1a0a04;
   color: var(--branco);
-  text-align: center;
   padding: 0;
 }
-.capa-video {
+/* Carrossel de fotos fullscreen */
+.capa-track-wrap {
   position: absolute; inset: 0;
+  overflow: hidden;
+}
+.capa-track {
+  display: flex;
+  height: 100%;
+  transition: transform 1.1s cubic-bezier(0.76,0,0.24,1);
+  will-change: transform;
+}
+.capa-foto {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.capa-foto img {
   width: 100%; height: 100%;
   object-fit: cover;
-  opacity: 1;
-  z-index: 0;
-  pointer-events: none;
+  object-position: center center;
+  display: block;
 }
+/* Scrim gradiente — mais escuro em baixo onde está o texto */
 .capa-scrim {
   position: absolute; inset: 0;
   background:
     linear-gradient(
       to bottom,
-      rgba(10,4,2,0.0)  0%,
-      rgba(10,4,2,0.0) 35%,
-      rgba(10,4,2,0.5) 65%,
-      rgba(10,4,2,0.82) 100%
+      rgba(10,4,2,0.18) 0%,
+      rgba(10,4,2,0.0)  25%,
+      rgba(10,4,2,0.0)  50%,
+      rgba(10,4,2,0.55) 72%,
+      rgba(10,4,2,0.88) 100%
     );
   z-index: 1;
   pointer-events: none;
 }
-/* Overlay sobre o vídeo — position:absolute para não deslocar o vídeo */
+/* Overlay com logo + texto */
 .capa-overlay {
   position: absolute;
   inset: 0;
@@ -130,6 +146,8 @@ body {
   justify-content: flex-end;
   padding: 0 32px 60px;
   box-sizing: border-box;
+  text-align: center;
+  color: var(--branco);
 }
 .capa-logo { height: 64px; margin-bottom: 20px; filter: brightness(0) invert(1); }
 .capa-linha {
@@ -143,7 +161,7 @@ body {
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 12px;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
 }
 .capa-subtitulo {
   font-size: clamp(0.85rem, 2.5vw, 1rem);
@@ -151,7 +169,7 @@ body {
   opacity: 0.85;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
 }
 .capa-badge {
   margin-top: 28px;
@@ -164,6 +182,83 @@ body {
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   color: var(--ouro);
+}
+/* Indicadores de slide */
+.capa-indicadores {
+  position: absolute;
+  bottom: 24px;
+  right: 48px;
+  z-index: 3;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.capa-ind {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  border: none; padding: 0; cursor: pointer;
+  transition: all 0.4s;
+}
+.capa-ind.on {
+  background: var(--ouro);
+  width: 18px;
+  border-radius: 3px;
+}
+
+/* ══════════════════════════════════
+   07 · VÍDEO (antes p6 era galeria)
+══════════════════════════════════ */
+#p6 {
+  background: #1a0a04;
+  padding: 0;
+}
+.vid-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+.vid-scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(10,4,2,0.0)  0%,
+      rgba(10,4,2,0.0) 35%,
+      rgba(10,4,2,0.5) 65%,
+      rgba(10,4,2,0.82) 100%
+    );
+  z-index: 1;
+  pointer-events: none;
+}
+.vid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 32px 60px;
+  box-sizing: border-box;
+  text-align: center;
+  color: var(--branco);
+}
+.vid-etiq {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ouro);
+  margin-bottom: 10px;
+}
+.vid-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
 }
 
 /* ══════════════════════════════════
@@ -664,103 +759,7 @@ body {
   font-weight: 500;
 }
 
-/* ══════════════════════════════════
-   07 · EMPRATAMENTOS / INSPIRAÇÃO
-══════════════════════════════════ */
-#p6 {
-  background: var(--cast);
-  padding: 0;
-}
-.empr-wrapper {
-  position: absolute; inset: 0;
-  overflow: hidden;
-}
-.empr-track {
-  display: flex;
-  height: 100%;
-  transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
-  will-change: transform;
-}
-.empr-slide {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-.empr-slide img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  display: block;
-}
-.empr-slide::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(74,36,23,0.75) 0%,
-    rgba(74,36,23,0) 30%,
-    rgba(74,36,23,0) 65%,
-    rgba(74,36,23,0.8) 100%
-  );
-  pointer-events: none;
-}
-.empr-header {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  z-index: 10;
-  padding: 36px 48px 0;
-  color: var(--branco);
-}
-.empr-etiq {
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ouro);
-  margin-bottom: 6px;
-}
-.empr-titulo {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  font-weight: 700;
-}
-.empr-ctrl {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 28px 48px;
-  color: var(--branco);
-}
-.empr-btn {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.25);
-  color: var(--branco);
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-.empr-btn:hover { background: rgba(255,255,255,0.28); }
-.empr-pontos-wrap { display: flex; gap: 8px; align-items: center; }
-.empr-ponto {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.35);
-  border: none; cursor: pointer; padding: 0;
-  transition: all 0.3s;
-}
-.empr-ponto.on { background: var(--ouro); transform: scale(1.5); }
-.empr-contador {
-  margin-left: auto;
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
+/* (empr removido — galeria passou para capa) */
 
 /* ══════════════════════════════════
    08 · FORMULÁRIO NOVO CLIENTE
@@ -988,19 +987,27 @@ body {
   <button class="dot" title="Gamas"></button>
   <button class="dot" title="Vantagens"></button>
   <button class="dot" title="Logística"></button>
-  <button class="dot" title="Inspiração"></button>
+  <button class="dot" title="Vídeo"></button>
   <button class="dot" title="Novo Cliente"></button>
 </nav>
 
 <div id="wrapper">
 
 <!-- ══════════════════════════════════
-     01 · CAPA
+     01 · CAPA — galeria empratamentos
 ══════════════════════════════════ -->
 <section class="pag" id="p0" data-p="0">
-  <video class="capa-video" autoplay muted loop playsinline preload="metadata">
-    <source src="ficheiros/o-nosso-segredo-clean.mp4" type="video/mp4">
-  </video>
+  <div class="capa-track-wrap">
+    <div class="capa-track" id="capaTrack">
+      <div class="capa-foto"><img src="ficheiros/empr-01.jpg" alt="Pão de Ló Ti'Piedade empratado"></div>
+      <div class="capa-foto"><img src="ficheiros/empr-02.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto"><img src="ficheiros/empr-03.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto"><img src="ficheiros/empr-04.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto"><img src="ficheiros/empr-05.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto"><img src="ficheiros/empr-06.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto"><img src="ficheiros/empr-07.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+    </div>
+  </div>
   <div class="capa-scrim"></div>
   <div class="capa-overlay">
     <img class="capa-logo fade-in" src="ficheiros/logo-tipiedade.png" alt="Ti'Piedade">
@@ -1012,6 +1019,7 @@ body {
       <span>Certificado · Produção Própria · Entrega Direta</span>
     </div>
   </div>
+  <div class="capa-indicadores" id="capaInds"></div>
 </section>
 
 <!-- ══════════════════════════════════
@@ -1290,29 +1298,16 @@ body {
 </section>
 
 <!-- ══════════════════════════════════
-     07 · EMPRATAMENTOS / INSPIRAÇÃO
+     07 · VÍDEO — O nosso segredo
 ══════════════════════════════════ -->
 <section class="pag" id="p6" data-p="6">
-  <div class="empr-wrapper">
-    <div class="empr-track" id="emprTrack">
-      <div class="empr-slide"><img src="ficheiros/empr-01.jpg" alt="Inspiração 1" loading="lazy"></div>
-      <div class="empr-slide"><img src="ficheiros/empr-02.jpg" alt="Inspiração 2" loading="lazy"></div>
-      <div class="empr-slide"><img src="ficheiros/empr-03.jpg" alt="Inspiração 3" loading="lazy"></div>
-      <div class="empr-slide"><img src="ficheiros/empr-04.jpg" alt="Inspiração 4" loading="lazy"></div>
-      <div class="empr-slide"><img src="ficheiros/empr-05.jpg" alt="Inspiração 5" loading="lazy"></div>
-      <div class="empr-slide"><img src="ficheiros/empr-06.jpg" alt="Inspiração 6" loading="lazy"></div>
-      <div class="empr-slide"><img src="ficheiros/empr-07.jpg" alt="Inspiração 7" loading="lazy"></div>
-    </div>
-  </div>
-  <div class="empr-header">
-    <p class="empr-etiq">Inspiração</p>
-    <h2 class="empr-titulo">O produto<br>trabalhado pelo chef</h2>
-  </div>
-  <div class="empr-ctrl">
-    <button class="empr-btn" id="emprPrev" aria-label="Anterior">←</button>
-    <div class="empr-pontos-wrap" id="emprPontos"></div>
-    <span class="empr-contador" id="emprCont">1 / 7</span>
-    <button class="empr-btn" id="emprNext" aria-label="Seguinte">→</button>
+  <video class="vid-video" autoplay muted loop playsinline preload="auto">
+    <source src="ficheiros/o-nosso-segredo-clean.mp4" type="video/mp4">
+  </video>
+  <div class="vid-scrim"></div>
+  <div class="vid-overlay">
+    <p class="vid-etiq fade-in">O nosso segredo</p>
+    <h2 class="vid-titulo fade-in d1">O sabor<br>que os seus clientes<br>vão pedir outra vez</h2>
   </div>
 </section>
 
@@ -1555,43 +1550,37 @@ document.addEventListener('keydown', e => {
 })();
 
 // ══════════════════════════════════
-// CARROSSEL EMPRATAMENTOS
+// CARROSSEL AUTOMÁTICO DA CAPA
 // ══════════════════════════════════
 (function() {
-  const track  = document.getElementById('emprTrack');
-  const pontosEl = document.getElementById('emprPontos');
-  const contEl   = document.getElementById('emprCont');
-  const slides   = track?.querySelectorAll('.empr-slide') ?? [];
-  const total    = slides.length;
-  if (!total) return;
-
+  const track = document.getElementById('capaTrack');
+  const indsEl = document.getElementById('capaInds');
+  if (!track) return;
+  const fotos = track.querySelectorAll('.capa-foto');
+  const total = fotos.length;
   let pos = 0;
+  let timer;
 
-  slides.forEach((_, i) => {
+  fotos.forEach((_, i) => {
     const btn = document.createElement('button');
-    btn.className = 'empr-ponto' + (i === 0 ? ' on' : '');
+    btn.className = 'capa-ind' + (i === 0 ? ' on' : '');
     btn.setAttribute('aria-label', 'Foto ' + (i + 1));
-    btn.addEventListener('click', () => irSlide(i));
-    pontosEl.appendChild(btn);
+    btn.addEventListener('click', () => { irFoto(i); resetTimer(); });
+    indsEl.appendChild(btn);
   });
 
-  function irSlide(idx) {
+  function irFoto(idx) {
     pos = (idx + total) % total;
     track.style.transform = `translateX(-${pos * 100}%)`;
-    pontosEl.querySelectorAll('.empr-ponto').forEach((p, i) => p.classList.toggle('on', i === pos));
-    contEl.textContent = (pos + 1) + ' / ' + total;
+    indsEl.querySelectorAll('.capa-ind').forEach((b, i) => b.classList.toggle('on', i === pos));
   }
 
-  document.getElementById('emprPrev').addEventListener('click', () => irSlide(pos - 1));
-  document.getElementById('emprNext').addEventListener('click', () => irSlide(pos + 1));
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => irFoto(pos + 1), 4000);
+  }
 
-  let sx = 0;
-  track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend', e => {
-    const d = sx - e.changedTouches[0].clientX;
-    if (Math.abs(d) > 40) irSlide(pos + (d > 0 ? 1 : -1));
-    e.stopPropagation();
-  }, { passive: true });
+  resetTimer();
 })();
 
 // ══════════════════════════════════
