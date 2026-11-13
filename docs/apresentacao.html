@@ -386,9 +386,9 @@ body {
   margin-bottom: 20px;
 }
 .pilares {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
 }
 .pilar {
   display: flex;
@@ -935,7 +935,7 @@ body {
   .prod-foto { height: 38dvh; }
   .prod-info { justify-content: flex-start; padding: 20px 20px; overflow-y: auto; }
   .prod-titulo { font-size: 1.3rem; margin-bottom: 14px; }
-  .pilares { gap: 8px; }
+  .pilares { grid-template-columns: 1fr; gap: 8px; }
   .pilar-icone { width: 28px; height: 28px; font-size: 0.8rem; }
   .gama-painel.ativo { grid-template-columns: repeat(3, 1fr); }
   .gamas-tabs { gap: 6px; }
@@ -1069,24 +1069,38 @@ body {
         </div>
       </div>
       <div class="pilar fade-in d3">
-        <div class="pilar-icone">❄️</div>
+        <div class="pilar-icone">⏱️</div>
         <div class="pilar-texto">
-          <strong>Fresco ou congelado</strong>
-          <span>Flexibilidade total — congelado com validade de 1 ano, sem desperdício</span>
+          <strong>Pronto a servir em 10 minutos</strong>
+          <span>Descongela, fatia, emprata — sem cozinha, sem desperdício</span>
         </div>
       </div>
       <div class="pilar fade-in d4">
-        <div class="pilar-icone">📦</div>
+        <div class="pilar-icone">❄️</div>
         <div class="pilar-texto">
-          <strong>Embalagem HORECA</strong>
-          <span>Formatos 2×85g e 8×85g prontos para expor ou servir</span>
+          <strong>Stock sem pressão</strong>
+          <span>Congelado com validade de 1 ano — encomenda quando precisar</span>
+        </div>
+      </div>
+      <div class="pilar fade-in d5">
+        <div class="pilar-icone">📈</div>
+        <div class="pilar-texto">
+          <strong>Sobremesa rentável na ementa</strong>
+          <span>Premium no prato, margem acima da média — os clientes pedem outra vez</span>
+        </div>
+      </div>
+      <div class="pilar fade-in d5">
+        <div class="pilar-icone">🚀</div>
+        <div class="pilar-texto">
+          <strong>Sem risco de entrada</strong>
+          <span>Sem quantidade mínima obrigatória, sem exclusividade — começa como quiser</span>
         </div>
       </div>
       <div class="pilar fade-in d5">
         <div class="pilar-icone">🏅</div>
         <div class="pilar-texto">
-          <strong>Certificação SGS</strong>
-          <span>Rastreabilidade e qualidade verificadas por entidade independente</span>
+          <strong>Suporte total incluído</strong>
+          <span>Fichas técnicas, alergénios, apoio para incluir na ementa — certificação SGS</span>
         </div>
       </div>
     </div>
