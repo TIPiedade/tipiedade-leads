@@ -288,8 +288,20 @@ body {
 /* ══════════════════════════════════
    02 · NÚMEROS
 ══════════════════════════════════ */
+@keyframes numReveal {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes lineGrow {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
 #p1 {
-  background: linear-gradient(135deg, #2c1208 0%, var(--cast) 50%, #6b3620 100%);
+  background: linear-gradient(150deg, #1a0a04 0%, #2c1208 40%, var(--cast) 70%, #5a2a14 100%);
   color: var(--branco);
   padding: 48px;
   position: relative;
@@ -299,8 +311,21 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 80% 20%, rgba(196,154,60,0.18) 0%, transparent 60%),
-              radial-gradient(ellipse at 10% 80%, rgba(212,104,42,0.14) 0%, transparent 50%);
+  background:
+    radial-gradient(ellipse at 90% 15%, rgba(196,154,60,0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 5% 85%, rgba(212,104,42,0.2) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 100%, rgba(196,154,60,0.1) 0%, transparent 40%);
+  pointer-events: none;
+}
+#p1::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 500px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(196,154,60,0.12) 0%, transparent 70%);
+  animation: glowPulse 4s ease-in-out infinite;
   pointer-events: none;
 }
 #p1 > * { position: relative; z-index: 1; }
@@ -309,57 +334,94 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ouro);
-  margin-bottom: 32px;
+  margin-bottom: 20px;
+  animation: numReveal 0.5s ease-out both;
 }
 .nums-titulo {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: 48px;
+  margin-bottom: 36px;
   max-width: 520px;
+  animation: numReveal 0.5s 0.1s ease-out both;
 }
 .nums-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
 }
 .num-card {
-  border-top: 2px solid var(--ouro);
-  padding-top: 20px;
-  background: rgba(255,255,255,0.04);
-  border-radius: 0 0 12px 12px;
-  padding: 20px 16px 20px;
-  border-top: 2px solid var(--ouro);
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 22px 18px 20px;
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(196,154,60,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+.num-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.num-card:nth-child(1) {
+  animation: numReveal 0.6s 0.2s ease-out both;
+  background: linear-gradient(135deg, rgba(196,154,60,0.15) 0%, rgba(255,255,255,0.04) 100%);
+  border-color: rgba(196,154,60,0.3);
+}
+.num-card:nth-child(2) {
+  animation: numReveal 0.6s 0.35s ease-out both;
+  background: linear-gradient(135deg, rgba(212,104,42,0.15) 0%, rgba(255,255,255,0.04) 100%);
+  border-color: rgba(212,104,42,0.3);
+}
+.num-card:nth-child(3) {
+  animation: numReveal 0.6s 0.5s ease-out both;
+  background: linear-gradient(135deg, rgba(42,122,58,0.15) 0%, rgba(255,255,255,0.04) 100%);
+  border-color: rgba(42,122,58,0.3);
+}
+.num-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.num-card:nth-child(1)::before { background: linear-gradient(90deg, var(--ouro), rgba(196,154,60,0.3)); }
+.num-card:nth-child(2)::before { background: linear-gradient(90deg, var(--laranja), rgba(212,104,42,0.3)); }
+.num-card:nth-child(3)::before { background: linear-gradient(90deg, #2a7a3a, rgba(42,122,58,0.3)); }
 .num-card::after {
   content: '';
   position: absolute;
-  bottom: 0; right: 0;
-  width: 60px; height: 60px;
-  background: radial-gradient(circle, rgba(196,154,60,0.12) 0%, transparent 70%);
+  bottom: -20px; right: -20px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  opacity: 0.15;
 }
+.num-card:nth-child(1)::after { background: var(--ouro); }
+.num-card:nth-child(2)::after { background: var(--laranja); }
+.num-card:nth-child(3)::after { background: #2a7a3a; }
 .num-val {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.4rem, 7vw, 4rem);
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
   font-weight: 700;
-  color: var(--ouro);
   line-height: 1;
+  display: block;
 }
+.num-card:nth-child(1) .num-val { color: var(--ouro); }
+.num-card:nth-child(2) .num-val { color: #FFB27A; }
+.num-card:nth-child(3) .num-val { color: #7AE08A; }
 .num-label {
   font-size: clamp(0.75rem, 1.8vw, 0.85rem);
-  opacity: 0.65;
-  margin-top: 6px;
+  opacity: 0.75;
+  margin-top: 8px;
   line-height: 1.4;
 }
 .nums-desc {
-  margin-top: 40px;
+  margin-top: 32px;
   font-size: clamp(0.85rem, 2vw, 1rem);
   opacity: 0.65;
   max-width: 560px;
   line-height: 1.6;
+  animation: numReveal 0.6s 0.65s ease-out both;
 }
 
 /* ══════════════════════════════════
@@ -633,6 +695,22 @@ body {
 /* ══════════════════════════════════
    05 · IMPACTO (ex-Vantagens)
 ══════════════════════════════════ */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196,154,60,0); }
+  50% { box-shadow: 0 0 24px 4px rgba(196,154,60,0.22); }
+}
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 #p4 {
   background: var(--cast);
   padding: clamp(22px, 4vw, 48px);
@@ -644,8 +722,20 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 80% 20%, rgba(196,154,60,0.18) 0%, transparent 55%),
-              radial-gradient(ellipse at 10% 85%, rgba(212,104,42,0.12) 0%, transparent 50%);
+  background:
+    radial-gradient(ellipse at 90% 10%, rgba(196,154,60,0.28) 0%, transparent 45%),
+    radial-gradient(ellipse at 5% 90%, rgba(212,104,42,0.22) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(107,54,32,0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+#p4::after {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,154,60,0.15) 0%, transparent 65%);
+  animation: pulseGlow 3s ease-in-out infinite;
   pointer-events: none;
 }
 #p4 > * { position: relative; z-index: 1; }
@@ -655,6 +745,7 @@ body {
   text-transform: uppercase;
   color: var(--ouro);
   margin-bottom: 6px;
+  animation: floatIn 0.5s ease-out both;
 }
 .imp-titulo {
   font-family: 'Playfair Display', serif;
@@ -662,6 +753,7 @@ body {
   font-weight: 700;
   line-height: 1.15;
   margin-bottom: 16px;
+  animation: floatIn 0.5s 0.1s ease-out both;
 }
 .imp-titulo em { font-style: italic; color: var(--ouro); }
 .imp-grid {
@@ -670,40 +762,92 @@ body {
   gap: 10px;
 }
 .imp-card {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(196,154,60,0.2);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 14px 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.imp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.imp-card:nth-child(1) {
+  background: linear-gradient(135deg, #7a3a1a 0%, #9e4a22 100%);
+  border: 1px solid rgba(212,104,42,0.4);
+  animation: floatIn 0.5s 0.2s ease-out both;
+}
+.imp-card:nth-child(2) {
+  background: linear-gradient(135deg, #2a4a2a 0%, #3a6a3a 100%);
+  border: 1px solid rgba(42,122,58,0.4);
+  animation: floatIn 0.5s 0.3s ease-out both;
+}
+.imp-card:nth-child(3) {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7a 100%);
+  border: 1px solid rgba(42,100,180,0.4);
+  animation: floatIn 0.5s 0.4s ease-out both;
+}
+.imp-card:nth-child(4) {
+  background: linear-gradient(135deg, #3a1a5a 0%, #552a7a 100%);
+  border: 1px solid rgba(140,80,200,0.4);
+  animation: floatIn 0.5s 0.5s ease-out both;
+}
+.imp-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+  background-size: 200% 100%;
+}
+.imp-card:hover::before {
+  animation: shimmer 0.8s ease-in-out;
 }
 .imp-card-num {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 700;
-  color: var(--ouro);
   line-height: 1;
   margin-bottom: 2px;
+  animation: countUp 0.4s ease-out both;
 }
+.imp-card:nth-child(1) .imp-card-num { color: #FFB27A; }
+.imp-card:nth-child(2) .imp-card-num { color: #7AE08A; }
+.imp-card:nth-child(3) .imp-card-num { color: #7AB8FF; }
+.imp-card:nth-child(4) .imp-card-num { color: #C898FF; }
 .imp-card-label {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   margin-bottom: 4px;
+  color: rgba(255,255,255,0.95);
 }
 .imp-card-desc {
-  font-size: 0.68rem;
-  opacity: 0.55;
+  font-size: 0.65rem;
+  opacity: 0.65;
   line-height: 1.4;
 }
 .imp-fecho {
   margin-top: 12px;
-  background: rgba(196,154,60,0.12);
+  background: linear-gradient(135deg, rgba(196,154,60,0.18) 0%, rgba(212,104,42,0.1) 100%);
   border-left: 3px solid var(--ouro);
   border-radius: 0 8px 8px 0;
   padding: 10px 14px;
   font-size: 0.78rem;
   line-height: 1.45;
   font-style: italic;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.9);
+  animation: floatIn 0.5s 0.6s ease-out both;
+  position: relative;
+}
+.imp-fecho::before {
+  content: '"';
+  position: absolute;
+  left: 10px; top: -4px;
+  font-size: 2rem;
+  color: var(--ouro);
+  opacity: 0.4;
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
 }
 
 /* ══════════════════════════════════
@@ -1355,8 +1499,8 @@ body {
     <div class="marg-card">
       <div class="marg-tipo">🥐 Pastelaria / Balcão</div>
       <div class="marg-row">
-        <span>PVPR s/IVA</span>
-        <span>2,83 €</span>
+        <span>PVPR</span>
+        <span>3,20 €</span>
       </div>
       <div class="marg-row">
         <span>Custo s/IVA</span>
@@ -1379,8 +1523,8 @@ body {
     <div class="marg-card">
       <div class="marg-tipo">🍽️ Restaurante / Empratado</div>
       <div class="marg-row">
-        <span>PVPR s/IVA</span>
-        <span>5,75 €</span>
+        <span>PVPR</span>
+        <span>6,50 €</span>
       </div>
       <div class="marg-row">
         <span>Custo pão de ló</span>
