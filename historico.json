@@ -10112,7 +10112,7 @@
       "gancho": "Referência gastronómica em Lisboa. Sobremesa artesanal completa uma experiência premium.",
       "semana_entrada": 39,
       "data_entrada": "2026-10-08",
-      "estado": "Visitado",
+      "estado": "Desistiu",
       "emails_enviados": [
         {
           "num": 1,
@@ -10146,7 +10146,8 @@
           "data": "2026-11-13",
           "hora": "17:03"
         }
-      ]
+      ],
+      "motivo_desistencia": "Sem interesse no produto"
     },
     "joao::Tasca do Pombal::Barreiro": {
       "nome": "Tasca do Pombal",
