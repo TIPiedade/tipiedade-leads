@@ -635,7 +635,7 @@ body {
 ══════════════════════════════════ */
 #p4 {
   background: var(--cast);
-  padding: clamp(32px, 5vw, 60px);
+  padding: clamp(22px, 4vw, 48px);
   color: var(--branco);
   position: relative;
   overflow: hidden;
@@ -650,58 +650,58 @@ body {
 }
 #p4 > * { position: relative; z-index: 1; }
 .imp-etiq {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ouro);
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 .imp-titulo {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.3rem, 3vw, 2rem);
   font-weight: 700;
   line-height: 1.15;
-  margin-bottom: 36px;
+  margin-bottom: 16px;
 }
 .imp-titulo em { font-style: italic; color: var(--ouro); }
 .imp-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 10px;
 }
 .imp-card {
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(196,154,60,0.2);
-  border-radius: 16px;
-  padding: 22px 20px;
+  border-radius: 12px;
+  padding: 14px 14px;
 }
 .imp-card-num {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
   font-weight: 700;
   color: var(--ouro);
   line-height: 1;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 .imp-card-label {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.03em;
-  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
 }
 .imp-card-desc {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   opacity: 0.55;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 .imp-fecho {
-  margin-top: 20px;
+  margin-top: 12px;
   background: rgba(196,154,60,0.12);
   border-left: 3px solid var(--ouro);
-  border-radius: 0 10px 10px 0;
-  padding: 14px 18px;
-  font-size: 0.88rem;
-  line-height: 1.5;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  line-height: 1.45;
   font-style: italic;
   color: rgba(255,255,255,0.85);
 }
@@ -711,36 +711,36 @@ body {
 ══════════════════════════════════ */
 #p5 {
   background: var(--creme);
-  padding: clamp(28px, 4vw, 56px);
+  padding: clamp(20px, 3.5vw, 48px);
   position: relative;
   overflow: hidden;
 }
 .oferta-etiq {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--laranja);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 .oferta-titulo {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
   font-weight: 700;
   color: var(--cast);
   line-height: 1.2;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 .marg-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 .marg-card {
   background: var(--branco);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 2px 16px rgba(74,36,23,0.07);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 2px 10px rgba(74,36,23,0.06);
   position: relative;
   overflow: hidden;
 }
@@ -752,64 +752,80 @@ body {
   background: var(--ouro);
 }
 .marg-tipo {
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--laranja);
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .marg-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 4px 0;
+  padding: 3px 0;
   border-bottom: 1px solid rgba(74,36,23,0.06);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
 }
 .marg-row:last-child { border-bottom: none; }
 .marg-row span:first-child { color: var(--texto); opacity: 0.6; }
 .marg-row span:last-child { font-weight: 600; color: var(--cast); }
-.marg-row.destaque span:last-child { color: #2a7a3a; font-size: 0.9rem; }
+.marg-row.destaque span:last-child { color: #2a7a3a; font-size: 0.82rem; }
+.marg-nota {
+  font-size: 0.62rem;
+  opacity: 0.45;
+  font-style: italic;
+  margin-top: 2px;
+}
 .marg-lucro {
-  margin-top: 10px;
+  margin-top: 8px;
   background: rgba(42,122,58,0.08);
-  border-radius: 8px;
-  padding: 8px 10px;
+  border-radius: 7px;
+  padding: 6px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.marg-lucro-label { font-size: 0.72rem; font-weight: 600; color: #2a7a3a; }
-.marg-lucro-val { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #2a7a3a; }
+.marg-lucro-label { font-size: 0.65rem; font-weight: 600; color: #2a7a3a; }
+.marg-lucro-val { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #2a7a3a; }
+.marg-destaque-rest {
+  margin-top: 6px;
+  background: rgba(196,154,60,0.1);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--cast);
+  text-align: center;
+}
 .oferta-caixa {
   background: var(--cast);
-  border-radius: 16px;
-  padding: 18px 20px;
+  border-radius: 12px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   color: var(--branco);
 }
-.oferta-icone { font-size: 2rem; flex-shrink: 0; }
+.oferta-icone { font-size: 1.6rem; flex-shrink: 0; }
 .oferta-texto strong {
   display: block;
-  font-size: 0.95rem;
+  font-size: 0.84rem;
   font-weight: 700;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
-.oferta-texto p { font-size: 0.78rem; opacity: 0.7; line-height: 1.4; }
+.oferta-texto p { font-size: 0.72rem; opacity: 0.7; line-height: 1.35; }
 .oferta-gatilhos {
-  margin-top: 12px;
+  margin-top: 8px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 .oferta-tag {
-  font-size: 0.68rem;
+  font-size: 0.63rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 4px 10px;
+  letter-spacing: 0.03em;
+  padding: 3px 9px;
   border-radius: 100px;
   border: 1px solid rgba(74,36,23,0.15);
   color: var(--cast);
@@ -1339,49 +1355,55 @@ body {
     <div class="marg-card">
       <div class="marg-tipo">🥐 Pastelaria / Balcão</div>
       <div class="marg-row">
-        <span>PVPR unitário</span>
-        <span>3,20 €</span>
+        <span>PVPR s/IVA</span>
+        <span>2,83 €</span>
       </div>
       <div class="marg-row">
-        <span>Custo por unidade</span>
-        <span>1,66 €</span>
+        <span>Custo s/IVA</span>
+        <span>1,38 €</span>
       </div>
       <div class="marg-row destaque">
         <span>Margem bruta</span>
-        <span>48%</span>
+        <span>51%</span>
       </div>
       <div class="marg-lucro">
-        <span class="marg-lucro-label">Lucro líquido / unidade</span>
-        <span class="marg-lucro-val">1,54 €</span>
+        <span class="marg-lucro-label">Lucro / unidade</span>
+        <span class="marg-lucro-val">1,45 €</span>
       </div>
-      <div class="marg-row" style="margin-top:8px; border-top:1px solid rgba(74,36,23,0.08); padding-top:8px;">
+      <div class="marg-row" style="margin-top:6px; border-top:1px solid rgba(74,36,23,0.08); padding-top:6px;">
         <span>Lucro por caixa (8 un.)</span>
-        <span style="font-weight:700; color:#2a7a3a;">≈ 12 €</span>
+        <span style="font-weight:700; color:#2a7a3a;">≈ 11,60 €</span>
       </div>
     </div>
     <!-- Restaurante -->
     <div class="marg-card">
       <div class="marg-tipo">🍽️ Restaurante / Empratado</div>
       <div class="marg-row">
-        <span>PVPR por dose</span>
-        <span>6,50 €</span>
+        <span>PVPR s/IVA</span>
+        <span>5,75 €</span>
       </div>
       <div class="marg-row">
-        <span>Custo total / dose</span>
-        <span>2,66 €</span>
+        <span>Custo pão de ló</span>
+        <span>1,38 €</span>
       </div>
+      <div class="marg-row">
+        <span>Empratamento est.</span>
+        <span>0,50 €</span>
+      </div>
+      <div class="marg-nota">gelado / hortelã / coulis</div>
       <div class="marg-row destaque">
         <span>Margem bruta</span>
-        <span>59%</span>
+        <span>67%</span>
       </div>
       <div class="marg-lucro">
-        <span class="marg-lucro-label">Lucro líquido / dose</span>
-        <span class="marg-lucro-val">3,84 €</span>
+        <span class="marg-lucro-label">Lucro / dose</span>
+        <span class="marg-lucro-val">3,87 €</span>
       </div>
-      <div class="marg-row" style="margin-top:8px; border-top:1px solid rgba(74,36,23,0.08); padding-top:8px;">
+      <div class="marg-row" style="margin-top:6px; border-top:1px solid rgba(74,36,23,0.08); padding-top:6px;">
         <span>Lucro por caixa (8 un.)</span>
         <span style="font-weight:700; color:#2a7a3a;">≈ 31 €</span>
       </div>
+      <div class="marg-destaque-rest">🏆 Maior margem que a pastelaria</div>
     </div>
   </div>
   <div class="oferta-caixa fade-in d3">
