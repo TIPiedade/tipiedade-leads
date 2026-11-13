@@ -631,159 +631,190 @@ body {
 }
 
 /* ══════════════════════════════════
-   05 · VANTAGENS
+   05 · IMPACTO (ex-Vantagens)
 ══════════════════════════════════ */
 #p4 {
-  background: var(--creme);
+  background: var(--cast);
   padding: clamp(32px, 5vw, 60px);
+  color: var(--branco);
+  position: relative;
+  overflow: hidden;
 }
-.vant-topo {
-  margin-bottom: 36px;
+#p4::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(196,154,60,0.18) 0%, transparent 55%),
+              radial-gradient(ellipse at 10% 85%, rgba(212,104,42,0.12) 0%, transparent 50%);
+  pointer-events: none;
 }
-.vant-etiq {
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+#p4 > * { position: relative; z-index: 1; }
+.imp-etiq {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--laranja);
+  color: var(--ouro);
   margin-bottom: 10px;
 }
-.vant-titulo {
+.imp-titulo {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
   font-weight: 700;
-  color: var(--cast);
-  line-height: 1.2;
+  line-height: 1.15;
+  margin-bottom: 36px;
 }
-.vant-grid {
+.imp-titulo em { font-style: italic; color: var(--ouro); }
+.imp-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 14px;
 }
-.vant-item {
-  background: var(--branco);
+.imp-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(196,154,60,0.2);
   border-radius: 16px;
-  padding: 24px 24px 24px 20px;
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  box-shadow: 0 2px 12px rgba(74,36,23,0.06);
-  border-left: 3px solid var(--ouro);
+  padding: 22px 20px;
 }
-.vant-emoji { display: none; }
-.vant-conteudo strong {
-  display: block;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--cast);
+.imp-card-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: var(--ouro);
+  line-height: 1;
   margin-bottom: 4px;
 }
-.vant-conteudo p {
-  font-size: 0.82rem;
-  opacity: 0.65;
+.imp-card-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+.imp-card-desc {
+  font-size: 0.72rem;
+  opacity: 0.55;
+  line-height: 1.45;
+}
+.imp-fecho {
+  margin-top: 20px;
+  background: rgba(196,154,60,0.12);
+  border-left: 3px solid var(--ouro);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  font-size: 0.88rem;
   line-height: 1.5;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
 }
 
 /* ══════════════════════════════════
-   06 · LOGÍSTICA / PROCESSO
+   06 · OFERTA DE ENTRADA (ex-Logística)
 ══════════════════════════════════ */
 #p5 {
-  background: linear-gradient(150deg, #1e0d05 0%, var(--cast) 45%, #7a3f1f 100%);
-  color: var(--branco);
+  background: var(--creme);
   padding: clamp(28px, 4vw, 56px);
   position: relative;
   overflow: hidden;
 }
-#p5::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 90% 10%, rgba(212,104,42,0.2) 0%, transparent 55%),
-              radial-gradient(ellipse at 5% 90%, rgba(196,154,60,0.15) 0%, transparent 50%);
-  pointer-events: none;
-}
-#p5 > * { position: relative; z-index: 1; }
-.log-etiq {
+.oferta-etiq {
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ouro);
+  color: var(--laranja);
   margin-bottom: 8px;
 }
-.log-titulo {
+.oferta-titulo {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-size: clamp(1.4rem, 3vw, 2rem);
   font-weight: 700;
-  margin-bottom: 28px;
+  color: var(--cast);
+  line-height: 1.2;
+  margin-bottom: 24px;
 }
-.log-flow {
+.marg-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
 }
-.log-flow::before {
+.marg-card {
+  background: var(--branco);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 16px rgba(74,36,23,0.07);
+  position: relative;
+  overflow: hidden;
+}
+.marg-card::before {
   content: '';
   position: absolute;
-  top: 24px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: rgba(196,154,60,0.3);
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--ouro);
 }
-.log-passo {
-  text-align: center;
-  padding: 0 6px;
-  position: relative;
-}
-.log-num {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  border: 2px solid var(--ouro);
-  background: rgba(196,154,60,0.15);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 12px;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--ouro);
-  position: relative;
-  z-index: 1;
-}
-.log-passo-titulo {
-  font-size: 0.84rem;
-  font-weight: 600;
-  margin-bottom: 3px;
-}
-.log-passo-desc {
-  font-size: 0.72rem;
-  opacity: 0.55;
-  line-height: 1.35;
-}
-.log-info {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 24px;
-}
-.log-info-item {
-  background: rgba(255,255,255,0.07);
-  border-radius: 10px;
-  padding: 12px 16px;
-  border-left: 3px solid var(--ouro);
-}
-.log-info-titulo {
+.marg-tipo {
   font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ouro);
+  color: var(--laranja);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.marg-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(74,36,23,0.06);
+  font-size: 0.78rem;
+}
+.marg-row:last-child { border-bottom: none; }
+.marg-row span:first-child { color: var(--texto); opacity: 0.6; }
+.marg-row span:last-child { font-weight: 600; color: var(--cast); }
+.marg-row.destaque span:last-child { color: #2a7a3a; font-size: 0.9rem; }
+.marg-lucro {
+  margin-top: 10px;
+  background: rgba(42,122,58,0.08);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.marg-lucro-label { font-size: 0.72rem; font-weight: 600; color: #2a7a3a; }
+.marg-lucro-val { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #2a7a3a; }
+.oferta-caixa {
+  background: var(--cast);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--branco);
+}
+.oferta-icone { font-size: 2rem; flex-shrink: 0; }
+.oferta-texto strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
   margin-bottom: 3px;
 }
-.log-info-val {
-  font-size: 0.84rem;
-  font-weight: 500;
+.oferta-texto p { font-size: 0.78rem; opacity: 0.7; line-height: 1.4; }
+.oferta-gatilhos {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-
-/* (empr removido — galeria passou para capa) */
+.oferta-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(74,36,23,0.15);
+  color: var(--cast);
+  background: rgba(74,36,23,0.05);
+}
 
 /* ══════════════════════════════════
    08 · FORMULÁRIO NOVO CLIENTE
@@ -974,11 +1005,8 @@ body {
   .gama-painel.ativo { grid-template-columns: repeat(3, 1fr); }
   .gamas-tabs { gap: 6px; }
   .gama-tab { padding: 6px 14px; font-size: 0.75rem; }
-  .vant-grid { grid-template-columns: 1fr; }
-  .log-flow { grid-template-columns: 1fr 1fr; gap: 20px; }
-  .log-flow::before { display: none; }
-  .log-info { grid-template-columns: 1fr; gap: 8px; }
-  .log-titulo { margin-bottom: 20px; }
+  .imp-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .marg-grid { grid-template-columns: 1fr; gap: 10px; }
   .empr-header { padding: 20px 24px 0; }
   .empr-ctrl { padding: 16px 24px; }
   .form-corpo { grid-template-columns: 1fr; gap: 8px; }
@@ -988,14 +1016,13 @@ body {
   #p1, #p3, #p4, #p5 { padding: 28px 20px; }
   .nums-titulo { margin-bottom: 20px; }
   .gamas-topo { margin-bottom: 14px; }
-  .vant-topo { margin-bottom: 20px; }
   .form-wrap { padding: 18px 18px; }
 }
 
 @media (max-width: 420px) {
   .gama-painel.ativo { grid-template-columns: repeat(3, 1fr); }
-  .log-flow { grid-template-columns: 1fr 1fr; }
-  .log-info { grid-template-columns: 1fr; }
+  .imp-grid { grid-template-columns: 1fr; }
+  .oferta-gatilhos { gap: 6px; }
 }
 
 /* ── Fade-in entrada ── */
@@ -1269,86 +1296,105 @@ body {
 </section>
 
 <!-- ══════════════════════════════════
-     05 · VANTAGENS
+     05 · IMPACTO — O que os seus clientes vão sentir
 ══════════════════════════════════ -->
 <section class="pag" id="p4" data-p="4">
-  <div class="vant-topo">
-    <p class="vant-etiq fade-in">Porquê Ti'Piedade?</p>
-    <h2 class="vant-titulo fade-in d1">Mais do que um produto.<br>Um parceiro de negócio.</h2>
+  <p class="imp-etiq fade-in">O que os seus clientes vão sentir</p>
+  <h2 class="imp-titulo fade-in d1">A sobremesa que ficam<br>a <em>pedir outra vez</em></h2>
+  <div class="imp-grid">
+    <div class="imp-card fade-in d2">
+      <div class="imp-card-num">+1</div>
+      <div class="imp-card-label">Sobremesa que fecha a refeição</div>
+      <div class="imp-card-desc">Um pão de ló artesanal de Painho no fim do menu faz a diferença. Os clientes associam à casa, não ao produto.</div>
+    </div>
+    <div class="imp-card fade-in d3">
+      <div class="imp-card-num">0 €</div>
+      <div class="imp-card-label">Custo de oportunidade por fim de semana</div>
+      <div class="imp-card-desc">Cada fim de semana sem pão de ló é uma sobremesa que não foi vendida. Um cliente que sai satisfeito volta — e traz alguém.</div>
+    </div>
+    <div class="imp-card fade-in d4">
+      <div class="imp-card-num">10'</div>
+      <div class="imp-card-label">Da arca ao prato, sem cozinha</div>
+      <div class="imp-card-desc">Descongela, fatia, emprata. A sua equipa ganha tempo — a sobremesa não perde qualidade.</div>
+    </div>
+    <div class="imp-card fade-in d5">
+      <div class="imp-card-num">SGS</div>
+      <div class="imp-card-label">Certificação que fala por si</div>
+      <div class="imp-card-desc">Fichas técnicas e alergénios disponíveis. Inclui na ementa com confiança — o cliente pergunta, você responde.</div>
+    </div>
   </div>
-  <div class="vant-grid">
-    <div class="vant-item fade-in d1">
-      <div class="vant-emoji">🚚</div>
-      <div class="vant-conteudo">
-        <strong>Entrega direta</strong>
-        <p>Autovenda por rota. O comercial vai ao seu estabelecimento com o produto.</p>
-      </div>
-    </div>
-    <div class="vant-item fade-in d2">
-      <div class="vant-emoji">❄️</div>
-      <div class="vant-conteudo">
-        <strong>Sem risco de stock</strong>
-        <p>Produto congelado para gerir conforme a procura. Zero desperdício.</p>
-      </div>
-    </div>
-    <div class="vant-item fade-in d3">
-      <div class="vant-emoji">💳</div>
-      <div class="vant-conteudo">
-        <strong>Condições flexíveis</strong>
-        <p>Pronto pagamento ou a prazo — 15, 30 ou 60 dias. Adaptamos ao seu negócio.</p>
-      </div>
-    </div>
-    <div class="vant-item fade-in d4">
-      <div class="vant-emoji">🤝</div>
-      <div class="vant-conteudo">
-        <strong>Apoio comercial</strong>
-        <p>Comercial dedicado. Reposição, suporte e materiais de ponto de venda.</p>
-      </div>
-    </div>
+  <div class="imp-fecho fade-in d5">
+    "O restaurante que serve pão de ló artesanal de Painho diferencia-se. Não vende uma sobremesa — oferece uma experiência."
   </div>
 </section>
 
 <!-- ══════════════════════════════════
-     06 · LOGÍSTICA
+     06 · OFERTA DE ENTRADA + MARGENS
 ══════════════════════════════════ -->
 <section class="pag" id="p5" data-p="5">
-  <p class="log-etiq fade-in">Como funciona</p>
-  <h2 class="log-titulo fade-in d1">Do forno<br>ao seu balcão</h2>
-  <div class="log-flow">
-    <div class="log-passo fade-in d1">
-      <div class="log-num">1</div>
-      <div class="log-passo-titulo">Encomenda</div>
-      <div class="log-passo-desc">Contacto direto com o seu comercial</div>
+  <p class="oferta-etiq fade-in">A oportunidade</p>
+  <h2 class="oferta-titulo fade-in d1">O que fica no seu bolso<br>por cada caixa</h2>
+  <div class="marg-grid fade-in d2">
+    <!-- Pastelaria -->
+    <div class="marg-card">
+      <div class="marg-tipo">🥐 Pastelaria / Balcão</div>
+      <div class="marg-row">
+        <span>PVPR unitário</span>
+        <span>2,80 €</span>
+      </div>
+      <div class="marg-row">
+        <span>Custo por unidade</span>
+        <span>1,66 €</span>
+      </div>
+      <div class="marg-row destaque">
+        <span>Margem bruta</span>
+        <span>41%</span>
+      </div>
+      <div class="marg-lucro">
+        <span class="marg-lucro-label">Lucro líquido / unidade</span>
+        <span class="marg-lucro-val">1,14 €</span>
+      </div>
+      <div class="marg-row" style="margin-top:8px; border-top:1px solid rgba(74,36,23,0.08); padding-top:8px;">
+        <span>Lucro por caixa (8 un.)</span>
+        <span style="font-weight:700; color:#2a7a3a;">≈ 9 €</span>
+      </div>
     </div>
-    <div class="log-passo fade-in d2">
-      <div class="log-num">2</div>
-      <div class="log-passo-titulo">Preparação</div>
-      <div class="log-passo-desc">Produção fresca ou saída de frio</div>
-    </div>
-    <div class="log-passo fade-in d3">
-      <div class="log-num">3</div>
-      <div class="log-passo-titulo">Entrega</div>
-      <div class="log-passo-desc">Autovenda ou produto congelado centralizado</div>
-    </div>
-    <div class="log-passo fade-in d4">
-      <div class="log-num">4</div>
-      <div class="log-passo-titulo">No balcão</div>
-      <div class="log-passo-desc">Pronto a expor e a vender</div>
+    <!-- Restaurante -->
+    <div class="marg-card">
+      <div class="marg-tipo">🍽️ Restaurante / Empratado</div>
+      <div class="marg-row">
+        <span>PVPR por dose</span>
+        <span>6,50 €</span>
+      </div>
+      <div class="marg-row">
+        <span>Custo total / dose</span>
+        <span>2,66 €</span>
+      </div>
+      <div class="marg-row destaque">
+        <span>Margem bruta</span>
+        <span>59%</span>
+      </div>
+      <div class="marg-lucro">
+        <span class="marg-lucro-label">Lucro líquido / dose</span>
+        <span class="marg-lucro-val">3,84 €</span>
+      </div>
+      <div class="marg-row" style="margin-top:8px; border-top:1px solid rgba(74,36,23,0.08); padding-top:8px;">
+        <span>Lucro por caixa (8 un.)</span>
+        <span style="font-weight:700; color:#2a7a3a;">≈ 31 €</span>
+      </div>
     </div>
   </div>
-  <div class="log-info fade-in d4">
-    <div class="log-info-item">
-      <div class="log-info-titulo">Mínimo de encomenda</div>
-      <div class="log-info-val">A definir com o comercial</div>
+  <div class="oferta-caixa fade-in d3">
+    <div class="oferta-icone">🎁</div>
+    <div class="oferta-texto">
+      <strong>Oferta de entrada — uma caixa de degustação sem custo</strong>
+      <p>Prove antes de decidir. Sem quantidade mínima, sem transporte, sem alteração de prazo de pagamento.</p>
     </div>
-    <div class="log-info-item">
-      <div class="log-info-titulo">Prazo de entrega</div>
-      <div class="log-info-val">Próxima rota disponível</div>
-    </div>
-    <div class="log-info-item">
-      <div class="log-info-titulo">Cobertura</div>
-      <div class="log-info-val">Nacional — autovenda e distribuição</div>
-    </div>
+  </div>
+  <div class="oferta-gatilhos fade-in d4">
+    <span class="oferta-tag">📍 1 parceiro por zona</span>
+    <span class="oferta-tag">⏰ Oferta válida esta semana</span>
+    <span class="oferta-tag">❄️ Stock 1 ano de validade</span>
   </div>
 </section>
 
