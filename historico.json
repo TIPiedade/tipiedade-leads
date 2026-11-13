@@ -10112,7 +10112,7 @@
       "gancho": "Referência gastronómica em Lisboa. Sobremesa artesanal completa uma experiência premium.",
       "semana_entrada": 39,
       "data_entrada": "2026-10-08",
-      "estado": "Desistiu",
+      "estado": "Visitado",
       "emails_enviados": [
         {
           "num": 1,
@@ -10130,7 +10130,13 @@
           "assunto": "Nurturing Email 3"
         }
       ],
-      "visitas": [],
+      "visitas": [
+        {
+          "data": "2026-11-13",
+          "resultado": "Negativo — não tem interesse",
+          "notas": "Boa tarde,\n\nAgradecemos o vosso interesse no Solar dos Presuntos, mas todas as nossas sobremesas são de produção própria, pelo que, de momento não nos faz sentido ter este vosso produto.\n\nObrigado.\n\nMelhores cumprimentos,\n\n \nCarlos Fazendeiro\nResponsável de Compras\nTel.: +351 963 818 397\nEmail: carlos.fazendeiro@solardospresuntos.com\nRua das Portas de Santo Antão, nº150\n1150-269 Lisboa\nwww.solardospresuntos.com\n\n"
+        }
+      ],
       "notas": "",
       "actividade": [
         {
