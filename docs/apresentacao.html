@@ -116,14 +116,27 @@ body {
   position: relative;
   overflow: hidden;
 }
+/* Background desfocado para preencher o espaço */
+.capa-foto::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-src);
+  background-size: cover;
+  background-position: center;
+  filter: blur(24px) brightness(0.5) saturate(0.7);
+  transform: scale(1.1);
+  z-index: 0;
+}
 .capa-foto img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center center;
   display: block;
+  z-index: 1;
 }
 /* Scrim gradiente — mais escuro em baixo onde está o texto */
 .capa-scrim {
@@ -1004,13 +1017,13 @@ body {
 <section class="pag" id="p0" data-p="0">
   <div class="capa-track-wrap">
     <div class="capa-track" id="capaTrack">
-      <div class="capa-foto"><img src="ficheiros/empr-01.jpg" alt="Pão de Ló Ti'Piedade empratado"></div>
-      <div class="capa-foto"><img src="ficheiros/empr-02.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
-      <div class="capa-foto"><img src="ficheiros/empr-03.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
-      <div class="capa-foto"><img src="ficheiros/empr-04.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
-      <div class="capa-foto"><img src="ficheiros/empr-05.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
-      <div class="capa-foto"><img src="ficheiros/empr-06.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
-      <div class="capa-foto"><img src="ficheiros/empr-07.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto" style="--bg-src: url('ficheiros/empr-01.jpg')"><img src="ficheiros/empr-01.jpg" alt="Pão de Ló Ti'Piedade empratado"></div>
+      <div class="capa-foto" style="--bg-src: url('ficheiros/empr-02.jpg')"><img src="ficheiros/empr-02.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto" style="--bg-src: url('ficheiros/empr-03.jpg')"><img src="ficheiros/empr-03.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto" style="--bg-src: url('ficheiros/empr-04.jpg')"><img src="ficheiros/empr-04.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto" style="--bg-src: url('ficheiros/empr-05.jpg')"><img src="ficheiros/empr-05.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto" style="--bg-src: url('ficheiros/empr-06.jpg')"><img src="ficheiros/empr-06.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
+      <div class="capa-foto" style="--bg-src: url('ficheiros/empr-07.jpg')"><img src="ficheiros/empr-07.jpg" alt="Pão de Ló Ti'Piedade empratado" loading="lazy"></div>
     </div>
   </div>
   <div class="capa-scrim"></div>
