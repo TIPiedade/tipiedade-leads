@@ -161,13 +161,19 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0 32px 60px;
+  justify-content: space-between;
+  padding: 32px 32px 60px;
   box-sizing: border-box;
   text-align: center;
   color: var(--branco);
 }
-.capa-logo { height: 64px; margin-bottom: 20px; filter: brightness(0) invert(1); }
+.capa-logo-topo {
+  height: 56px;
+  filter: brightness(0) invert(1);
+  drop-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+/* mantém compatibilidade com classe antiga */
+.capa-logo { height: 64px; margin-bottom: 20px; filter: brightness(0) invert(1); display: none; }
 .capa-linha {
   width: 40px; height: 2px;
   background: var(--ouro);
@@ -927,6 +933,21 @@ body {
   font-weight: 700;
 }
 .sucesso-sub { opacity: 0.65; font-size: 0.95rem; }
+.btn-copiar {
+  margin-top: 12px;
+  background: transparent;
+  border: 1.5px solid var(--ouro);
+  color: var(--ouro);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-copiar:hover { background: var(--ouro); color: #fff; }
+.btn-copiar.copiado { background: #2d7a3a; border-color: #2d7a3a; color: #fff; }
 .btn-novo {
   margin-top: 8px;
   background: var(--ouro);
@@ -1028,13 +1049,15 @@ body {
   </div>
   <div class="capa-scrim"></div>
   <div class="capa-overlay">
-    <img class="capa-logo fade-in" src="ficheiros/logo-tipiedade.png" alt="Ti'Piedade">
-    <div class="capa-linha fade-in d1"></div>
-    <h1 class="capa-titulo fade-in d2">Pão de Ló<br>para o seu negócio</h1>
-    <p class="capa-subtitulo fade-in d3">Pastelaria artesanal · Canal HORECA</p>
-    <div class="capa-badge fade-in d4">
-      <span>🏅</span>
-      <span>Certificado · Produção Própria · Entrega Direta</span>
+    <img class="capa-logo-topo fade-in" src="ficheiros/logo-tipiedade.png" alt="Ti'Piedade">
+    <div class="capa-texto-baixo">
+      <div class="capa-linha fade-in d1"></div>
+      <h1 class="capa-titulo fade-in d2">Pão de Ló<br>para o seu negócio</h1>
+      <p class="capa-subtitulo fade-in d3">Pastelaria artesanal · Canal HORECA</p>
+      <div class="capa-badge fade-in d4">
+        <span>🏅</span>
+        <span>Certificado · Produção Própria · Entrega Direta</span>
+      </div>
     </div>
   </div>
   <div class="capa-indicadores" id="capaInds"></div>
@@ -1432,7 +1455,8 @@ body {
 <div class="form-sucesso" id="formSucesso">
   <div class="sucesso-icone">🎉</div>
   <div class="sucesso-titulo">Cliente registado!</div>
-  <p class="sucesso-sub">Os dados foram guardados com sucesso.</p>
+  <p class="sucesso-sub">Os dados foram enviados por WhatsApp.<br>Se não abriu, copie e envie manualmente.</p>
+  <button class="btn-copiar" id="btnCopiar">📋 Copiar dados</button>
   <button class="btn-novo" id="btnNovo">Registar outro cliente</button>
 </div>
 
@@ -1707,9 +1731,12 @@ document.addEventListener('keydown', e => {
       + `👤 *Comercial:* ${comercialLabel}\n`
       + `\n_Registado em ${new Date().toLocaleDateString('pt-PT')} às ${new Date().toLocaleTimeString('pt-PT', {hour:'2-digit',minute:'2-digit'})}_`;
 
-    // Número da Ti'Piedade para receber o alerta (configurar aqui)
-    const numeroTiPiedade = '351962000000'; // ← substituir pelo número real
+    const numeroTiPiedade = '351961567000';
     const waUrl = `https://wa.me/${numeroTiPiedade}?text=${encodeURIComponent(msg)}`;
+
+    // Guardar mensagem no sessionStorage para o botão de copiar
+    sessionStorage.setItem('tp_ultima_msg', msg);
+
     setTimeout(() => window.open(waUrl, '_blank'), 400);
 
     sucesso.classList.add('visivel');
@@ -1721,6 +1748,31 @@ document.addEventListener('keydown', e => {
     sucesso.classList.remove('visivel');
     form.reset();
     form.querySelectorAll('input, select').forEach(c => { c.style.borderColor = ''; });
+  });
+
+  document.getElementById('btnCopiar').addEventListener('click', function() {
+    const msg = sessionStorage.getItem('tp_ultima_msg') || '';
+    if (!msg) return;
+    navigator.clipboard.writeText(msg).then(() => {
+      this.textContent = '✓ Copiado!';
+      this.classList.add('copiado');
+      setTimeout(() => {
+        this.innerHTML = '📋 Copiar dados';
+        this.classList.remove('copiado');
+      }, 2500);
+    }).catch(() => {
+      // fallback para dispositivos sem clipboard API
+      const ta = document.createElement('textarea');
+      ta.value = msg;
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      this.textContent = '✓ Copiado!';
+      this.classList.add('copiado');
+      setTimeout(() => { this.innerHTML = '📋 Copiar dados'; this.classList.remove('copiado'); }, 2500);
+    });
   });
 
   // Reenviar dados offline quando ficar online
