@@ -1,9 +1,9 @@
 {
-  "ref": "2026-10-27",
-  "semana": 44,
-  "range": "26 out a 1 nov",
-  "reuniao": "27/10/2026",
-  "publicado": "2026-10-27T15:30:37.482Z",
+  "ref": "2026-11-16",
+  "semana": 47,
+  "range": "16 a 22 nov",
+  "reuniao": "16/11/2026",
+  "publicado": "2026-11-16T10:09:52.330Z",
   "comerciais": {
     "nuno": [
       {
@@ -37,16 +37,16 @@
         "n": 4,
         "tipo": "Cobrança",
         "t": "cobranca",
-        "nome": "CEBOLA 100CAROÇO, LDA",
+        "nome": "LUÍSA PINTO-PAST CHARC, UNIP,LDA |CANTINHO LUISA",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
         "n": 5,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "PAO NOSSO CADA DIA- PADARIA PASTELARIA LDA",
+        "tipo": "Cobrança",
+        "t": "cobranca",
+        "nome": "R.D.I.M- REST. ILHA DA MADEIRA UNIP.,LDA",
         "acao": "",
         "ok": false,
         "nota": ""
@@ -55,16 +55,16 @@
         "n": 6,
         "tipo": "Cobrança",
         "t": "cobranca",
-        "nome": "LUÍSA PINTO-PAST CHARC, UNIP,LDA |CANTINHO LUISA",
+        "nome": "CEBOLA 100CAROÇO, LDA",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
         "n": 7,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "Foodstory Portugal, S.A |QUINTA DE MONSANTO|",
+        "tipo": "Cobrança",
+        "t": "cobranca",
+        "nome": "BAR SKIPPER VENTO CALMANTE,LDA",
         "acao": "",
         "ok": false,
         "nota": ""
@@ -80,18 +80,18 @@
       },
       {
         "n": 9,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "A HORTA DE TELHEIRAS",
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "PAO NOSSO CADA DIA- PADARIA PASTELARIA LDA",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
         "n": 10,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "REST. ZE DOS CORNOS | JOAO DOMINGOS FERREIRA, LD",
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "Foodstory Portugal, S.A |QUINTA DE MONSANTO|",
         "acao": "",
         "ok": false,
         "nota": ""
@@ -100,16 +100,16 @@
         "n": 11,
         "tipo": "Recuperar",
         "t": "recuperar",
-        "nome": "ELENCO UNICO,LDA | PASTELARIA FERRARI |",
+        "nome": "CANTINHO DA LUISA, UNIPESSOAL, LDA",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
         "n": 12,
-        "tipo": "+1 referência",
-        "t": "mix",
-        "nome": "Ponto Rio Lda | Restaurante Ponto Rio",
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "BELEM 2 A 8 | OBSERVATORIO DE SABORES,LDA",
         "acao": "",
         "ok": false,
         "nota": ""
@@ -118,6 +118,24 @@
     "oscar": [
       {
         "n": 1,
+        "tipo": "Cobrança",
+        "t": "cobranca",
+        "nome": "MARIA ANGELINA CARRELO UNIP, LDA-MUNDO DO CAFE",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 2,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "Interpeniche Supermercados, Lda ",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 3,
         "tipo": "Recuperar",
         "t": "recuperar",
         "nome": "PASTELARIA SANTIAGO",
@@ -126,7 +144,16 @@
         "nota": ""
       },
       {
-        "n": 2,
+        "n": 4,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "Ribareis-Actividades Hoteleiras Lda",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 5,
         "tipo": "Reativação",
         "t": "reativacao",
         "nome": "BARCELODIS- SOCIADADE DE DISTRIBUICAO, SA",
@@ -135,7 +162,7 @@
         "nota": ""
       },
       {
-        "n": 3,
+        "n": 6,
         "tipo": "Reativação",
         "t": "reativacao",
         "nome": "FAMALIMAR,SOCIEDADE DE DISTRIBUIÇÃO, S.A.",
@@ -144,82 +171,10 @@
         "nota": ""
       },
       {
-        "n": 4,
-        "tipo": "Cobrança",
-        "t": "cobranca",
-        "nome": "Particulabsoluta - Unipessoal Lda -Arcada",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 5,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "GATO A JANELA- UNIPESSOAL, LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 6,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "RADICAL DOC UNIPESSOAL,LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
         "n": 7,
         "tipo": "Reativação",
         "t": "reativacao",
-        "nome": "SABOR IMPREVISIVEL, UNIPESSOAL.LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 8,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "SOLAR DOS AMIGOS - M LUISA H.NUNES",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 9,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "COOPERATIVA AGRICOLA FRUTICULTORES CADAVAL, CRL",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 10,
-        "tipo": "+1 referência",
-        "t": "mix",
-        "nome": "DORI | ARTE DO TEMPERO,UNIPESSOAL,LDA|",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 11,
-        "tipo": "+1 referência",
-        "t": "mix",
-        "nome": "PRESTIGIUM | ANTONIO P. ALMEIDA UNIP.LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 12,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "Interpeniche Supermercados, Lda ",
+        "nome": "RADICAL DOC UNIPESSOAL,LDA",
         "acao": "",
         "ok": false,
         "nota": ""
@@ -228,15 +183,6 @@
     "joao": [
       {
         "n": 1,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "PAST. FULGOR- RITA GLORIA ALMEIDA ,LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 2,
         "tipo": "+1 referência",
         "t": "mix",
         "nome": "CHARCUTARIA RIVIERA, LDA",
@@ -245,25 +191,7 @@
         "nota": ""
       },
       {
-        "n": 3,
-        "tipo": "Cobrança",
-        "t": "cobranca",
-        "nome": "NATA REAL | SANDRA MARIA LUCAS SANTOS",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 4,
-        "tipo": "Cobrança",
-        "t": "cobranca",
-        "nome": "GLADIOLO SOLENE, LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 5,
+        "n": 2,
         "tipo": "Cobrança",
         "t": "cobranca",
         "nome": "CANASTRA A GRELHA, Lda",
@@ -272,10 +200,37 @@
         "nota": ""
       },
       {
+        "n": 3,
+        "tipo": "Cobrança",
+        "t": "cobranca",
+        "nome": "LA BOMBONERA REAL,LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 4,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "JOSE MANUEL TAVARES GOMES |REST.POCO DO ZE|",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 5,
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "TABERNA D`ADELIA ACTIVIDADES HOTELEIRAS, LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
         "n": 6,
-        "tipo": "Reativação",
-        "t": "reativacao",
-        "nome": "AMANHECER | TITANIA ALMEIDA REGO UNIP,LDA",
+        "tipo": "Recuperar",
+        "t": "recuperar",
+        "nome": "ALGO ESPECIAL UNIPESSOAL,LDA- PESCA NO PRATO",
         "acao": "",
         "ok": false,
         "nota": ""
@@ -284,52 +239,52 @@
         "n": 7,
         "tipo": "Reativação",
         "t": "reativacao",
-        "nome": "JOÃO PINTO MARCELO- PAST RIVOLI",
+        "nome": "CERIMONIA LDA | CASA DA AMIEIRA",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
         "n": 8,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "CAFE SOBRAMESA, LDA ",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 9,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "BLOOMING COURAGE, LDA",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 10,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "RTJ, LDA.",
-        "acao": "",
-        "ok": false,
-        "nota": ""
-      },
-      {
-        "n": 11,
-        "tipo": "Recuperar",
-        "t": "recuperar",
+        "tipo": "Reativação",
+        "t": "reativacao",
         "nome": "Cafe Mini Semog",
         "acao": "",
         "ok": false,
         "nota": ""
       },
       {
+        "n": 9,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "Proeza Histórica, Lda",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 10,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "PAST. FULGOR- SANTOS E FREIRE UNIPESSOAL,LDA",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
+        "n": 11,
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "RTJ, LDA.",
+        "acao": "",
+        "ok": false,
+        "nota": ""
+      },
+      {
         "n": 12,
-        "tipo": "Recuperar",
-        "t": "recuperar",
-        "nome": "SOL RAINHA,LDA|PELICANO|",
+        "tipo": "Reativação",
+        "t": "reativacao",
+        "nome": "ANTONIO CARVALHO FERREIRA CARLOS LDA",
         "acao": "",
         "ok": false,
         "nota": ""
