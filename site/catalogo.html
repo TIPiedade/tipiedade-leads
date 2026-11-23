@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2B1710">
+<title>Pão de Ló Ti'Piedade — Catálogo</title>
+<meta property="og:title" content="Pão de Ló Ti'Piedade">
+<meta property="og:description" content="Pão de ló artesanal de terceira geração. Quatro sabores, formatos para cada serviço, disponível em fresco e congelado.">
+<meta property="og:image" content="https://ops.tipiedade.com/img/original-500g.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1E120B;--ink2:#6F5C4B;--ink3:#A6937F;--bg:#FAF7F3;--card:#fff;--line:#EFE7DD;
+ --rail:#2B1710;--accent:#E8951B;--accent-soft:#FDF2E0;--accent-deep:#9A5C06;--teal:#4A95A0;--green:#3C8A58}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:600;letter-spacing:-.015em}
+img{max-width:100%;display:block}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+
+header{background:var(--rail);color:#fff;padding:38px 0 30px;text-align:center}
+header img{width:62px;margin:0 auto 18px}
+header h1{font-size:30px;color:#fff;line-height:1.15}
+header p{font-size:14px;color:rgba(255,255,255,.62);margin-top:9px;max-width:40ch;margin-left:auto;margin-right:auto}
+.since{display:inline-block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:14px;font-weight:600}
+
+.bar{position:sticky;top:0;z-index:20;background:rgba(250,247,243,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);padding:11px 0}
+.bar .wrap{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none}
+.bar .wrap::-webkit-scrollbar{display:none}
+.tab{padding:7px 15px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-size:13px;
+  font-weight:600;color:var(--ink2);white-space:nowrap;cursor:pointer;transition:.15s}
+.tab:hover{border-color:var(--ink3)}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+section{padding:34px 0 10px}
+.sh{display:flex;align-items:baseline;gap:11px;margin-bottom:18px}
+.sh h2{font-size:21px}
+.sh span{font-size:13px;color:var(--ink3)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:16px}
+.p{background:var(--card);border:1px solid var(--line);border-radius:15px;overflow:hidden;
+  transition:.22s cubic-bezier(.22,.78,.3,1)}
+.p:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(43,23,16,.1)}
+.p .im{aspect-ratio:1;background:var(--bg);overflow:hidden;position:relative}
+.p .im img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,.78,.3,1)}
+.p:hover .im img{transform:scale(1.045)}
+.p .im .cg{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.93);color:var(--teal);
+  font-size:10px;font-weight:700;letter-spacing:.05em;padding:4px 9px;border-radius:99px;display:flex;align-items:center;gap:4px}
+.p .bd{padding:14px 15px 16px}
+.p .bd b{display:block;font-size:15px;font-weight:600;font-family:'Playfair Display',serif}
+.p .bd .g{font-size:12.5px;color:var(--ink3);margin-top:3px}
+.p .bd .d{font-size:12.5px;color:var(--ink2);margin-top:8px;line-height:1.5}
+.sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle;
+  border:1px solid rgba(0,0,0,.08)}
+
+.note{background:var(--accent-soft);border:1px solid #F3DCB6;border-radius:14px;padding:18px 20px;margin:26px 0;
+  font-size:13.5px;color:var(--accent-deep);line-height:1.6}
+.note b{font-weight:700}
+
+.cta{background:var(--rail);color:#fff;border-radius:18px;padding:30px 26px;text-align:center;margin:34px 0}
+.cta h3{font-size:22px;color:#fff;margin-bottom:8px}
+.cta p{font-size:13.5px;color:rgba(255,255,255,.6);max-width:38ch;margin:0 auto 20px}
+.btns{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.b{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:99px;font-size:14px;
+  font-weight:600;text-decoration:none;transition:.18s;border:none;cursor:pointer;font-family:inherit}
+.b svg{width:16px;height:16px;stroke-width:2;fill:none;stroke:currentColor}
+.b1{background:var(--accent);color:#2B1710}
+.b1:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.b2{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.b2:hover{background:rgba(255,255,255,.17)}
+
+footer{text-align:center;padding:30px 0 44px;color:var(--ink3);font-size:12.5px;line-height:1.7}
+footer a{color:var(--accent-deep);text-decoration:none;font-weight:600}
+.share{position:fixed;right:16px;bottom:16px;z-index:50;height:50px;padding:0 20px;border-radius:99px;
+  background:var(--green);color:#fff;border:none;font:600 14px Inter;display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 22px rgba(60,138,88,.35);cursor:pointer;transition:.18s}
+.share:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(60,138,88,.42)}
+.share svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
+@media(max-width:600px){header h1{font-size:24px}.sh h2{font-size:18px}.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}
+  .p .bd{padding:11px 12px 13px}.p .bd b{font-size:13.5px}.share{right:12px;bottom:12px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="img/logo-white.png" alt="Ti'Piedade">
+    <div class="since">Desde 1949 · terceira geração</div>
+    <h1>Pão de Ló Ti'Piedade</h1>
+    <p>Feito à mão em Alcobaça, com ovos frescos e tempo. Quatro sabores, formatos para cada serviço — em fresco ou congelado.</p>
+  </div>
+</header>
+
+<nav class="bar"><div class="wrap">
+  <button class="tab on" data-f="todos">Tudo</button>
+  <button class="tab" data-f="unidose">Unidose</button>
+  <button class="tab" data-f="familiar">Familiar</button>
+  <button class="tab" data-f="mini">Minis 60 g</button>
+  <button class="tab" data-f="original">Original</button>
+  <button class="tab" data-f="chocolate">Chocolate</button>
+  <button class="tab" data-f="canela">Canela</button>
+  <button class="tab" data-f="cafe">Café</button>
+</div></nav>
+
+<div class="wrap">
+  <section>
+    <div class="sh"><h2>Unidose</h2><span>85 g · a dose individual para balcão e pequeno-almoço</span></div>
+    <div class="grid" id="g1"></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>Familiar</h2><span>para fatiar ao balcão ou servir à mesa</span></div>
+    <div class="grid" id="g2"></div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>Minis 60 g</h2><span>caixas de 10 · hotéis, catering e eventos</span></div>
+    <div class="grid" id="g3"></div>
+  </section>
+
+  <div class="note">
+    <b>Fresco ou congelado?</b> O congelado regenera à medida que vende, tem validade longa e não gera desperdício —
+    é a forma mais simples de começar. O fresco faz sentido para quem tem rotação alta e recebe a volta semanal.
+  </div>
+
+  <div class="cta">
+    <h3>Quer provar?</h3>
+    <p>Enviamos amostra e tabela de preços para o seu tipo de serviço.</p>
+    <div class="btns">
+      <a class="b b1" href="mailto:sales@tipiedade.com?subject=Pedido%20de%20amostra%20%E2%80%94%20P%C3%A3o%20de%20L%C3%B3%20Ti'Piedade&body=Bom%20dia%2C%0A%0AGostaria%20de%20receber%20amostra%20e%20tabela%20de%20pre%C3%A7os.%0A%0AEstabelecimento%3A%0ALocalidade%3A%0AContacto%3A%0A%0AObrigado.">
+        <svg viewBox="0 0 24 24" stroke-linecap="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Pedir amostra</a>
+      <a class="b b2" href="https://www.tipiedade.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>Ver o site</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <b style="color:var(--ink2)">Pão de Ló Ti'Piedade</b><br>
+  Alcobaça, Portugal · <a href="mailto:sales@tipiedade.com">sales@tipiedade.com</a><br>
+  <a href="https://www.tipiedade.com">tipiedade.com</a>
+</footer>
+
+<button class="share" id="sh">
+  <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4z"/></svg>
+  Partilhar
+</button>
+
+<script>
+const F='img/';
+const COR={original:'#E8C88A',chocolate:'#4A6FA5',canela:'#E8DCC4',cafe:'#6B2737'};
+const NOME={original:'Original',chocolate:'Chocolate',canela:'Canela',cafe:'Café'};
+const P=[
+ // unidose
+ {g:'original',f:'unidose',n:'Original 2×85 g',im:'original-2x85.jpg',gr:'2 unidoses de 85 g',d:'A receita de sempre. O formato que mais sai ao balcão.'},
+ {g:'chocolate',f:'unidose',n:'Chocolate 2×85 g',im:'chocolate-2x85.jpg',gr:'2 unidoses de 85 g',d:'Cacau na massa, húmido no centro.'},
+ {g:'canela',f:'unidose',n:'Canela 2×85 g',im:'canela-2x85.jpg',gr:'2 unidoses de 85 g',d:'Canela moída na hora, aroma a forno.'},
+ {g:'cafe',f:'unidose',n:'Café 2×85 g',im:'cafe-2x85.jpg',gr:'2 unidoses de 85 g',d:'Café torrado na massa. Acompanha bica.'},
+ {g:'original',f:'unidose',n:'Original 8×85 g',im:'original-8x85-topo.jpg',gr:'caixa de 8 × 85 g',d:'Caixa de serviço para quem vende todos os dias.'},
+ {g:'chocolate',f:'unidose',n:'Chocolate 8×85 g',im:'chocolate-8x85-topo.jpg',gr:'caixa de 8 × 85 g',d:'Caixa de serviço.'},
+ {g:'canela',f:'unidose',n:'Canela 8×85 g',im:'canela-8x85-topo.jpg',gr:'caixa de 8 × 85 g',d:'Caixa de serviço.'},
+ {g:'cafe',f:'unidose',n:'Café 8×85 g',im:'cafe-8x85-topo.jpg',gr:'caixa de 8 × 85 g',d:'Caixa de serviço.'},
+ // familiar
+ {g:'original',f:'familiar',n:'Original 500 g',im:'original-500g.jpg',gr:'500 g',d:'O formato de partilha. Fatia alta e húmida.'},
+ {g:'original',f:'familiar',n:'Original 900 g',im:'original-500g.jpg',gr:'900 g · só no Original',d:'Para mesa cheia e serviço de buffet.'},
+ {g:'chocolate',f:'familiar',n:'Chocolate 400 g',im:'chocolate-400g.jpg',gr:'400 g',d:'Caixa azul. O mais pedido a seguir ao Original.'},
+ {g:'canela',f:'familiar',n:'Canela 500 g',im:'canela-500g.jpg',gr:'500 g',d:'Caixa creme. Aroma que se sente à entrada.'},
+ {g:'cafe',f:'familiar',n:'Café 500 g',im:'cafe-500g.jpg',gr:'500 g',d:'Caixa bordô. Para quem já conhece a casa.'},
+ // minis
+ {g:'original',f:'mini',n:'Mini Original 10×60 g',im:'original-2x85.jpg',gr:'caixa de 10 × 60 g',d:'Coffee breaks, welcome e room service.'},
+ {g:'chocolate',f:'mini',n:'Mini Chocolate 10×60 g',im:'chocolate-2x85.jpg',gr:'caixa de 10 × 60 g',d:'Porção individual para eventos.'},
+ {g:'canela',f:'mini',n:'Mini Canela 10×60 g',im:'canela-2x85.jpg',gr:'caixa de 10 × 60 g',d:'Porção individual para eventos.'},
+ {g:'cafe',f:'mini',n:'Mini Café 10×60 g',im:'cafe-2x85.jpg',gr:'caixa de 10 × 60 g',d:'Porção individual para eventos.'}
+];
+const card=p=>`<article class="p" data-g="${p.g}" data-f="${p.f}">
+  <div class="im"><img loading="lazy" src="${F}${p.im}" alt="${p.n}">
+    <span class="cg"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 2v20M4.2 7l15.6 10M19.8 7 4.2 17"/></svg>congelado</span></div>
+  <div class="bd"><b>${p.n}</b>
+    <div class="g"><span class="sw" style="background:${COR[p.g]}"></span>${NOME[p.g]} · ${p.gr}</div>
+    <div class="d">${p.d}</div></div></article>`;
+document.getElementById('g1').innerHTML=P.filter(p=>p.f==='unidose').map(card).join('');
+document.getElementById('g2').innerHTML=P.filter(p=>p.f==='familiar').map(card).join('');
+document.getElementById('g3').innerHTML=P.filter(p=>p.f==='mini').map(card).join('');
+
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+  const f=t.dataset.f;
+  document.querySelectorAll('.p').forEach(p=>{
+    const m=f==='todos'||p.dataset.f===f||p.dataset.g===f;p.style.display=m?'':'none'});
+  document.querySelectorAll('section').forEach(s=>{
+    s.style.display=[...s.querySelectorAll('.p')].some(p=>p.style.display!=='none')?'':'none'});
+});
+
+document.getElementById('sh').onclick=async()=>{
+  const d={title:"Pão de Ló Ti'Piedade",
+    text:"Pão de ló artesanal de Alcobaça — quatro sabores, fresco ou congelado. Veja o catálogo:",url:location.href};
+  if(navigator.share){try{await navigator.share(d);return}catch(e){}}
+  window.open('https://wa.me/?text='+encodeURIComponent(d.text+' '+d.url),'_blank');
+};
+</script>
+</body>
+</html>

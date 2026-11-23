@@ -1,0 +1,39 @@
+Ti'Piedade · Operações — instalação no cPanel
+=============================================
+
+1. cPanel > Domínios > Criar um subdomínio
+   Subdomínio: ops          Domínio: tipiedade.com
+   Pasta raiz: public_html/ops     (o cPanel propõe isto sozinho)
+
+2. cPanel > Gestor de Ficheiros > entrar em public_html/ops
+   Carregar o ficheiro  ops-site.zip
+   Clicar com o botão direito > Extrair > extrair aqui
+   Apagar o zip depois de extrair
+
+3. Confirmar que o .htaccess ficou lá
+   (Gestor de Ficheiros > Definições > "Mostrar ficheiros ocultos")
+
+4. cPanel > SSL/TLS Status > ativar AutoSSL para ops.tipiedade.com
+   Sem isto o microfone, a câmara e a localização não funcionam:
+   o browser só os permite em HTTPS.
+
+5. Abrir https://ops.tipiedade.com e entrar com a senha do CRM.
+
+VÍDEOS (opcional)
+-----------------
+O zip ops-videos.zip tem os dois vídeos da apresentação (72 MB).
+Extrair dentro de  public_html/ops/crm/ficheiros/
+Só é preciso se usares a Apresentação HORECA.
+
+SE A APP ABRIR EM "SÓ LEITURA"
+------------------------------
+Quer dizer que o Cloudflare Worker ainda só autoriza pedidos vindos de
+tipiedade.github.io. É preciso acrescentar https://ops.tipiedade.com à
+lista de origens permitidas (CORS) no Worker.
+
+DEPOIS DE TUDO A FUNCIONAR
+--------------------------
+Tornar o repositório GitHub privado:
+  github.com/TIPiedade/tipiedade-leads > Settings > em baixo >
+  Change visibility > Make private
+Os workflows de email continuam a correr normalmente.

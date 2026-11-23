@@ -1,0 +1,43 @@
+name: Resumo de segunda-feira
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+    inputs:
+      enviar:
+        description: "Enviar mesmo? (sim/nao)"
+        required: false
+        default: "nao"
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verificar segredos
+        run: |
+          MISSING=""
+          [ -z "$BREVO_API_KEY" ] && MISSING="$MISSING BREVO_API_KEY"
+          if [ -n "$MISSING" ]; then
+            echo "::error::Secrets em falta:$MISSING — configura em Settings → Secrets → Actions"
+            exit 1
+          fi
+          echo "✓ Secrets OK"
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Enviar resumo a cada comercial
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          EMAIL_NUNO:    ${{ secrets.EMAIL_NUNO }}
+          EMAIL_JOAO:    ${{ secrets.EMAIL_JOAO }}
+          EMAIL_OSCAR:   ${{ secrets.EMAIL_OSCAR }}
+          EMAIL_RUI:     ${{ secrets.EMAIL_RUI }}
+          ENVIAR:        ${{ github.event.inputs.enviar || 'sim' }}
+        run: python scripts/resumo_segunda.py
