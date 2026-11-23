@@ -1350,8 +1350,8 @@
         "chamadas": [],
         "ativo": true,
         "dia": 1,
-        "dia_rota": null,
-        "pessoa": "",
+        "dia_rota": 3,
+        "pessoa": "Manuel",
         "gama": "Congelado"
       }
     },
