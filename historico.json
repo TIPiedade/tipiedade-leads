@@ -1345,7 +1345,15 @@
       "estado": "Em aberto",
       "emails_enviados": [],
       "visitas": [],
-      "notas": ""
+      "notas": "",
+      "cc": {
+        "chamadas": [],
+        "ativo": true,
+        "dia": null,
+        "dia_rota": null,
+        "pessoa": "",
+        "gama": "Congelado"
+      }
     },
     "joao::Under The Cover / O Pão de Ló::Almada": {
       "nome": "Under The Cover / O Pão de Ló",
