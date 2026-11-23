@@ -810,8 +810,7 @@ const svg=(k,s=1.8)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 /* ═══════════════════════ CONSTANTES ═══════════════════════ */
 const WORKER="https://tipiedade-crm.nameless-unit-fa2c.workers.dev";
 const API=WORKER+"/contents/historico.json";
-const RAW="https://raw.githubusercontent.com/TIPiedade/tipiedade-leads/main/historico.json";
-const APP='https://tipiedade.github.io/tipiedade-leads/';
+const APP='crm/';
 const NOMES={rui:"Rui",nuno:"Nuno",joao:"João",oscar:"Óscar",ana:"Ana Filipa",carlos:"Carlos"};
 const CORES={rui:"#BE4238",nuno:"#4A95A0",joao:"#8A5208",oscar:"#3C8A58",ana:"#7A5EA8",carlos:"#5A6B7A"};
 const ADMINS=["rui","ana","carlos"];
@@ -891,13 +890,9 @@ async function carrega(){
     const {dados,sha}=await lerRemoto();
     HIST=dados;SHA=sha;CFG=fundeCfg(dados.config);DEMO=false;cacheGuarda();wire('on','ligado');
   }catch(e){
-    try{const r=await fetch(RAW+"?t="+Date.now(),{cache:"no-store"});
-      if(!r.ok)throw 0;HIST=await r.json();CFG=fundeCfg(HIST.config);DEMO=true;cacheGuarda();
-      wire('off','só leitura');
-    }catch(e2){
-      if(!cacheLe()){HIST={leads:AMOSTRA};DEMO=true}
-      wire('off',navigator.onLine?'demonstração':'sem rede');
-    }}
+    if(!cacheLe()){HIST={leads:AMOSTRA};DEMO=true;wire('off','demonstração')}
+    else wire('off',navigator.onLine?'cópia local':'sem rede');
+  }
   desenhaTudo();
 }
 function wire(st,txt){const w=$('#wire');if(!w)return;w.className='wire'+(st==='on'?'':' '+st);$('#wiret').textContent=txt||st}

@@ -1,0 +1,74 @@
+# ═══════════════════════════════════════════════════════════
+#  Ti'Piedade · Operações — configuração do subdomínio
+# ═══════════════════════════════════════════════════════════
+
+# ─── Forçar HTTPS ───────────────────────────────────────────
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# ─── Não listar pastas ──────────────────────────────────────
+Options -Indexes
+
+# ─── Tipos de ficheiro ──────────────────────────────────────
+<IfModule mod_mime.c>
+  AddType application/manifest+json  .webmanifest
+  AddType application/json           .json
+  AddType image/svg+xml              .svg
+  AddType video/mp4                  .mp4
+  AddType font/woff2                 .woff2
+</IfModule>
+
+# ─── Compressão ─────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/json application/manifest+json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ─── Cache ──────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg           "access plus 30 days"
+  ExpiresByType image/png            "access plus 30 days"
+  ExpiresByType video/mp4            "access plus 30 days"
+  ExpiresByType font/woff2           "access plus 1 year"
+  # o service worker e o HTML nunca em cache: senão as atualizações não chegam
+  ExpiresByType text/html            "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "sw\.js$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  # Segurança básica
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ─── Proteger ficheiros de dados e cópias ───────────────────
+<FilesMatch "\.(json|bak|zip|sql|log|md)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+# ...exceto o manifest, que o telemóvel precisa de ler
+<Files "manifest.json">
+  <IfModule mod_authz_core.c>
+    Require all granted
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Allow from all
+  </IfModule>
+</Files>
+
+# ─── Página de erro ─────────────────────────────────────────
+ErrorDocument 404 /index.html
