@@ -1342,12 +1342,17 @@
       "gancho": "Foco na autenticidade da fermentação natural. O Ti Piedade como o pão de ló sem químicos industriais.",
       "semana_entrada": null,
       "data_entrada": "2026-08-10",
-      "estado": "Em aberto",
+      "estado": "Cliente",
       "emails_enviados": [],
       "visitas": [],
       "notas": "",
       "cc": {
-        "chamadas": [],
+        "chamadas": [
+          {
+            "data": "2026-11-23",
+            "res": "enc"
+          }
+        ],
         "ativo": true,
         "dia": 1,
         "dia_rota": 3,
