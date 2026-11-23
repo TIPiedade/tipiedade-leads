@@ -1041,6 +1041,15 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
       <span class="nav-badge" id="badge-desistencias">0</span>
     </button>
 
+    <div class="sidebar-section">Prospeção · Fábrica</div>
+    <button class="nav-btn" data-view="prospecao" onclick="mudarVista('prospecao',this)">
+      <span class="ico">🚪</span> Prospeção
+      <span class="nav-badge" id="badge-prospecao">0</span>
+    </button>
+    <button class="nav-btn" data-view="chamadas" onclick="mudarVista('chamadas',this)">
+      <span class="ico">📞</span> Chamadas
+      <span class="nav-badge" id="badge-chamadas">0</span>
+    </button>
     <div class="sidebar-section">Análise</div>
     <button class="nav-btn" data-view="estatisticas" onclick="mudarVista('estatisticas',this)">
       <span class="ico">📈</span> Estatísticas
@@ -1305,6 +1314,38 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
       <div class="table-wrap"><div class="lead-cards"></div><table><thead><tr><th>Lead</th><th>Canal</th><th>Comercial</th><th>Zona</th><th>Motivo</th></tr></thead><tbody id="tbody-desistencias"></tbody></table></div>
     </div>
 
+
+    <!-- VISTA PROSPEÇÃO -->
+    <div class="view" id="view-prospecao">
+      <div class="toolbar">
+        <span class="toolbar-title">🚪 Prospeção — abrir clientes novos</span>
+        <select class="filter-select" id="pros-comercial" onchange="renderProspecao()" style="width:auto">
+          <option value="">Todos os comerciais</option>
+          <option value="joao">João</option>
+          <option value="nuno">Nuno</option>
+          <option value="oscar">Óscar</option>
+        </select>
+        <input class="search-input" id="pros-zona" placeholder="🔍 Zona..." oninput="renderProspecao()">
+        <button class="btn-primary" onclick="abrirNovaLead()" style="padding:9px 16px;font-size:13px">➕ Nova lead na rua</button>
+      </div>
+      <div id="pros-kpis" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px"></div>
+      <div id="pros-zonas" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px"></div>
+      <div class="table-wrap"><div class="lead-cards" id="cards-prospecao"></div><table><thead><tr>
+        <th>Alvo</th><th>Zona</th><th>Tipo</th><th>Nurturing</th><th>Estado</th><th>Prioridade</th>
+      </tr></thead><tbody id="tbody-prospecao"></tbody></table></div>
+    </div>
+
+    <!-- VISTA CHAMADAS (CALL CENTER FÁBRICA) -->
+    <div class="view" id="view-chamadas">
+      <div class="toolbar">
+        <span class="toolbar-title">📞 Chamadas semanais — fábrica</span>
+        <select class="filter-select" id="cc-dia" onchange="renderChamadas()" style="width:auto"></select>
+      </div>
+      <div id="cc-kpis" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px"></div>
+      <div id="cc-alertas"></div>
+      <div id="cc-fila"></div>
+      <div id="cc-carteira" style="margin-top:18px"></div>
+    </div>
 
     <div class="view" id="view-grupos">
       <div class="toolbar">
@@ -2459,6 +2500,38 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--caramelo)}
       </div>
 
       <div class="secao">
+        <div class="secao-titulo">📞 Chamadas semanais (fábrica)</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--cast);cursor:pointer">
+            <input type="checkbox" id="cc-ativo" onchange="guardarCC()" style="width:16px;height:16px;accent-color:var(--laranja)"> Incluir na ronda semanal de chamadas
+          </label>
+          <div class="form-row">
+            <label class="form-lbl">Dia da chamada (véspera da rota)</label>
+            <select class="form-sel" id="cc-dia-chamada" onchange="guardarCC()">
+              <option value="">—</option><option value="1">Segunda</option><option value="2">Terça</option><option value="3">Quarta</option><option value="4">Quinta</option><option value="5">Sexta</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-lbl">Dia de entrega (rota)</label>
+            <select class="form-sel" id="cc-dia-rota" onchange="guardarCC()">
+              <option value="">—</option><option value="1">Segunda</option><option value="2">Terça</option><option value="3">Quarta</option><option value="4">Quinta</option><option value="5">Sexta</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-lbl">Pessoa de contacto</label>
+            <input class="form-input" id="cc-pessoa" onchange="guardarCC()" placeholder="Com quem falar ao telefone">
+          </div>
+          <div class="form-row">
+            <label class="form-lbl">Gama preferida</label>
+            <select class="form-sel" id="cc-gama" onchange="guardarCC()">
+              <option>Congelado</option><option>Fresco</option><option>Misto</option>
+            </select>
+          </div>
+          <div id="cc-historico"></div>
+        </div>
+      </div>
+
+      <div class="secao">
         <div class="secao-titulo">Registar visita</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <div class="form-row">
@@ -3282,6 +3355,8 @@ function renderBadges() {
     "prontos":ls.filter(([k,v])=>(v.emails_enviados||[]).length>=4&&v.estado!=="Cliente"&&v.estado!=="Desistiu"&&v.estado!=="N/A").length,
     "clientes":ls.filter(([k,v])=>v.estado==="Cliente").length,
     "desistencias":ls.filter(([k,v])=>v.estado==="Desistiu").length,
+    "prospecao":ls.filter(([k,v])=>["nuno","joao","oscar"].includes(v.canal_id)&&!["Cliente","Desistiu","N/A"].includes(v.estado||"Em aberto")).length,
+    "chamadas":ls.filter(([k,v])=>v.cc&&v.cc.ativo&&(+v.cc.dia||0)===ccHoje()).length,
   };
   Object.entries(b).forEach(([k,n])=>{ const el=document.getElementById(`badge-${k}`); if(el) el.textContent=n; });
 }
@@ -3293,6 +3368,8 @@ function renderTudo() {
   ["nuno","joao","oscar","rui","catering","distribuidores","grupos","prontos","clientes","desistencias"].forEach(v=>renderVista(v));
   renderVistaAna();
   renderDocumentosGlobal();
+  renderProspecao();
+  renderChamadas();
   actualizarEstadoTemplates();
   if(document.getElementById("view-estatisticas")?.classList.contains("ativo")) renderEstatisticas();
 }
@@ -3551,6 +3628,8 @@ function mudarVista(vista, btn) {
   if(vista==="documentos") renderDocumentosGlobal();
   if(vista==="ana") renderVistaAna();
   if(vista==="estatisticas") renderEstatisticas();
+  if(vista==="prospecao") renderProspecao();
+  if(vista==="chamadas") renderChamadas();
   if(vista==="objetivos") renderObjetivos();
   if(vista==="assinaturas"){ var fa=document.getElementById("if-assin"); if(fa && !fa.getAttribute("src")) fa.setAttribute("src","assinaturas.html"); }
   if(vista==="vendas"){ window.open("vendas.html","_blank"); }
@@ -3602,6 +3681,7 @@ function abrirLead(k) {
   document.getElementById("m-gancho").textContent = v.gancho||"—";
   document.getElementById("m-estado").value = v.estado||"Em aberto";
   document.getElementById("m-notas-gerais").value = v.notas||"";
+  preencherCC(v);
 
   // ── ACTIVIDADE ───────────────────────────────────────────
   renderActividade(k);
@@ -3786,6 +3866,155 @@ function registarDesistencia() {
   renderTudo();
   toast("Desistência registada", "ok");
 }
+
+// ═══════════════════════════════════════════════════
+// PROSPEÇÃO + CHAMADAS SEMANAIS (CALL CENTER FÁBRICA)
+// ═══════════════════════════════════════════════════
+const CC_DIAS = {1:"Segunda",2:"Terça",3:"Quarta",4:"Quinta",5:"Sexta"};
+const CC_RES  = {enc:["✅","Encomenda"], sr:["📵","Sem resposta"], se:["➖","Sem encomenda"]};
+const ZONAS_ALVO = {
+  joao:["Marinha Grande","Vieira de Leiria","Batalha","Porto de Mós","Fátima","Ourém","Almada","Seixal","Montijo","Setúbal"],
+  nuno:["Cascais","Estoril","Oeiras","Carcavelos","Amadora","Queluz","Cacém","Mafra","Odivelas","Loures"],
+  oscar:["Torres Vedras","Lourinhã","Bombarral","Óbidos","Caldas da Rainha","Aveiro","Águeda","Mealhada","Famalicão","Barcelos"]
+};
+function ccHoje(){ const d=new Date().getDay(); return (d>=1&&d<=5)?d:1; }
+function ccUltima(v){ const c=(v.cc&&v.cc.chamadas)||[]; return c.length?c[c.length-1]:null; }
+function ccAlerta(v){ const c=(v.cc&&v.cc.chamadas)||[]; return c.length>=2 && c.slice(-2).every(x=>x.res==="sr"); }
+function kpiBox(n,lbl,cor){ return `<div style="background:var(--br);border:1px solid var(--borda);border-radius:12px;padding:12px 14px"><div style="font-size:22px;font-weight:800;color:${cor||'var(--cast)'}">${n}</div><div style="font-size:11px;color:var(--txt2)">${lbl}</div></div>`; }
+
+// ── PROSPEÇÃO ────────────────────────────────────────
+function renderProspecao(){
+  const tbody=document.getElementById("tbody-prospecao"); if(!tbody) return;
+  const com=document.getElementById("pros-comercial")?.value||"";
+  const zona=(document.getElementById("pros-zona")?.value||"").toLowerCase();
+  const base=leads().filter(([k,v])=>["nuno","joao","oscar"].includes(v.canal_id)&&(!com||v.canal_id===com));
+  const abertos=base.filter(([k,v])=>!["Cliente","Desistiu","N/A"].includes(v.estado||"Em aberto"));
+  const rows=abertos.filter(([k,v])=>!zona||(v.zona||"").toLowerCase().includes(zona))
+    .sort((a,b)=>{const p={"Alta":0,"Média":1,"Baixa":2};return (p[a[1].prioridade]??1)-(p[b[1].prioridade]??1)||String(a[1].zona||"").localeCompare(String(b[1].zona||""));});
+  const seg=new Date(); seg.setDate(seg.getDate()-((seg.getDay()+6)%7)); const segISO=seg.toISOString().slice(0,10);
+  const visSem=base.filter(([k,v])=>(v.visitas||[]).some(x=>(x.data||"")>=segISO)).length;
+  const kp=document.getElementById("pros-kpis");
+  if(kp) kp.innerHTML = kpiBox(rows.length,"Alvos no filtro")+kpiBox(abertos.length,"Alvos em carteira")+kpiBox(visSem,"Visitados esta semana","var(--laranja)")+kpiBox(base.filter(([k,v])=>v.estado==="Cliente").length,"Clientes conquistados","var(--verde)");
+  const zdiv=document.getElementById("pros-zonas");
+  if(zdiv){
+    const zonas=com?(ZONAS_ALVO[com]||[]):[];
+    zdiv.innerHTML = zonas.length
+      ? `<span style="font-size:11px;color:var(--txt2);align-self:center">Zonas a forçar:</span>`
+        + zonas.map(z=>`<button onclick="document.getElementById('pros-zona').value='${z}';renderProspecao()" style="padding:4px 10px;border-radius:99px;border:1px solid var(--borda);background:var(--br);font-size:11px;color:var(--cast);cursor:pointer">${z}</button>`).join("")
+        + `<button onclick="document.getElementById('pros-zona').value='';renderProspecao()" style="padding:4px 10px;border-radius:99px;border:1px dashed var(--borda);background:transparent;font-size:11px;color:var(--txt2);cursor:pointer">limpar</button>`
+      : "";
+  }
+  const cards=document.getElementById("cards-prospecao"); if(cards) cards.innerHTML=buildCards(rows,"abrirLead");
+  tbody.innerHTML = rows.length ? rows.map(([k,v])=>trLead(k,v,"normal")).join("") : `<tr><td colspan="6"><div class="empty"><div class="empty-ico">🚪</div><div class="empty-txt">Sem alvos neste filtro — cria leads novas na rua</div></div></td></tr>`;
+}
+
+// ── CHAMADAS (FÁBRICA) ───────────────────────────────
+function registarChamadaCC(ev,k,res){
+  if(ev) ev.stopPropagation();
+  const v=HIST.leads[k]; if(!v) return;
+  if(!v.cc) v.cc={ativo:true};
+  if(!v.cc.chamadas) v.cc.chamadas=[];
+  v.cc.chamadas.push({data:new Date().toISOString().slice(0,10),res});
+  if(res==="enc"&&v.estado!=="Cliente") v.estado="Cliente";
+  guardarHistorico(); renderChamadas(); renderBadges();
+  const r=CC_RES[res];
+  toast(`${r?r[0]+" "+r[1]:res} — ${v.nome} ✓`, res==="enc"?"ok":"");
+}
+
+function ccCard(k,v){
+  const u=ccUltima(v); const hoje=new Date().toISOString().slice(0,10);
+  const feita=u&&u.data===hoje;
+  const al=ccAlerta(v);
+  const tel=v.tel&&v.tel!=="—"?v.tel.replace(/\s/g,""):"";
+  const r=u?CC_RES[u.res]:null;
+  const sub=[v.zona||"",v.comercial||""].filter(Boolean).join(" · ")
+    +(v.cc&&v.cc.pessoa?` · falar com <b>${v.cc.pessoa}</b>`:"")
+    +(v.cc&&v.cc.gama?` · ${v.cc.gama==="Congelado"?"❄️ ":""}${v.cc.gama}`:"")
+    +(v.cc&&v.cc.dia_rota?` · entrega ${CC_DIAS[+v.cc.dia_rota]||""}`:"");
+  return `<div style="background:var(--br);border:1px solid ${al?'var(--vermelho)':'var(--borda)'};border-radius:12px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+    <div style="flex:1;min-width:180px;cursor:pointer" onclick="abrirLead('${k}')">
+      <div style="font-weight:700;color:var(--cast)">${v.nome||"—"} ${al?'<span style="font-size:10px;color:var(--vermelho);font-weight:700">⚠️ 2× sem resposta</span>':''}</div>
+      <div style="font-size:11px;color:var(--txt2)">${sub}</div>
+      ${u?`<div style="font-size:11px;color:var(--txt2);margin-top:2px">Última: ${u.data} · ${r?r[0]+" "+r[1]:""}</div>`:""}
+    </div>
+    ${tel?`<a href="tel:${tel}" onclick="event.stopPropagation()" style="padding:8px 12px;border-radius:8px;background:var(--lar-bg);border:1px solid var(--borda);font-size:12px;font-weight:700;color:var(--laranja);text-decoration:none">📞 Ligar</a>`:""}
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      ${feita
+        ? `<span style="font-size:12px;color:var(--verde);font-weight:700;align-self:center">${r?r[0]+" registada hoje":"registada hoje"}</span>`
+        : `<button onclick="registarChamadaCC(event,'${k}','enc')" style="padding:8px 12px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">✅ Encomenda</button>
+      <button onclick="registarChamadaCC(event,'${k}','sr')" style="padding:8px 12px;background:transparent;border:1px solid var(--borda);border-radius:8px;font-size:12px;color:var(--cast);cursor:pointer">📵 Sem resposta</button>
+      <button onclick="registarChamadaCC(event,'${k}','se')" style="padding:8px 12px;background:transparent;border:1px solid var(--borda);border-radius:8px;font-size:12px;color:var(--txt2);cursor:pointer">➖ Sem encomenda</button>`}
+    </div>
+  </div>`;
+}
+
+function renderChamadas(){
+  const fila=document.getElementById("cc-fila"); if(!fila) return;
+  const sel=document.getElementById("cc-dia");
+  if(sel&&!sel.options.length){
+    sel.innerHTML=`<option value="hoje">Hoje (${CC_DIAS[ccHoje()]})</option>`+[1,2,3,4,5].map(d=>`<option value="${d}">${CC_DIAS[d]}</option>`).join("")+`<option value="todos">Todos os dias</option>`;
+  }
+  const esc=sel?sel.value:"hoje";
+  const dia=esc==="hoje"?ccHoje():(esc==="todos"?null:+esc);
+  const cart=leads().filter(([k,v])=>v.cc&&v.cc.ativo);
+  const filaRows=cart.filter(([k,v])=>dia===null||(+v.cc.dia||0)===dia);
+  const hoje=new Date().toISOString().slice(0,10);
+  const seg=new Date(); seg.setDate(seg.getDate()-((seg.getDay()+6)%7)); const segISO=seg.toISOString().slice(0,10);
+  const feitasHoje=cart.filter(([k,v])=>(v.cc.chamadas||[]).some(c=>c.data===hoje)).length;
+  const encSem=cart.reduce((t,[k,v])=>t+((v.cc.chamadas||[]).filter(c=>c.data>=segISO&&c.res==="enc").length),0);
+  const alertas=cart.filter(([k,v])=>ccAlerta(v));
+  const kp=document.getElementById("cc-kpis");
+  if(kp) kp.innerHTML = kpiBox(cart.length,"Clientes em chamadas semanais")
+    + kpiBox(filaRows.length, dia===null?"Na carteira":("Na fila de "+(esc==="hoje"?"hoje":CC_DIAS[dia])))
+    + kpiBox(feitasHoje,"Chamadas feitas hoje","var(--laranja)")
+    + kpiBox(encSem,"Encomendas esta semana","var(--verde)")
+    + kpiBox(alertas.length,"Alertas p/ comercial",alertas.length?"var(--vermelho)":"var(--cast)");
+  const adiv=document.getElementById("cc-alertas");
+  if(adiv) adiv.innerHTML = alertas.length
+    ? `<div style="background:var(--br);border:1px solid var(--vermelho);border-radius:12px;padding:12px 14px;margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:var(--vermelho);margin-bottom:6px">⚠️ 2 chamadas seguidas sem resposta — o comercial deve passar lá no próximo dia de prospeção</div>${alertas.map(([k,v])=>`<div style="font-size:12px;color:var(--cast);cursor:pointer;padding:3px 0" onclick="abrirLead('${k}')">• <b>${v.nome}</b> — ${v.zona||""} · ${v.comercial||""}</div>`).join("")}</div>`
+    : "";
+  if(!filaRows.length){
+    fila.innerHTML=`<div class="empty"><div class="empty-ico">📞</div><div class="empty-txt">Sem chamadas ${esc==="todos"?"na carteira":"para este dia"} — ativa clientes na ficha, secção «Chamadas semanais»</div></div>`;
+  } else {
+    fila.innerHTML=`<div style="display:flex;flex-direction:column;gap:8px">${filaRows.sort((a,b)=>String(a[1].zona||"").localeCompare(String(b[1].zona||""))).map(([k,v])=>ccCard(k,v)).join("")}</div>`;
+  }
+  const cdiv=document.getElementById("cc-carteira");
+  if(cdiv){
+    cdiv.innerHTML = cart.length
+      ? `<div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--cast);margin-bottom:8px">Carteira completa</div><div style="overflow-x:auto;background:var(--br);border:1px solid var(--borda);border-radius:12px"><table style="width:100%;border-collapse:collapse;font-size:12px"><thead><tr><th style="text-align:left;padding:8px 10px">Cliente</th><th style="text-align:left;padding:8px 10px">Zona</th><th style="text-align:left;padding:8px 10px">Comercial</th><th style="text-align:left;padding:8px 10px">Chamada</th><th style="text-align:left;padding:8px 10px">Entrega</th><th style="text-align:left;padding:8px 10px">Gama</th><th style="text-align:left;padding:8px 10px">Última</th></tr></thead><tbody>${cart.sort((a,b)=>(+a[1].cc.dia||9)-(+b[1].cc.dia||9)).map(([k,v])=>{const u=ccUltima(v);const r=u?CC_RES[u.res]:null;return `<tr style="cursor:pointer;border-top:1px solid var(--borda)" onclick="abrirLead('${k}')"><td style="padding:8px 10px;font-weight:600;color:var(--cast)">${v.nome}</td><td style="padding:8px 10px">${v.zona||"—"}</td><td style="padding:8px 10px">${v.comercial||"—"}</td><td style="padding:8px 10px">${CC_DIAS[+v.cc.dia]||"—"}</td><td style="padding:8px 10px">${CC_DIAS[+v.cc.dia_rota]||"—"}</td><td style="padding:8px 10px">${v.cc.gama||"—"}</td><td style="padding:8px 10px">${u?u.data+" "+(r?r[0]:""):"—"}</td></tr>`;}).join("")}</tbody></table></div>`
+      : "";
+  }
+}
+
+// ── FICHA: campos de chamadas semanais ───────────────
+function preencherCC(v){
+  const a=document.getElementById("cc-ativo"); if(!a) return;
+  const cc=v.cc||{};
+  a.checked=!!cc.ativo;
+  document.getElementById("cc-dia-chamada").value=cc.dia||"";
+  document.getElementById("cc-dia-rota").value=cc.dia_rota||"";
+  document.getElementById("cc-pessoa").value=cc.pessoa||"";
+  document.getElementById("cc-gama").value=cc.gama||"Congelado";
+  const h=document.getElementById("cc-historico");
+  const ch=(cc.chamadas||[]).slice(-6).reverse();
+  if(h) h.innerHTML = ch.length
+    ? `<div style="font-size:11px;color:var(--txt2);margin-bottom:4px">Últimas chamadas</div>`+ch.map(c=>{const r=CC_RES[c.res];return `<div style="font-size:12px;color:var(--cast);padding:2px 0">${c.data} · ${r?r[0]+" "+r[1]:c.res}</div>`;}).join("")
+    : "";
+}
+function guardarCC(){
+  if(!LEAD_ATUAL) return;
+  const v=HIST.leads[LEAD_ATUAL]; if(!v) return;
+  if(!v.cc) v.cc={chamadas:[]};
+  v.cc.ativo=document.getElementById("cc-ativo").checked;
+  v.cc.dia=+document.getElementById("cc-dia-chamada").value||null;
+  v.cc.dia_rota=+document.getElementById("cc-dia-rota").value||null;
+  v.cc.pessoa=document.getElementById("cc-pessoa").value.trim();
+  v.cc.gama=document.getElementById("cc-gama").value;
+  guardarHistorico(); renderBadges();
+  if(document.getElementById("view-chamadas")?.classList.contains("ativo")) renderChamadas();
+  toast("Chamadas semanais atualizadas ✓","ok");
+}
+
 
 // ═══════════════════════════════════════════════════
 // TOAST
