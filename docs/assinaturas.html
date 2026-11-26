@@ -358,7 +358,7 @@ function contactRow(icon, text, href, d){
   const txt = `<span style="font-family:${SANS};font-size:9.5pt;color:${BR};">${esc(text)}</span>`;
   const inner = href ? `<a href="${esc(href)}" style="color:${BR};text-decoration:none;">${txt}</a>` : txt;
   return `<tr><td style="padding:0 0 3px 0;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>`
-    + `<td width="18" height="18" valign="middle" style="width:18px;height:18px;overflow:hidden;"><img src="${src(icon, d)}" width="18" height="18" alt="" style="display:block;width:18px;height:18px;border:0;overflow:hidden;" /></td>`
+    + `<td width="18" valign="middle" style="width:18px;line-height:0;font-size:0;"><img src="${src(icon, d)}" width="18" height="18" alt="" style="display:block;width:18px;height:18px;border:0;" /></td>`
     + `<td width="10" style="width:10px;font-size:0;">&nbsp;</td>`
     + `<td valign="middle" style="font-family:${SANS};font-size:9.5pt;line-height:12pt;color:${BR};">${inner}</td>`
     + `</tr></table></td></tr>`;
