@@ -141,6 +141,11 @@
             <button type="button" id="mB" aria-pressed="false">Moderno</button>
           </div>
           <p class="hint" id="modelHint"></p>
+          <label class="f"><span>Banner</span></label>
+          <div class="seg" role="group" aria-label="Banner">
+            <button type="button" id="bNormal" aria-pressed="true">Normal</button>
+            <button type="button" id="bNatal" aria-pressed="false">🎄 Natal</button>
+          </div>
         </div>
       </section>
       <section class="panel">
@@ -316,7 +321,7 @@ let model = "A";
 
 /* ---------- endereços das imagens ---------- */
 const SHARED = [
-  ["logo.png","Logótipo"], ["banner.jpg","Banner"],
+  ["logo.png","Logótipo"], ["banner.jpg","Banner"], ["banner-natal.jpg","Banner Natal"],
   ["ic-tel.png","Ícone telefone"], ["ic-mobile.png","Ícone telemóvel"],
   ["ic-mail.png","Ícone e-mail"], ["ic-pin.png","Ícone localidade"],
   ["so-facebook.png","Facebook"], ["so-instagram.png","Instagram"], ["so-whatsapp.png","WhatsApp"]
@@ -353,7 +358,7 @@ function contactRow(icon, text, href, d){
   const txt = `<span style="font-family:${SANS};font-size:9.5pt;color:${BR};">${esc(text)}</span>`;
   const inner = href ? `<a href="${esc(href)}" style="color:${BR};text-decoration:none;">${txt}</a>` : txt;
   return `<tr><td style="padding:0 0 3px 0;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>`
-    + `<td width="18" valign="middle" style="width:18px;"><img src="${src(icon, d)}" width="18" height="18" alt="" style="display:block;width:18px;height:18px;border:0;" /></td>`
+    + `<td width="18" height="18" valign="middle" style="width:18px;height:18px;overflow:hidden;"><img src="${src(icon, d)}" width="18" height="18" alt="" style="display:block;width:18px;height:18px;border:0;overflow:hidden;" /></td>`
     + `<td width="10" style="width:10px;font-size:0;">&nbsp;</td>`
     + `<td valign="middle" style="font-family:${SANS};font-size:9.5pt;line-height:12pt;color:${BR};">${inner}</td>`
     + `</tr></table></td></tr>`;
@@ -402,7 +407,11 @@ function build(d){
       <td valign="middle" align="center" style="padding:0 16px;font-family:${SERIF};font-size:15pt;line-height:19pt;font-style:italic;color:${BR};white-space:nowrap;"><span style="font-family:${SERIF};font-size:15pt;font-style:italic;color:${BR};">A receita original, <span style="color:#D98B00;">há mais de 40 anos.</span></span></td>
       ${bar(46)}
     </tr></table></td></tr>`;
-  const banner = `<tr><td style="padding:0;"><a href="${esc(d.lkBanner)}" target="_blank" style="text-decoration:none;"><img src="${src("banner.jpg", d)}" width="640" height="104" alt="O genuíno prazer, feito todos os dias — conhecer os sabores Ti'Piedade" style="display:block;width:640px;height:104px;border:0;" /></a></td></tr>`;
+  const bannerFile = d.bannerFile || "banner.jpg";
+  const bannerAlt  = bannerFile === "banner-natal.jpg"
+    ? "Boas Festas — Pão de Ló Ti'Piedade"
+    : "O genuíno prazer, feito todos os dias — conhecer os sabores Ti'Piedade";
+  const banner = `<tr><td style="padding:0;"><a href="${esc(d.lkBanner)}" target="_blank" style="text-decoration:none;"><img src="${src(bannerFile, d)}" width="640" height="104" alt="${esc(bannerAlt)}" style="display:block;width:640px;height:104px;border:0;" /></a></td></tr>`;
   const legal = `<tr><td style="padding:0;font-family:${SANS};font-size:7pt;line-height:9pt;color:#A8A09D;"><span style="font-family:${SANS};font-size:7pt;color:#A8A09D;">${esc(d.legal)}</span></td></tr>`;
 
   let top, bottom;
@@ -442,6 +451,7 @@ function data(overrideMode){
     lkSite:$("lkSite").value.trim(), lkBanner:$("lkBanner").value.trim(),
     lkFb:$("lkFb").value.trim(), lkIg:$("lkIg").value.trim(),
     legal:$("legal").value.trim(),
+    bannerFile: bannerMode === "natal" ? "banner-natal.jpg" : "banner.jpg",
     model, photoData, photoUrl:$("photoUrl").value.trim(), mode: overrideMode || mode
   };
 }
@@ -482,6 +492,17 @@ function setModel(m){
 }
 $("mA").onclick = () => setModel("A");
 $("mB").onclick = () => setModel("B");
+
+/* ---------- banner ---------- */
+let bannerMode = "normal";
+function setBanner(m){
+  bannerMode = m;
+  $("bNormal").setAttribute("aria-pressed", m === "normal");
+  $("bNatal").setAttribute("aria-pressed",  m === "natal");
+  render();
+}
+$("bNormal").onclick = () => setBanner("normal");
+$("bNatal").onclick  = () => setBanner("natal");
 $("modeUrl").onclick = () => setMode("url");
 $("modeEmbed").onclick = () => setMode("embed");
 
